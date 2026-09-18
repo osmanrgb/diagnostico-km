@@ -479,6 +479,11 @@
 
       <!-- Action Buttons -->
       <div class="space-y-3 pt-2">
+        <div id="embeddedReturnBlock" class="hidden">
+          <button onclick="returnToKmPos()" class="w-full bg-rose-600 hover:bg-rose-500 active:scale-[0.99] text-white font-black py-4 px-6 rounded-2xl shadow-xl shadow-rose-600/30 transition flex items-center justify-center gap-2 text-sm tracking-wide">
+            <span>🚀 Desbloquear e Ingresar a KM POS</span>
+          </button>
+        </div>
         <button onclick="shareWhatsAppFinal()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-black py-4 px-6 rounded-2xl shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2 text-sm tracking-wide">
           <span>📱 Enviar Ficha Oficial por WhatsApp a Osman</span>
         </button>
@@ -967,6 +972,20 @@ ${auditData.bloqueos_p0}
 
       document.getElementById('chatInterface').classList.add('hidden');
       document.getElementById('finalCard').classList.remove('hidden');
+      if (new URLSearchParams(window.location.search).has('embedded')) {
+        const blk = document.getElementById('embeddedReturnBlock');
+        if (blk) blk.classList.remove('hidden');
+      }
+    }
+
+    function returnToKmPos() {
+      try {
+        window.parent.postMessage({
+          type: 'KM_AUDIT_COMPLETED',
+          folio: currentFolioId,
+          colaborador: { ...currentUser }
+        }, '*');
+      } catch (e) {}
     }
 
     function shareWhatsAppFinal() {
@@ -1034,6 +1053,15 @@ ${auditData.bloqueos_p0}
       if (urlParams.get('role')) {
         const el = document.getElementById('empRole');
         if (el) el.value = urlParams.get('role');
+      }
+      if (urlParams.get('leader')) {
+        const el = document.getElementById('empLeader');
+        if (el) el.value = urlParams.get('leader');
+      }
+      if (urlParams.has('autostart') && urlParams.get('name') && urlParams.get('store') && urlParams.get('role')) {
+        setTimeout(() => {
+          startChat({ preventDefault: () => {} });
+        }, 150);
       }
       if (urlParams.has('admin') || urlParams.has('censo')) {
         openCensoModal();
