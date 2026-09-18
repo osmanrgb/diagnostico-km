@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KM Motos — Copiloto de Eficiencia y Censo Operacional</title>
+  <title>KM Motos — Plataforma de Auditoría y Censo Operacional</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -18,14 +18,15 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              900: '#1e3a8a',
+            km: {
+              red: '#e11d48',
+              redHover: '#be123c',
+              dark: '#0a0d14',
+              surface: '#111622',
+              card: '#151c2c',
+              border: '#232d42',
+              borderLight: '#32405d',
+              accent: '#3b82f6',
             }
           }
         }
@@ -35,38 +36,52 @@
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #080c14;
+      background-color: #080b11;
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(225, 29, 72, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
       background-attachment: fixed;
     }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    .panel-box {
+      background: #111622;
+      border: 1px solid #232d42;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    }
+    .input-field {
+      background: #0b0f17;
+      border: 1px solid #28354d;
+      color: #f8fafc;
+      transition: all 0.15s ease;
+    }
+    .input-field:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      outline: none;
+    }
+    .input-field::placeholder {
+      color: #64748b;
+    }
+    .chip-tag {
+      background: #151c2c;
+      border: 1px solid #28354d;
+      color: #cbd5e1;
+      transition: all 0.15s ease;
+    }
+    .chip-tag:hover {
+      background: #1e293b;
+      border-color: #3b82f6;
+      color: #ffffff;
+      transform: translateY(-1px);
     }
     .chat-bubble-bot {
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px 20px 20px 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: #151c2c;
+      border: 1px solid #28354d;
+      border-radius: 18px 18px 18px 4px;
     }
     .chat-bubble-user {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      border: 1px solid rgba(96, 165, 250, 0.4);
-      border-radius: 20px 20px 6px 20px;
-      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
-    }
-    .chip-btn {
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .chip-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(96, 165, 250, 0.5);
-      background: rgba(30, 41, 59, 0.95);
+      background: #2563eb;
+      border: 1px solid #3b82f6;
+      border-radius: 18px 18px 4px 18px;
     }
     .typing-dot {
       animation: typing 1.3s infinite ease-in-out;
@@ -76,169 +91,226 @@
     .typing-dot:nth-child(3) { animation-delay: 450ms; }
     @keyframes typing {
       0%, 80%, 100% { transform: translateY(0); opacity: 0.3; }
-      40% { transform: translateY(-4px); opacity: 1; }
+      40% { transform: translateY(-3px); opacity: 1; }
     }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(51, 65, 85, 0.6); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.8); }
+    ::-webkit-scrollbar-track { background: #0b0f17; }
+    ::-webkit-scrollbar-thumb { background: #28354d; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
   </style>
 </head>
-<body class="text-slate-100 min-h-screen antialiased flex flex-col selection:bg-blue-600 selection:text-white">
+<body class="text-slate-100 min-h-screen antialiased flex flex-col selection:bg-rose-600 selection:text-white">
 
-  <!-- Top Navigation Bar -->
-  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center font-black text-white shadow-lg shadow-blue-600/30 text-base ring-1 ring-white/20">
-          KM
-        </div>
+  <!-- TOP HEADER: Premium Corporate Navigation -->
+  <header class="border-b border-km-border bg-[#0a0d14]/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      
+      <!-- Brand & Operational Seal -->
+      <div class="flex items-center gap-3.5">
+        <img src="/logo.png" alt="KM Motos" class="h-7 w-auto invert brightness-0 contrast-200" onerror="this.style.display='none'; document.getElementById('altLogo').style.display='flex';">
+        <div id="altLogo" class="hidden w-9 h-9 rounded-xl bg-rose-600 font-black text-white items-center justify-center text-sm shadow-md shadow-rose-600/30">KM</div>
+        <div class="h-6 w-px bg-km-border"></div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-sm font-bold text-white tracking-tight">KM Motos</span>
-            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
+            <span class="text-xs font-extrabold tracking-wider uppercase text-slate-200">Operaciones & Sistemas</span>
+            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Censo Operacional Activo
+              CENSO 77+ EN VIVO
             </span>
           </div>
-          <p class="text-[11px] text-slate-400 hidden sm:block">Auditoría en Vivo de 77 Tiendas · Prioridades, Insumos y Bloqueos P0</p>
+          <p class="text-[11px] text-slate-400 font-medium">Levantamiento de Insumos, Cuellos de Botella y Prioridades P0</p>
         </div>
       </div>
       
-      <div class="flex items-center gap-2">
-        <button onclick="openCensoModal()" class="text-xs text-white bg-blue-600/90 hover:bg-blue-500 border border-blue-400/30 px-3.5 py-2 rounded-xl transition flex items-center gap-2 shadow-lg shadow-blue-600/20 font-semibold">
-          <span>📊</span>
-          <span>Ver Censo de Tiendas</span>
-          <span id="headerLiveCounter" class="bg-white text-blue-700 text-[10px] px-2 py-0.5 rounded-full font-black ml-1">0</span>
+      <!-- Top Action: Census Dashboard Trigger -->
+      <div class="flex items-center gap-2.5">
+        <button onclick="openCensoModal()" class="text-xs text-white bg-km-surface hover:bg-slate-800 border border-km-border hover:border-slate-600 px-4 py-2 rounded-xl transition flex items-center gap-2.5 shadow-sm font-semibold">
+          <span class="text-slate-400">📊</span>
+          <span>Tablero de Seguimiento</span>
+          <span id="headerLiveCounter" class="bg-rose-600 text-white text-[11px] px-2 py-0.5 rounded-md font-mono font-bold">0</span>
         </button>
       </div>
+
     </div>
   </header>
 
-  <!-- Main View Container -->
-  <main class="flex-1 max-w-3xl w-full mx-auto p-4 flex flex-col justify-center">
+  <!-- MAIN WORKSPACE -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col justify-center">
 
-    <!-- STEP 1: Frictionless, Zero-Restriction Welcome Bento -->
-    <div id="authCard" class="my-auto w-full glass-card rounded-3xl p-6 sm:p-10 space-y-6">
+    <!-- STEP 1: Two-Column Command Center Bento Layout -->
+    <div id="authCard" class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       
-      <!-- Header block -->
-      <div class="space-y-2 text-center">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/25 text-blue-400 text-xl shadow-inner mb-1">
-          ⚡
+      <!-- LEFT COLUMN: Executive Briefing & Context -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs font-bold uppercase tracking-wider">
+          <span>⚡</span> Auditoría Directa al Desarrollo
         </div>
-        <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
-          Auditoría de Salud del Puesto
-        </h1>
-        <p class="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-          Queremos que el sistema trabaje para vos, no vos para el sistema. Escribe libremente tus datos para comenzar tu entrevista con el Copiloto en 3 minutos.
-        </p>
+
+        <div class="space-y-3">
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            El sistema debe trabajar para vos.
+          </h1>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Estamos levantando las necesidades críticas de las <strong class="text-white">77 sucursales y áreas</strong> de KM Motos. Esta entrevista de 3 minutos mapea tus herramientas clave y convierte tus fallas en <strong class="text-rose-400">tickets P0</strong> inmediatos.
+          </p>
+        </div>
+
+        <!-- 3 Pillars -->
+        <div class="space-y-3 pt-2">
+          <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-km-surface/80 border border-km-border">
+            <div class="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+            <div>
+              <div class="text-xs font-bold text-white">Prioridades del Día a Día</div>
+              <div class="text-[11px] text-slate-400">Venta, inventario, arqueos y caja: qué sí o sí no se puede frenar.</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-km-surface/80 border border-km-border">
+            <div class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+            <div>
+              <div class="text-xs font-bold text-white">Checklist Pre-Flight del Puesto</div>
+              <div class="text-[11px] text-slate-400">Insumos que necesitás activos al 100% al abrir turno.</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-km-surface/80 border border-km-border">
+            <div class="w-8 h-8 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+            <div>
+              <div class="text-xs font-bold text-white">Falla Crítica P0 en el Sistema</div>
+              <div class="text-[11px] text-slate-400">Lo que está roto, lento o te traba la venta va directo a la mesa técnica.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footnote Status -->
+        <div class="pt-2 flex items-center gap-2 text-xs text-slate-400 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Servidor Central Activo · Sincronización Inmediata</span>
+        </div>
       </div>
 
-      <form onsubmit="startChat(event)" class="space-y-4 pt-2">
-        <!-- 1. Nombre y Apellido -->
-        <div class="space-y-1.5">
-          <label class="block text-xs font-semibold text-slate-200">
-            Tu Nombre y Apellido <span class="text-blue-400">*</span>
-          </label>
-          <input type="text" id="empName" required autofocus placeholder="Ej: Juan Pérez" 
-            class="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-        </div>
-
-        <!-- 2. Sucursal Libre (con chips de apoyo rápidos pero 100% libre) -->
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="block text-xs font-semibold text-slate-200">
-              Tu Sucursal o Tienda <span class="text-blue-400">*</span>
-            </label>
-            <span class="text-[11px] text-slate-400">Escribe o toca una opción</span>
-          </div>
-          <input type="text" id="empStore" required placeholder="Ej: Choluteca Centro, San Lorenzo, Danlí, Bodega..." 
-            class="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+      <!-- RIGHT COLUMN: Frictionless High-Contrast Input Form -->
+      <div class="lg:col-span-7">
+        <div class="panel-box rounded-3xl p-6 sm:p-8 space-y-5">
           
-          <!-- Quick Store Chips -->
-          <div class="flex flex-wrap gap-1.5 pt-0.5">
-            <button type="button" onclick="setStore('Choluteca Centro')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Choluteca</button>
-            <button type="button" onclick="setStore('San Lorenzo')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">San Lorenzo</button>
-            <button type="button" onclick="setStore('Danlí Centro')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Danlí</button>
-            <button type="button" onclick="setStore('Tegucigalpa Centro')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Tegucigalpa</button>
-            <button type="button" onclick="setStore('San Pedro Sula')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">SPS</button>
-            <button type="button" onclick="setStore('Juticalpa')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Juticalpa</button>
-            <button type="button" onclick="setStore('Bodega Central (CD)')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Bodega Central</button>
+          <div class="border-b border-km-border pb-4">
+            <h2 class="text-lg font-bold text-white tracking-tight">Identificación de Puesto</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Escribe libremente tus datos. No estás limitado a listas cerradas.</p>
           </div>
-        </div>
 
-        <!-- 3. Puesto Libre (con chips rápidos) -->
-        <div class="space-y-2 pt-1">
-          <div class="flex items-center justify-between">
-            <label class="block text-xs font-semibold text-slate-200">
-              Tu Puesto o Área <span class="text-blue-400">*</span>
-            </label>
-            <span class="text-[11px] text-slate-400">Escribe o toca una opción</span>
-          </div>
-          <input type="text" id="empRole" required placeholder="Ej: Vendedor de Mostrador, Cajero, Bodeguero, Administrador..." 
-            class="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
-          
-          <!-- Quick Role Chips -->
-          <div class="flex flex-wrap gap-1.5 pt-0.5">
-            <button type="button" onclick="setRole('Vendedor de Mostrador')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Ventas</button>
-            <button type="button" onclick="setRole('Cajero / Encargado de Cobro')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Caja</button>
-            <button type="button" onclick="setRole('Administrador de Tienda')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Administrador</button>
-            <button type="button" onclick="setRole('Encargado de Bodega')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Bodega</button>
-            <button type="button" onclick="setRole('Oficial de Crédito')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Crédito</button>
-            <button type="button" onclick="setRole('Mecánico / Taller')" class="chip-btn text-[11px] bg-slate-900 text-slate-300 hover:text-white px-2.5 py-1 rounded-xl border border-slate-800">Taller</button>
-          </div>
-        </div>
+          <form onsubmit="startChat(event)" class="space-y-4">
+            
+            <!-- 1. Nombre Completo -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold text-slate-200">
+                Tu Nombre y Apellido <span class="text-rose-400">*</span>
+              </label>
+              <input type="text" id="empName" required autofocus placeholder="Ej: Carlos Mejía, Laura Morales..." 
+                class="w-full input-field rounded-xl px-4 py-3 text-sm">
+            </div>
 
-        <div class="pt-4">
-          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 px-6 rounded-2xl shadow-xl shadow-blue-600/30 transition flex items-center justify-center gap-2 text-sm tracking-wide">
-            <span>Comenzar Entrevista con el Copiloto</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </button>
+            <!-- 2. Sucursal o Área (Libre + Chips Rápidos) -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-bold text-slate-200">
+                  Tu Sucursal, Tienda o Área <span class="text-rose-400">*</span>
+                </label>
+                <span class="text-[11px] text-slate-400">Escribe o toca una sugerencia</span>
+              </div>
+              <input type="text" id="empStore" required placeholder="Ej: Choluteca Centro, San Lorenzo, Juticalpa, Bodega..." 
+                class="w-full input-field rounded-xl px-4 py-3 text-sm">
+              
+              <!-- Fast Store Suggestion Tags -->
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <button type="button" onclick="setStore('Choluteca Centro')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Choluteca</button>
+                <button type="button" onclick="setStore('San Lorenzo')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">San Lorenzo</button>
+                <button type="button" onclick="setStore('Danlí Centro')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Danlí</button>
+                <button type="button" onclick="setStore('KM Comayagua #1')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Comayagua</button>
+                <button type="button" onclick="setStore('KM SPS Matriz')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">SPS</button>
+                <button type="button" onclick="setStore('KM Tegucigalpa Centro')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Tegucigalpa</button>
+                <button type="button" onclick="setStore('Juticalpa Centro')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Juticalpa</button>
+                <button type="button" onclick="setStore('Centro de Distribución (CD)')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Bodega Central</button>
+              </div>
+            </div>
+
+            <!-- 3. Cargo o Puesto (Libre + Chips Rápidos) -->
+            <div class="space-y-2 pt-1">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-bold text-slate-200">
+                  Tu Puesto o Rol en la Tienda <span class="text-rose-400">*</span>
+                </label>
+                <span class="text-[11px] text-slate-400">Escribe o toca una opción</span>
+              </div>
+              <input type="text" id="empRole" required placeholder="Ej: Vendedor de Mostrador, Administrador, Cajero, Bodeguero..." 
+                class="w-full input-field rounded-xl px-4 py-3 text-sm">
+              
+              <!-- Fast Role Suggestion Tags -->
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <button type="button" onclick="setRole('Vendedor de Mostrador')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Ventas</button>
+                <button type="button" onclick="setRole('Cajero / Cobros')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Caja</button>
+                <button type="button" onclick="setRole('Administrador de Tienda')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Administrador</button>
+                <button type="button" onclick="setRole('Encargado de Bodega')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Bodega</button>
+                <button type="button" onclick="setRole('Oficial de Crédito')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Crédito</button>
+                <button type="button" onclick="setRole('Mecánico / Taller')" class="chip-tag text-[11px] px-2.5 py-1 rounded-lg">Taller</button>
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 active:scale-[0.99] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-rose-600/25 transition duration-150 flex items-center justify-center gap-2 text-sm tracking-wide">
+                <span>Comenzar Entrevista con el Copiloto</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </button>
+            </div>
+
+          </form>
+
         </div>
-      </form>
+      </div>
+
     </div>
 
-    <!-- STEP 2: Conversational Copilot Chat Interface -->
-    <div id="chatInterface" class="hidden flex-1 flex flex-col glass-card rounded-3xl shadow-2xl overflow-hidden min-h-[580px]">
+    <!-- STEP 2: Conversational Copilot Chat Interface (Full Width Elegant Cockpit) -->
+    <div id="chatInterface" class="hidden max-w-3xl w-full mx-auto flex flex-col panel-box rounded-3xl overflow-hidden min-h-[600px]">
       
-      <!-- Subheader with Session Badge -->
-      <div class="px-5 py-3.5 border-b border-slate-800/80 bg-slate-950/70 flex items-center justify-between text-xs">
-        <div class="flex items-center gap-2.5">
+      <!-- Cockpit Subheader -->
+      <div class="px-5 py-3.5 border-b border-km-border bg-[#0b0f17] flex items-center justify-between text-xs">
+        <div class="flex items-center gap-3">
           <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
           <div>
-            <span id="sessionHeaderName" class="font-bold text-white tracking-tight"></span>
+            <span id="sessionHeaderName" class="font-bold text-white"></span>
             <span class="text-slate-400 ml-1.5">• <span id="sessionHeaderRole" class="text-blue-400 font-medium"></span> (<span id="sessionHeaderStore"></span>)</span>
           </div>
         </div>
-        <span class="text-[11px] bg-slate-900 text-slate-300 border border-slate-700/80 px-2.5 py-0.5 rounded-full font-medium">
-          Etapa: <span id="stageLabel" class="text-blue-400 font-semibold">Prioridades</span>
-        </span>
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] text-slate-400 font-mono">FASE:</span>
+          <span id="stageLabel" class="text-[11px] bg-rose-500/10 text-rose-400 border border-rose-500/25 px-2.5 py-0.5 rounded-md font-mono font-bold">1/4 Prioridades</span>
+        </div>
       </div>
 
       <!-- Messages Stream -->
-      <div id="chatMessages" class="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 max-h-[480px]"></div>
+      <div id="chatMessages" class="flex-1 p-5 sm:p-6 overflow-y-auto space-y-4 max-h-[460px]"></div>
 
       <!-- Typing Indicator -->
-      <div id="typingIndicator" class="hidden px-6 py-2.5 flex items-center gap-2 text-slate-400 text-xs">
-        <div class="w-6 h-6 rounded-xl bg-blue-600 flex items-center justify-center text-[10px] text-white font-bold">KM</div>
-        <span>Copiloto analizando</span>
+      <div id="typingIndicator" class="hidden px-6 py-2.5 flex items-center gap-2 text-slate-400 text-xs bg-km-surface/50 border-t border-km-border/50">
+        <div class="w-5 h-5 rounded-lg bg-rose-600 flex items-center justify-center text-[10px] text-white font-black">KM</div>
+        <span>Copiloto analizando...</span>
         <div class="flex gap-1 items-center ml-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 typing-dot"></span>
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 typing-dot"></span>
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
         </div>
       </div>
 
       <!-- Interactive Quick Tap Pills for Fast Answering -->
-      <div id="quickChipsContainer" class="px-4 py-2 bg-slate-950/60 border-t border-slate-800/60 flex flex-wrap gap-1.5 text-xs"></div>
+      <div id="quickChipsContainer" class="px-4 py-2.5 bg-[#0b0f17] border-t border-km-border flex flex-wrap gap-1.5 text-xs"></div>
 
       <!-- Chat Input Form -->
-      <div class="p-3 sm:p-4 border-t border-slate-800/80 bg-slate-950/80 backdrop-blur">
-        <form id="chatForm" onsubmit="handleUserMessage(event)" class="flex gap-2">
-          <textarea id="chatInput" rows="1" required placeholder="Escribe libremente aquí (o toca una opción arriba)..." 
-            class="flex-1 bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/25 transition resize-none"
+      <div class="p-4 border-t border-km-border bg-[#0b0f17]">
+        <form id="chatForm" onsubmit="handleUserMessage(event)" class="flex gap-2.5">
+          <textarea id="chatInput" rows="1" required placeholder="Escribe tu respuesta aquí con tus propias palabras (o toca una opción rápida)..." 
+            class="flex-1 input-field rounded-xl px-4 py-3 text-sm resize-none"
             onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); handleUserMessage(event); }"></textarea>
-          <button type="submit" id="sendBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 rounded-2xl transition flex items-center justify-center shadow-lg shadow-blue-600/25">
+          <button type="submit" id="sendBtn" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-semibold px-5 rounded-xl transition flex items-center justify-center shadow-md">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
           </button>
         </form>
@@ -246,107 +318,107 @@
     </div>
 
     <!-- STEP 3: Final Executive Diagnostic Card -->
-    <div id="finalCard" class="hidden my-auto w-full glass-card rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
-      <div class="text-center space-y-2">
-        <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-2xl font-bold shadow-lg shadow-emerald-500/10">
+    <div id="finalCard" class="hidden max-w-2xl w-full mx-auto panel-box rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="text-center space-y-2.5">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-xl font-bold shadow-sm">
           ✓
         </div>
-        <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+        <h2 class="text-2xl font-extrabold text-white tracking-tight">
           ¡Auditoría Registrada en el Sistema!
         </h2>
-        <div id="centralSyncBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div id="centralSyncBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
           <span>Guardado en Servidor Central KM Motos</span>
         </div>
         <p class="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
-          Tus prioridades y tu checklist quedaron guardados centralmente. Tu problema crítico quedó clasificado como <strong class="text-red-400">P0</strong> para resolución directa.
+          Tus datos quedaron almacenados en la base central. Tu bloqueo crítico ha sido registrado como <strong class="text-rose-400">P0</strong> para resolución técnica inmediata.
         </p>
       </div>
 
       <!-- Detailed Summary Box (Bento Style) -->
-      <div id="reportSummary" class="bg-slate-950 border border-slate-800/90 rounded-2xl p-5 text-xs space-y-3 font-mono text-slate-200"></div>
+      <div id="reportSummary" class="bg-[#0b0f17] border border-km-border rounded-2xl p-5 text-xs space-y-3 font-mono text-slate-200"></div>
 
       <!-- Action Buttons -->
-      <div class="space-y-2.5">
-        <button onclick="shareWhatsAppFinal()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 px-4 rounded-2xl shadow-xl shadow-emerald-600/25 transition flex items-center justify-center gap-2 text-sm">
-          <span>📱 Enviar Resumen por WhatsApp a Osman</span>
+      <div class="space-y-3 pt-2">
+        <button onclick="shareWhatsAppFinal()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-emerald-600/25 transition flex items-center justify-center gap-2 text-sm">
+          <span>📱 Enviar Resumen Oficial a Osman por WhatsApp</span>
         </button>
-        <div class="flex gap-2">
-          <button onclick="copyToClipboardFinal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-xl transition text-xs flex items-center justify-center gap-1.5 border border-slate-700">
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="copyToClipboardFinal()" class="bg-km-surface hover:bg-slate-800 text-slate-200 font-semibold py-2.5 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 border border-km-border">
             <span>📋 Copiar Ficha</span>
           </button>
-          <button onclick="openCensoModal()" class="flex-1 bg-blue-600/80 hover:bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-xl transition text-xs flex items-center justify-center gap-1.5 border border-blue-500/30">
-            <span>📊 Ver Censo General</span>
+          <button onclick="openCensoModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5">
+            <span>📊 Ver Censo</span>
           </button>
-          <button onclick="restartAudit()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-xl transition text-xs border border-slate-700">
+          <button onclick="restartAudit()" class="bg-km-surface hover:bg-slate-800 text-slate-200 font-semibold py-2.5 px-3 rounded-xl transition text-xs border border-km-border">
             Nuevo Puesto
           </button>
         </div>
       </div>
     </div>
 
-    <!-- CENSO & SEGUIMIENTO CENTRAL MODAL (Executive Board) -->
-    <div id="censoModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6">
-      <div class="glass-card rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-slate-800">
+    <!-- CENSO & SEGUIMIENTO CENTRAL MODAL (Executive Cockpit) -->
+    <div id="censoModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6">
+      <div class="panel-box rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden">
         
         <!-- Header -->
-        <div class="p-4 sm:p-6 border-b border-slate-800 bg-slate-950/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="p-5 sm:p-6 border-b border-km-border bg-[#0b0f17] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2.5">
               <span class="text-xl">📊</span>
-              <h3 class="text-lg font-bold text-white tracking-tight">Censo Operacional de Tiendas (77+)</h3>
-              <span class="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full font-semibold">En Vivo</span>
+              <h3 class="text-lg font-extrabold text-white tracking-tight">Censo Operacional de 77+ Tiendas</h3>
+              <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">Tiempo Real</span>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Control de cobertura de sucursales, responsables y alertas P0 reportadas.</p>
+            <p class="text-xs text-slate-400 mt-0.5">Control de cobertura por tienda, quién ya llenó, quién falta y alertas P0 reportadas.</p>
           </div>
           <div class="flex items-center gap-2">
-            <a href="/api/export/csv" target="_blank" class="text-xs bg-emerald-600/90 hover:bg-emerald-500 text-white font-semibold px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+            <a href="/api/export/csv" target="_blank" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
               <span>📥</span> <span>Exportar Excel (CSV)</span>
             </a>
-            <button onclick="loadCensoData()" title="Refrescar datos" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition border border-slate-700">
+            <button onclick="loadCensoData()" title="Refrescar datos" class="text-xs bg-km-surface hover:bg-slate-800 text-slate-200 px-3 py-2 rounded-xl transition border border-km-border">
               🔄
             </button>
-            <button onclick="closeCensoModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-900 border border-slate-800">✕</button>
+            <button onclick="closeCensoModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-km-surface border border-km-border">✕</button>
           </div>
         </div>
 
         <!-- Metrics Bento Bar -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-4 sm:p-5 bg-slate-950/60 border-b border-slate-800/80 text-xs">
-          <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-3">
-            <div class="text-slate-400 text-[11px]">Respuestas Totales</div>
-            <div id="statTotalRespuestas" class="text-xl font-extrabold text-white mt-0.5">0</div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 sm:p-5 bg-[#0b0f17]/70 border-b border-km-border text-xs">
+          <div class="bg-km-surface border border-km-border rounded-2xl p-3.5">
+            <div class="text-slate-400 text-[11px] font-medium">Respuestas Totales</div>
+            <div id="statTotalRespuestas" class="text-2xl font-extrabold text-white font-mono mt-0.5">0</div>
           </div>
-          <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-3">
-            <div class="text-slate-400 text-[11px]">Tiendas Completadas</div>
-            <div id="statTiendasCompletadas" class="text-xl font-extrabold text-emerald-400 mt-0.5">0 / 80</div>
+          <div class="bg-km-surface border border-km-border rounded-2xl p-3.5">
+            <div class="text-slate-400 text-[11px] font-medium">Tiendas Completadas</div>
+            <div id="statTiendasCompletadas" class="text-2xl font-extrabold text-emerald-400 font-mono mt-0.5">0 / 80</div>
           </div>
-          <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-3">
-            <div class="text-slate-400 text-[11px]">Tiendas Faltantes</div>
-            <div id="statTiendasPendientes" class="text-xl font-extrabold text-amber-400 mt-0.5">80</div>
+          <div class="bg-km-surface border border-km-border rounded-2xl p-3.5">
+            <div class="text-slate-400 text-[11px] font-medium">Tiendas Faltantes</div>
+            <div id="statTiendasPendientes" class="text-2xl font-extrabold text-amber-400 font-mono mt-0.5">80</div>
           </div>
-          <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-3">
-            <div class="text-slate-400 text-[11px]">Bloqueos P0 Activos</div>
-            <div id="statP0Total" class="text-xl font-extrabold text-red-400 mt-0.5">0</div>
+          <div class="bg-km-surface border border-km-border rounded-2xl p-3.5">
+            <div class="text-slate-400 text-[11px] font-medium">Bloqueos P0 Activos</div>
+            <div id="statP0Total" class="text-2xl font-extrabold text-rose-400 font-mono mt-0.5">0</div>
           </div>
         </div>
 
-        <!-- Controls & Filters -->
-        <div class="p-3 sm:px-5 sm:py-3 border-b border-slate-800/80 bg-slate-950/40 flex flex-col sm:flex-row gap-2 justify-between items-stretch sm:items-center">
+        <!-- Filter Controls -->
+        <div class="p-3 sm:px-5 sm:py-3 border-b border-km-border bg-[#0b0f17] flex flex-col sm:flex-row gap-2.5 justify-between items-stretch sm:items-center">
           <div class="relative flex-1">
-            <input type="text" id="censoSearchInput" oninput="filterCenso()" placeholder="🔍 Buscar por tienda, colaborador o palabra..." 
-              class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500">
+            <input type="text" id="censoSearchInput" oninput="filterCenso()" placeholder="🔍 Buscar por tienda, zona, colaborador o puesto..." 
+              class="w-full input-field rounded-xl px-3.5 py-2 text-xs">
           </div>
-          <div class="flex items-center gap-1 overflow-x-auto text-[11px]">
-            <button onclick="setCensoFilter('todos')" id="filterTabTodos" class="px-2.5 py-1.5 rounded-lg bg-blue-600 text-white font-medium whitespace-nowrap">Todas (80)</button>
-            <button onclick="setCensoFilter('pendientes')" id="filterTabPendientes" class="px-2.5 py-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap">⚠️ Faltan</button>
-            <button onclick="setCensoFilter('completadas')" id="filterTabCompletadas" class="px-2.5 py-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap">✅ Listas</button>
-            <button onclick="setCensoFilter('p0')" id="filterTabP0" class="px-2.5 py-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap">🚨 Con P0</button>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
+            <button onclick="setCensoFilter('todos')" id="filterTabTodos" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold whitespace-nowrap">Todas (80)</button>
+            <button onclick="setCensoFilter('pendientes')" id="filterTabPendientes" class="px-3 py-1.5 rounded-lg bg-km-surface text-slate-300 hover:text-white border border-km-border whitespace-nowrap">⚠️ Faltan</button>
+            <button onclick="setCensoFilter('completadas')" id="filterTabCompletadas" class="px-3 py-1.5 rounded-lg bg-km-surface text-slate-300 hover:text-white border border-km-border whitespace-nowrap">✅ Completas</button>
+            <button onclick="setCensoFilter('p0')" id="filterTabP0" class="px-3 py-1.5 rounded-lg bg-km-surface text-slate-300 hover:text-white border border-km-border whitespace-nowrap">🚨 Con P0</button>
           </div>
         </div>
 
-        <!-- List Stream -->
-        <div id="censoListContainer" class="p-4 sm:p-5 overflow-y-auto space-y-2.5 flex-1">
-          <div class="text-center py-10 text-slate-500 text-xs">Cargando censo en vivo desde el servidor...</div>
+        <!-- Stream of Stores -->
+        <div id="censoListContainer" class="p-4 sm:p-6 overflow-y-auto space-y-2.5 flex-1 bg-[#0b0f17]/40">
+          <div class="text-center py-12 text-slate-500 text-xs">Cargando censo en vivo desde el servidor central...</div>
         </div>
 
       </div>
@@ -362,7 +434,6 @@
     let lastSummaryFormatted = '';
     let currentFolioId = null;
 
-    // Cache de datos del servidor para el censo
     let serverStats = null;
     let currentFilterMode = 'todos';
 
@@ -388,7 +459,6 @@
           return;
         }
       } catch (e) {}
-      // Fallback a localStorage
       document.getElementById('headerLiveCounter').innerText = getAudits().length;
     }
 
@@ -411,15 +481,15 @@
       document.getElementById('sessionHeaderStore').innerText = currentUser.store;
 
       setTimeout(() => {
-        botReply(`¡Hola **${currentUser.name}**! Qué gusto saludarte.\n\nComo **${currentUser.role}** en **${currentUser.store}**, tu experiencia directa es lo que nos permite eficientar y automatizar el trabajo real.\n\n👉 **Para arrancar: ¿Cuáles son las 2 o 3 prioridades principales de tu puesto hoy que sí o sí deben cumplirse?**`, [
-          'Vender y facturar sin demoras',
-          'Inventario cuadrado con físico',
-          'Arqueo de caja exacto al cierre',
-          'Atender rápido al cliente',
-          'Cobro puntual de cartera'
+        botReply(`¡Hola **${currentUser.name}**! Gracias por sumarte.\n\nComo **${currentUser.role}** en **${currentUser.store}**, tu reporte directo es el que guía la priorización de desarrollo.\n\n👉 **Fase 1: ¿Cuáles son las 2 o 3 prioridades principales de tu puesto que sí o sí deben cumplirse cada día?**`, [
+          'Vender y facturar sin demoras en caja',
+          'Inventario físico cuadrado al 100%',
+          'Cierre y arqueo de caja exacto',
+          'Atención ágil al cliente de mostrador',
+          'Cobro y seguimiento de cartera'
         ]);
         document.getElementById('chatInput').focus();
-      }, 300);
+      }, 250);
     }
 
     function renderMessage(sender, text) {
@@ -431,7 +501,7 @@
 
       if (sender === 'bot') {
         msgDiv.innerHTML = `
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex-shrink-0 flex items-center justify-center text-xs text-white font-bold shadow-md shadow-blue-500/25 ring-1 ring-white/10">KM</div>
+          <div class="w-8 h-8 rounded-xl bg-rose-600 flex-shrink-0 flex items-center justify-center text-xs text-white font-black shadow-md">KM</div>
           <div class="chat-bubble-bot p-4 text-xs sm:text-sm text-slate-200 max-w-[85%] leading-relaxed shadow-sm">
             ${formattedText}
           </div>
@@ -441,7 +511,7 @@
           <div class="chat-bubble-user p-4 text-xs sm:text-sm text-white max-w-[85%] leading-relaxed shadow-sm">
             ${formattedText}
           </div>
-          <div class="w-8 h-8 rounded-xl bg-slate-800 flex-shrink-0 flex items-center justify-center text-xs text-slate-300 font-semibold ring-1 ring-white/10">${currentUser.name.charAt(0)}</div>
+          <div class="w-8 h-8 rounded-xl bg-slate-800 flex-shrink-0 flex items-center justify-center text-xs text-slate-300 font-bold border border-km-border">${currentUser.name.charAt(0)}</div>
         `;
       }
 
@@ -464,7 +534,7 @@
         renderMessage('bot', text);
         renderChips(chips);
         document.getElementById('chatInput').focus();
-      }, 450);
+      }, 400);
     }
 
     function renderChips(chips) {
@@ -475,7 +545,7 @@
       chips.forEach(chip => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'chip-btn bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-800 transition text-[11px] flex items-center gap-1.5 shadow-sm';
+        btn.className = 'chip-tag px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 shadow-sm';
         btn.innerHTML = `<span class="text-blue-400 font-bold">+</span> <span>${chip}</span>`;
         btn.onclick = () => {
           document.getElementById('chatInput').value = chip;
@@ -502,56 +572,56 @@
       if (currentStep === 0) {
         auditData.prioridades = userText;
         currentStep = 1;
-        document.getElementById('stageLabel').innerText = 'Checklist Insumos';
+        document.getElementById('stageLabel').innerText = '2/4 Checklist Insumos';
 
-        botReply(`Totalmente entendido. Para asegurar que esas prioridades no se frenen nunca:\n\n👉 **¿Cuál es el CHECKLIST de herramientas, pantallas o accesos del sistema que necesitás tener al 100% todos los días al abrir tu turno para no estar trabado?**`, [
+        botReply(`Excelente. Para que esas prioridades no se detengan jamás:\n\n👉 **Fase 2: ¿Cuál es el CHECKLIST de herramientas, módulos o accesos que necesitás tener al 100% al abrir tu turno?**`, [
           'Facturación POS SAR activa',
-          'Inventario de tienda en línea',
-          'Arqueo de caja y fondos',
-          'Impresora de tickets y recibos',
-          'Módulo de transferencias'
+          'Inventario de tienda sincronizado',
+          'Arqueo de caja y fondo inicial',
+          'Impresora de tickets y facturas',
+          'Módulo de traslados entre tiendas'
         ]);
 
       } else if (currentStep === 1) {
         auditData.checklist = userText;
         currentStep = 2;
-        document.getElementById('stageLabel').innerText = 'Falla P0 del Sistema';
+        document.getElementById('stageLabel').innerText = '3/4 Falla P0 del Sistema';
 
-        botReply(`Muy claro ese pre-flight de insumos. Ahora vamos directo a lo que duele:\n\n🚨 **¿Qué pantalla, botón, reporte o proceso te está FALLANDO HOY en el sistema?**\n(¿Qué está lento, roto, se queda pegado o te obliga a hacer planillas o parches manuales por fuera?) Esto va directo al tablero de desarrollo como **P0** para resolverlo de inmediato.`, [
-          'Se congela al generar proformas',
-          'No coincide el stock físico con el ERP',
+        botReply(`Clarísimo ese checklist. Ahora vamos directo a lo que más duele:\n\n🚨 **Fase 3: ¿Qué pantalla, botón, proceso o reporte te está FALLANDO HOY en el sistema?**\n(¿Qué está lento, colgado o te obliga a hacer planillas manuales?) Esto entra como **P0** para resolverse de inmediato.`, [
+          'Lentitud o congelamiento al facturar',
+          'Diferencias entre físico y stock en sistema',
           'Demora al registrar pagos o recibos',
-          'Lentitud de conexión con SAR',
-          'Todo funciona al 100%'
+          'Lentitud en conexión con SAR / CAI',
+          'Ninguno, todo está operando al 100%'
         ]);
 
       } else if (currentStep === 2) {
         auditData.falla_p0 = userText;
         currentStep = 3;
-        document.getElementById('stageLabel').innerText = 'Cuello de Botella';
+        document.getElementById('stageLabel').innerText = '4/4 Cuello de Botella';
 
-        botReply(`Tomado con máxima prioridad para el equipo técnico.\n\n🛑 **Última pregunta para cerrar: ¿De qué otra área o puesto dependés para tu trabajo que hoy te esté generando retrasos o cuellos de botella?** (Ej: Bodega central tarda en autorizar traslados, Créditos demora en dictaminar, etc.)`, [
+        botReply(`Anotado como prioridad P0.\n\n🛑 **Fase 4 (Última): ¿De qué otra área o puesto dependés que hoy te esté generando retrasos o cuellos de botella?** (Ej: Bodega Central tarda en despachar, Créditos demora en aprobar, etc.)`, [
           'Bodega Central (retraso en traslados)',
           'Créditos (aprobación demorada)',
           'Finanzas (autorización de gastos)',
-          'Ninguna, el flujo fluye bien'
+          'Ninguno, el flujo está despejado'
         ]);
 
       } else if (currentStep === 3) {
         auditData.cuello_botella = userText;
         currentStep = 4;
-        document.getElementById('stageLabel').innerText = 'Finalizado';
+        document.getElementById('stageLabel').innerText = 'Completado';
 
-        botReply(`¡Excelente trabajo, **${currentUser.name}**!\n\nHe recopilado toda tu auditoría. Estoy sincronizando tu ficha con el servidor central de KM Motos...`);
+        botReply(`¡Muchísimas gracias, **${currentUser.name}**!\n\nEstoy guardando tu ficha y registrándola de forma centralizada en el sistema...`);
 
         setTimeout(() => {
           finalizeAudit();
-        }, 900);
+        }, 800);
       }
     }
 
     async function finalizeAudit() {
-      // 1. Guardar copia local de contingencia
+      // Guardar local contingencia
       const submission = {
         id: 'aud-' + Date.now(),
         fecha: new Date().toLocaleDateString(),
@@ -563,7 +633,7 @@
       currentList.unshift(submission);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(currentList));
 
-      // 2. Guardar centralmente en la API
+      // Guardar en la API centralizada
       try {
         const payload = {
           nombre: currentUser.name,
@@ -591,7 +661,7 @@
           `;
         }
       } catch (err) {
-        console.warn('Fallback a guardado local:', err);
+        console.warn('Persistencia local activa:', err);
       }
 
       lastSummaryFormatted = 
@@ -604,7 +674,7 @@ ${currentFolioId ? `📌 *Folio Oficial:* #${currentFolioId}\n` : ''}👤 *Colab
 🎯 *PRIORIDADES DEL PUESTO:*
 ${auditData.prioridades}
 
-📋 *CHECKLIST DE OPERATIVIDAD (Insumos no negociables):*
+📋 *CHECKLIST DE OPERATIVIDAD:*
 ${auditData.checklist}
 
 🚨 *FALLA CRÍTICA DEL SISTEMA (Candidato P0):*
@@ -616,12 +686,12 @@ ${auditData.cuello_botella}
 *Estatus:* Registrado en Servidor Central KM Motos`;
 
       document.getElementById('reportSummary').innerHTML = `
-        <div class="border-b border-slate-800 pb-2.5">
-          <strong class="text-white text-sm">${currentUser.name}</strong> • <span class="text-blue-400 font-semibold">${currentUser.role}</span> <span class="text-slate-500">(${currentUser.store})</span>
+        <div class="border-b border-km-border pb-2.5">
+          <strong class="text-white text-sm">${currentUser.name}</strong> • <span class="text-blue-400 font-semibold">${currentUser.role}</span> <span class="text-slate-400">(${currentUser.store})</span>
         </div>
         <div><span class="text-slate-400">🎯 Prioridades:</span> <span class="text-slate-200">${auditData.prioridades}</span></div>
         <div><span class="text-emerald-400">📋 Checklist Insumos:</span> <span class="text-slate-200">${auditData.checklist}</span></div>
-        <div class="bg-red-950/40 p-3 rounded-xl border border-red-900/60"><span class="text-red-400 font-bold">🚨 Falla P0 Sistema:</span> <span class="text-red-200">${auditData.falla_p0}</span></div>
+        <div class="bg-rose-950/40 p-3 rounded-xl border border-rose-900/60"><span class="text-rose-400 font-bold">🚨 Falla P0 Sistema:</span> <span class="text-rose-200">${auditData.falla_p0}</span></div>
         <div><span class="text-amber-400">🛑 Cuello de Botella:</span> <span class="text-slate-200">${auditData.cuello_botella}</span></div>
       `;
 
@@ -640,7 +710,7 @@ ${auditData.cuello_botella}
     function copyToClipboardFinal() {
       if (!lastSummaryFormatted) return;
       navigator.clipboard.writeText(lastSummaryFormatted).then(() => {
-        alert('Ficha técnica copiada al portapapeles.');
+        alert('Ficha oficial copiada al portapapeles.');
       });
     }
 
@@ -667,14 +737,13 @@ ${auditData.cuello_botella}
 
     async function loadCensoData() {
       const container = document.getElementById('censoListContainer');
-      container.innerHTML = '<div class="text-center py-10 text-slate-500 text-xs">Cargando censo en vivo desde el servidor...</div>';
+      container.innerHTML = '<div class="text-center py-12 text-slate-500 text-xs">Cargando censo en vivo desde el servidor central...</div>';
 
       try {
         const res = await fetch('/api/stats');
-        if (!res.ok) throw new Error('Error al cargar stats');
+        if (!res.ok) throw new Error('Error al conectar con stats');
         serverStats = await res.json();
 
-        // Actualizar KPIs
         document.getElementById('statTotalRespuestas').innerText = serverStats.total_respuestas || 0;
         const totalCan = serverStats.sucursales_canónicas_total || 80;
         const complCan = serverStats.sucursales_canónicas_completadas || 0;
@@ -686,7 +755,7 @@ ${auditData.cuello_botella}
         renderCensoList();
       } catch (e) {
         container.innerHTML = `
-          <div class="text-center py-8 text-red-400 text-xs">
+          <div class="text-center py-8 text-rose-400 text-xs font-semibold">
             No se pudo conectar con el servidor central: ${e.message}.
           </div>
         `;
@@ -699,9 +768,9 @@ ${auditData.cuello_botella}
         const btn = document.getElementById('filterTab' + f.charAt(0).toUpperCase() + f.slice(1));
         if (btn) {
           if (f === filter) {
-            btn.className = 'px-2.5 py-1.5 rounded-lg bg-blue-600 text-white font-medium whitespace-nowrap';
+            btn.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold whitespace-nowrap';
           } else {
-            btn.className = 'px-2.5 py-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap';
+            btn.className = 'px-3 py-1.5 rounded-lg bg-km-surface text-slate-300 hover:text-white border border-km-border whitespace-nowrap';
           }
         }
       });
@@ -720,7 +789,6 @@ ${auditData.cuello_botella}
 
       let items = [...serverStats.censo];
 
-      // Filtro por modo
       if (currentFilterMode === 'pendientes') {
         items = items.filter(i => !i.completado);
       } else if (currentFilterMode === 'completadas') {
@@ -729,7 +797,6 @@ ${auditData.cuello_botella}
         items = items.filter(i => i.completado && i.detalles.some(d => d.bloqueos_p0 && !['ninguno', 'no', 'n/a', 'none'].includes(d.bloqueos_p0.toLowerCase())));
       }
 
-      // Filtro de búsqueda
       if (query) {
         items = items.filter(i => {
           const matchStore = i.sucursal.toLowerCase().includes(query);
@@ -743,54 +810,52 @@ ${auditData.cuello_botella}
       }
 
       if (!items.length) {
-        container.innerHTML = '<div class="text-center py-10 text-slate-500 text-xs">No se encontraron tiendas con ese filtro o búsqueda.</div>';
+        container.innerHTML = '<div class="text-center py-12 text-slate-500 text-xs">No se encontraron tiendas con ese filtro.</div>';
         return;
       }
 
       container.innerHTML = items.map(item => {
         if (item.completado) {
-          // Tienda con respuestas
           const det = item.detalles[0] || {};
           const p0Text = det.bloqueos_p0 && !['ninguno', 'no', 'n/a', 'none'].includes(det.bloqueos_p0.toLowerCase()) ? det.bloqueos_p0 : null;
           
           return `
-            <div class="bg-slate-900/90 border border-emerald-500/30 rounded-2xl p-4 space-y-2 text-xs transition hover:border-emerald-500/50 shadow-sm">
+            <div class="bg-km-surface border border-emerald-500/30 rounded-2xl p-4 space-y-2 text-xs hover:border-emerald-500/60 transition shadow-sm">
               <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span class="font-bold text-white text-sm">${item.sucursal}</span>
-                  <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] px-2 py-0.2 rounded-full font-semibold">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span class="font-extrabold text-white text-sm tracking-tight">${item.sucursal}</span>
+                  <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px] px-2 py-0.5 rounded font-mono font-bold">
                     ${item.conteo} ${item.conteo === 1 ? 'respuesta' : 'respuestas'}
                   </span>
                 </div>
-                <span class="text-[11px] text-slate-400">${det.fecha ? det.fecha.split(' ')[0] : ''}</span>
+                <span class="text-[11px] text-slate-400 font-mono">${det.fecha ? det.fecha.split(' ')[0] : ''}</span>
               </div>
 
-              <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 space-y-1 text-slate-300">
-                <div class="flex items-center justify-between text-[11px]">
+              <div class="bg-[#0b0f17] p-3 rounded-xl border border-km-border space-y-1.5 text-slate-300">
+                <div class="flex items-center justify-between text-xs">
                   <span>👤 <strong>${det.nombre}</strong> (${det.rol})</span>
-                  <span class="text-blue-400">Folio #${det.id}</span>
+                  <span class="text-blue-400 font-mono font-bold">Folio #${det.id}</span>
                 </div>
                 ${p0Text ? `
-                  <div class="mt-1 p-2 bg-red-950/40 rounded-lg border border-red-900/50 text-[11px]">
-                    <span class="text-red-400 font-bold">🚨 Bloqueo P0:</span> <span class="text-red-200">${p0Text}</span>
+                  <div class="mt-1.5 p-2.5 bg-rose-950/40 rounded-lg border border-rose-900/60 text-xs">
+                    <span class="text-rose-400 font-bold">🚨 Bloqueo P0:</span> <span class="text-rose-200">${p0Text}</span>
                   </div>
-                ` : '<div class="text-[10px] text-slate-400">Sin bloqueos críticos reportados.</div>'}
+                ` : '<div class="text-[11px] text-slate-400">Sin bloqueos críticos reportados.</div>'}
               </div>
             </div>
           `;
         } else {
-          // Tienda pendiente
           return `
-            <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-3.5 flex items-center justify-between text-xs hover:border-slate-700 transition">
-              <div class="flex items-center gap-2.5">
-                <span class="w-2 h-2 rounded-full bg-amber-400/80"></span>
+            <div class="bg-km-surface/70 border border-km-border rounded-xl p-3.5 flex items-center justify-between text-xs hover:border-slate-700 transition">
+              <div class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
                 <div>
-                  <span class="font-semibold text-slate-200">${item.sucursal}</span>
-                  <div class="text-[11px] text-slate-500">Pendiente de completar la auditoría</div>
+                  <span class="font-bold text-slate-200">${item.sucursal}</span>
+                  <div class="text-[11px] text-slate-400">Pendiente de completar la auditoría</div>
                 </div>
               </div>
-              <button onclick="copiarRecordatorioWhatsApp('${item.sucursal}')" class="text-[11px] bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+              <button onclick="copiarRecordatorioWhatsApp('${item.sucursal}')" class="text-[11px] bg-[#0b0f17] hover:bg-slate-800 text-slate-200 border border-km-border px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm font-semibold">
                 <span>📲</span> <span>Recordar</span>
               </button>
             </div>
@@ -800,7 +865,7 @@ ${auditData.cuello_botella}
     }
 
     function copiarRecordatorioWhatsApp(sucursal) {
-      const msg = `Hola equipo de ${sucursal}. Por favor ingresen a https://tablero.apps.kmmotos.com para completar la auditoría de 3 minutos de su puesto antes del cierre de hoy. Es urgente para programar el soporte de desarrollo.`;
+      const msg = `Hola equipo de ${sucursal}. Por favor ingresen a https://tablero.apps.kmmotos.com para completar la auditoría rápida de su puesto antes del cierre de hoy. Es indispensable para la asignación de soporte de desarrollo.`;
       navigator.clipboard.writeText(msg).then(() => {
         const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
         window.open(url, '_blank');
