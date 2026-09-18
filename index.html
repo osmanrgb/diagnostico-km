@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Operativo KM Motos — Relevamiento y Prioridades P0</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-blue-600 selection:text-white pb-16">
+
+  <!-- Header Banner -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 text-lg">
+          KM
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-2">
+            Diagnóstico Operativo
+            <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-medium">Urgente P0</span>
+          </h1>
+          <p class="text-xs text-slate-400">Relevamiento de Puesto, Pre-flight y Cuellos de Botella</p>
+        </div>
+      </div>
+      <button onclick="toggleAdminView()" class="text-xs text-slate-400 hover:text-slate-200 border border-slate-700 hover:border-slate-500 px-3 py-1.5 rounded-lg transition">
+        Ver Respuestas (<span id="countBadge">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-3xl mx-auto px-4 pt-8">
+
+    <!-- Hero context callout -->
+    <div class="mb-8 p-5 rounded-2xl bg-gradient-to-r from-blue-950/60 to-slate-900 border border-blue-900/50 shadow-xl">
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-1">Objetivo del Relevamiento</h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Buscamos que cada área y puesto tenga definido su <strong>Checklist de Operatividad</strong> y que reportes de inmediato qué te está fallando en el sistema. Todo problema que frene tu trabajo se clasifica como <strong>P0 (Prioridad Máxima)</strong> para que el equipo de desarrollo lo resuelva sin demoras.
+      </p>
+      <div class="mt-3 flex items-center gap-2 text-xs text-slate-400">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Tiempo estimado: 3 a 4 minutos.
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div id="formSection" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+
+      <!-- Step 1: Identificación -->
+      <div class="space-y-4">
+        <div class="border-b border-slate-800 pb-2">
+          <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">1</span>
+            Datos del Colaborador
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nombre y Apellido *</label>
+            <input type="text" id="empName" required placeholder="Ej: Juan Pérez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Usuario del Sistema / ERP</label>
+            <input type="text" id="empUser" placeholder="Ej: jperez o juan.perez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Sucursal / Tienda *</label>
+            <select id="empStore" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+              <option value="">Seleccionar Sucursal...</option>
+              <option value="Central / Corporativo">Central / Oficinas Tegucigalpa</option>
+              <option value="Choluteca Centro">Choluteca Centro</option>
+              <option value="Choluteca San Jerónimo">Choluteca San Jerónimo</option>
+              <option value="San Lorenzo">San Lorenzo</option>
+              <option value="Danlí Centro">Danlí Centro</option>
+              <option value="Danlí Los Arcos">Danlí Los Arcos</option>
+              <option value="Juticalpa">Juticalpa</option>
+              <option value="Catacamas">Catacamas</option>
+              <option value="Comayagua Centro">Comayagua Centro</option>
+              <option value="Siguatepeque">Siguatepeque</option>
+              <option value="Tegucigalpa El Carrizal">Tegucigalpa El Carrizal</option>
+              <option value="Tegucigalpa Kennedy">Tegucigalpa Kennedy</option>
+              <option value="Tegucigalpa Centro">Tegucigalpa Centro</option>
+              <option value="Comayagüela 4ta Avenida">Comayagüela 4ta Avenida</option>
+              <option value="San Pedro Sula">San Pedro Sula</option>
+              <option value="La Ceiba">La Ceiba</option>
+              <option value="Tocoa">Tocoa</option>
+              <option value="Santa Rosa de Copán">Santa Rosa de Copán</option>
+              <option value="Bodega Central">Bodega Central</option>
+              <option value="Otra Sucursal">Otra Sucursal (especificar en notas)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Puesto / Rol *</label>
+            <select id="empRole" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 transition">
+              <option value="">Seleccionar Puesto...</option>
+              <option value="Vendedor de Mostrador">Vendedor de Mostrador</option>
+              <option value="Cajero / Encargado de Cobro">Cajero / Encargado de Cobro</option>
+              <option value="Administrador de Tienda">Administrador de Tienda</option>
+              <option value="Encargado de Bodega">Encargado de Bodega / Almacén</option>
+              <option value="Oficial de Crédito y Cobranza">Oficial de Crédito y Cobranza</option>
+              <option value="Mecánico / Taller">Mecánico / Taller</option>
+              <option value="Supervisor de Zona">Supervisor de Zona</option>
+              <option value="Finanzas y Contabilidad">Finanzas y Contabilidad</option>
+              <option value="Recursos Humanos">Recursos Humanos</option>
+              <option value="Tecnología / Sistemas">Tecnología / Sistemas</option>
+              <option value="Compras / Proveedores">Compras / Proveedores</option>
+              <option value="Otro">Otro Puesto</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Las 4 Preguntas Clave -->
+      <div class="space-y-6 pt-2">
+        <div class="border-b border-slate-800 pb-2">
+          <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs">2</span>
+            Operatividad y Cuellos de Botella
+          </h3>
+        </div>
+
+        <!-- Pregunta 1 -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-200">
+            1. Pre-flight Operativo (Tu Checklist no negociable) *
+          </label>
+          <p class="text-xs text-slate-400">
+            ¿Qué pantallas, accesos, herramientas o hardware del sistema necesitás 100% operativos apenas arrancás tu turno para no estar paralizado?
+          </p>
+          <textarea id="qChecklist" rows="3" required placeholder="Ej: Pantalla de ventas POS, facturación SAR activa, impresora térmica conectada, acceso al inventario de la tienda para consultar existencias..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-blue-500 transition"></textarea>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-200">
+            2. Función Núcleo (Sin cuello de botella) *
+          </label>
+          <p class="text-xs text-slate-400">
+            ¿Cuáles son las 2 o 3 actividades clave de tu día que, si no se hacen a tiempo o se traban, detienen a tus compañeros o a los clientes?
+          </p>
+          <textarea id="qCore" rows="3" required placeholder="Ej: Facturar en el momento del cobro; arqueo y cierre diario a las 18:30; dar entrada inmediata a las transferencias de bodega que van llegando..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-blue-500 transition"></textarea>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="space-y-1.5 p-4 rounded-xl bg-red-950/20 border border-red-900/40">
+          <label class="block text-xs font-bold text-red-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+            3. Falla Viva / Dolor del Sistema (Tu Candidato P0 Directo) *
+          </label>
+          <p class="text-xs text-slate-400">
+            ¿Qué pantalla, botón, flujo o reporte HOY está fallando, es demasiado lento o te obliga a hacer parches manuales por fuera del sistema?
+          </p>
+          <textarea id="qPain" rows="3" required placeholder="Ej: Al generar proforma se congela la pantalla 1 minuto; no me deja anular recibos duplicados; el stock en sistema no coincide con lo físico en bodega..." class="w-full bg-slate-950 border border-red-900/60 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-red-500 transition"></textarea>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-slate-200">
+            4. Cuello de Botella Aguas Arriba (Dependencias) *
+          </label>
+          <p class="text-xs text-slate-400">
+            ¿De qué otra área, puesto o proceso dependés para hacer tu trabajo que hoy te genera atrasos frecuentes?
+          </p>
+          <textarea id="qDependency" rows="2" required placeholder="Ej: Bodega Central tarda 48 horas en autorizar el envío de pedidos; Créditos tarda en dictaminar solicitudes en fin de semana..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-blue-500 transition"></textarea>
+        </div>
+
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-4">
+        <button onclick="submitSurvey()" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2 text-sm sm:text-base">
+          <span>Enviar Diagnóstico Operativo</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Success Modal / Card -->
+    <div id="successCard" class="hidden bg-slate-900 border border-emerald-900/60 rounded-2xl p-6 sm:p-8 shadow-2xl text-center space-y-5">
+      <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-emerald-500/40">
+        ✓
+      </div>
+      <div class="space-y-2">
+        <h3 class="text-xl font-bold text-white">¡Diagnóstico Registrado con Éxito!</h3>
+        <p class="text-sm text-slate-300 max-w-md mx-auto">
+          Tus prioridades y cuellos de botella ya quedaron guardados en la base operativa y serán procesados para el tablero de urgencias P0.
+        </p>
+      </div>
+
+      <!-- Summary Box -->
+      <div id="summaryBox" class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-left text-xs font-mono text-slate-300 whitespace-pre-wrap max-h-60 overflow-y-auto"></div>
+
+      <!-- Multiplier: WhatsApp Share Button -->
+      <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+        <button onclick="shareViaWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl transition flex items-center justify-center gap-2 text-sm shadow-lg shadow-emerald-600/20">
+          <span>📱 Enviar Resumen por WhatsApp</span>
+        </button>
+        <button onclick="resetForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-3 px-6 rounded-xl transition text-sm">
+          Registrar Otro Puesto
+        </button>
+      </div>
+    </div>
+
+    <!-- Admin / Responses View Modal -->
+    <div id="adminView" class="hidden mt-8 space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+          <div>
+            <h3 class="text-lg font-bold text-white">Bandeja de Respuestas Recopiladas</h3>
+            <p class="text-xs text-slate-400">Total en este navegador: <span id="adminTotal">0</span> respuestas</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="exportJSON()" class="text-xs bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg border border-slate-700 transition">
+              Descargar JSON
+            </button>
+            <button onclick="exportCSV()" class="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition font-semibold">
+              Descargar CSV / Excel
+            </button>
+          </div>
+        </div>
+
+        <div id="adminList" class="space-y-4 max-h-[600px] overflow-y-auto pr-1"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'km_diagnostico_respuestas';
+    let lastSubmission = null;
+
+    function getSubmissions() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function updateCount() {
+      const subs = getSubmissions();
+      document.getElementById('countBadge').innerText = subs.length;
+      document.getElementById('adminTotal').innerText = subs.length;
+    }
+
+    function submitSurvey() {
+      const name = document.getElementById('empName').value.trim();
+      const user = document.getElementById('empUser').value.trim();
+      const store = document.getElementById('empStore').value;
+      const role = document.getElementById('empRole').value;
+      const checklist = document.getElementById('qChecklist').value.trim();
+      const core = document.getElementById('qCore').value.trim();
+      const pain = document.getElementById('qPain').value.trim();
+      const dependency = document.getElementById('qDependency').value.trim();
+
+      if (!name || !store || !role || !checklist || !core || !pain || !dependency) {
+        alert('Por favor completa todos los campos requeridos (*).');
+        return;
+      }
+
+      const submission = {
+        id: 'diag-' + Date.now(),
+        timestamp: new Date().toISOString(),
+        fecha_legible: new Date().toLocaleString(),
+        colaborador: {
+          nombre: name,
+          usuario: user || 'No especificado',
+          sucursal: store,
+          puesto: role
+        },
+        respuestas: {
+          preflight_checklist: checklist,
+          funcion_nucleo: core,
+          falla_p0_sistema: pain,
+          cuello_de_botella_upstream: dependency
+        }
+      };
+
+      lastSubmission = submission;
+
+      // 1. Guardar en localStorage
+      const current = getSubmissions();
+      current.unshift(submission);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+
+      // 2. Intentar envío asíncrono si hay webhook activo
+      try {
+        fetch('https://n8n.apps.kmmotos.com/webhook/diagnostico-km', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(submission)
+        }).catch(() => {});
+      } catch (e) {}
+
+      // 3. Renderizar resumen
+      const summaryText = 
+`DIAGNÓSTICO OPERATIVO KM MOTOS
+==================================
+Fecha: ${submission.fecha_legible}
+Colaborador: ${name} (${user})
+Sucursal: ${store}
+Puesto: ${role}
+
+[1] PRE-FLIGHT / CHECKLIST INSUMOS:
+${checklist}
+
+[2] FUNCIÓN NÚCLEO SIN CUELLO DE BOTELLA:
+${core}
+
+[3] CANDIDATO P0 (FALLA DEL SISTEMA):
+${pain}
+
+[4] DEPENDENCIA EXTERNA BLOQUEANTE:
+${dependency}
+==================================`;
+
+      document.getElementById('summaryBox').innerText = summaryText;
+      document.getElementById('formSection').classList.add('hidden');
+      document.getElementById('successCard').classList.remove('hidden');
+
+      updateCount();
+    }
+
+    function shareViaWhatsApp() {
+      if (!lastSubmission) return;
+      const text = 
+`*DIAGNÓSTICO OPERATIVO KM MOTOS — P0*
+👤 *Colaborador:* ${lastSubmission.colaborador.nombre} (${lastSubmission.colaborador.puesto})
+🏬 *Sucursal:* ${lastSubmission.colaborador.sucursal}
+
+🚨 *FALLA DEL SISTEMA (P0):*
+${lastSubmission.respuestas.falla_p0_sistema}
+
+✅ *PRE-FLIGHT OPERATIVO (Checklist):*
+${lastSubmission.respuestas.preflight_checklist}
+
+⚙️ *FUNCIÓN NÚCLEO:*
+${lastSubmission.respuestas.funcion_nucleo}
+
+🛑 *CUELLO DE BOTELLA:*
+${lastSubmission.respuestas.cuello_de_botella_upstream}`;
+
+      const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+      window.open(url, '_blank');
+    }
+
+    function resetForm() {
+      document.getElementById('empName').value = '';
+      document.getElementById('empUser').value = '';
+      document.getElementById('empStore').value = '';
+      document.getElementById('empRole').value = '';
+      document.getElementById('qChecklist').value = '';
+      document.getElementById('qCore').value = '';
+      document.getElementById('qPain').value = '';
+      document.getElementById('qDependency').value = '';
+
+      document.getElementById('formSection').classList.remove('hidden');
+      document.getElementById('successCard').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleAdminView() {
+      const admin = document.getElementById('adminView');
+      admin.classList.toggle('hidden');
+      if (!admin.classList.contains('hidden')) {
+        renderAdminList();
+      }
+    }
+
+    function renderAdminList() {
+      const subs = getSubmissions();
+      const container = document.getElementById('adminList');
+      if (subs.length === 0) {
+        container.innerHTML = '<div class="text-sm text-slate-500 py-6 text-center">No hay respuestas registradas aún en este dispositivo.</div>';
+        return;
+      }
+
+      container.innerHTML = subs.map(s => `
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div>
+              <span class="font-bold text-white text-sm">${s.colaborador.nombre}</span>
+              <span class="text-xs text-blue-400 ml-2">• ${s.colaborador.puesto}</span>
+            </div>
+            <span class="text-xs text-slate-500">${s.colaborador.sucursal}</span>
+          </div>
+          <div class="text-xs space-y-1 text-slate-300">
+            <div><strong class="text-red-400">P0 Falla Sistema:</strong> ${s.respuestas.falla_p0_sistema}</div>
+            <div><strong class="text-emerald-400">Checklist Insumos:</strong> ${s.respuestas.preflight_checklist}</div>
+            <div><strong class="text-amber-400">Cuello Botella:</strong> ${s.respuestas.cuello_de_botella_upstream}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function exportJSON() {
+      const data = JSON.stringify(getSubmissions(), null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `km-diagnostico-operativo-${Date.now()}.json`;
+      a.click();
+    }
+
+    function exportCSV() {
+      const subs = getSubmissions();
+      if (!subs.length) { alert('No hay datos para exportar.'); return; }
+      const headers = ['Fecha', 'Nombre', 'Usuario', 'Sucursal', 'Puesto', 'Preflight Checklist', 'Funcion Nucleo', 'Falla P0 Sistema', 'Cuello Botella'];
+      const rows = subs.map(s => [
+        `"${s.fecha_legible}"`,
+        `"${s.colaborador.nombre}"`,
+        `"${s.colaborador.usuario}"`,
+        `"${s.colaborador.sucursal}"`,
+        `"${s.colaborador.puesto}"`,
+        `"${s.respuestas.preflight_checklist.replace(/"/g, '""')}"`,
+        `"${s.respuestas.funcion_nucleo.replace(/"/g, '""')}"`,
+        `"${s.respuestas.falla_p0_sistema.replace(/"/g, '""')}"`,
+        `"${s.respuestas.cuello_de_botella_upstream.replace(/"/g, '""')}"`
+      ]);
+      const csvContent = "\uFEFF" + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `km-diagnostico-operativo-${Date.now()}.csv`;
+      a.click();
+    }
+
+    // Inicializar
+    updateCount();
+  </script>
+</body>
+</html>
