@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KM Motos — Mapeo de Puestos y Procesos Operacionales</title>
+  <title>KM Motos — Academia de Procesos & Mapeo End-to-End de Puestos</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -21,10 +21,12 @@
             km: {
               red: '#f43f5e',
               redHover: '#e11d48',
-              surface: '#0f1420',
-              elevated: '#151c2c',
+              bg: '#07090e',
+              sidebar: '#0d111a',
+              card: '#131824',
+              cardHover: '#182030',
               border: 'rgba(255, 255, 255, 0.08)',
-              borderHover: 'rgba(255, 255, 255, 0.18)',
+              borderActive: 'rgba(244, 63, 94, 0.4)',
             }
           }
         }
@@ -37,31 +39,31 @@
     }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #06080d;
+      background-color: #07090e;
       background-image: 
-        radial-gradient(circle at 50% -10%, rgba(244, 63, 94, 0.12) 0%, transparent 55%),
-        radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.06) 0%, transparent 45%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(244, 63, 94, 0.1) 0%, transparent 65%),
+        radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
       background-attachment: fixed;
     }
-    .panel-glass {
-      background: rgba(15, 20, 32, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+    .glass-dossier {
+      background: rgba(13, 17, 26, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
     }
-    .panel-card {
-      background: #0f1420;
+    .glass-card {
+      background: #111622;
       border: 1px solid rgba(255, 255, 255, 0.07);
       box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .input-box {
       background: #090c14;
-      border: 1px solid #1f293d;
+      border: 1px solid #1e2638;
       color: #f8fafc;
       transition: all 0.15s ease;
     }
@@ -70,30 +72,30 @@
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
       outline: none;
     }
-    .chip-btn {
-      background: #0f1420;
-      border: 1px solid #1f293d;
-      color: #94a3b8;
+    .chip-action {
+      background: #131824;
+      border: 1px solid #222c40;
+      color: #cbd5e1;
       transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .chip-btn:hover {
-      background: #182236;
+    .chip-action:hover {
+      background: #1c2538;
       border-color: #3b82f6;
       color: #ffffff;
       transform: translateY(-1px);
     }
-    .btn-gradient-red {
-      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #be123c 100%);
+    .btn-gradient-rose {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 60%, #be123c 100%);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+      box-shadow: 0 12px 28px -5px rgba(225, 29, 72, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
       transition: all 0.15s ease;
     }
-    .btn-gradient-red:hover {
-      background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #e11d48 100%);
-      box-shadow: 0 15px 30px -5px rgba(225, 29, 72, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    .btn-gradient-rose:hover {
+      background: linear-gradient(135deg, #fb7185 0%, #f43f5e 60%, #e11d48 100%);
+      box-shadow: 0 16px 32px -5px rgba(225, 29, 72, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
       transform: translateY(-1px);
     }
-    .btn-gradient-red:active {
+    .btn-gradient-rose:active {
       transform: scale(0.98);
     }
     .typing-dot {
@@ -106,19 +108,19 @@
       0%, 80%, 100% { transform: translateY(0); opacity: 0.3; }
       40% { transform: translateY(-3px); opacity: 1; }
     }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #06080d; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
   </style>
 </head>
 <body class="text-slate-100 min-h-screen antialiased flex flex-col selection:bg-rose-600 selection:text-white">
 
-  <!-- TOP HEADER: Focused Employee Environment (Zero Public Data Exposure) -->
-  <header class="border-b border-white/[0.08] bg-[#070a10]/85 backdrop-blur-xl sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between">
+  <!-- TOP HEADER: Corporate KM School & Governance Seal -->
+  <header class="border-b border-white/[0.08] bg-[#07090e]/90 backdrop-blur-xl sticky top-0 z-40">
+    <div class="max-w-[1500px] mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between">
       
-      <!-- Brand Lockup -->
+      <!-- Brand & School Seal -->
       <div class="flex items-center gap-4">
         <a href="/" class="flex items-center gap-3">
           <img src="/logo.png" alt="KM Motos" class="h-8 w-auto invert brightness-0 contrast-200" onerror="this.style.display='none'; document.getElementById('altLogo').style.display='flex';">
@@ -127,101 +129,95 @@
         <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
         <div class="flex flex-col">
           <div class="flex items-center gap-2">
-            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-200">Portal de Operaciones & Eficiencia</span>
-            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.2 rounded font-mono font-semibold flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              SESIÓN CONFIDENCIAL DE PUESTO
+            <span class="text-xs font-black uppercase tracking-wider text-slate-100">KM School & Procesos</span>
+            <span class="text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2 py-0.2 rounded font-mono font-bold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+              MAPEADOR END-TO-END
             </span>
           </div>
-          <span class="text-[11px] text-slate-400">Levantamiento de Procesos, Herramientas y Bloqueos Técnicos P0</span>
+          <span class="text-[11px] text-slate-400">Gobernanza de Puestos · Jornada 7:30 a 5:30 · Conexión Interdepartamental</span>
         </div>
       </div>
       
-      <!-- Right Status: Reassuring Direct Link to Leadership -->
-      <div class="hidden sm:flex items-center gap-2 text-xs text-slate-400">
-        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-        <span>Revisión Directa con Dirección y Desarrollo</span>
+      <!-- Center / Right: Pedagogical Mission Pill -->
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-2 text-xs bg-white/[0.03] border border-white/[0.08] px-3.5 py-1.5 rounded-xl text-slate-300">
+          <span class="text-amber-400 font-mono">⚡</span>
+          <span>Objetivo: Mapear la cadena de valor sin islas separadas</span>
+        </div>
       </div>
 
     </div>
   </header>
 
-  <!-- MAIN WORKSPACE -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 sm:py-12 flex flex-col justify-center">
+  <!-- MAIN EXPANSIVE WORKSPACE -->
+  <main class="flex-1 max-w-[1500px] w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
 
-    <!-- STEP 1: Executive 2-Column Command Layout -->
-    <div id="authCard" class="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <!-- INITIAL REGISTRATION STAGE (Step 0) -->
+    <div id="authCard" class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
       
-      <!-- LEFT COLUMN: Authority, Context & Process Transparency -->
-      <div class="lg:col-span-6 space-y-7">
+      <!-- LEFT COLUMN: The Strategic Thesis -->
+      <div class="lg:col-span-6 space-y-6">
         
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-400 text-[11px] font-mono font-bold tracking-wide uppercase">
-          <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
-          Todas las Áreas y Perfiles de Puesto
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs font-mono font-bold tracking-wide uppercase">
+          <span>🏛️</span> De Trabajador Aislado a Cadena Conectada
         </div>
 
-        <div class="space-y-3.5">
-          <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-[1.1]">
-            Queremos entender <br class="hidden sm:inline">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">exactamente qué hacés</span> <br class="hidden sm:inline">
-            y qué te frena.
+        <div class="space-y-4">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
+            Mapeo Real de tu Puesto: <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-white to-slate-300">De 7:30 AM a 5:30 PM.</span>
           </h1>
           <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-            Esta entrevista de 3 minutos es individual para cada colaborador de <strong class="text-white font-semibold">tiendas, talleres, bodega central, créditos, finanzas y administración</strong>. Mapeamos tus procesos reales para eliminar reprocesos y arreglar los errores de software que te quitan tiempo.
+            No más islas desconectadas. Para crear soluciones técnicas oportunas y automatizar lo que te roba tiempo, necesitamos mapear exactamente <strong class="text-white">qué hacés, cómo fluye tu día, de quién dependés y qué te traba</strong>.
           </p>
         </div>
 
-        <!-- 3 Pillars Bento -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+        <!-- 4 Strategic Pillars (Visual Bento) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           
-          <div class="panel-card rounded-2xl p-4 space-y-1.5 hover:border-white/20">
-            <div class="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">
-              01
+          <div class="glass-card rounded-2xl p-4 space-y-1 hover:border-white/20">
+            <div class="flex items-center gap-2 text-blue-400 text-xs font-bold font-mono">
+              <span>⏱️</span> JORNADA 7:30 A 5:30
             </div>
-            <div class="text-xs font-bold text-white tracking-tight">Tus Procesos Clave</div>
-            <p class="text-[11px] text-slate-400 leading-snug">Qué hacés día a día, qué sistemas usás y cómo fluye tu trabajo.</p>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Paso a paso de tu rutina: apertura, pico matutino, seguimiento y cierre diario.</p>
           </div>
 
-          <div class="panel-card rounded-2xl p-4 space-y-1.5 hover:border-white/20">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
-              02
+          <div class="glass-card rounded-2xl p-4 space-y-1 hover:border-white/20">
+            <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold font-mono">
+              <span>🌐</span> RELACIONES ORGANIGRAMA
             </div>
-            <div class="text-xs font-bold text-white tracking-tight">Checklist Insumos</div>
-            <p class="text-[11px] text-slate-400 leading-snug">Herramientas que necesitás tener al 100% para arrancar el turno.</p>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Con qué áreas coordinás: a quién le pedís insumos y a quién le entregás resultados.</p>
           </div>
 
-          <div class="panel-card rounded-2xl p-4 space-y-1.5 hover:border-white/20">
-            <div class="w-7 h-7 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs">
-              03
+          <div class="glass-card rounded-2xl p-4 space-y-1 hover:border-white/20">
+            <div class="flex items-center gap-2 text-amber-400 text-xs font-bold font-mono">
+              <span>🚀</span> TU MULTIPLICADOR
             </div>
-            <div class="text-xs font-bold text-white tracking-tight">Priorización P0</div>
-            <p class="text-[11px] text-slate-400 leading-snug">Fallas de software van directo a la mesa técnica para corregirse hoy.</p>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Cómo tu labor diaria impulsa las ventas, la caja o el servicio de KM Motos.</p>
           </div>
 
-        </div>
-
-        <!-- Reassurance Seal -->
-        <div class="p-3.5 rounded-2xl bg-[#0b0f17] border border-white/[0.06] flex items-center justify-between text-xs">
-          <div class="flex items-center gap-2.5">
-            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
-            <span class="text-slate-300 font-medium">Levantamiento Oficial KM Motos</span>
-            <span class="text-[10px] text-slate-500 font-mono hidden sm:inline">• Persistencia Central Inmediata</span>
+          <div class="glass-card rounded-2xl p-4 space-y-1 hover:border-white/20">
+            <div class="flex items-center gap-2 text-rose-400 text-xs font-bold font-mono">
+              <span>🚨</span> DESTRABE P0 TÉCNICO
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">Lo que está lento, roto o te obliga a hacer Excel manual va directo al backlog de hoy.</p>
           </div>
-          <span class="text-[11px] font-mono text-emerald-400 font-bold">100% CONFIDENCIAL</span>
+
         </div>
 
       </div>
 
-      <!-- RIGHT COLUMN: Multi-Area & Multi-Role Frictionless Form -->
+      <!-- RIGHT COLUMN: Frictionless Registration Bento -->
       <div class="lg:col-span-6">
-        <div class="panel-glass rounded-3xl p-6 sm:p-9 space-y-6">
+        <div class="glass-dossier rounded-3xl p-6 sm:p-9 space-y-6">
           
           <div class="border-b border-white/[0.08] pb-4">
             <div class="flex items-center justify-between">
-              <h2 class="text-lg font-extrabold text-white tracking-tight">Tu Identificación y Área</h2>
-              <span class="text-[10px] text-slate-400 font-mono uppercase bg-white/[0.04] px-2 py-0.5 rounded border border-white/[0.06]">Fase 0 · Registro</span>
+              <h2 class="text-lg font-extrabold text-white tracking-tight">Tu Identidad en la Organización</h2>
+              <span class="text-[10px] text-slate-400 font-mono uppercase bg-white/[0.04] px-2 py-0.5 rounded border border-white/[0.06]">Paso 0 · Entrada</span>
             </div>
-            <p class="text-xs text-slate-400 mt-1">Escribe libremente tus datos. Aplica para tiendas y todas las áreas centrales.</p>
+            <p class="text-xs text-slate-400 mt-1">Aplica para tiendas en todo el país y todas las áreas centrales/administrativas.</p>
           </div>
 
           <form onsubmit="startChat(event)" class="space-y-4">
@@ -235,48 +231,47 @@
                 class="w-full input-box rounded-xl px-4 py-3 text-sm placeholder:text-slate-600">
             </div>
 
-            <!-- 2. Sucursal o Área Central (Libre + Chips para AMBOS) -->
+            <!-- 2. Sucursal o Área Central -->
             <div class="space-y-2">
               <div class="flex items-center justify-between">
                 <label class="block text-xs font-bold text-slate-200">
-                  Tu Sucursal, Tienda o Área Central <span class="text-rose-400">*</span>
+                  Tu Sucursal, Tienda o Departamento Central <span class="text-rose-400">*</span>
                 </label>
                 <span class="text-[11px] text-slate-400">Escribe o toca una opción</span>
               </div>
               <input type="text" id="empStore" required placeholder="Ej: Choluteca Centro, Bodega Central, Contabilidad, SPS, Taller..." 
                 class="w-full input-box rounded-xl px-4 py-3 text-sm placeholder:text-slate-600">
               
-              <!-- Segmented Fast Tags -->
-              <div class="space-y-1 pt-0.5">
-                <div class="text-[10px] uppercase font-mono text-slate-500 tracking-wider">Tiendas & Rutas:</div>
+              <!-- Segmented Suggestion Pills -->
+              <div class="space-y-1.5 pt-1">
+                <div class="text-[10px] uppercase font-mono text-slate-500 tracking-wider">Tiendas Retail & Rutas:</div>
                 <div class="flex flex-wrap gap-1.5">
-                  <button type="button" onclick="setStore('Choluteca Centro')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Choluteca</button>
-                  <button type="button" onclick="setStore('San Lorenzo')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">San Lorenzo</button>
-                  <button type="button" onclick="setStore('KM Comayagua #1')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Comayagua</button>
-                  <button type="button" onclick="setStore('KM SPS Matriz')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">SPS Matriz</button>
-                  <button type="button" onclick="setStore('KM Tegucigalpa Centro')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Tegucigalpa</button>
-                  <button type="button" onclick="setStore('Danlí Centro')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Danlí</button>
-                  <button type="button" onclick="setStore('Juticalpa')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Juticalpa</button>
-                  <button type="button" onclick="setStore('La Ceiba')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">La Ceiba</button>
-                  <button type="button" onclick="setStore('Rutas de Mayoreo')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Rutas Mayoreo</button>
+                  <button type="button" onclick="setStore('Choluteca Centro')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Choluteca</button>
+                  <button type="button" onclick="setStore('San Lorenzo')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">San Lorenzo</button>
+                  <button type="button" onclick="setStore('KM Comayagua #1')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Comayagua</button>
+                  <button type="button" onclick="setStore('KM SPS Matriz')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">SPS Matriz</button>
+                  <button type="button" onclick="setStore('KM Tegucigalpa Centro')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Tegucigalpa</button>
+                  <button type="button" onclick="setStore('Danlí Centro')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Danlí</button>
+                  <button type="button" onclick="setStore('Juticalpa')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Juticalpa</button>
+                  <button type="button" onclick="setStore('Rutas de Mayoreo')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Rutas Mayoreo</button>
                 </div>
 
-                <div class="text-[10px] uppercase font-mono text-slate-500 tracking-wider pt-1.5">Áreas Corporativas / Centrales:</div>
+                <div class="text-[10px] uppercase font-mono text-slate-500 tracking-wider pt-1">Departamentos Centrales:</div>
                 <div class="flex flex-wrap gap-1.5">
-                  <button type="button" onclick="setStore('Centro de Distribución (CD) Logística')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Bodega Central / CD</button>
-                  <button type="button" onclick="setStore('Taller Central & Garantías')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Taller & Garantías</button>
-                  <button type="button" onclick="setStore('Créditos & Dictamen')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Créditos</button>
-                  <button type="button" onclick="setStore('Cobranzas & Cartera')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Cobranzas</button>
-                  <button type="button" onclick="setStore('Contabilidad & Auditoría')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Contabilidad</button>
-                  <button type="button" onclick="setStore('Finanzas & Tesorería')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Finanzas</button>
-                  <button type="button" onclick="setStore('Compras & Logística')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Compras</button>
-                  <button type="button" onclick="setStore('Recursos Humanos')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Recursos Humanos</button>
-                  <button type="button" onclick="setStore('Sistemas & TI')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg text-blue-300 border-blue-900/40">Sistemas / TI</button>
+                  <button type="button" onclick="setStore('Centro de Distribución (CD) Logística')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Bodega Central / CD</button>
+                  <button type="button" onclick="setStore('Taller Central & Garantías')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Taller & Garantías</button>
+                  <button type="button" onclick="setStore('Créditos & Dictamen')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Créditos</button>
+                  <button type="button" onclick="setStore('Cobranzas & Cartera')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Cobranzas</button>
+                  <button type="button" onclick="setStore('Contabilidad & Auditoría')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Contabilidad</button>
+                  <button type="button" onclick="setStore('Finanzas & Tesorería')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Finanzas</button>
+                  <button type="button" onclick="setStore('Compras & Logística')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Compras</button>
+                  <button type="button" onclick="setStore('Sistemas & TI')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-blue-300 border-blue-900/40">Sistemas / TI</button>
+                  <button type="button" onclick="setStore('Dirección & Gerencia')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-rose-300 border-rose-900/40">Dirección / CEO</button>
                 </div>
               </div>
             </div>
 
-            <!-- 3. Cargo o Puesto (Libre + Roles Multidisciplinarios) -->
+            <!-- 3. Cargo o Puesto -->
             <div class="space-y-2 pt-1">
               <div class="flex items-center justify-between">
                 <label class="block text-xs font-bold text-slate-200">
@@ -284,27 +279,34 @@
                 </label>
                 <span class="text-[11px] text-slate-400">Escribe o toca una opción</span>
               </div>
-              <input type="text" id="empRole" required placeholder="Ej: Vendedor, Cajero, Bodeguero, Analista de Crédito, Contador, Mecánico..." 
+              <input type="text" id="empRole" required placeholder="Ej: Vendedor, Cajero, Bodeguero, Analista de Crédito, Contador, Gerente..." 
                 class="w-full input-box rounded-xl px-4 py-3 text-sm placeholder:text-slate-600">
               
-              <!-- Fast Role Suggestion Tags -->
               <div class="flex flex-wrap gap-1.5 pt-0.5">
-                <button type="button" onclick="setRole('Vendedor de Mostrador')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Ventas</button>
-                <button type="button" onclick="setRole('Cajero / Encargado de Cobro')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Caja / Cobros</button>
-                <button type="button" onclick="setRole('Administrador de Tienda')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Administrador</button>
-                <button type="button" onclick="setRole('Encargado de Bodega / Despacho')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Bodeguero</button>
-                <button type="button" onclick="setRole('Analista de Créditos')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Analista Crédito</button>
-                <button type="button" onclick="setRole('Gestor de Cobranza')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Cobrador</button>
-                <button type="button" onclick="setRole('Auxiliar Contable')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Contabilidad</button>
-                <button type="button" onclick="setRole('Mecánico / Técnico de Taller')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Mecánico</button>
-                <button type="button" onclick="setRole('Encargado de Compras')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Compras</button>
-                <button type="button" onclick="setRole('Soporte Técnico / TI')" class="chip-btn text-[11px] px-2 py-0.8 rounded-lg">Soporte TI</button>
+                <button type="button" onclick="setRole('Vendedor de Mostrador')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Ventas</button>
+                <button type="button" onclick="setRole('Cajero / Encargado de Cobro')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Caja / Cobros</button>
+                <button type="button" onclick="setRole('Administrador de Tienda')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Administrador Tienda</button>
+                <button type="button" onclick="setRole('Encargado de Bodega / Despacho')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Bodeguero / Despacho</button>
+                <button type="button" onclick="setRole('Analista de Créditos')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Analista Crédito</button>
+                <button type="button" onclick="setRole('Gestor de Cobranza')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Gestor Cobranza</button>
+                <button type="button" onclick="setRole('Auxiliar Contable')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Contabilidad</button>
+                <button type="button" onclick="setRole('Mecánico / Técnico de Taller')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg">Mecánico</button>
+                <button type="button" onclick="setRole('Gerente / Director')" class="chip-action text-[11px] px-2.5 py-1 rounded-lg text-rose-300">Gerente / Director</button>
               </div>
             </div>
 
+            <!-- 4. ¿A quién le reportas? (Líder en el Organigrama) -->
+            <div class="space-y-1.5 pt-1">
+              <label class="block text-xs font-bold text-slate-200">
+                ¿Quién es tu Jefe Directo o a quién le reportás? <span class="text-slate-400 font-normal">(Organigrama)</span>
+              </label>
+              <input type="text" id="empLeader" placeholder="Ej: Administrador de Tienda, Gerente de Operaciones, Director General..." 
+                class="w-full input-box rounded-xl px-4 py-2.5 text-sm placeholder:text-slate-600">
+            </div>
+
             <div class="pt-3">
-              <button type="submit" class="w-full btn-gradient-red text-white font-extrabold py-3.5 px-6 rounded-xl transition flex items-center justify-center gap-2 text-sm tracking-wide">
-                <span>Comenzar Entrevista con el Copiloto</span>
+              <button type="submit" class="w-full btn-gradient-rose text-white font-black py-4 px-6 rounded-xl transition flex items-center justify-center gap-2 text-sm tracking-wide">
+                <span>Comenzar Mapeo de Puesto con el Copiloto</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </button>
             </div>
@@ -316,126 +318,215 @@
 
     </div>
 
-    <!-- STEP 2: Comprehensive Process Mapping Copilot Workspace -->
-    <div id="chatInterface" class="hidden max-w-3xl w-full mx-auto flex flex-col panel-glass rounded-3xl overflow-hidden min-h-[620px]">
+    <!-- STEP 2: EXPANSIVE WORKSPACE (Split Screen: Live Dossier on Left, Conversational Copilot on Right) -->
+    <div id="chatInterface" class="hidden w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
-      <!-- Cockpit Subheader -->
-      <div class="px-6 py-4 border-b border-white/[0.08] bg-[#090c14] flex items-center justify-between text-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
-          <div>
-            <span id="sessionHeaderName" class="font-bold text-white text-sm"></span>
-            <span class="text-slate-400 ml-1.5">• <span id="sessionHeaderRole" class="text-blue-400 font-medium"></span> (<span id="sessionHeaderStore"></span>)</span>
+      <!-- LEFT COLUMN: LIVE DOSSIER IN CONSTRUCTION (Mapeo Vivo en Tiempo Real) -->
+      <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-20">
+        
+        <!-- Live Employee Dossier Card -->
+        <div class="glass-dossier rounded-3xl p-5 sm:p-6 space-y-5">
+          
+          <!-- Header Profile Lockup -->
+          <div class="flex items-center gap-3.5 border-b border-white/[0.08] pb-4">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-600 to-red-700 text-white flex items-center justify-center font-black text-lg shadow-lg shadow-rose-600/30 ring-1 ring-white/20">
+              <span id="dossierAvatar">U</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 id="dossierName" class="text-base font-extrabold text-white tracking-tight"></h3>
+                <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.2 rounded font-mono font-bold">VIVO</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-0.5">
+                <span id="dossierRole" class="text-blue-400 font-bold"></span> en <span id="dossierStore" class="text-slate-200"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Organigram Hierarchy Line -->
+          <div class="p-3 rounded-2xl bg-[#090c14] border border-white/[0.06] text-xs space-y-1">
+            <div class="text-[10px] uppercase font-mono text-slate-500">Jerarquía / Reporte Directo:</div>
+            <div class="text-slate-200 font-semibold flex items-center gap-2">
+              <span>👤 Reporta a:</span>
+              <span id="dossierLeader" class="text-rose-400 font-mono">Dirección / Supervisión</span>
+            </div>
+          </div>
+
+          <!-- Real-Time Progress Flow Stepper -->
+          <div class="space-y-2 text-xs">
+            <div class="text-[10px] uppercase font-mono text-slate-500 tracking-wider">Dimensiones de la Auditoría:</div>
+            
+            <div class="space-y-2">
+              <div id="stepCard1" class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between transition duration-200">
+                <span class="flex items-center gap-2 text-slate-300">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                  <span>1. Jornada 7:30 a 5:30</span>
+                </span>
+                <span id="stepStatus1" class="text-[10px] font-mono text-slate-500">En curso...</span>
+              </div>
+
+              <div id="stepCard2" class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between transition duration-200">
+                <span class="flex items-center gap-2 text-slate-400">
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                  <span>2. Conexiones Organigrama</span>
+                </span>
+                <span id="stepStatus2" class="text-[10px] font-mono text-slate-600">Pendiente</span>
+              </div>
+
+              <div id="stepCard3" class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between transition duration-200">
+                <span class="flex items-center gap-2 text-slate-400">
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                  <span>3. Herramientas & Checklist</span>
+                </span>
+                <span id="stepStatus3" class="text-[10px] font-mono text-slate-600">Pendiente</span>
+              </div>
+
+              <div id="stepCard4" class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between transition duration-200">
+                <span class="flex items-center gap-2 text-slate-400">
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                  <span>4. Multiplicador de Valor</span>
+                </span>
+                <span id="stepStatus4" class="text-[10px] font-mono text-slate-600">Pendiente</span>
+              </div>
+
+              <div id="stepCard5" class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between transition duration-200">
+                <span class="flex items-center gap-2 text-slate-400">
+                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
+                  <span>5. Bloqueos Críticos P0</span>
+                </span>
+                <span id="stepStatus5" class="text-[10px] font-mono text-slate-600">Pendiente</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Captures Accordion Preview -->
+          <div id="liveDossierBody" class="space-y-2 text-xs font-mono text-slate-300 pt-1">
+            <!-- Dynamically populated as user answers -->
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: THE EXPANSIVE COPILOT WORKBENCH -->
+      <div class="lg:col-span-7 flex flex-col glass-dossier rounded-3xl overflow-hidden min-h-[640px]">
+        
+        <!-- Chat Header -->
+        <div class="px-6 py-4 border-b border-white/[0.08] bg-[#090c14] flex items-center justify-between text-xs">
+          <div class="flex items-center gap-3">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+            <div>
+              <span class="font-extrabold text-white text-sm">Copiloto de Excelencia Operacional</span>
+              <span class="text-slate-400 ml-1.5">• Mapeo End-to-End</span>
+            </div>
+          </div>
+          <span id="stageLabel" class="text-[11px] bg-rose-500/10 text-rose-400 border border-rose-500/30 px-3 py-1 rounded font-mono font-bold">FASE 1/5: Jornada</span>
+        </div>
+
+        <!-- Messages Stream -->
+        <div id="chatMessages" class="flex-1 p-6 sm:p-8 overflow-y-auto space-y-5 max-h-[500px]"></div>
+
+        <!-- Typing Indicator -->
+        <div id="typingIndicator" class="hidden px-8 py-3 flex items-center gap-2.5 text-slate-400 text-xs bg-[#090c14] border-t border-white/[0.05]">
+          <div class="w-5 h-5 rounded bg-rose-600 flex items-center justify-center text-[10px] text-white font-black">KM</div>
+          <span>Copiloto analizando respuestas y estructurando ficha...</span>
+          <div class="flex gap-1 items-center ml-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
           </div>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="text-[10px] text-slate-400 font-mono uppercase">FASE:</span>
-          <span id="stageLabel" class="text-[11px] bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2.5 py-0.5 rounded font-mono font-bold">1/5 Responsabilidades</span>
+
+        <!-- Interactive Contextual Suggestion Pills -->
+        <div id="quickChipsContainer" class="px-6 py-3 bg-[#090c14] border-t border-white/[0.06] flex flex-wrap gap-2 text-xs"></div>
+
+        <!-- Input Bar -->
+        <div class="p-4 sm:p-6 border-t border-white/[0.08] bg-[#090c14]">
+          <form id="chatForm" onsubmit="handleUserMessage(event)" class="flex gap-3">
+            <textarea id="chatInput" rows="2" required placeholder="Escribe aquí con tus palabras tu respuesta (o toca una opción arriba)..." 
+              class="flex-1 input-box rounded-2xl px-4 py-3 text-sm resize-none placeholder:text-slate-600"
+              onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); handleUserMessage(event); }"></textarea>
+            <button type="submit" id="sendBtn" class="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-bold px-6 rounded-2xl transition flex items-center justify-center shadow-lg shadow-rose-600/30">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+          </form>
         </div>
+
       </div>
 
-      <!-- Messages Stream -->
-      <div id="chatMessages" class="flex-1 p-6 overflow-y-auto space-y-4 max-h-[460px]"></div>
-
-      <!-- Typing Indicator -->
-      <div id="typingIndicator" class="hidden px-6 py-2.5 flex items-center gap-2 text-slate-400 text-xs bg-[#090c14] border-t border-white/[0.05]">
-        <div class="w-5 h-5 rounded bg-rose-600 flex items-center justify-center text-[10px] text-white font-black">KM</div>
-        <span>Copiloto analizando proceso...</span>
-        <div class="flex gap-1 items-center ml-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-400 typing-dot"></span>
-        </div>
-      </div>
-
-      <!-- Interactive Quick Tap Pills for Fast Answering -->
-      <div id="quickChipsContainer" class="px-5 py-2.5 bg-[#090c14] border-t border-white/[0.06] flex flex-wrap gap-1.5 text-xs"></div>
-
-      <!-- Chat Input Form -->
-      <div class="p-4 sm:p-5 border-t border-white/[0.08] bg-[#090c14]">
-        <form id="chatForm" onsubmit="handleUserMessage(event)" class="flex gap-2.5">
-          <textarea id="chatInput" rows="1" required placeholder="Escribe aquí con tus palabras cómo hacés tu trabajo..." 
-            class="flex-1 input-box rounded-xl px-4 py-3 text-sm resize-none placeholder:text-slate-600"
-            onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); handleUserMessage(event); }"></textarea>
-          <button type="submit" id="sendBtn" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold px-5 rounded-xl transition flex items-center justify-center shadow-lg shadow-blue-600/30">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-          </button>
-        </form>
-      </div>
     </div>
 
-    <!-- STEP 3: Final Process Mapping Dossier Card -->
-    <div id="finalCard" class="hidden max-w-2xl w-full mx-auto panel-glass rounded-3xl p-6 sm:p-9 space-y-6 shadow-2xl">
+    <!-- STEP 3: FINAL COMPREHENSIVE DOSSIER CARD (Ficha Completa de Puesto y Procesos) -->
+    <div id="finalCard" class="hidden max-w-3xl w-full mx-auto glass-dossier rounded-3xl p-6 sm:p-10 space-y-7 shadow-2xl">
       <div class="text-center space-y-2.5">
-        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-2xl font-bold shadow-lg shadow-emerald-500/10">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-3xl font-black shadow-lg shadow-emerald-500/15">
           ✓
         </div>
         <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
-          ¡Ficha de Puesto y Procesos Registrada!
+          ¡Ficha de Puesto y Procesos Finalizada!
         </h2>
         <div id="centralSyncBadge" class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-semibold">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>Guardado en Servidor Central KM Motos</span>
+          <span>Sincronizado con el Servidor Central KM Motos</span>
         </div>
-        <p class="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-          Tus responsabilidades, procesos y checklist quedaron guardados centralmente. Tu bloqueo técnico quedó registrado como prioridad <strong class="text-rose-400 font-bold">P0</strong>.
+        <p class="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+          Tu mapeo de jornada (7:30 a 5:30), relaciones interdepartamentales y requerimientos técnicos han quedado formalmente consolidados en el organigrama operativo.
         </p>
       </div>
 
-      <!-- Detailed Summary Box (Bento Style) -->
-      <div id="reportSummary" class="bg-[#090c14] border border-white/[0.08] rounded-2xl p-5 text-xs space-y-3 font-mono text-slate-200"></div>
+      <!-- Comprehensive Bento Summary of the Job Profile -->
+      <div id="reportSummary" class="bg-[#090c14] border border-white/[0.08] rounded-2xl p-6 text-xs space-y-4 text-slate-200"></div>
 
       <!-- Action Buttons -->
       <div class="space-y-3 pt-2">
-        <button onclick="shareWhatsAppFinal()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-extrabold py-3.5 px-4 rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 text-sm">
-          <span>📱 Enviar Resumen Oficial a Osman por WhatsApp</span>
+        <button onclick="shareWhatsAppFinal()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-black py-4 px-6 rounded-2xl shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2 text-sm tracking-wide">
+          <span>📱 Enviar Ficha Oficial por WhatsApp a Osman</span>
         </button>
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="copyToClipboardFinal()" class="bg-[#0f1420] hover:bg-[#161e30] text-slate-200 font-bold py-2.5 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 border border-white/[0.08]">
-            <span>📋 Copiar Ficha de Procesos</span>
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="copyToClipboardFinal()" class="bg-[#131824] hover:bg-[#1c2538] text-slate-200 font-bold py-3 px-4 rounded-xl transition text-xs flex items-center justify-center gap-1.5 border border-white/[0.08]">
+            <span>📋 Copiar Ficha Técnica</span>
           </button>
-          <button onclick="restartAudit()" class="bg-[#0f1420] hover:bg-[#161e30] text-slate-200 font-bold py-2.5 px-3 rounded-xl transition text-xs border border-white/[0.08]">
-            Registrar Otro Puesto
+          <button onclick="restartAudit()" class="bg-[#131824] hover:bg-[#1c2538] text-slate-200 font-bold py-3 px-4 rounded-xl transition text-xs border border-white/[0.08]">
+            Mapear Otro Puesto
           </button>
         </div>
       </div>
     </div>
 
-    <!-- ADMIN MODAL: Protected Leadership Cockpit (Hidden from Regular Employees) -->
+    <!-- ADMIN MODAL: Protected Leadership Cockpit -->
     <div id="censoModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6">
-      <div class="panel-glass rounded-3xl max-w-6xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="glass-dossier rounded-3xl max-w-6xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
         
-        <!-- Modal Topbar -->
+        <!-- Topbar -->
         <div class="p-5 sm:p-6 border-b border-white/[0.08] bg-[#090c14] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-3">
               <span class="text-xl">📊</span>
-              <h3 class="text-xl font-black text-white tracking-tight">Censo Operacional y Mapeo Organizacional</h3>
+              <h3 class="text-xl font-black text-white tracking-tight">Censo Operacional & Mapa de Puestos</h3>
               <span class="text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded font-mono font-bold">ACCESO GERENCIAL</span>
             </div>
-            <p class="text-xs text-slate-400 mt-1">Control de colaboradores censados por tienda y área, procesos mapeados y alertas P0.</p>
+            <p class="text-xs text-slate-400 mt-1">Monitoreo de avance de las 77 tiendas y departamentos centrales con mapeo de procesos y fallas P0.</p>
           </div>
           <div class="flex items-center gap-2.5">
             <a href="/api/export/csv" target="_blank" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
-              <span>📥</span> <span>Exportar Excel (CSV)</span>
+              <span>📥</span> <span>Exportar Todo a Excel (CSV)</span>
             </a>
-            <button onclick="loadCensoData()" title="Refrescar datos" class="text-xs bg-[#0f1420] hover:bg-[#161e30] text-slate-200 px-3 py-2 rounded-xl transition border border-white/[0.08]">
+            <button onclick="loadCensoData()" title="Refrescar datos" class="text-xs bg-[#131824] hover:bg-[#1c2538] text-slate-200 px-3 py-2 rounded-xl transition border border-white/[0.08]">
               🔄
             </button>
-            <button onclick="closeCensoModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-[#0f1420] border border-white/[0.08]">✕</button>
+            <button onclick="closeCensoModal()" class="text-slate-400 hover:text-white p-2 rounded-xl bg-[#131824] border border-white/[0.08]">✕</button>
           </div>
         </div>
 
         <!-- Metrics Bento Row -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 p-4 sm:p-6 bg-[#07090e] border-b border-white/[0.08]">
-          
-          <div class="panel-card rounded-2xl p-4">
-            <div class="text-slate-400 text-xs font-semibold">Colaboradores Censados</div>
+          <div class="glass-card rounded-2xl p-4">
+            <div class="text-slate-400 text-xs font-semibold">Fichas Mapeadas</div>
             <div id="statTotalRespuestas" class="text-3xl font-black text-white font-mono mt-1">0</div>
-            <div class="text-[10px] text-slate-500 mt-0.5">Fichas de proceso completas</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Colaboradores registrados</div>
           </div>
 
-          <div class="panel-card rounded-2xl p-4">
+          <div class="glass-card rounded-2xl p-4">
             <div class="text-slate-400 text-xs font-semibold">Unidades / Tiendas Cubiertas</div>
             <div id="statTiendasCompletadas" class="text-3xl font-black text-emerald-400 font-mono mt-1">0 / 80</div>
             <div class="w-full bg-[#1e293b] rounded-full h-1.5 mt-2 overflow-hidden">
@@ -443,18 +534,17 @@
             </div>
           </div>
 
-          <div class="panel-card rounded-2xl p-4">
+          <div class="glass-card rounded-2xl p-4">
             <div class="text-slate-400 text-xs font-semibold">Unidades Pendientes</div>
             <div id="statTiendasPendientes" class="text-3xl font-black text-amber-400 font-mono mt-1">80</div>
-            <div class="text-[10px] text-slate-500 mt-0.5">Tiendas o áreas sin registrar</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Faltan por mapear</div>
           </div>
 
-          <div class="panel-card rounded-2xl p-4">
+          <div class="glass-card rounded-2xl p-4">
             <div class="text-slate-400 text-xs font-semibold">Bloqueos P0 Reportados</div>
             <div id="statP0Total" class="text-3xl font-black text-rose-400 font-mono mt-1">0</div>
             <div class="text-[10px] text-rose-400/80 mt-0.5 font-medium">Prioritarios para resolver hoy</div>
           </div>
-
         </div>
 
         <!-- Controls: Search & Filters -->
@@ -465,9 +555,9 @@
           </div>
           <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1 sm:pb-0">
             <button onclick="setCensoFilter('todos')" id="filterTabTodos" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold whitespace-nowrap">Todas las Unidades (80)</button>
-            <button onclick="setCensoFilter('pendientes')" id="filterTabPendientes" class="px-3 py-1.5 rounded-lg bg-[#0f1420] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap">⚠️ Faltan</button>
-            <button onclick="setCensoFilter('completadas')" id="filterTabCompletadas" class="px-3 py-1.5 rounded-lg bg-[#0f1420] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap">✅ Listas</button>
-            <button onclick="setCensoFilter('p0')" id="filterTabP0" class="px-3 py-1.5 rounded-lg bg-[#0f1420] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap">🚨 Con P0</button>
+            <button onclick="setCensoFilter('pendientes')" id="filterTabPendientes" class="px-3 py-1.5 rounded-lg bg-[#131824] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap">⚠️ Faltan</button>
+            <button onclick="setCensoFilter('completadas')" id="filterTabCompletadas" class="px-3 py-1.5 rounded-lg bg-[#131824] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap">✅ Listas</button>
+            <button onclick="setCensoFilter('p0')" id="filterTabP0" class="px-3 py-1.5 rounded-lg bg-[#131824] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap">🚨 Con P0</button>
           </div>
         </div>
 
@@ -481,10 +571,10 @@
 
   </main>
 
-  <!-- FOOTER: Confidentiality Seal & Discreet Admin Key for Osman -->
-  <footer class="border-t border-white/[0.06] bg-[#070a10] py-4 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
-      <span>KM Motos © 2026 · Levantamiento Operacional y Gobernanza de Procesos</span>
+  <!-- FOOTER: Discreet Admin Key for Osman -->
+  <footer class="border-t border-white/[0.06] bg-[#07090e] py-4 text-center text-xs text-slate-500">
+    <div class="max-w-[1500px] mx-auto px-4 flex items-center justify-between">
+      <span>KM Motos © 2026 · Academia de Procesos & Gobernanza Operacional</span>
       <button onclick="promptAdminAccess()" class="text-[11px] text-slate-600 hover:text-slate-400 transition flex items-center gap-1">
         <span>🔒</span>
         <span>Acceso Supervisión</span>
@@ -494,31 +584,39 @@
 
   <script>
     const STORAGE_KEY = 'km_copiloto_auditorias';
-    let currentUser = { name: '', store: '', role: '' };
+    let currentUser = { name: '', store: '', role: '', leader: '' };
     let currentStep = 0;
-    let auditData = { responsabilidades: '', procesos_clave: '', checklist: '', falla_p0: '', cuello_botella: '' };
+    
+    // Comprehensive Dossier Data Model (Las 5 Dimensiones End-to-End)
+    let auditData = {
+      jornada_diaria: '',       // Fase 1: 7:30 a 5:30
+      conexiones_organigrama: '', // Fase 2: Upstream / Downstream
+      herramientas_checklist: '', // Fase 3: Stack de software & checklist
+      multiplicador_valor: '',  // Fase 4: Cómo impacta en resultados
+      bloqueos_p0: ''           // Fase 5: Lo que falla hoy en sistema
+    };
+
     let lastSummaryFormatted = '';
     let currentFolioId = null;
 
     let serverStats = null;
     let currentFilterMode = 'todos';
 
-    // Agrupaciones canónicas organizacionales: Áreas Corporativas + Tiendas por Región
     const ZONAS = [
       {
-        nombre: "ÁREAS CENTRALES & CORPORATIVO",
-        prefix: ["Centro de Distribución", "Taller Central", "Créditos", "Cobranzas", "Contabilidad", "Tesorería", "Compras", "Recursos Humanos", "Tecnología", "Ventas Mayoreo", "Gerencia"]
+        nombre: "DEPARTAMENTOS CENTRALES & CORPORATIVO",
+        prefix: ["Centro de Distribución", "Taller Central", "Créditos", "Cobranzas", "Contabilidad", "Tesorería", "Compras", "Recursos Humanos", "Tecnología", "Ventas Mayoreo", "Gerencia", "Dirección"]
       },
       {
-        nombre: "ZONA NORTE & VALLE DE SULA",
+        nombre: "VALLE DE SULA & ZONA NORTE",
         prefix: ["SPS", "Choloma", "Puerto Cortés", "Villanueva", "La Lima", "El Progreso", "Santa Rita", "Potrerillos"]
       },
       {
-        nombre: "ZONA CENTRO & FRANCISCO MORAZÁN",
+        nombre: "FRANCISCO MORAZÁN & TEGUCIGALPA",
         prefix: ["Tegucigalpa", "Talanga", "Comayagüela"]
       },
       {
-        nombre: "ZONA COMAYAGUA, LA PAZ & INTIBUCÁ",
+        nombre: "COMAYAGUA, LA PAZ & INTIBUCÁ",
         prefix: ["Comayagua", "Siguatepeque", "La Paz", "Marcala", "Jesús de Otoro", "Intibucá"]
       },
       {
@@ -526,15 +624,15 @@
         prefix: ["Choluteca", "San Lorenzo", "Nacaome", "Marcovia", "Monjarás", "El Triunfo", "Pespire"]
       },
       {
-        nombre: "ZONA ATLÁNTIDA, COLÓN & YORO",
+        nombre: "ATLÁNTIDA, COLÓN & YORO",
         prefix: ["La Ceiba", "Tela", "Olanchito", "Tocoa", "Trujillo", "Saba", "Sonaguera", "Yoro"]
       },
       {
-        nombre: "ZONA OCCIDENTE (COPÁN, OCOTEPEQUE, SANTA BÁRBARA)",
+        nombre: "OCCIDENTE (COPÁN, OCOTEPEQUE, SANTA BÁRBARA)",
         prefix: ["Santa Rosa", "Entrada de Copán", "Copán Ruinas", "Ocotepeque", "Gracias", "Santa Bárbara", "Ilama", "Quimistán", "Azacualpa"]
       },
       {
-        nombre: "ZONA OLANCHO & EL PARAÍSO",
+        nombre: "OLANCHO & EL PARAÍSO",
         prefix: ["Juticalpa", "Catacamas", "Campamento", "San Esteban", "Danlí", "El Paraíso"]
       }
     ];
@@ -552,34 +650,38 @@
       catch(e) { return []; }
     }
 
-    /* === MULTI-PHASE PROCESS & JOB INTERVIEW (5 FASES) === */
+    /* === CONVERSATIONAL INTERVIEW FLOW (5 DIMENSIONES ESTRATÉGICAS) === */
 
     function startChat(e) {
       e.preventDefault();
       currentUser.name = document.getElementById('empName').value.trim();
       currentUser.store = document.getElementById('empStore').value.trim();
       currentUser.role = document.getElementById('empRole').value.trim();
+      currentUser.leader = (document.getElementById('empLeader').value || 'Dirección / Supervisión').trim();
 
       if (!currentUser.name || !currentUser.store || !currentUser.role) {
-        alert('Por favor completa los 3 datos para comenzar.');
+        alert('Por favor completa Nombre, Área y Cargo para comenzar.');
         return;
       }
 
       document.getElementById('authCard').classList.add('hidden');
       document.getElementById('chatInterface').classList.remove('hidden');
 
-      document.getElementById('sessionHeaderName').innerText = currentUser.name;
-      document.getElementById('sessionHeaderRole').innerText = currentUser.role;
-      document.getElementById('sessionHeaderStore').innerText = currentUser.store;
+      // Populate Left Dossier Profile
+      document.getElementById('dossierAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
+      document.getElementById('dossierName').innerText = currentUser.name;
+      document.getElementById('dossierRole').innerText = currentUser.role;
+      document.getElementById('dossierStore').innerText = currentUser.store;
+      document.getElementById('dossierLeader').innerText = currentUser.leader;
 
+      // Kickoff conversational stage
       setTimeout(() => {
-        botReply(`¡Hola **${currentUser.name}**! Qué gusto saludarte.\n\nComo **${currentUser.role}** en **${currentUser.store}**, tu experiencia directa es fundamental para ordenar procesos y resolver problemas en el sistema.\n\n👉 **Fase 1: ¿Qué hacés en tu puesto?**\nContame cuáles son las 2 o 3 actividades o tareas principales que consumen la mayor parte de tu tiempo en tu día a día.`, [
-          'Atención y facturación en mostrador',
-          'Recepción, conteo y despacho de mercadería',
-          'Arqueo, cuadre de caja y depósitos',
-          'Evaluación y dictamen de créditos',
-          'Gestión y cobro de cartera de clientes',
-          'Registro contable y conciliación de cuentas'
+        botReply(`¡Hola **${currentUser.name}**! Qué gusto tenerte aquí.\n\nEn **KM Motos** queremos que cada puesto funcione con máxima claridad y sin fricción. Como **${currentUser.role}** en **${currentUser.store}**, tu día a día es el corazón de la operación.\n\n👉 **Fase 1: Mapeo de tu Jornada (7:30 AM a 5:30 PM)**\nContame cómo es un día normal de trabajo: ¿Con qué arrancás a las 7:30 AM, qué hacés en las horas más movidas del día y cómo cerrás tu jornada a las 5:30 PM?`, [
+          '7:30 abro caja y limpio área -> 8:00 facturo en mostrador -> 5:00 arqueo y deposito',
+          '7:30 recibo camión de bodega -> 10:00 despacho traslados -> 4:30 conteo físico',
+          '7:30 reviso expedientes de crédito -> llamo referencias -> dictamino en sistema',
+          '7:30 descargo reporte de ventas -> cuadro cobros con banco -> registro en sistema',
+          '7:30 reunión de coordinación -> superviso metas y resuelvo contingencias'
         ]);
         document.getElementById('chatInput').focus();
       }, 250);
@@ -588,23 +690,23 @@
     function renderMessage(sender, text) {
       const container = document.getElementById('chatMessages');
       const msgDiv = document.createElement('div');
-      msgDiv.className = sender === 'bot' ? 'flex items-start gap-3' : 'flex items-start justify-end gap-3';
+      msgDiv.className = sender === 'bot' ? 'flex items-start gap-3.5' : 'flex items-start justify-end gap-3.5';
 
       const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
 
       if (sender === 'bot') {
         msgDiv.innerHTML = `
-          <div class="w-8 h-8 rounded-xl bg-rose-600 flex-shrink-0 flex items-center justify-center text-xs text-white font-black shadow-md">KM</div>
-          <div class="bg-[#0f1420] border border-white/[0.08] p-4 text-xs sm:text-sm text-slate-200 max-w-[85%] rounded-2xl rounded-tl-sm leading-relaxed shadow-sm">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-600 to-red-700 flex-shrink-0 flex items-center justify-center text-xs text-white font-black shadow-md shadow-rose-600/20 ring-1 ring-white/10">KM</div>
+          <div class="bg-[#111622] border border-white/[0.09] p-4 text-xs sm:text-sm text-slate-200 max-w-[85%] rounded-2xl rounded-tl-sm leading-relaxed shadow-md">
             ${formattedText}
           </div>
         `;
       } else {
         msgDiv.innerHTML = `
-          <div class="bg-blue-600 border border-blue-500/50 p-4 text-xs sm:text-sm text-white max-w-[85%] rounded-2xl rounded-tr-sm leading-relaxed shadow-sm">
+          <div class="bg-blue-600 border border-blue-500/50 p-4 text-xs sm:text-sm text-white max-w-[85%] rounded-2xl rounded-tr-sm leading-relaxed shadow-md">
             ${formattedText}
           </div>
-          <div class="w-8 h-8 rounded-xl bg-[#1e293b] flex-shrink-0 flex items-center justify-center text-xs text-slate-300 font-bold border border-white/[0.08]">${currentUser.name.charAt(0)}</div>
+          <div class="w-9 h-9 rounded-xl bg-[#1e293b] flex-shrink-0 flex items-center justify-center text-xs text-slate-200 font-black border border-white/[0.08]">${currentUser.name.charAt(0).toUpperCase()}</div>
         `;
       }
 
@@ -638,8 +740,8 @@
       chips.forEach(chip => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'chip-btn px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 shadow-sm';
-        btn.innerHTML = `<span class="text-blue-400 font-bold">+</span> <span>${chip}</span>`;
+        btn.className = 'chip-action px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-sm';
+        btn.innerHTML = `<span class="text-rose-400 font-bold">+</span> <span>${chip}</span>`;
         btn.onclick = () => {
           document.getElementById('chatInput').value = chip;
           handleUserMessage(new Event('submit'));
@@ -661,69 +763,91 @@
       processStep(text);
     }
 
+    function updateDossierStep(stepNum, label, contentSnippet) {
+      const card = document.getElementById('stepCard' + stepNum);
+      const status = document.getElementById('stepStatus' + stepNum);
+      if (card && status) {
+        card.className = 'p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs text-emerald-300';
+        status.innerText = '✓ Listo';
+        status.className = 'text-[10px] font-mono text-emerald-400 font-bold';
+      }
+
+      // Add snippet to Live Dossier Body
+      const liveBody = document.getElementById('liveDossierBody');
+      const item = document.createElement('div');
+      item.className = 'p-2.5 rounded-xl bg-[#090c14] border border-white/[0.06] text-[11px] space-y-0.5 animate-fadein';
+      item.innerHTML = `<span class="text-blue-400 font-bold font-mono">${label}:</span> <span class="text-slate-300">${contentSnippet.substring(0, 95)}...</span>`;
+      liveBody.appendChild(item);
+    }
+
     function processStep(userText) {
       if (currentStep === 0) {
-        auditData.responsabilidades = userText;
+        auditData.jornada_diaria = userText;
         currentStep = 1;
-        document.getElementById('stageLabel').innerText = '2/5 Procesos Clave';
+        updateDossierStep(1, '⏱️ 7:30 - 5:30', userText);
+        document.getElementById('stageLabel').innerText = 'FASE 2/5: Organigrama';
 
-        botReply(`Muy claro lo que hacés. Ahora profundicemos en **cómo lo hacés**:\n\n👉 **Fase 2: ¿Cuáles son tus procesos clave paso a paso?**\nExplicame el flujo de tu tarea más repetitiva: ¿Cómo arranca, qué sistema o herramienta usás (kmpos, Excel, WhatsApp, físico) y cómo termina?`, [
-          'Ingreso a kmpos -> creo proforma -> facturo -> cobro en caja',
-          'Recibo traslado de bodega -> cuento físico -> confirmo en sistema',
-          'Reviso solicitud de crédito -> llamo referencias -> apruebo en sistema',
-          'Descargo reporte de ventas a Excel -> cuadro cobros con banco',
-          'Atiendo garantía -> reviso moto en taller -> registro en kmpos'
+        botReply(`Muy claro cómo transcurre tu día de 7:30 a 5:30. Ahora miremos la **conexión con los demás** para romper las islas separadas:\n\n👉 **Fase 2: Conexiones en el Organigrama**\n¿Con qué otras áreas, puestos o sucursales te coordinás todos los días? (¿A quién le pedís autorizaciones/insumos y a quién le entregás tus tareas completadas?)`, [
+          'Coordino con Bodega Central para traslados y con Créditos para autorizar ventas',
+          'Coordino con Tiendas para enviar mercadería y con Compras para pedir repuestos',
+          'Coordino con Finanzas para cheques/gastos y con Auditoría para cuadres',
+          'Coordino con los Vendedores de mostrador y directamente con los Clientes',
+          'Coordino con Administradores de tienda y con la Dirección General'
         ]);
 
       } else if (currentStep === 1) {
-        auditData.procesos_clave = userText;
+        auditData.conexiones_organigrama = userText;
         currentStep = 2;
-        document.getElementById('stageLabel').innerText = '3/5 Checklist Insumos';
+        updateDossierStep(2, '🌐 Conexiones', userText);
+        document.getElementById('stageLabel').innerText = 'FASE 3/5: Herramientas';
 
-        botReply(`Excelente mapeo del flujo. Para que ese proceso se ejecute sin trabas:\n\n👉 **Fase 3: ¿Cuál es el CHECKLIST de herramientas, accesos o insumos que necesitás tener al 100% listos al iniciar tu turno?**`, [
-          'Facturación POS SAR activa e impresora lista',
-          'Inventario de tienda sincronizado en línea',
-          'Fondo inicial de caja y sistema de cobros',
-          'Módulo de traslados y recepciones activo',
-          'Acceso a banco y reportes de cobranza'
+        botReply(`Excelente mapa de interacción. Para que esa cadena no se corte nunca:\n\n👉 **Fase 3: Stack de Herramientas & Checklist Pre-Flight**\n¿Qué herramientas o sistemas usás (kmpos, Excel, WhatsApp, papel, llamadas)? ¿Y qué checklist de cosas necesitás tener al 100% listas al arrancar tu jornada para poder trabajar sin trabas?`, [
+          'kmpos facturación activa + impresora de tickets lista + fondo de caja en efectivo',
+          'kmpos inventario + handheld lector de barras + WhatsApp con encargados de tienda',
+          'Excel de control financiero + banca en línea + kmpos módulo de cobros',
+          'kmpos cotizaciones + teléfono corporativo para seguimiento de clientes',
+          'ERP general + correo electrónico + reportes de rentabilidad diarios'
         ]);
 
       } else if (currentStep === 2) {
-        auditData.checklist = userText;
+        auditData.herramientas_checklist = userText;
         currentStep = 3;
-        document.getElementById('stageLabel').innerText = '4/5 Falla P0 del Sistema';
+        updateDossierStep(3, '🛠️ Herramientas', userText);
+        document.getElementById('stageLabel').innerText = 'FASE 4/5: Multiplicador';
 
-        botReply(`Tomado el checklist de insumos. Ahora vamos directo a lo que más duele:\n\n🚨 **Fase 4: ¿Qué pantalla, botón, reporte o proceso te está FALLANDO HOY en el sistema?**\n(¿Qué está lento, colgado o te obliga a hacer planillas en Excel por fuera?) Esto entra con prioridad **P0** para solucionarse.`, [
-          'Lentitud o congelamiento al facturar en caja',
-          'El stock físico no coincide con lo que marca el sistema',
-          'Demora al registrar cobros o conciliar recibos',
-          'Lentitud intermitente en conexión con SAR / CAI',
-          'Ninguno, todo está operando al 100%'
+        botReply(`Tomado el stack y el checklist diario. Ahora hablemos de tu **impacto**:\n\n👉 **Fase 4: Tu Multiplicador de Valor**\nCada puesto en KM Motos aporta a la meta final. ¿Cuál es el mayor beneficio o impacto que le generás a la empresa cuando tu trabajo del día sale perfecto?`, [
+          'Asegurar ventas fluidas y que ningún cliente se vaya sin su moto o repuesto',
+          'Mantener el inventario cuadrado al 100% sin faltantes y despachos puntuales',
+          'Caja cerrada al centavo con depósitos bancarios limpios y sin diferencias',
+          'Aprobación rápida de créditos para cerrar ventas que de otro modo se caen',
+          'Decisiones estratégicas oportunas que resuelven cuellos de botella del equipo'
         ]);
 
       } else if (currentStep === 3) {
-        auditData.falla_p0 = userText;
+        auditData.multiplicador_valor = userText;
         currentStep = 4;
-        document.getElementById('stageLabel').innerText = '5/5 Dependencias y Cuellos';
+        updateDossierStep(4, '🚀 Multiplicador', userText);
+        document.getElementById('stageLabel').innerText = 'FASE 5/5: Destrabe P0';
 
-        botReply(`Registrado con prioridad P0.\n\n🛑 **Fase 5 (Última): ¿De qué otra área, puesto o sucursal dependés para completar tu trabajo que hoy te esté generando retrasos o cuellos de botella?**`, [
-          'Bodega Central (retrasos en enviar o autorizar traslados)',
-          'Créditos (demora en dictamen y aprobación de expedientes)',
-          'Finanzas / Tesorería (aprobación de cheques y gastos)',
-          'Compras (falta de stock de repuestos de alta rotación)',
-          'Ninguno, la coordinación interna fluye bien'
+        botReply(`Potente ese aporte de valor. Ahora vamos directo a lo que más te estorba para que el equipo técnico lo resuelva hoy mismo:\n\n🚨 **Fase 5: Falla Crítica o Bloqueo del Sistema (Ticket P0)**\n¿Qué pantalla, botón, proceso o sistema te está FALLANDO HOY? (¿Qué está lento, colgado, arroja errores o te obliga a hacer planillas en Excel por fuera?)`, [
+          'Lentitud o congelamiento al emitir facturas en mostrador',
+          'Diferencias entre el stock físico de la tienda y lo que muestra kmpos',
+          'Demora en que Bodega Central autorice y despache las solicitudes de traslado',
+          'Lentitud intermitente al conectar con el SAR para emitir CAI',
+          'Todo está operando al 100% sin fallas críticas'
         ]);
 
       } else if (currentStep === 4) {
-        auditData.cuello_botella = userText;
+        auditData.bloqueos_p0 = userText;
         currentStep = 5;
-        document.getElementById('stageLabel').innerText = 'Finalizado';
+        updateDossierStep(5, '🚨 Bloqueo P0', userText);
+        document.getElementById('stageLabel').innerText = 'FINALIZADO';
 
-        botReply(`¡Muchísimas gracias por tu tiempo y precisión, **${currentUser.name}**!\n\nEstoy guardando tu ficha completa de puesto y procesos en el servidor central de KM Motos...`);
+        botReply(`¡Brillante trabajo, **${currentUser.name}**!\n\nAcabás de completar el mapeo estratégico de tu puesto. Estoy consolidando tu **Ficha Oficial de Puesto y Procesos** y sincronizándola con el servidor central de KM Motos...`);
 
         setTimeout(() => {
           finalizeAudit();
-        }, 700);
+        }, 800);
       }
     }
 
@@ -735,6 +859,7 @@
         colaborador: { ...currentUser },
         diagnostico: { ...auditData }
       };
+
       const currentList = getAudits();
       currentList.unshift(submission);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(currentList));
@@ -744,12 +869,12 @@
           nombre: currentUser.name,
           sucursal: currentUser.store,
           rol: currentUser.role,
-          responsabilidades: auditData.responsabilidades,
-          procesos_clave: auditData.procesos_clave,
-          checklist: { detalle: auditData.checklist },
-          prioridades: auditData.responsabilidades,
-          bloqueos_p0: auditData.falla_p0,
-          cuellos_botella: auditData.cuello_botella,
+          responsabilidades: `[7:30 a 5:30]: ${auditData.jornada_diaria} | [Líder]: ${currentUser.leader}`,
+          procesos_clave: `[Conexiones]: ${auditData.conexiones_organigrama} | [Multiplicador]: ${auditData.multiplicador_valor}`,
+          checklist: { detalle: auditData.herramientas_checklist },
+          prioridades: auditData.multiplicador_valor,
+          bloqueos_p0: auditData.bloqueos_p0,
+          cuellos_botella: auditData.conexiones_organigrama,
           sistemas_afectados: "kmpos / erp / manual"
         };
 
@@ -766,44 +891,78 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
             <span>Guardado Central • Folio Oficial #${currentFolioId}</span>
           `;
+          try {
+            window.parent.postMessage({
+              type: 'KM_AUDIT_COMPLETED',
+              folio: currentFolioId,
+              colaborador: { ...currentUser }
+            }, '*');
+          } catch (postErr) {}
         }
       } catch (err) {
         console.warn('Persistencia local activa:', err);
       }
 
       lastSummaryFormatted = 
-`*FICHA DE PUESTO Y PROCESOS OPERACIONALES — KM MOTOS*
+`*FICHA OFICIAL DE PUESTO Y PROCESOS END-TO-END — KM MOTOS*
 ${currentFolioId ? `📌 *Folio Oficial:* #${currentFolioId}\n` : ''}👤 *Colaborador:* ${currentUser.name}
 🏬 *Área / Sucursal:* ${currentUser.store}
 💼 *Puesto:* ${currentUser.role}
-📅 *Fecha:* ${submission.fecha} ${submission.hora}
+👥 *Líder / Reporte Directo:* ${currentUser.leader}
+📅 *Fecha de Registro:* ${submission.fecha} ${submission.hora}
 
-🎯 *RESPONSABILIDADES PRINCIPALES:*
-${auditData.responsabilidades}
+⏱️ *JORNADA REAL (7:30 AM A 5:30 PM):*
+${auditData.jornada_diaria}
 
-🔄 *PROCESOS CLAVE (PASO A PASO):*
-${auditData.procesos_clave}
+🌐 *CONEXIONES EN EL ORGANIGRAMA (Upstream / Downstream):*
+${auditData.conexiones_organigrama}
 
-📋 *CHECKLIST DE INSUMOS NO NEGOCIABLES:*
-${auditData.checklist}
+🛠️ *STACK DE HERRAMIENTAS & CHECKLIST PRE-FLIGHT:*
+${auditData.herramientas_checklist}
+
+🚀 *MULTIPLICADOR DE VALOR DEL PUESTO:*
+${auditData.multiplicador_valor}
 
 🚨 *FALLA CRÍTICA DE SISTEMA (CANDIDATO P0):*
-${auditData.falla_p0}
-
-🛑 *CUELLO DE BOTELLA / DEPENDENCIAS:*
-${auditData.cuello_botella}
+${auditData.bloqueos_p0}
 
 *Estatus:* Registrado en Servidor Central KM Motos`;
 
       document.getElementById('reportSummary').innerHTML = `
-        <div class="border-b border-white/[0.08] pb-3">
-          <strong class="text-white text-sm">${currentUser.name}</strong> • <span class="text-blue-400 font-semibold">${currentUser.role}</span> <span class="text-slate-400">(${currentUser.store})</span>
+        <div class="border-b border-white/[0.08] pb-4 flex items-center justify-between">
+          <div>
+            <strong class="text-white text-base">${currentUser.name}</strong> • <span class="text-blue-400 font-bold">${currentUser.role}</span>
+            <div class="text-xs text-slate-400 mt-0.5">🏬 ${currentUser.store} • 👤 Reporta a: <span class="text-rose-400">${currentUser.leader}</span></div>
+          </div>
+          <span class="text-emerald-400 font-mono font-bold text-xs bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/30">FOLIO #${currentFolioId || 'ACTIVO'}</span>
         </div>
-        <div><span class="text-slate-400">🎯 Responsabilidades:</span> <span class="text-slate-200">${auditData.responsabilidades}</span></div>
-        <div><span class="text-blue-400">🔄 Procesos Clave:</span> <span class="text-slate-200">${auditData.procesos_clave}</span></div>
-        <div><span class="text-emerald-400">📋 Checklist Insumos:</span> <span class="text-slate-200">${auditData.checklist}</span></div>
-        <div class="bg-rose-950/40 p-3 rounded-xl border border-rose-900/60"><span class="text-rose-400 font-bold">🚨 Falla P0 Sistema:</span> <span class="text-rose-200">${auditData.falla_p0}</span></div>
-        <div><span class="text-amber-400">🛑 Cuello de Botella:</span> <span class="text-slate-200">${auditData.cuello_botella}</span></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+          <div class="p-3.5 rounded-xl bg-[#0d111a] border border-white/[0.06] space-y-1">
+            <span class="text-blue-400 font-bold font-mono text-xs">⏱️ Jornada 7:30 a 5:30:</span>
+            <p class="text-slate-300 text-xs">${auditData.jornada_diaria}</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-[#0d111a] border border-white/[0.06] space-y-1">
+            <span class="text-emerald-400 font-bold font-mono text-xs">🌐 Conexiones Organigrama:</span>
+            <p class="text-slate-300 text-xs">${auditData.conexiones_organigrama}</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-[#0d111a] border border-white/[0.06] space-y-1">
+            <span class="text-amber-400 font-bold font-mono text-xs">🛠️ Herramientas & Checklist:</span>
+            <p class="text-slate-300 text-xs">${auditData.herramientas_checklist}</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-[#0d111a] border border-white/[0.06] space-y-1">
+            <span class="text-purple-400 font-bold font-mono text-xs">🚀 Multiplicador de Valor:</span>
+            <p class="text-slate-300 text-xs">${auditData.multiplicador_valor}</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-rose-950/40 border border-rose-900/60 space-y-1">
+          <span class="text-rose-400 font-black font-mono text-xs">🚨 Falla Crítica de Sistema (Ticket P0):</span>
+          <p class="text-rose-200 text-xs">${auditData.bloqueos_p0}</p>
+        </div>
       `;
 
       document.getElementById('chatInterface').classList.add('hidden');
@@ -819,15 +978,25 @@ ${auditData.cuello_botella}
     function copyToClipboardFinal() {
       if (!lastSummaryFormatted) return;
       navigator.clipboard.writeText(lastSummaryFormatted).then(() => {
-        alert('Ficha oficial de puesto y procesos copiada al portapapeles.');
+        alert('Ficha oficial copiada al portapapeles.');
       });
     }
 
     function restartAudit() {
       currentStep = 0;
       currentFolioId = null;
-      auditData = { responsabilidades: '', procesos_clave: '', checklist: '', falla_p0: '', cuello_botella: '' };
+      auditData = { jornada_diaria: '', conexiones_organigrama: '', herramientas_checklist: '', multiplicador_valor: '', bloqueos_p0: '' };
       document.getElementById('chatMessages').innerHTML = '';
+      document.getElementById('liveDossierBody').innerHTML = '';
+      for (let i = 1; i <= 5; i++) {
+        const card = document.getElementById('stepCard' + i);
+        const st = document.getElementById('stepStatus' + i);
+        if (card && st) {
+          card.className = 'p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between';
+          st.innerText = i === 1 ? 'En curso...' : 'Pendiente';
+          st.className = i === 1 ? 'text-[10px] font-mono text-slate-500' : 'text-[10px] font-mono text-slate-600';
+        }
+      }
       document.getElementById('finalCard').classList.add('hidden');
       document.getElementById('authCard').classList.remove('hidden');
       document.getElementById('empName').focus();
@@ -844,9 +1013,28 @@ ${auditData.cuello_botella}
       }
     }
 
-    // Si la URL contiene ?admin o ?censo, abrir directamente o con PIN
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('embedded')) {
+        const header = document.querySelector('header');
+        if (header) header.style.display = 'none';
+        const footer = document.querySelector('footer');
+        if (footer) footer.style.display = 'none';
+        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundColor = '#07090e';
+      }
+      if (urlParams.get('name')) {
+        const el = document.getElementById('empName');
+        if (el) el.value = urlParams.get('name');
+      }
+      if (urlParams.get('store')) {
+        const el = document.getElementById('empStore');
+        if (el) el.value = urlParams.get('store');
+      }
+      if (urlParams.get('role')) {
+        const el = document.getElementById('empRole');
+        if (el) el.value = urlParams.get('role');
+      }
       if (urlParams.has('admin') || urlParams.has('censo')) {
         openCensoModal();
       }
@@ -898,7 +1086,7 @@ ${auditData.cuello_botella}
           if (f === filter) {
             btn.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold whitespace-nowrap';
           } else {
-            btn.className = 'px-3 py-1.5 rounded-lg bg-[#0f1420] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap';
+            btn.className = 'px-3 py-1.5 rounded-lg bg-[#131824] text-slate-300 hover:text-white border border-white/[0.08] whitespace-nowrap';
           }
         }
       });
@@ -944,7 +1132,6 @@ ${auditData.cuello_botella}
         return;
       }
 
-      // Agrupar por Zona y Áreas Corporativas
       let html = '';
 
       ZONAS.forEach(zona => {
@@ -975,7 +1162,6 @@ ${auditData.cuello_botella}
         `;
       });
 
-      // Huérfanas
       const orfanas = items.filter(st => {
         return !ZONAS.some(z => z.prefix.some(p => st.sucursal.toLowerCase().includes(p.toLowerCase())));
       });
@@ -1003,7 +1189,7 @@ ${auditData.cuello_botella}
         const p0Text = det.bloqueos_p0 && !['ninguno', 'no', 'n/a', 'none'].includes(det.bloqueos_p0.toLowerCase()) ? det.bloqueos_p0 : null;
         
         return `
-          <div class="bg-[#0f1420] border border-emerald-500/30 rounded-2xl p-4 space-y-2.5 hover:border-emerald-500/60 transition shadow-sm">
+          <div class="bg-[#111622] border border-emerald-500/30 rounded-2xl p-4 space-y-2.5 hover:border-emerald-500/60 transition shadow-sm">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
@@ -1020,9 +1206,9 @@ ${auditData.cuello_botella}
                 <span class="text-blue-400 font-mono font-bold">Folio #${det.id}</span>
               </div>
 
-              ${det.procesos_clave ? `
+              ${det.responsabilidades ? `
                 <div class="text-[11px] text-slate-300 pt-1">
-                  <span class="text-blue-400 font-semibold">Proceso:</span> ${det.procesos_clave.substring(0, 90)}...
+                  <span class="text-blue-400 font-semibold">Jornada/Responsabilidad:</span> ${det.responsabilidades.substring(0, 95)}...
                 </div>
               ` : ''}
 
@@ -1030,13 +1216,13 @@ ${auditData.cuello_botella}
                 <div class="mt-1.5 p-2.5 bg-rose-950/40 rounded-lg border border-rose-900/60 text-xs">
                   <span class="text-rose-400 font-bold">🚨 Bloqueo P0:</span> <span class="text-rose-200">${p0Text}</span>
                 </div>
-              ` : '<div class="text-[10px] text-slate-500">Operación normal sin bloqueos P0.</div>'}
+              ` : '<div class="text-[10px] text-slate-500">Operación fluida sin bloqueos P0.</div>'}
             </div>
           </div>
         `;
       } else {
         return `
-          <div class="bg-[#0b0f17]/90 border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between text-xs hover:border-white/20 transition">
+          <div class="bg-[#0c1017] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between text-xs hover:border-white/20 transition">
             <div class="flex items-center gap-2.5">
               <span class="w-2 h-2 rounded-full bg-amber-400/80"></span>
               <div>
@@ -1044,7 +1230,7 @@ ${auditData.cuello_botella}
                 <div class="text-[11px] text-slate-500">Pendiente de completar mapeo</div>
               </div>
             </div>
-            <button onclick="copiarRecordatorioWhatsApp('${item.sucursal}')" class="text-[11px] bg-[#151c2c] hover:bg-[#1e293b] text-slate-200 hover:text-white border border-white/[0.08] px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm font-semibold">
+            <button onclick="copiarRecordatorioWhatsApp('${item.sucursal}')" class="text-[11px] bg-[#131824] hover:bg-[#1c2538] text-slate-200 hover:text-white border border-white/[0.08] px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-sm font-semibold">
               <span>📲</span> <span>Recordar</span>
             </button>
           </div>
@@ -1053,7 +1239,7 @@ ${auditData.cuello_botella}
     }
 
     function copiarRecordatorioWhatsApp(sucursal) {
-      const msg = `Hola equipo de ${sucursal}. Por favor ingresen a https://tablero.apps.kmmotos.com para completar la entrevista de mapeo de su puesto y procesos antes del cierre de hoy. Es indispensable para la planificación técnica.`;
+      const msg = `Hola equipo de ${sucursal}. Por favor ingresen a https://tablero.apps.kmmotos.com para completar el mapeo de procesos de su puesto antes del cierre de hoy. Es indispensable para coordinar la gobernanza operativa.`;
       navigator.clipboard.writeText(msg).then(() => {
         const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
         window.open(url, '_blank');
