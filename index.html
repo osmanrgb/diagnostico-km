@@ -569,8 +569,14 @@
       const r = (role || '').toLowerCase();
       const s = (store || '').toLowerCase();
       
-      if (r.includes('ceo') || r.includes('director general') || r.includes('dueño') || r.includes('gerente general') || r.includes('presidente')) {
+      if (r.includes('ceo') || r.includes('seo') || r.includes('director') || r.includes('dueño') || r.includes('gerente general') || r.includes('gerencia general') || r.includes('presidente') || r.includes('fundador') || r.includes('estrategia') || s.includes('direcci')) {
         return 'direccion';
+      }
+      if (r.includes('auditor') || r.includes('auditoria') || s.includes('auditor')) {
+        return 'auditoria';
+      }
+      if (r.includes('programad') || r.includes('desarroll') || r.includes('dev') || r.includes('software') || r.includes('sistemas') || r.includes('tecnolog') || s.includes('sistemas') || s.includes('tecnolog')) {
+        return 'tecnologia';
       }
       if (r.includes('mayoreo') || s.includes('mayoreo') || r.includes('b2b') || r.includes('corporativ')) {
         return 'mayoreo';
@@ -578,7 +584,7 @@
       if (r.includes('bodega') || r.includes('cd') || s.includes('cd') || s.includes('distribucion') || r.includes('logistica') || r.includes('despacho') || r.includes('almacen')) {
         return 'logistica';
       }
-      if (r.includes('credito') || r.includes('cobranza') || r.includes('contad') || r.includes('finanz') || r.includes('rrhh') || r.includes('recursos') || r.includes('ti') || r.includes('sistemas') || r.includes('compra')) {
+      if (r.includes('credito') || r.includes('cobranza') || r.includes('contad') || r.includes('finanz') || r.includes('rrhh') || r.includes('recursos') || r.includes('compra')) {
         return 'corporativo';
       }
       if (r.includes('taller') || r.includes('mecanic') || r.includes('tecnico')) {
@@ -826,6 +832,166 @@
               { icon: '📦', title: 'Confirmación automática de traslados', desc: 'Que la tienda confirme en 1 tap y no quede el stock flotando en el limbo.' },
               { icon: '💻', title: 'Sistema ágil que no se congele con lotes grandes', desc: 'Poder ingresar contenedores con 5,000 repuestos sin que el ERP se cuelgue.' },
               { icon: '🚀', title: 'Visibilidad de contenedores en ruta al CD', desc: 'Saber exactamente qué día y hora entra cada contenedor para preparar el muelle.' }
+            ]
+          }
+        ];
+      }
+
+      if (cat === 'auditoria') {
+        return [
+          {
+            stepNum: 1,
+            badge: 'PASO 1 DE 5 · TU ESENCIA EN AUDITORÍA',
+            xp: '+100 XP',
+            percent: 20,
+            title: `¿En qué se concentran tus auditorías de control?`,
+            subtitle: 'Las 2 o 3 actividades críticas para blindar el dinero y los inventarios:',
+            field: 'jornada_diaria',
+            options: [
+              { icon: '🔍', title: 'Arqueos Sorpresivos de Caja', desc: 'Verificación física de efectivo en tiendas, control de fondos fijos y cuadre de depósitos bancarios.' },
+              { icon: '📦', title: 'Auditoría Física de Inventarios', desc: 'Conteos cíclicos de motos y repuestos en tiendas y CD contrastando con el ERP.' },
+              { icon: '📑', title: 'Cumplimiento Fiscal y SAR', desc: 'Revisión de facturación, correlativos CAI y control de proformas abiertas que congelan stock.' },
+              { icon: '⚖️', title: 'Investigación de Mermas y Descuadres', desc: 'Determinar causa raíz de faltantes y proponer acciones correctivas objetivas.' }
+            ]
+          },
+          {
+            stepNum: 2,
+            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            xp: '+100 XP',
+            percent: 40,
+            title: '¿Qué te hace perder tiempo en tus revisiones de auditoría?',
+            subtitle: 'Cosas que retrasan detectar anomalías a tiempo:',
+            field: 'herramientas_checklist',
+            options: [
+              { icon: '✂️', title: 'Pedir bases de datos en Excel', desc: 'Tener que esperar que sistemas o contabilidad exporte tablas en vez de auditar en vivo.' },
+              { icon: '📄', title: 'Actas en papel físico que se archivan y se olvidan', desc: 'Levantar observaciones a mano sin seguimiento automatizado de resolución.' },
+              { icon: '⏳', title: 'Falta de alertas automáticas en el sistema', desc: 'Tener que buscar anomalías a ciegas en vez de que el ERP avise proformas viejas o stock en rojo.' },
+              { icon: '🔄', title: 'Descargos informales por WhatsApp', desc: 'Justificaciones que quedan en chats personales sin trazabilidad institucional.' }
+            ]
+          },
+          {
+            stepNum: 3,
+            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            xp: '+100 XP',
+            percent: 60,
+            title: '¿Qué áreas te deben entregar información limpia?',
+            subtitle: '¿De quién depende que las cuentas y el stock cuadren sin retrasos?',
+            field: 'conexiones_organigrama',
+            options: [
+              { icon: '🛒', title: 'Administradores de Tienda', desc: 'Que envíen los depósitos bancarios y cierres de caja conciliados al centavo al día siguiente.' },
+              { icon: '📦', title: 'Bodega Central (CD)', desc: 'Que no dejen transferencias en tránsito flotando ni averías sin dictamen formal.' },
+              { icon: '💼', title: 'Contabilidad y Finanzas', desc: 'Que apliquen los ajustes y sanciones autorizados sin demorar semanas.' },
+              { icon: '👥', title: 'Gerencia y Dirección', desc: 'Que respalden las observaciones de control y no dejen pasar faltantes por comodidad.' }
+            ]
+          },
+          {
+            stepNum: 4,
+            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LA LIQUIDEZ',
+            xp: '+100 XP',
+            percent: 80,
+            title: '¿Cómo ayuda Auditoría a que la empresa tenga más flujo?',
+            subtitle: 'El control no es burocracia: es proteger el dinero que paga los compromisos:',
+            field: 'multiplicador_valor',
+            options: [
+              { icon: '🛡️', title: 'Blindaje contra fugas y robos hormiga', desc: 'Cuidar cada lempira y cada repuesto para que la empresa no pierda capital.' },
+              { icon: '🔒', title: 'Certeza del inventario real para vender', desc: 'Si el stock en sistema es exacto, el vendedor promete lo que sí hay y la venta no se cae.' },
+              { icon: '⚖️', title: 'Cero multas del SAR por facturación', desc: 'Asegurar que los cortes y CAI estén en regla para no pagar sanciones innecesarias.' },
+              { icon: '⚡', title: 'Disciplina operativa en los 77 puntos', desc: 'Que cada encargado sepa que el estándar de KM no se negocia ni se acomoda.' }
+            ]
+          },
+          {
+            stepNum: 5,
+            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+            xp: '+100 XP',
+            percent: 100,
+            title: '¿Qué herramienta de control le pedís al equipo técnico?',
+            subtitle: 'Lo que te permitiría auditar la empresa en tiempo real:',
+            field: 'bloqueos_p0',
+            options: [
+              { icon: '🛑', title: 'Tablero de Telemetría de Auditoría en Vivo', desc: 'Un monitor que marque en rojo automático: proformas abiertas > 24h, stock negativo y cierres con diferencia.' },
+              { icon: '📦', title: 'Trazabilidad estricta de ajustes de inventario', desc: 'Que nadie pueda alterar existencias sin motivo, usuario y autorización registrada.' },
+              { icon: '📱', title: 'Módulo móvil para actas de auditoría digital', desc: 'Levantar la auditoría desde el celular en tienda con fotos y firma digital.' },
+              { icon: '🚀', title: 'Bloqueo automático de cajas no depositadas', desc: 'Que la tienda que no deposita en 48 horas tenga alerta bloqueante en el POS.' }
+            ]
+          }
+        ];
+      }
+
+      if (cat === 'tecnologia') {
+        return [
+          {
+            stepNum: 1,
+            badge: 'PASO 1 DE 5 · TU ESENCIA EN TECNOLOGÍA',
+            xp: '+100 XP',
+            percent: 20,
+            title: `¿En qué se va tu jornada real de programación y soporte?`,
+            subtitle: 'Las tareas vitales de arquitectura y código que mantienen a KM viva:',
+            field: 'jornada_diaria',
+            options: [
+              { icon: '💻', title: 'Desarrollo de Funciones que Aceleran la Venta', desc: 'Programar módulos de facturación rápida, cobros B2B y conexión con aduanas/CD.' },
+              { icon: '🛑', title: 'Estabilidad de Servidores y Bases de Datos', desc: 'Monitorear que kmpos, APIs y bases de datos no se congelen ni se caigan en horas pico.' },
+              { icon: '🔧', title: 'Resolución de Bugs Críticos (Fixes P0)', desc: 'Apagar fuegos de pantallas que traban la operación diaria de tiendas o bodega.' },
+              { icon: '🤖', title: 'Automatización e Integraciones con IA', desc: 'Construir agentes y flujos para eliminar tareas manuales y reportes en Excel.' }
+            ]
+          },
+          {
+            stepNum: 2,
+            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            xp: '+100 XP',
+            percent: 40,
+            title: '¿Qué tickets o inventos sentís que no sirven y quitan foco?',
+            subtitle: 'Cosas que nos piden programar y que no tienen impacto real en el negocio:',
+            field: 'herramientas_checklist',
+            options: [
+              { icon: '✂️', title: 'Modales para procesos ficticios', desc: 'Ejemplo: Crear modales de apertura en cero para mayoreo donde no se maneja efectivo.' },
+              { icon: '🔄', title: 'Parchando lo secundario mientras lo crítico se cuelga', desc: 'Gastar tiempo en detalles cosméticos mientras la facturación en mostrador es lenta.' },
+              { icon: '📑', title: 'Requerimientos vagos sin especificación clara', desc: 'Tener que adivinar qué quiere el usuario porque el pedido viene en un audio informal.' },
+              { icon: '⏳', title: 'Cambios de alcance a mitad de desarrollo', desc: 'Empezar a construir algo y que al tercer día cambien totalmente la regla del negocio.' }
+            ]
+          },
+          {
+            stepNum: 3,
+            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            xp: '+100 XP',
+            percent: 60,
+            title: '¿Con quién te coordinás y dónde se corta la comunicación?',
+            subtitle: '¿Qué te impide entregar código probado a producción a tiempo?',
+            field: 'conexiones_organigrama',
+            options: [
+              { icon: '🏢', title: 'Dirección y Jefaturas de Área', desc: 'Necesito una lista única de prioridades P0 aprobada para no estar cambiando de foco a cada hora.' },
+              { icon: '🛒', title: 'Usuarios Finales en Tienda y CD', desc: 'Falta de pruebas reales con ellos antes de pasar a producción (Merged ≠ Deployed).' },
+              { icon: '🛡️', title: 'Auditoría y Finanzas', desc: 'Que validen que las reglas de negocio y control contable estén bien contempladas.' },
+              { icon: '👥', title: 'Equipo de Desarrollo / Agentes', desc: 'Mantener estándares de código limpios para que lo que uno programa no rompa lo del otro.' }
+            ]
+          },
+          {
+            stepNum: 4,
+            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
+            xp: '+100 XP',
+            percent: 80,
+            title: '¿Cómo ayuda Tecnología a que entre dinero a la empresa?',
+            subtitle: 'El software es el motor del negocio: ¿cómo aceleramos la máquina?',
+            field: 'multiplicador_valor',
+            options: [
+              { icon: '⚡', title: 'Facturación en 2 segundos sin caídas', desc: 'Si kmpos vuela, la tienda atiende más gente, nadie se va frustrado y la caja suma más ventas.' },
+              { icon: '📦', title: 'Visibilidad de inventario al 100%', desc: 'Saber con exactitud qué motos hay en aduana y CD para venderlas antes de que acumulen multas.' },
+              { icon: '🤖', title: 'Automatización de procesos repetitivos', desc: 'Que tareas de 4 horas en créditos, compras o bodega se hagan solas en 1 clic.' },
+              { icon: '📊', title: 'Telemetría ejecutiva para toma de decisiones', desc: 'Que Dirección vea en tiempo real dónde está trabado el dinero sin pedir reportes.' }
+            ]
+          },
+          {
+            stepNum: 5,
+            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA EL EQUIPO TÉCNICO',
+            xp: '+100 XP',
+            percent: 100,
+            title: '¿Qué compromiso operativo asumimos como equipo técnico?',
+            subtitle: 'La regla de oro para que nuestro trabajo transforme a KM 2.0:',
+            field: 'bloqueos_p0',
+            options: [
+              { icon: '🛑', title: 'Cero tickets basura: 100% foco en flujo y venta', desc: 'No programar nada que no reduzca costos, evite multas o aumente la facturación.' },
+              { icon: '📦', title: 'Axioma «Merged ≠ Deployed» cumplido al 100%', desc: 'No declarar nada como listo hasta que esté probado en el piso real con usuarios.' },
+              { icon: '💻', title: 'Arquitectura limpia sin parches temporales', desc: 'Construir soluciones sólidas para no pasar el día apagando fuegos en WhatsApp.' },
+              { icon: '🚀', title: 'Integración continua y automatizaciones con IA', desc: 'Multiplicar la capacidad del equipo usando agentes para acelerar 10 años en semanas.' }
             ]
           }
         ];
