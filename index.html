@@ -302,6 +302,7 @@
               <button type="button" onclick="quickFill('Bodeguero', 'CD (Centro de Distribución)')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">📦 Bodega</button>
               <button type="button" onclick="quickFill('Cajera', 'Tienda Danlí')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">💰 Cajera</button>
               <button type="button" onclick="quickFill('Auditor Operativo', 'Auditoría')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🔍 Auditor</button>
+              <button type="button" onclick="quickFill('Vendedor de Mayoreo', 'Ruta Mayoreo')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🚛 Vendedor Mayoreo</button>
               <button type="button" onclick="quickFill('Gerente', 'Oficinas Centrales')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">👔 Gerencia / Jefatura</button>
               <button type="button" onclick="quickFill('Desarrollador de Software', 'Sistemas')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">💻 Sistemas / TI</button>
             </div>
@@ -677,6 +678,26 @@
   <!-- JAVASCRIPT ENGINE: Linear + Duolingo + Web Audio + Web Speech             -->
   <!-- ========================================================================= -->
   <script>
+    
+    function showToast(msg, icon = '✨') {
+      let toast = document.getElementById('kmGlobalToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'kmGlobalToast';
+        toast.className = 'fixed top-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-km-surface-high/95 border border-km-green/40 shadow-2xl backdrop-blur-md text-xs font-semibold text-white flex items-center gap-2 transition-all duration-300 pointer-events-none opacity-0 translate-y-[-10px]';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+      toast.classList.remove('opacity-0', 'translate-y-[-10px]');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      if (window.toastTimer) clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-[-10px]');
+      }, 3000);
+    }
+  
     const DRAFT_KEY = 'km_journey_draft_v1';
     let soundEnabled = true;
     let currentUser = { name: '', role: '', store: '' };
@@ -751,51 +772,57 @@
       const r = norm(role);
       const s = norm(store);
 
-      // 1. LEADERSHIP / MANAGEMENT / COORDINATION / SUPERVISION (Takes precedence over location!)
+      // 1. B2B MAYOREO & RUTAS (Ventas por mayor a talleres, refaccionarias y clientes foráneos)
+      if (r.includes('mayoreo') || r.includes('ruta') || r.includes('distribuid') || r.includes('mayorist') || 
+          s.includes('mayoreo') || s.includes('ruta')) {
+        return 'mayoreo';
+      }
+
+      // 2. LEADERSHIP / MANAGEMENT / COORDINATION / SUPERVISION (Takes precedence over location!)
       if (r.includes('geren') || r.includes('direct') || r.includes('jef') || r.includes('coordin') || 
           r.includes('ceo') || r.includes('seo') || r.includes('duen') || r.includes('fundad') || 
           r.includes('administra') || r.includes('lider') || r.includes('supervis') || r.includes('encargad')) {
         return 'liderazgo';
       }
 
-      // 2. SYSTEMS / IT / DEVELOPMENT / SOFTWARE
+      // 3. SYSTEMS / IT / DEVELOPMENT / SOFTWARE
       if (r.includes('sistem') || r.includes('program') || r.includes('desarroll') || r.includes('software') || 
           r.includes('tecnolog') || r.includes('it ') || r.includes(' it') || r === 'it' || r.includes('dev') || r.includes('computo') || r.includes('redes') || r.includes('seguridad inf')) {
         return 'sistemas';
       }
 
-      // 3. AUDIT / ACCOUNTING / FINANCE / CREDIT
+      // 4. AUDIT / ACCOUNTING / FINANCE / CREDIT
       if (r.includes('audit') || r.includes('control interno') || r.includes('conta') || r.includes('finan') || 
           r.includes('tesorer') || r.includes('credit') || r.includes('cobro')) {
         return 'auditoria';
       }
 
-      // 4. PURCHASES / IMPORTS / SUPPLY CHAIN ADMIN
+      // 5. PURCHASES / IMPORTS / SUPPLY CHAIN ADMIN
       if (r.includes('compr') || r.includes('import') || r.includes('proveed') || r.includes('aduana') || r.includes('logist')) {
         return 'compras';
       }
 
-      // 5. HR / PAYROLL / TALENT
+      // 6. HR / PAYROLL / TALENT
       if (r.includes('rrhh') || r.includes('recursos humanos') || r.includes('talent') || r.includes('planill') || r.includes('nomin')) {
         return 'rrhh';
       }
 
-      // 6. MECHANIC / WORKSHOP
-      if (r.includes('mecanic') || r.includes('taller') || r.includes('mantenimiento') || r.includes('armad') || r.includes('reparac')) {
+      // 7. MECHANIC / WORKSHOP (Instalación y pruebas de repuestos)
+      if (r.includes('mecanic') || r.includes('taller') || r.includes('mantenimiento') || r.includes('reparac') || r.includes('garantia')) {
         return 'mecanico';
       }
 
-      // 7. CASHIER
+      // 8. CASHIER
       if (r.includes('cajer') || r.includes('caja')) {
         return 'cajero';
       }
 
-      // 8. SALES / STORE FRONT
+      // 9. RETAIL SALES / MOSTRADOR TIENDA (Venta al detalle de repuestos)
       if (r.includes('vended') || r.includes('asesor') || r.includes('mostrador') || r.includes('ventas')) {
         return 'vendedor';
       }
 
-      // 9. WAREHOUSE PHYSICAL LABOR (ONLY if role explicitly matches warehouse labor!)
+      // 10. WAREHOUSE PHYSICAL LABOR (ONLY if role explicitly matches warehouse labor!)
       if (r.includes('bodeg') || r.includes('almacen') || r.includes('estib') || r.includes('picking') || 
           r.includes('despach') || r.includes('chofer') || r.includes('pilot') || r.includes('motorist') || 
           r.includes('auxiliar') || r.includes('carga')) {
@@ -818,75 +845,82 @@
       // =========================================================================
       let step1Options = [];
 
-      if (cat === 'liderazgo') {
+      if (cat === 'mayoreo') {
+        step1Options = [
+          { icon: '🚗', title: 'Visitar talleres mecánicos y repuesteras en ruta', desc: 'Recorrer la zona asignada para atender a clientes mayoristas y levantar pedidos.' },
+          { icon: '📋', title: 'Levantar pedidos de repuestos por catálogo / volumen', desc: 'Anotar pedidos de llantas, cilindros, kits de arrastre, lubricantes y baterías.' },
+          { icon: '💵', title: 'Cobranza y gestión de cartera de clientes', desc: 'Recoger abonos, pagos en cheque o transferencias de talleres y repuesteras.' },
+          { icon: '📦', title: 'Dar seguimiento a despachos desde el CD', desc: 'Verificar que los bultos de repuestos salgan a tiempo hacia los clientes de ruta.' }
+        ];
+      } else if (cat === 'liderazgo') {
         step1Options = [
           { icon: '📋', title: 'Coordinar al equipo y dar seguimiento', desc: 'Organizar las prioridades del día, revisar avances y destrabar al personal.' },
-          { icon: '📊', title: 'Monitorear números, ventas y metas', desc: 'Revisar cumplimiento de presupuestos, márgenes y cierres operativos.' },
+          { icon: '📊', title: 'Monitorear números, ventas y metas', desc: 'Revisar cumplimiento de presupuestos, márgenes y cierres operativos de repuestos.' },
           { icon: '🚨', title: 'Resolver problemas y emergencias del día', desc: 'Apagar fuegos cotidianos, atender excepciones y quejas críticas.' },
           { icon: '📞', title: 'Reuniones, llamadas y acuerdos clave', desc: 'Coordinar con otras áreas, gerencias, bancos o proveedores externos.' }
         ];
       } else if (cat === 'sistemas') {
         step1Options = [
-          { icon: '💻', title: 'Programar nuevas pantallas y módulos', desc: 'Desarrollo de software, nuevas funciones y mejoras al sistema.' },
+          { icon: '💻', title: 'Programar nuevas pantallas y módulos', desc: 'Desarrollo de software, nuevas funciones y mejoras al sistema de inventario y ventas.' },
           { icon: '🛠️', title: 'Resolver bugs y estabilizar caídas', desc: 'Investigar fallas en producción, depurar errores y aplicar parches.' },
-          { icon: '🎧', title: 'Soporte técnico a tiendas y usuarios', desc: 'Atender tickets, pantallas trabadas, cajas o dudas del personal.' },
+          { icon: '🎧', title: 'Soporte técnico a tiendas y usuarios', desc: 'Atender tickets, pantallas trabadas, cajas de mayoreo o dudas del personal.' },
           { icon: '🗄️', title: 'Mantener servidores, bases de datos y redes', desc: 'Respaldos, infraestructura en la nube y optimización técnica.' }
         ];
       } else if (cat === 'auditoria') {
         step1Options = [
-          { icon: '🔍', title: 'Arqueos de caja y conciliación de cobros', desc: 'Revisar cortes de caja, depósitos bancarios y cuadres diarios.' },
-          { icon: '📦', title: 'Conteos físicos y auditoría de inventario', desc: 'Auditar repuestos, accesorios y motos en tiendas o en el CD.' },
-          { icon: '📑', title: 'Revisión de expedientes de crédito y firmas', desc: 'Validar pagarés, contratos y documentación de expedientes.' },
-          { icon: '⚖️', title: 'Cruzar datos entre sistemas y conciliar cuentas', desc: 'Verificar que las ventas coincidan con facturas CAI y bancos.' }
+          { icon: '🔍', title: 'Arqueos de caja y conciliación de cobros', desc: 'Revisar cortes de caja, depósitos bancarios y cuadres diarios en tiendas y mayoreo.' },
+          { icon: '📦', title: 'Conteos físicos y auditoría de inventario de repuestos', desc: 'Auditar piezas, kits y accesorios en estanterías de tiendas o en el CD.' },
+          { icon: '📑', title: 'Revisión de expedientes de crédito y facturas', desc: 'Validar pagarés, contratos de crédito y documentación legal.' },
+          { icon: '⚖️', title: 'Cruzar datos entre sistemas y conciliar cuentas', desc: 'Verificar que las ventas de repuestos coincidan con facturas CAI y bancos.' }
         ];
       } else if (cat === 'compras') {
         step1Options = [
-          { icon: '🚢', title: 'Seguimiento a contenedores y aduanas', desc: 'Monitorear trámites con China, Honduras, navieras y puertos.' },
-          { icon: '📞', title: 'Negociar con proveedores y cotizar repuestos', desc: 'Cotizaciones de motos, repuestos, precios y tiempos de entrega.' },
-          { icon: '📈', title: 'Planificar compras según rotación de stock', desc: 'Analizar qué repuestos y motos hacen falta en las 77 tiendas.' },
-          { icon: '💵', title: 'Gestión de pagos y cartas de crédito', desc: 'Coordinar transferencias al exterior y flujo con proveedores.' }
+          { icon: '🚢', title: 'Seguimiento a contenedores y aduanas', desc: 'Monitorear importaciones de repuestos desde China, navieras y puertos.' },
+          { icon: '📞', title: 'Negociar con fabricantes y cotizar repuestos', desc: 'Cotizaciones de repuestos de motocicleta, precios por volumen y tiempos de entrega.' },
+          { icon: '📈', title: 'Planificar compras según rotación de inventario', desc: 'Analizar qué repuestos y consumibles hacen falta en las 77 tiendas y en mayoreo.' },
+          { icon: '💵', title: 'Gestión de pagos a proveedores y cartas de crédito', desc: 'Coordinar transferencias al exterior y flujo con proveedores internacionales.' }
         ];
       } else if (cat === 'rrhh') {
         step1Options = [
-          { icon: '👥', title: 'Reclutamiento, entrevistas y contratación', desc: 'Buscar y seleccionar personal para tiendas, CD y oficinas.' },
+          { icon: '👥', title: 'Reclutamiento, entrevistas y contratación', desc: 'Buscar y seleccionar personal para tiendas, CD, rutas y oficinas.' },
           { icon: '💰', title: 'Cálculo y revisión de planilla / nómina', desc: 'Procesar horas extras, comisiones, deducciones y pagos quincenales.' },
           { icon: '🤝', title: 'Atención a consultas de colaboradores', desc: 'Resolver dudas de sueldo, permisos, constancias y clima laboral.' },
-          { icon: '📚', title: 'Inducción y capacitación de nuevo ingreso', desc: 'Formar al personal nuevo y asegurar que conozcan sus funciones.' }
+          { icon: '📚', title: 'Inducción y capacitación de nuevo ingreso', desc: 'Formar al personal nuevo para que conozcan los códigos de repuestos y procesos.' }
         ];
       } else if (cat === 'vendedor') {
         step1Options = [
-          { icon: '🤝', title: 'Atender clientes en sala y mostrador', desc: 'Asesorar en motos, repuestos y accesorios para cerrar la venta.' },
-          { icon: '📋', title: 'Tramitar solicitudes de crédito', desc: 'Recopilar papeles, llenar solicitudes y enviar a dictamen.' },
-          { icon: '📲', title: 'Seguimiento a prospectos por WhatsApp y llamadas', desc: 'Contactar clientes interesados y agendar citas en tienda.' },
-          { icon: '🛵', title: 'Demostración y entrega de motos vendidas', desc: 'Revisar la moto, entregar su kit y explicar el funcionamiento.' }
+          { icon: '🤝', title: 'Atender clientes en mostrador de tienda', desc: 'Cotizar y buscar repuestos de motocicleta, cascos y accesorios.' },
+          { icon: '📋', title: 'Consultar compatibilidad y códigos en catálogo', desc: 'Identificar la pieza exacta para la marca, modelo y año de la motocicleta.' },
+          { icon: '📲', title: 'Dar seguimiento a pedidos especiales por WhatsApp', desc: 'Avisar al cliente cuando llega el repuesto encargado de bodega.' },
+          { icon: '📦', title: 'Entrega y verificación de repuestos en mostrador', desc: 'Revisar códigos, empaques y estado físico de la pieza antes de entregar.' }
         ];
       } else if (cat === 'cajero') {
         step1Options = [
           { icon: '💵', title: 'Cobrar ventas de mostrador y facturar', desc: 'Cobro en efectivo, tarjetas o transferencias emitiendo factura CAI.' },
-          { icon: '💳', title: 'Cobrar abonos y cuotas de crédito', desc: 'Ingresar pagos de cuotas y entregar el comprobante oficial al cliente.' },
+          { icon: '💳', title: 'Cobrar abonos y cuotas de crédito', desc: 'Ingresar pagos de clientes y entregar el comprobante oficial al día.' },
           { icon: '🔒', title: 'Custodia de efectivo y arqueos parciales', desc: 'Ordenar el fondo de caja y preparar depósitos bancarios.' },
           { icon: '📑', title: 'Cuadre diario de caja y Corte Z', desc: 'Cierre al final del día cuadrando centavo a centavo sistema vs dinero.' }
         ];
       } else if (cat === 'mecanico') {
         step1Options = [
-          { icon: '🔧', title: 'Reparaciones mecánicas y afinación', desc: 'Mantenimientos preventivos, cambios de aceite, frenos y motor.' },
-          { icon: '🛵', title: 'Armar motos nuevas de paquete', desc: 'Desembalar de huacales, ensamblar y calibrar para entrega.' },
-          { icon: '⚡', title: 'Diagnosticar fallas complejas', desc: 'Identificar el origen de ruidos o fallas eléctricas difíciles.' },
-          { icon: '🛡️', title: 'Revisión técnica de garantías de fábrica', desc: 'Evaluar piezas con defecto para tramitar cambio de fábrica.' }
+          { icon: '🔧', title: 'Instalación y afinación de repuestos mecánicos', desc: 'Cambios de cilindro, pistón, biela, kit de tracción, frenos y motor.' },
+          { icon: '⚡', title: 'Diagnóstico de fallas mecánicas y eléctricas', desc: 'Identificar el repuesto defectuoso o dañado en la motocicleta del cliente.' },
+          { icon: '🛠️', title: 'Mantenimiento preventivo de motocicletas', desc: 'Cambios de aceite, bujías, cables, calibración de válvulas y carburador.' },
+          { icon: '🛡️', title: 'Revisión técnica de garantías de repuestos', desc: 'Evaluar piezas con reclamo para validar si aplica garantía con fábrica.' }
         ];
       } else if (cat === 'bodeguero') {
         step1Options = [
-          { icon: '📦', title: 'Descargar camiones y contenedores', desc: 'Bajar mercadería pesada y acomodar en pasillos del almacén.' },
-          { icon: '📋', title: 'Alistar pedidos (Picking) para tiendas', desc: 'Buscar piezas en estanterías y empacar bultos para las sucursales.' },
-          { icon: '🚚', title: 'Cargar y despachar camiones de ruta', desc: 'Subir la carga a los camiones y verificar manifiestos de salida.' },
-          { icon: '🔍', title: 'Conteos de inventario físico y averías', desc: 'Revisar existencias físicas y separar cajas dañadas o incompletas.' }
+          { icon: '📦', title: 'Descargar camiones y contenedores de repuestos', desc: 'Bajar cajas de repuestos pesados y estibar en pasillos del CD.' },
+          { icon: '📋', title: 'Alistar pedidos (Picking) para tiendas y mayoreo', desc: 'Buscar códigos en estanterías y empacar bultos de repuestos.' },
+          { icon: '🚚', title: 'Cargar y despachar camiones de ruta', desc: 'Subir la carga de repuestos a los camiones y verificar manifiestos.' },
+          { icon: '🔍', title: 'Conteos de inventario físico y averías', desc: 'Revisar existencias de repuestos y separar empaques dañados o incompletos.' }
         ];
       } else {
         step1Options = [
           { icon: '🤝', title: 'Atender clientes, usuarios o compañeros', desc: 'Servicio directo, resolver dudas y dar soporte en el día a día.' },
           { icon: '💻', title: 'Trabajo operativo en computadora y sistema', desc: 'Ingresar registros, procesar solicitudes o cuadrar información.' },
-          { icon: '📦', title: 'Movimiento, acomodo o revisión física', desc: 'Manejo de mercadería, herramientas, repuestos o documentos.' },
-          { icon: '⚙️', title: 'Tareas técnicas, manuales o de campo', desc: 'Operación técnica, armado, reparaciones o traslados.' }
+          { icon: '📦', title: 'Movimiento, acomodo o revisión física de repuestos', desc: 'Manejo de mercadería, herramientas o documentos.' },
+          { icon: '⚙️', title: 'Tareas técnicas, manuales o de campo', desc: 'Operación técnica, pruebas o traslados.' }
         ];
       }
 
@@ -903,7 +937,14 @@
       // =========================================================================
       let step2Options = [];
 
-      if (cat === 'liderazgo') {
+      if (cat === 'mayoreo') {
+        step2Options = [
+          { icon: '📱', title: 'Consultar existencias de repuestos en el CD por WhatsApp o llamada', desc: 'Estar preguntando a bodega si hay stock suficiente antes de cotizarle al cliente.' },
+          { icon: '⏳', title: 'Esperar que Créditos libere pedidos retenidos por cupo o saldo', desc: 'Tener pedidos de talleres parados esperando que autoricen el despacho.' },
+          { icon: '📝', title: 'Llenar pedidos a mano en libreta y luego re-digitarlos al sistema', desc: 'Doble trabajo de captura de pedidos tomados en campo.' },
+          { icon: '🏦', title: 'Liquidar y cuadrar cobranzas con caja y bancos', desc: 'Conciliar depósitos, retenciones y recibos de cobro de ruta.' }
+        ];
+      } else if (cat === 'liderazgo') {
         step2Options = [
           { icon: '⏳', title: 'Esperar datos o reportes de otros para decidir', desc: 'Tener decisiones demoradas esperando que otras áreas envíen información.' },
           { icon: '📱', title: 'Responder cientos de mensajes en WhatsApp', desc: 'Pasar el día en el celular atendiendo consultas que podrían ser automáticas.' },
@@ -922,12 +963,12 @@
           { icon: '📊', title: 'Descargar reportes de varios sistemas y cruzarlos en Excel', desc: 'Hacer a mano en hojas de cálculo lo que debería cruzarse solo.' },
           { icon: '📞', title: 'Pedir por WhatsApp a las tiendas sus cortes y boletas', desc: 'Perseguir a sucursales para que manden comprobantes a tiempo.' },
           { icon: '🧾', title: 'Corregir boletas o recibos con datos mal digitados', desc: 'Arreglar errores humanos de captura en tiendas o bodega.' },
-          { icon: '⏳', title: 'Esperar justificaciones por diferencias de dinero o stock', desc: 'Tiempos muertos esperando que aclaren faltantes o sobrantes.' }
+          { icon: '⏳', title: 'Esperar justificaciones por diferencias de dinero o stock', desc: 'Tiempos muertos esperando que aclaren faltantes o sobrantes de repuestos.' }
         ];
       } else if (cat === 'compras') {
         step2Options = [
           { icon: '📱', title: 'Preguntar a navieras y tramitadores el estatus del contenedor', desc: 'Llamar o escribir constantemente para saber por dónde viene la carga.' },
-          { icon: '🧮', title: 'Calcular costos, fletes e impuestos a mano en Excel', desc: 'Cruzar aranceles y costos de importación de forma manual.' },
+          { icon: '🧮', title: 'Calcular costos, fletes e impuestos a mano en Excel', desc: 'Cruzar aranceles y costos de importación de repuestos de forma manual.' },
           { icon: '📑', title: 'Pedir autorizaciones urgentes para transferencias en dólares', desc: 'Esperar firmas para no perder reservas de espacio con navieras.' },
           { icon: '🔍', title: 'Buscar proveedores alternos por repuestos agotados', desc: 'Cotizar a última hora para apagar urgencias de las tiendas.' }
         ];
@@ -940,10 +981,10 @@
         ];
       } else if (cat === 'vendedor') {
         step2Options = [
-          { icon: '📝', title: 'Llenar solicitudes de crédito en papel a mano', desc: 'Anotar datos del cliente en físico antes de subirlos al sistema.' },
-          { icon: '⏳', title: 'Esperar que Créditos dictamine la solicitud', desc: 'Tiempos de espera mientras el cliente se desespera en la tienda.' },
-          { icon: '🔍', title: 'Buscar repuestos en el sistema o llamar a otras tiendas', desc: 'Confirmar si hay existencia física en otra sucursal o en el CD.' },
-          { icon: '💬', title: 'Responder cotizaciones por WhatsApp que no se concretan', desc: 'Atender mensajes de curiosos que no llegan a comprar.' }
+          { icon: '🔍', title: 'Buscar repuestos en el sistema o llamar a otras tiendas', desc: 'Confirmar si hay existencia de la pieza en otra sucursal o en el CD.' },
+          { icon: '📝', title: 'Llenar boletas o cotizaciones en papel antes de facturar', desc: 'Anotar códigos a mano antes de ingresarlos a la computadora.' },
+          { icon: '⏳', title: 'Esperar autorización para aplicar descuentos de mostrador', desc: 'Llamar al encargado para que apruebe rebajas autorizadas.' },
+          { icon: '💬', title: 'Responder cotizaciones por WhatsApp que no se concretan', desc: 'Atender mensajes de cotizaciones de repuestos que no llegan a comprar.' }
         ];
       } else if (cat === 'cajero') {
         step2Options = [
@@ -954,16 +995,16 @@
         ];
       } else if (cat === 'mecanico') {
         step2Options = [
-          { icon: '⏳', title: 'Esperar que mostrador o almacén entregue repuestos', desc: 'Quedar con la moto desarmada esperando que traigan la pieza.' },
-          { icon: '📝', title: 'Llenar boletas de orden de trabajo en papel a mano', desc: 'Anotar fallas, kilometraje y piezas utilizadas en físico.' },
-          { icon: '🧼', title: 'Limpiar piezas o lavar motos sin área adecuada', desc: 'Tareas de limpieza que quitan tiempo de diagnóstico y reparación.' },
-          { icon: '🔍', title: 'Buscar herramientas o piezas que no están en su lugar', desc: 'Perder tiempo buscando insumos de uso diario en el taller.' }
+          { icon: '⏳', title: 'Esperar que mostrador o bodega entregue el repuesto solicitado', desc: 'Quedar con la moto desarmada esperando que traigan la pieza.' },
+          { icon: '📝', title: 'Llenar boletas de orden de trabajo en papel a mano', desc: 'Anotar fallas, piezas cambiadas y costos en hojas físicas.' },
+          { icon: '🧼', title: 'Limpiar piezas mecánicas sin químicos o área adecuada', desc: 'Tareas de limpieza que quitan tiempo de diagnóstico e instalación.' },
+          { icon: '🔍', title: 'Buscar herramientas o piezas que no están en su lugar', desc: 'Perder tiempo buscando llaves, dados o extractores de uso diario.' }
         ];
       } else if (cat === 'bodeguero') {
         step2Options = [
-          { icon: '🔍', title: 'Buscar códigos en estantes sin ubicación exacta en sistema', desc: 'Caminar pasillos buscando piezas que no tienen etiqueta clara.' },
-          { icon: '🏷️', title: 'Rotular cajas y empaques a mano con marcador', desc: 'Escribir a mano nombres de tiendas y números de bulto.' },
-          { icon: '⏳', title: 'Esperar que facturación libere la orden de despacho', desc: 'Tener pedidos listos en tarima esperando la orden oficial.' },
+          { icon: '🔍', title: 'Buscar códigos de repuestos en estantes sin ubicación fija', desc: 'Caminar pasillos buscando piezas que no tienen etiqueta clara en el sistema.' },
+          { icon: '🏷️', title: 'Rotular cajas y empaques a mano con marcador', desc: 'Escribir a mano nombres de tiendas, rutas y números de bulto.' },
+          { icon: '⏳', title: 'Esperar que facturación libere la orden de despacho', desc: 'Tener pedidos listos en tarima esperando la orden oficial para cargar.' },
           { icon: '📦', title: 'Recontar bultos varias veces para evitar reclamos', desc: 'Chequeo doble o triple por miedo a faltantes en ruta.' }
         ];
       } else {
@@ -987,7 +1028,14 @@
       // =========================================================================
       let step3Options = [];
 
-      if (cat === 'liderazgo') {
+      if (cat === 'mayoreo') {
+        step3Options = [
+          { icon: '🚫', title: 'Repuestos clave agotados en el CD', desc: 'El cliente mayorista pide 20 o 50 piezas de un código y no hay stock suficiente para despachar.' },
+          { icon: '⏳', title: 'Pedidos retenidos por Créditos', desc: 'Talleres o repuesteras con pedidos bloqueados por pequeños saldos o demora en dictamen.' },
+          { icon: '🚚', title: 'Demoras en el despacho de bultos desde el CD', desc: 'El pedido tarda días en salir del almacén central y el cliente se molesta.' },
+          { icon: '💻', title: 'Sistema de pedidos lento o sin señal en ruta', desc: 'No poder cotizar, consultar catálogo o emitir pedidos fluido desde el celular en campo.' }
+        ];
+      } else if (cat === 'liderazgo') {
         step3Options = [
           { icon: '👥', title: 'Falta de autonomía del equipo (todo me lo tienen que consultar)', desc: 'No poder delegar porque los mandos operativos no resuelven solos.' },
           { icon: '📊', title: 'Falta de reportes o números confiables en tiempo real', desc: 'Tener que pedir tablas manuales en vez de ver el dato directo en pantalla.' },
@@ -1010,24 +1058,24 @@
         ];
       } else if (cat === 'compras') {
         step3Options = [
-          { icon: '🚢', title: 'Contenedores retenidos en puerto o aduanas', desc: 'Trámites burocráticos y demoras de navieras que retrasan la mercancía.' },
-          { icon: '💸', title: 'Falta de flujo o atraso en pagos a proveedores externos', desc: 'Retrasos en transferencias que frenan nuevos despachos desde China u Honduras.' },
+          { icon: '🚢', title: 'Contenedores de repuestos retenidos en puerto o aduanas', desc: 'Trámites burocráticos y demoras de navieras que retrasan la mercancía.' },
+          { icon: '💸', title: 'Falta de flujo o atraso en pagos a proveedores en China', desc: 'Retrasos en transferencias que frenan nuevos despachos de repuestos.' },
           { icon: '📦', title: 'Falta de visibilidad del inventario que viene en camino', desc: 'No saber con certeza en qué fecha exacta ingresará el producto a bodega.' },
-          { icon: '📉', title: 'Desfase entre lo que se pidió y lo que realmente despacharon', desc: 'Diferencias en códigos, modelos o cantidades enviadas por fábrica.' }
+          { icon: '📉', title: 'Desfase entre lo que se pidió y lo que despachó fábrica', desc: 'Diferencias en códigos, medidas o cantidades enviadas desde origen.' }
         ];
       } else if (cat === 'rrhh') {
         step3Options = [
           { icon: '📬', title: 'Tiendas o jefes que mandan reportes de personal con retraso', desc: 'Novedades de última hora que ponen en riesgo el cálculo de nómina.' },
-          { icon: '🏃', title: 'Alta rotación en puestos operativos clave', desc: 'Tener que reclutar constantemente mecánicos, bodegueros o vendedores.' },
-          { icon: '📉', title: 'Falta de capacitación formal para el personal que entra', desc: 'Colaboradores que empiezan a operar sin dominar los sistemas ni procesos.' },
+          { icon: '🏃', title: 'Alta rotación en puestos operativos clave', desc: 'Tener que reclutar constantemente personal de bodega, talleres o tiendas.' },
+          { icon: '📉', title: 'Falta de capacitación formal para el personal que entra', desc: 'Colaboradores que empiezan a operar sin dominar los sistemas ni códigos de repuestos.' },
           { icon: '💻', title: 'Sistemas de nómina desconectados de las operaciones diarias', desc: 'Tener que conciliar manualmente asistencia y comisiones.' }
         ];
       } else if (cat === 'vendedor') {
         step3Options = [
-          { icon: '⏳', title: 'Demora de Créditos en dictaminar y el cliente se va', desc: 'Respuestas lentas que enfrían la venta de motos a cuotas.' },
-          { icon: '🚫', title: 'Falta de inventario físico en tienda (moto o repuesto agotado)', desc: 'Cliente listo para pagar pero la mercadería no está disponible.' },
-          { icon: '📱', title: 'El sistema se pone lento o se cae en horas pico', desc: 'Pantallas pegadas cuando la sala de venta está llena de personas.' },
-          { icon: '🏷️', title: 'Precios o promociones en sistema que no coinciden con anuncios', desc: 'Confusiones de precios que generan desconfianza en el cliente.' }
+          { icon: '🚫', title: 'Falta de inventario en tienda (repuesto o accesorio agotado)', desc: 'Cliente listo para pagar pero la pieza no está en estantería ni en stock.' },
+          { icon: '📱', title: 'El sistema se pone lento o se cae en horas pico', desc: 'Pantallas pegadas cuando el mostrador está lleno de clientes esperando.' },
+          { icon: '🏷️', title: 'Precios o códigos en sistema que no coinciden con la etiqueta', desc: 'Confusiones de precios que generan reclamos en mostrador.' },
+          { icon: '⏳', title: 'Demoras para consultar existencias en otras sucursales', desc: 'Tener que llamar por teléfono para saber si otra tienda tiene el repuesto.' }
         ];
       } else if (cat === 'cajero') {
         step3Options = [
@@ -1038,21 +1086,21 @@
         ];
       } else if (cat === 'mecanico') {
         step3Options = [
-          { icon: '🚫', title: 'El repuesto necesario no está en la tienda ni en el CD', desc: 'Motos paradas en el taller porque no hay piezas para terminar.' },
-          { icon: '🔨', title: 'Herramientas o equipos de diagnóstico incompletos o dañados', desc: 'Trabajar con herramientas desgastadas que complican el trabajo técnico.' },
-          { icon: '⏰', title: 'Clientes que presionan por su moto antes de terminar', desc: 'Tensión por promesas de entrega que no contemplaron tiempos reales.' },
-          { icon: '⏳', title: 'Demoras largas para autorizar reclamos de garantía', desc: 'Trámites lentos esperando que fábrica o jefatura dé el visto bueno.' }
+          { icon: '🚫', title: 'El repuesto necesario no está en la tienda ni en el CD', desc: 'Motocicletas paradas en el taller porque falta una pieza específica.' },
+          { icon: '🔨', title: 'Herramientas o extractores incompletos o desgastados', desc: 'Trabajar con herramientas inadecuadas que complican el desmontaje.' },
+          { icon: '⏰', title: 'Presión por tiempos de entrega irreales', desc: 'Compromisos de entrega hechos sin consultar la complejidad de la reparación.' },
+          { icon: '⏳', title: 'Demoras largas para autorizar reclamos de garantía de fábrica', desc: 'Trámites lentos esperando que aprueben el cambio de una pieza defectuosa.' }
         ];
       } else if (cat === 'bodeguero') {
         step3Options = [
-          { icon: '📦', title: 'Falta de espacio ordenado en pasillos de bodega', desc: 'Dificultad para acomodar mercadería nueva por saturación de espacio.' },
+          { icon: '📦', title: 'Falta de espacio ordenado en pasillos de bodega', desc: 'Dificultad para acomodar repuestos nuevos por saturación de espacio.' },
           { icon: '🏷️', title: 'Mercadería que entra sin código de barra o mal rotulada', desc: 'Tener que adivinar qué repuesto viene dentro de cada paquete.' },
           { icon: '🚚', title: 'Camiones que llegan tarde o fuera de horario programado', desc: 'Descargas de última hora que rompen la planificación del día.' },
           { icon: '❌', title: 'Diferencias entre la orden del sistema y el producto físico', desc: 'Discrepancias en cantidades que obligan a desarmar bultos.' }
         ];
       } else {
         step3Options = [
-          { icon: '📦', title: 'Falta de mercadería, repuestos o insumos a tiempo', desc: 'Falta de producto físico para poder avanzar o entregar.' },
+          { icon: '📦', title: 'Falta de repuestos, materiales o insumos a tiempo', desc: 'Falta de producto físico para poder avanzar o entregar.' },
           { icon: '⏳', title: 'Tener que esperar que alguien me apruebe o responda', desc: 'Quedar con las manos atadas esperando la firma o respuesta de otros.' },
           { icon: '📱', title: 'El sistema se pone lento o se congela', desc: 'Pantallas pegadas en momentos críticos de la operación.' },
           { icon: '🔁', title: 'Hacer lo mismo dos veces por desorden o falta de claridad', desc: 'Procesos dobles por falta de un flujo de trabajo unificado.' }
@@ -1069,36 +1117,61 @@
       // =========================================================================
       // STEP 4: CÓMO FLUYE (La Posta)
       // =========================================================================
-      let step4Options = [
-        { icon: '📦', title: 'Almacén Central / Bodega CD', desc: 'Dependo de que surtan, reciban o despachen la mercadería a tiempo.' },
-        { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Dependo de dictámenes rápidos para cerrar ventas financiadas.' },
-        { icon: '🏪', title: 'Las Tiendas / Sucursales', desc: 'Dependo de que me manden la información completa y al día.' },
-        { icon: '💼', title: 'Oficina Central / Finanzas / Gerencia', desc: 'Dependo de autorizaciones de pago, transferencias o decisiones clave.' },
-        { icon: '💻', title: 'Sistemas / TI', desc: 'Dependo de que el sistema y los equipos funcionen sin trabarse.' },
-        { icon: '🤝', title: 'Mi trabajo fluye bien con los demás', desc: 'No siento que ninguna otra área me frene de forma importante.' },
-        {
-          icon: '➕',
-          title: 'Otra área o persona',
-          desc: 'Dependo de alguien más que no está aquí (contanos)',
-          isCustom: true
-        }
-      ];
+      let step4Options = [];
+
+      if (cat === 'mayoreo') {
+        step4Options = [
+          { icon: '📦', title: 'Almacén Central / Bodega CD', desc: 'Dependo de que empaquen y despachen los pedidos de ruta sin demoras.' },
+          { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Dependo de liberación ágil de pedidos y revisión de cupos a talleres puntuales.' },
+          { icon: '💼', title: 'Caja Mayoreo y Facturación', desc: 'Dependo de agilidad al emitir facturas, notas y conciliar cobros de ruta.' },
+          { icon: '💻', title: 'Sistemas / TI', desc: 'Dependo de una herramienta móvil estable para tomar pedidos en ruta.' },
+          { icon: '🤝', title: 'Mi ruta fluye bien con los clientes mayoristas', desc: 'No siento bloqueos graves en la operación diaria.' }
+        ];
+      } else {
+        step4Options = [
+          { icon: '📦', title: 'Almacén Central / Bodega CD', desc: 'Dependo de que surtan, reciban o despachen la mercadería a tiempo.' },
+          { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Dependo de dictámenes rápidos y liberación de pedidos.' },
+          { icon: '🏪', title: 'Las Tiendas / Sucursales', desc: 'Dependo de que me manden la información completa y al día.' },
+          { icon: '💼', title: 'Oficina Central / Finanzas / Gerencia', desc: 'Dependo de autorizaciones de pago, transferencias o decisiones clave.' },
+          { icon: '💻', title: 'Sistemas / TI', desc: 'Dependo de que el sistema y los equipos funcionen sin trabarse.' },
+          { icon: '🤝', title: 'Mi trabajo fluye bien con los demás', desc: 'No siento que ninguna otra área me frene de forma importante.' }
+        ];
+      }
+
+      step4Options.push({
+        icon: '➕',
+        title: 'Otra área o persona',
+        desc: 'Dependo de alguien más que no está aquí (contanos)',
+        isCustom: true
+      });
 
       // =========================================================================
       // STEP 5: TU MEJORA
       // =========================================================================
-      let step5Options = [
-        { icon: '🚀', title: 'Que el sistema sea rápido, fácil y no falle jamás', desc: 'Trabajar sin pantallas pegadas ni esperas.' },
-        { icon: '📦', title: 'Tener siempre inventario y repuestos exactos', desc: 'Que lo que dice el sistema esté físicamente disponible.' },
-        { icon: '✂️', title: 'Quitar papeleos y firmas innecesarias', desc: 'Hacer todo digital y en un solo clic sin burocracia.' },
-        { icon: '🤝', title: 'Respuestas más rápidas de otros departamentos', desc: 'Que cuando pida algo a otra área me contesten pronto.' },
-        {
-          icon: '🎙️',
-          title: 'Tengo mi propia propuesta',
-          desc: 'Prefiero contarlo con mis propias palabras por voz o texto',
-          isCustom: true
-        }
-      ];
+      let step5Options = [];
+
+      if (cat === 'mayoreo') {
+        step5Options = [
+          { icon: '📱', title: 'App móvil ágil para tomar pedidos en ruta', desc: 'Consultar stock real del CD y emitir pedidos en segundos desde el celular.' },
+          { icon: '⚡', title: 'Despacho exprés garantizado desde el CD', desc: 'Que los pedidos confirmados se embarquen hacia el cliente en menos de 24 horas.' },
+          { icon: '💳', title: 'Mayor agilidad en Créditos para talleres recurrentes', desc: 'Evitar que clientes buenos queden bloqueados por trámites burocráticos.' },
+          { icon: '📦', title: 'Tener siempre inventario de los repuestos de alta rotación', desc: 'Que los repuestos más pedidos nunca falten en el almacén central.' }
+        ];
+      } else {
+        step5Options = [
+          { icon: '🚀', title: 'Que el sistema sea rápido, fácil y no falle jamás', desc: 'Trabajar sin pantallas pegadas ni esperas al facturar o buscar repuestos.' },
+          { icon: '📦', title: 'Tener siempre inventario y repuestos exactos', desc: 'Que lo que dice el sistema esté físicamente disponible en estantes.' },
+          { icon: '✂️', title: 'Quitar papeleos y firmas innecesarias', desc: 'Hacer todo digital y en un solo clic sin burocracia.' },
+          { icon: '🤝', title: 'Respuestas más rápidas de otros departamentos', desc: 'Que cuando pida algo a otra área me contesten pronto.' }
+        ];
+      }
+
+      step5Options.push({
+        icon: '🎙️',
+        title: 'Tengo mi propia propuesta',
+        desc: 'Prefiero contarlo con mis propias palabras por voz o texto',
+        isCustom: true
+      });
 
       return [
         {
@@ -1164,8 +1237,7 @@
         }
       ];
     }
-
-    /* START MISSION */
+/* START MISSION */
     function startMission(e) {
       e.preventDefault();
       const name = document.getElementById('inputName').value.trim();
@@ -1342,7 +1414,7 @@
           if (chk) chk.classList.add('hidden');
         } else {
           if (selectedChoices.length >= 3) {
-            alert('Podés seleccionar hasta 3 opciones principales.');
+            showToast('Podés seleccionar hasta 3 opciones principales.', 'ℹ️');
             return;
           }
           selectedChoices.push(titleTag);
@@ -1402,7 +1474,7 @@
       }
 
       if (!auditData[conf.field]) {
-        alert('Por favor seleccioná una opción o contanos con tus palabras.');
+        showToast('Por favor seleccioná una opción o contanos con tus palabras.', '✍️');
         return;
       }
 
@@ -1465,6 +1537,14 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            nombre: currentUser.name,
+            sucursal: currentUser.store,
+            rol: currentUser.role,
+            responsabilidades: auditData.jornada_diaria || '',
+            procesos_clave: auditData.herramientas_checklist || '',
+            cuellos_botella: auditData.conexiones_organigrama || '',
+            sistemas_afectados: auditData.multiplicador_valor || '',
+            bloqueos_p0: auditData.bloqueos_p0 || '',
             user: currentUser,
             data: auditData,
             completed_at: new Date().toISOString()
@@ -1527,7 +1607,7 @@
       playTone('tap');
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        alert('Tu navegador no soporta dictado directo. Podés escribir en el recuadro inferior.');
+        showToast('Tu navegador no soporta dictado directo. Escribí en el recuadro.', '🎙️');
         document.getElementById('manualTextWrapper').classList.remove('hidden');
         return;
       }
@@ -1631,7 +1711,7 @@
     }
 
     function downloadPassportImage() {
-      alert('¡Pasaporte generado! Podés tomarle captura para compartir en tus historias o con tu equipo.');
+      showToast('¡Pasaporte generado! Podés tomarle captura o compartirlo.', '🎫');
     }
 
     /* 2D CANVAS CONFETTI */
