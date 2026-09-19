@@ -945,19 +945,19 @@
           <div id="liveTotalAuditoriasSub" class="text-[11px] text-km-muted font-mono">Actualizándose en vivo</div>
         </div>
         <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
-          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Procesos Identificados</div>
-          <div class="text-2xl font-black text-km-cyan">74</div>
-          <div class="text-[11px] text-km-muted font-mono">En 10 categorías clave</div>
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Sucursales Activas</div>
+          <div id="liveTotalSucursalesCard" class="text-2xl font-black text-km-cyan">--</div>
+          <div id="liveTotalSucursalesSub" class="text-[11px] text-km-muted font-mono">Puntos reportando</div>
         </div>
         <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
-          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Frenos Operativos P0</div>
-          <div class="text-2xl font-black text-km-danger">128</div>
-          <div class="text-[11px] text-km-danger font-mono">Piedras en el zapato reales</div>
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Puestos / Roles</div>
+          <div id="liveTotalRolesCard" class="text-2xl font-black text-km-warning">--</div>
+          <div id="liveTotalRolesSub" class="text-[11px] text-km-muted font-mono">Cargos mapeados</div>
         </div>
         <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
-          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Oportunidades de Impacto</div>
-          <div class="text-2xl font-black text-km-warning">56</div>
-          <div class="text-[11px] text-km-green font-mono">Listas para accionar en Jarvis</div>
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Frenos P0 Reportados</div>
+          <div id="liveTotalFrenosCard" class="text-2xl font-black text-km-danger">--</div>
+          <div id="liveTotalFrenosSub" class="text-[11px] text-km-danger font-mono">Piedras en el zapato reales</div>
         </div>
       </div>
 
@@ -1035,46 +1035,8 @@
             <span class="text-[10px] font-mono text-km-muted">Por colaboradores reales</span>
           </div>
 
-          <div class="space-y-3">
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-danger">●</span> Liberación de crédito demorada</span>
-                <span class="font-mono text-km-danger font-bold">47 menciones</span>
-              </div>
-              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                <div class="h-full bg-km-danger rounded-full" style="width: 85%;"></div>
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-warning">●</span> Consulta de stock manual (CD no responde)</span>
-                <span class="font-mono text-km-warning font-bold">39 menciones</span>
-              </div>
-              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                <div class="h-full bg-km-warning rounded-full" style="width: 70%;"></div>
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-warning">●</span> Retrasos en despacho y empaque en CD</span>
-                <span class="font-mono text-km-warning font-bold">31 menciones</span>
-              </div>
-              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                <div class="h-full bg-km-warning rounded-full" style="width: 55%;"></div>
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-cyan">●</span> Pantallas del sistema pegadas en cobro</span>
-                <span class="font-mono text-km-cyan font-bold">28 menciones</span>
-              </div>
-              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                <div class="h-full bg-km-cyan rounded-full" style="width: 45%;"></div>
-              </div>
-            </div>
+          <div id="liveTopFrenosContainer" class="space-y-3">
+            <div class="text-xs text-km-muted py-6 text-center">Calculando frenos en tiempo real...</div>
           </div>
 
           <!-- Action Plan Link -->
@@ -2204,8 +2166,64 @@
         if (data.ok && Array.isArray(data.auditorias)) {
           cachedSubmissions = data.auditorias;
           if (badge) badge.innerText = `${cachedSubmissions.length} envíos recibidos`;
+          
+          // Dynamic KPI calculations
           const totalKpi = document.getElementById('liveTotalAuditoriasCard');
           if (totalKpi) totalKpi.innerText = cachedSubmissions.length;
+
+          const stores = new Set();
+          const roles = new Set();
+          const frictionCounts = {};
+
+          cachedSubmissions.forEach(item => {
+            if (item.sucursal) stores.add(item.sucursal.trim().toLowerCase());
+            if (item.rol) roles.add(item.rol.trim().toLowerCase());
+
+            let frenaKey = (item.cuellos_botella || item.procesos_clave || '').replace(/^\[Freno P0\]:\s*/i, '').trim();
+            if (frenaKey && frenaKey.length > 2) {
+              frictionCounts[frenaKey] = (frictionCounts[frenaKey] || 0) + 1;
+            }
+          });
+
+          const sucKpi = document.getElementById('liveTotalSucursalesCard');
+          if (sucKpi) sucKpi.innerText = stores.size;
+
+          const rolKpi = document.getElementById('liveTotalRolesCard');
+          if (rolKpi) rolKpi.innerText = roles.size;
+
+          const frenosKpi = document.getElementById('liveTotalFrenosCard');
+          if (frenosKpi) frenosKpi.innerText = Object.values(frictionCounts).reduce((a, b) => a + b, 0);
+
+          // Render Real Top Frenos
+          const frenosContainer = document.getElementById('liveTopFrenosContainer');
+          if (frenosContainer) {
+            const sortedFrenos = Object.entries(frictionCounts).sort((a, b) => b[1] - a[1]);
+            const colorClasses = ['text-km-danger', 'text-km-warning', 'text-km-warning', 'text-km-cyan', 'text-km-purple'];
+            const bgClasses = ['bg-km-danger', 'bg-km-warning', 'bg-km-warning', 'bg-km-cyan', 'bg-km-purple'];
+
+            if (sortedFrenos.length === 0) {
+              frenosContainer.innerHTML = `<div class="text-xs text-km-muted py-4 text-center">Aún no hay frenos reportados.</div>`;
+            } else {
+              frenosContainer.innerHTML = sortedFrenos.slice(0, 5).map(([name, count], idx) => {
+                const pct = Math.round((count / cachedSubmissions.length) * 100);
+                const colorCls = colorClasses[idx % colorClasses.length];
+                const bgCls = bgClasses[idx % bgClasses.length];
+                return `
+                  <div class="space-y-1">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="font-bold text-white flex items-center gap-1.5">
+                        <span class="${colorCls}">●</span> ${name}
+                      </span>
+                      <span class="font-mono ${colorCls} font-bold">${count} ${count === 1 ? 'mención' : 'menciones'} (${pct}%)</span>
+                    </div>
+                    <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                      <div class="h-full ${bgCls} rounded-full transition-all duration-500" style="width: ${Math.max(pct, 8)}%;"></div>
+                    </div>
+                  </div>
+                `;
+              }).join('');
+            }
+          }
 
           if (cachedSubmissions.length === 0) {
             tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-km-muted">Aún no hay envíos registrados hoy.</td></tr>`;
