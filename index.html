@@ -164,7 +164,7 @@
       <!-- Logo & Product Name -->
       <div class="flex items-center justify-between w-full sm:w-auto gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-km-green/20 to-km-cyan/20 border border-km-green/40 flex items-center justify-center font-black text-sm text-km-green shadow-lg shadow-km-green/10">
+          <div onclick="promptAdminUnlock()" title="Acceso Dirección (PIN)" class="w-9 h-9 rounded-xl bg-gradient-to-br from-km-green/20 to-km-cyan/20 border border-km-green/40 flex items-center justify-center font-black text-sm text-km-green shadow-lg shadow-km-green/10 cursor-pointer hover:border-km-green transition">
             KM
           </div>
           <div>
@@ -172,21 +172,22 @@
               <h1 class="text-sm font-black tracking-tight text-white flex items-center gap-1.5">
                 Así trabajamos KM
                 <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-km-green/20 text-km-green border border-km-green/30 font-bold uppercase tracking-wider">KM 2.0</span>
+                <span id="adminBadgeIndicator" class="hidden text-[9px] font-mono px-1.5 py-0.5 rounded bg-km-danger/20 text-km-danger border border-km-danger/40 font-bold">DIRECCIÓN</span>
               </h1>
             </div>
             <p class="text-[11px] text-km-muted hidden sm:block">Tu voz. Nuestros procesos. Un mejor KM.</p>
           </div>
         </div>
 
-        <!-- View Switcher for Small Screens -->
+        <!-- View Switcher for Small Screens (Dirección oculta por defecto) -->
         <div class="flex sm:hidden items-center gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/10 text-[11px]">
           <button onclick="switchView('guided')" id="tabMobileGuided" class="px-2.5 py-1 rounded-lg font-bold bg-km-green text-black">Mi Recorrido</button>
-          <button onclick="switchView('graph')" id="tabMobileGraph" class="px-2.5 py-1 rounded-lg text-km-muted">Mapa E2E</button>
-          <button onclick="switchView('dashboard')" id="tabMobileDashboard" class="px-2.5 py-1 rounded-lg text-km-muted">Dirección</button>
+          <button onclick="switchView('graph')" id="tabMobileGraph" class="admin-tab hidden px-2.5 py-1 rounded-lg text-km-muted">Mapa E2E</button>
+          <button onclick="switchView('dashboard')" id="tabMobileDashboard" class="admin-tab hidden px-2.5 py-1 rounded-lg text-km-muted">Dirección</button>
         </div>
       </div>
 
-      <!-- Center View Switcher (Desktop Tabs with Clear Audience Roles) -->
+      <!-- Center View Switcher (Desktop Tabs - Dirección oculta por defecto) -->
       <div class="hidden sm:flex items-center gap-1.5 bg-km-surface p-1 rounded-2xl border border-white/[0.08] text-xs font-bold">
         <button onclick="switchView('guided')" id="tabBtnGuided" class="px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5">
           <span class="text-sm">🎙️</span> 
@@ -195,14 +196,14 @@
             <span class="text-[9px] font-normal opacity-80 leading-none">Para todo el equipo</span>
           </span>
         </button>
-        <button onclick="switchView('graph')" id="tabBtnGraph" class="px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5">
+        <button onclick="switchView('graph')" id="tabBtnGraph" class="admin-tab hidden px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5">
           <span class="text-sm">🗺️</span> 
           <span class="flex flex-col text-left">
             <span>Mapa de Procesos E2E</span>
             <span class="text-[9px] font-normal opacity-80 leading-none">Visión general KM</span>
           </span>
         </button>
-        <button onclick="switchView('dashboard')" id="tabBtnDashboard" class="px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5">
+        <button onclick="switchView('dashboard')" id="tabBtnDashboard" class="admin-tab hidden px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5">
           <span class="text-sm">📊</span> 
           <span class="flex flex-col text-left">
             <span>Tablero de Dirección</span>
@@ -791,15 +792,24 @@
 
         </div>
 
-        <!-- Action Buttons -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-          <button type="button" onclick="switchView('graph')" class="w-full sm:w-auto km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
-            <span>🗺️ Ver Mapa Completo de Procesos</span>
-            <span>➜</span>
-          </button>
-          <button type="button" onclick="switchView('dashboard')" class="w-full sm:w-auto py-3.5 px-6 rounded-2xl bg-white/[0.06] hover:bg-white/10 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-2 transition">
-            <span>📊 Ver Tablero de Dirección</span>
-          </button>
+        <!-- Action Buttons (Colaborador vs Dirección) -->
+        <div class="space-y-3 pt-2">
+          <!-- Colaborador Action -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button type="button" onclick="goToStage(0)" class="w-full sm:w-auto km-btn-action py-3.5 px-8 text-xs flex items-center justify-center gap-2">
+              <span>✓ Mi Aporte Quedó Registrado · Volver al Inicio</span>
+            </button>
+          </div>
+
+          <!-- Dirección Exclusivo Buttons -->
+          <div class="admin-tab hidden flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 border-t border-white/[0.08]">
+            <button type="button" onclick="switchView('graph')" class="w-full sm:w-auto py-3 px-5 rounded-2xl bg-white/[0.06] hover:bg-white/10 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-2 transition">
+              <span>🗺️ Ver Mapa E2E (Admin)</span>
+            </button>
+            <button type="button" onclick="switchView('dashboard')" class="w-full sm:w-auto py-3 px-5 rounded-2xl bg-km-danger/20 hover:bg-km-danger/30 text-white font-bold text-xs border border-km-danger/40 flex items-center justify-center gap-2 transition">
+              <span>📊 Ver Tablero de Dirección (Admin)</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -1208,9 +1218,58 @@
     ];
 
     // =========================================================================
-    // VIEW SWITCHING
+    // ADMIN SECURITY GUARD & VIEW SWITCHING
     // =========================================================================
+    let isAdminUnlocked = false;
+
+    function unlockAdminView() {
+      isAdminUnlocked = true;
+      localStorage.setItem('km_admin_unlocked', 'true');
+      document.querySelectorAll('.admin-tab').forEach(el => {
+        el.classList.remove('hidden');
+      });
+      const badge = document.getElementById('adminBadgeIndicator');
+      if (badge) badge.classList.remove('hidden');
+    }
+
+    function promptAdminUnlock() {
+      if (isAdminUnlocked) {
+        if (confirm("¿Deseás bloquear el modo Dirección y volver a vista Colaborador?")) {
+          isAdminUnlocked = false;
+          localStorage.removeItem('km_admin_unlocked');
+          document.querySelectorAll('.admin-tab').forEach(el => {
+            el.classList.add('hidden');
+          });
+          const badge = document.getElementById('adminBadgeIndicator');
+          if (badge) badge.classList.add('hidden');
+          switchView('guided');
+        }
+        return;
+      }
+
+      const pin = prompt("🔒 Acceso Exclusivo de Dirección KM:\nIngresá el PIN de seguridad:");
+      if (pin === "1915" || pin === "km2026") {
+        unlockAdminView();
+        alert("✓ Acceso concedido a Dirección. Pestañas de Mapa E2E y Tablero habilitadas.");
+      } else if (pin !== null) {
+        alert("PIN incorrecto.");
+      }
+    }
+
+    // Auto-check on load (via ?admin=1 or ?dir=1 or saved localStorage)
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === '1' || urlParams.get('dir') === '1' || localStorage.getItem('km_admin_unlocked') === 'true') {
+        unlockAdminView();
+      }
+    });
+
     function switchView(viewName) {
+      if ((viewName === 'graph' || viewName === 'dashboard') && !isAdminUnlocked) {
+        promptAdminUnlock();
+        if (!isAdminUnlocked) return;
+      }
+
       currentView = viewName;
 
       // Hide all main containers
@@ -1590,8 +1649,9 @@
         quote: `"${frictionQuote}"`
       });
 
-      // Step 5: Follow-up / Cobro / Entrega
-      if (currentUser.role.includes('Mayoreo') || currentUser.role.includes('Promotor')) {
+      // Step 5 & 6: Follow-up / Cobro / Entrega adaptativo según puesto
+      const roleLower = (currentUser.role || '').toLowerCase();
+      if (roleLower.includes('mayoreo') || roleLower.includes('promotor') || roleLower.includes('ruta')) {
         activeProcessNodes.push({
           id: nodeId++,
           title: 'Gestión y recaudación de cobros en ruta',
@@ -1605,6 +1665,21 @@
           type: 'action',
           icon: '✅',
           dept: 'Cierre'
+        });
+      } else if (roleLower.includes('gerente') || roleLower.includes('franquicia') || roleLower.includes('administrador') || roleLower.includes('coordinador') || roleLower.includes('lider')) {
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: 'Negociación y acuerdos comerciales con prospectos',
+          type: 'action',
+          icon: '🤝',
+          dept: 'Gestión'
+        });
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: 'Cierre de contratos y supervisión de resultados',
+          type: 'action',
+          icon: '📈',
+          dept: 'Dirección'
         });
       } else {
         activeProcessNodes.push({
