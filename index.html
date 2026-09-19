@@ -236,6 +236,46 @@
             <p class="text-[11px] text-slate-400 leading-relaxed">Los 4 programadores y la IA construyen directo lo que de verdad necesitás.</p>
           </div>
         </div>
+
+        <!-- THE END-TO-END VALUE STREAM PIPELINE -->
+        <div class="glass-shell rounded-2xl p-4 space-y-3 border-emerald-500/20 bg-emerald-950/20">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-300 font-mono flex items-center gap-2">
+              <span>⚡</span> EL FLUJO DE EFECTIVIDAD Y DINERO KM
+            </span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">End-to-End</span>
+          </div>
+          <div class="grid grid-cols-5 gap-1.5 text-center">
+            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
+              <span class="text-base block">🚢</span>
+              <span class="text-[9px] font-bold text-slate-300 block">PUERTO</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Navieras</span>
+            </div>
+            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
+              <span class="text-base block">📦</span>
+              <span class="text-[9px] font-bold text-slate-300 block">BODEGA CD</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Picking / Rutas</span>
+            </div>
+            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
+              <span class="text-base block">🏪</span>
+              <span class="text-[9px] font-bold text-slate-300 block">77 TIENDAS</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Venta / Mayoreo</span>
+            </div>
+            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
+              <span class="text-base block">💳</span>
+              <span class="text-[9px] font-bold text-slate-300 block">CRÉDITOS</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Dictamen < 20m</span>
+            </div>
+            <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-0.5">
+              <span class="text-base block">💰</span>
+              <span class="text-[9px] font-bold text-emerald-300 block">BANCOS</span>
+              <span class="text-[8px] text-emerald-400 block leading-tight">Conciliación 4P</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-400 leading-relaxed border-t border-white/5 pt-2">
+            Cada puesto de los <strong class="text-white">84 perfiles oficiales del ERP</strong> es un eslabón de esta cadena: si un área retiene la pelota, el ciclo se corta, se pagan multas y se frena la venta.
+          </p>
+        </div>
       </div>
 
       <!-- Right: Fast Identification Form -->
@@ -338,7 +378,7 @@
             <!-- Sucursal / Área -->
             <div class="space-y-1">
               <label class="block text-xs font-bold text-slate-300">Sucursal o Área <span class="text-rose-400">*</span></label>
-              <input type="text" id="empStore" required placeholder="Ej: CD (Centro de Distribución), Mayoreo, Dirección, Choluteca..." 
+              <input type="text" id="empStore" list="officialStoresList" required placeholder="Escribí tu sucursal o área (ej: CD, Mayoreo, Mercadeo, Choluteca...)" 
                 class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none transition">
               <div class="flex flex-wrap gap-1.5 pt-1">
                 <button type="button" onclick="setStore('CD (Centro de Distribución)')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">CD / Bodega Central</button>
@@ -352,7 +392,7 @@
             <!-- Rol / Puesto -->
             <div class="space-y-1">
               <label class="block text-xs font-bold text-slate-300">Puesto o Cargo <span class="text-rose-400">*</span></label>
-              <input type="text" id="empRole" required placeholder="Ej: CEO, Asesor Mayoreo, Jefe de Bodega, Vendedor..." 
+              <input type="text" id="empRole" list="officialRolesList" required placeholder="Escribí tu puesto (ej: Asesor de Ventas, Administrador, Bodeguero...)" 
                 class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none transition">
               <div class="flex flex-wrap gap-1.5 pt-1">
                 <button type="button" onclick="setRole('CEO / Director General')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">CEO / Director</button>
@@ -553,7 +593,142 @@
 
     </div>
 
-  </main>
+  
+  <!-- OFFICIAL ERP ROLES & AREAS DATALISTS (84 perfiles y 34 areas oficiales) -->
+  <datalist id="officialRolesList">
+    <option value="ADMINISTRADOR DE TIENDA">
+    <option value="ANALISTA DE COMPRAS">
+    <option value="ANALISTA DE GESTION DE PEDIDOS">
+    <option value="ASESOR DE VENTAS">
+    <option value="ASISTENTE DE GERENCIA COMERCIAL">
+    <option value="ASISTENTE DE JEFE  CREDITO Y COBRANZA">
+    <option value="AUDITOR DE PROCESOS">
+    <option value="AUDITOR OPERATIVO DE ESTACION">
+    <option value="AUDITOR OPERATIVO DE TIENDA">
+    <option value="AUDITOR OPERATIVO DE ZONA">
+    <option value="AUDITOR OPERATIVO I DE ALMACEN">
+    <option value="AUDITOR OPERATIVO II DE ALMACEN">
+    <option value="AUXILIAR ADMINISTRATIVO">
+    <option value="AUXILIAR CONTABLE">
+    <option value="AUXILIAR CONTABLE MAYOREO">
+    <option value="AUXILIAR DE ALMACEN-DESPACHO">
+    <option value="AUXILIAR DE ALMACEN-EMPAQUE">
+    <option value="AUXILIAR DE ALMACEN-RECEPCION">
+    <option value="AUXILIAR DE COMPRAS">
+    <option value="AUXILIAR DE DESPACHO">
+    <option value="AUXILIAR DE FACTURACION">
+    <option value="AUXILIAR DE MERCADEO">
+    <option value="AUXILIAR DE MONITOREO Y SEGURIDAD">
+    <option value="AUXILIAR DE RECURSOS HUMANOS">
+    <option value="AUXILIAR DE SAC MAYOREO">
+    <option value="AUXILIAR DE SERVICIO AL CLIENTE">
+    <option value="AUXILIAR DE SOPORTE TECNICO">
+    <option value="AUXILIAR DE SUMINISTROS Y EQUIPO">
+    <option value="AUXILIAR DE TIENDA">
+    <option value="AUXILIAR SAC Y MERCADEO">
+    <option value="BODEGUERO">
+    <option value="CAJERA">
+    <option value="CAJERA DE FINANZAS">
+    <option value="COMODIN ADMINISTRATIVO">
+    <option value="COMODIN DE ALMACEN">
+    <option value="COMODIN DE AUDITORIA">
+    <option value="COMODIN DE TIENDAS">
+    <option value="CONSERJE">
+    <option value="CONSERJE-ALMACEN">
+    <option value="CONTADOR GENERAL">
+    <option value="COORDINADOR DE DESPACHO">
+    <option value="COORDINADOR DE MANTENIMIENTO">
+    <option value="COORDINADOR DE RECEPCION">
+    <option value="COORDINADOR DE TECNOLOGIA DE LA INFORMACION Y SEGURIDAD">
+    <option value="COORDINADOR GENERAL DE ALMACEN">
+    <option value="COORDINADORA DE RECURSOS HUMANOS">
+    <option value="DIRECTOR FINANCIERO">
+    <option value="DIRECTORA DE PUBLICIDAD">
+    <option value="DISEÑADOR GRAFICO">
+    <option value="ENCARGADO DE BODEGA">
+    <option value="GERENTE ADMINISTRATIVO">
+    <option value="GERENTE COMERCIAL">
+    <option value="GERENTE DE AUDITORIA">
+    <option value="GERENTE DE RECURSOS HUMANOS">
+    <option value="GERENTE DE VENTAS DE MAYOREO">
+    <option value="GERENTE GENERAL">
+    <option value="GESTION Y PROCESOS">
+    <option value="GESTOR DE CONTENIDO">
+    <option value="INTELIGENCIA DE COMPRA">
+    <option value="JEFE DE ALMACEN">
+    <option value="JEFE DE COMPRAS">
+    <option value="JEFE DE CREDITO Y COBRANZA">
+    <option value="JEFE DE MERCADEO">
+    <option value="JEFE DE OPERACIONES">
+    <option value="JEFE DE RECURSOS HUMANOS">
+    <option value="JEFE DE VENTAS DE MAYOREO">
+    <option value="JEFE LOGISTICA Y SISTEMAS">
+    <option value="JEFE MERCADEO">
+    <option value="OFICIAL ADMINISTRATIVO">
+    <option value="OFICIAL DE MERCADEO">
+    <option value="OFICIAL DE VENTAS">
+    <option value="OFICIAL FINANCIERO">
+    <option value="OFICIAL FINANZAS">
+    <option value="OFICIAL SERVICIO AL CLIENTE">
+    <option value="PROMOTOR DE MARCA">
+    <option value="PSICOLOGA /TECNICO EN RECURSOS HUMANOS">
+    <option value="SUB COORDINADOR DE DESPACHO">
+    <option value="SUPERVISOR DE COMPRAS">
+    <option value="SUPERVISOR DE MAYOREO">
+    <option value="SUPERVISOR DE VENTAS">
+    <option value="TECNICO DE MANTENIMIENTO">
+    <option value="TECNICO EN RECURSOS HUMANOS">
+    <option value="VENDEDOR DE MAYOREO">
+  </datalist>
+
+  <datalist id="officialStoresList">
+    <option value="ALMACEN">
+    <option value="Administración">
+    <option value="Administradores de Tienda">
+    <option value="Asesores de Ventas Mayoreo">
+    <option value="Asesores de venta de Tienda">
+    <option value="Auditoría">
+    <option value="Auxiliar de Tienda y Conserjeria">
+    <option value="CREDITOS Y COBRANZA">
+    <option value="Cajeras Tiendas">
+    <option value="Canal-Distribuidores">
+    <option value="Comercial-Tienda">
+    <option value="Compras">
+    <option value="Contabilidad">
+    <option value="Customer Service">
+    <option value="Distribución">
+    <option value="Financiera">
+    <option value="Finanzas">
+    <option value="GESTION Y PROCESOS">
+    <option value="Gerencia Administrativa">
+    <option value="Gerencia General">
+    <option value="IT Y SEGURIDAD">
+    <option value="Import & Export">
+    <option value="Insumos y Suministros">
+    <option value="Inteligencia Artificial">
+    <option value="KM Cars">
+    <option value="Mantenimiento">
+    <option value="Mayoreo">
+    <option value="Mercadeo">
+    <option value="Operaciones">
+    <option value="Recursos Humanos">
+    <option value="SERVICIO DE ATENCION AL CLIENTE (SAC)">
+    <option value="Sin Asignar">
+    <option value="Supervision de Ventas Mayoreo">
+    <option value="Supervisión de Ventas Tiendas">
+    <option value="CD (Centro de Distribución)">
+    <option value="Ventas Mayoreo B2B">
+    <option value="Dirección General">
+    <option value="Tienda Choluteca">
+    <option value="Tienda Danlí">
+    <option value="Tienda Comayagua">
+    <option value="Tienda San Pedro Sula">
+    <option value="Tienda Catacamas">
+    <option value="Tienda Juticalpa">
+    <option value="Tienda Tocoa">
+  </datalist>
+
+</main>
 
   <!-- ========================================================================= -->
   <!-- ADMIN CENSO MODAL (Supervisión)                                           -->
@@ -686,6 +861,23 @@
       if (combined.includes('compra') || combined.includes('importac') || combined.includes('aduana') || combined.includes('naviera') || 
           combined.includes('proveedor') || combined.includes('comercio exterior') || combined.includes('puerto')) {
         return 'compras';
+      }
+
+      // 10. MERCADEO / PUBLICIDAD / DISEÑO
+      if (combined.includes('mercadeo') || combined.includes('publicidad') || combined.includes('disenador') || 
+          combined.includes('contenido') || combined.includes('promotor') || combined.includes('marketing')) {
+        return 'mercadeo';
+      }
+
+      // 11. SERVICIO AL CLIENTE (SAC)
+      if (combined.includes('servicio al cliente') || combined.includes(' sac') || combined.startsWith('sac') || 
+          combined.includes('customer service') || combined.includes('atencion al cliente')) {
+        return 'sac';
+      }
+
+      // 12. SUPERVISIÓN DE VENTAS TIENDAS
+      if (combined.includes('supervisor de ventas') || combined.includes('supervision') || combined.includes('supervisor') || combined.includes('gerente comercial')) {
+        return 'supervision';
       }
 
       // 10. TALLER / MECÁNICA / ARMADO / GARANTÍAS
@@ -1615,6 +1807,255 @@
               { icon: '💳', title: 'Integración directa con datáfonos de tarjeta', desc: 'Cobrar con tarjeta sin tener que digitar el monto a mano en el sistema y en el POS.' },
               { icon: '⚠️', title: 'Alerta de rango CAI antes de que se agote', desc: 'Avisar con 100 facturas de anticipación para no quedarse bloqueado en pleno sábado.' },
               { icon: '📱', title: 'Validación de transferencias en pantalla en tiempo real', desc: 'Confirmar pagos por banco sin tener que pedir captura por WhatsApp a contabilidad.' }
+            ]
+          }
+        ];
+      }
+
+      // ==========================================
+      // 13. MERCADEO / PUBLICIDAD / DISEÑO
+      // ==========================================
+      if (cat === 'mercadeo') {
+        return [
+          {
+            stepNum: 1,
+            badge: 'PASO 1 DE 5 · TU ESENCIA EN MERCADEO',
+            xp: '+100 XP',
+            percent: 20,
+            title: `¿En qué se va tu jornada real en Mercadeo y Publicidad?`,
+            subtitle: 'Las actividades vitales para llenar de prospectos y ventas las 77 tiendas:',
+            field: 'jornada_diaria',
+            options: [
+              { icon: '🎯', title: 'Generación de Leads Calificados para Tiendas', desc: 'Campañas digitales en Meta/TikTok para mandar prospectos calificados por WhatsApp a cada sucursal.' },
+              { icon: '📢', title: 'Lanzamiento de Modelos y Campañas de Marca', desc: 'Producción de artes, videos, fichas técnicas y presencia de marca KM en todo Honduras.' },
+              { icon: '🏷️', title: 'Material POP y Promociones Quincenales', desc: 'Rótulos de tienda, afiches, banners y precios para vestir las 77 tiendas en cada campaña.' },
+              { icon: '📊', title: 'Medición de Conversión y Retorno Publicitario', desc: 'Medir cuántas personas que vieron la pauta terminaron comprando moto o repuesto en tienda.' }
+            ]
+          },
+          {
+            stepNum: 2,
+            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            xp: '+100 XP',
+            percent: 40,
+            title: '¿Qué trabas o burocracia frenan el impacto de Mercadeo?',
+            subtitle: 'Procesos que consumen tiempo sin mover la aguja comercial:',
+            field: 'herramientas_checklist',
+            options: [
+              { icon: '✂️', title: 'Publicitar motos o repuestos agotados', desc: 'Gastar presupuesto promocionando modelos que no tienen inventario en CD ni en tiendas.' },
+              { icon: '⏳', title: 'Aprobaciones de artes y copys que tardan días', desc: 'Campañas que pierden la oportunidad del fin de semana esperando visto bueno de Dirección.' },
+              { icon: '📑', title: 'Material impreso que no llega o no se coloca', desc: 'Afiches y volantes enviados a sucursales que se quedan guardados en cajas en la trastienda.' },
+              { icon: '🔄', title: 'Cambios de precios y promociones a última hora', desc: 'Enterarnos de una promoción cuando ya está en piso sin tiempo para armar la campaña visual.' }
+            ]
+          },
+          {
+            stepNum: 3,
+            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            xp: '+100 XP',
+            percent: 60,
+            title: '¿Dónde se cae el testigo entre Mercadeo y las demás áreas?',
+            subtitle: '¿Quién no atiende los prospectos o no te da la información a tiempo?',
+            field: 'conexiones_organigrama',
+            options: [
+              { icon: '🏪', title: 'Vendedores de Tienda Retail', desc: 'Mandamos prospectos calificados con número de teléfono y los vendedores no los llaman ni atienden.' },
+              { icon: '📦', title: 'Compras y Bodega Central (CD)', desc: 'No nos informan qué modelos tienen sobrestock acumulado para enfocarles pauta y liquidarlos.' },
+              { icon: '💼', title: 'Finanzas / Tesorería', desc: 'Trabas para liberar pagos de tarjetas para pauta publicitaria en Meta y Google Ads.' },
+              { icon: '💻', title: 'Sistemas / TI', desc: 'Falta de integración entre los formularios de WhatsApp y la base de datos de kmpos.' }
+            ]
+          },
+          {
+            stepNum: 4,
+            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
+            xp: '+100 XP',
+            percent: 80,
+            title: '¿Cómo Mercadeo acelera la facturación de KM?',
+            subtitle: 'El valor de la publicidad conectado a los ingresos reales de la empresa:',
+            field: 'multiplicador_valor',
+            options: [
+              { icon: '🚀', title: 'Llenar las tiendas de clientes con dinero en mano', desc: 'Asegurar que cada sucursal tenga tráfico diario de personas preguntando por motos.' },
+              { icon: '📦', title: 'Rotación acelerada de inventario parado', desc: 'Lanzar promociones agresivas para liberar capital de motos que llevan meses en bodega.' },
+              { icon: '🛡️', title: 'Posicionamiento dominante frente a la competencia', desc: 'Hacer que el hondureño piense en KM Motos primero antes de ir a otra marca.' },
+              { icon: '💰', title: 'Costo por adquisición de cliente rentable', desc: 'Asegurar que cada dólar invertido en publicidad devuelva al menos 10 veces en ventas.' }
+            ]
+          },
+          {
+            stepNum: 5,
+            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+            xp: '+100 XP',
+            percent: 100,
+            title: '¿Qué herramienta urgente de sistemas necesita Mercadeo?',
+            subtitle: 'Lo que el equipo de programación e IA debe integrar de inmediato:',
+            field: 'bloqueos_p0',
+            options: [
+              { icon: '📱', title: 'Enrutador automático de WhatsApp a kmpos', desc: 'Que el cliente de redes caiga directo en la pantalla del vendedor de su ciudad en segundos.' },
+              { icon: '🔍', title: 'Catálogo web de motos con stock real por tienda', desc: 'Mostrar en la página oficial qué colores y modelos están disponibles en cada sucursal.' },
+              { icon: '📊', title: 'Dashboard de conversión de campañas en vivo', desc: 'Ver en tiempo real cuántas motos se vendieron atribuidas a cada campaña de redes.' },
+              { icon: '🔔', title: 'Módulo de WhatsApp masivo para clientes en cartera', desc: 'Notificar ofertas a clientes que ya terminaron de pagar para que saquen su segunda moto.' }
+            ]
+          }
+        ];
+      }
+
+      // ==========================================
+      // 14. SERVICIO AL CLIENTE (SAC)
+      // ==========================================
+      if (cat === 'sac') {
+        return [
+          {
+            stepNum: 1,
+            badge: 'PASO 1 DE 5 · TU ESENCIA EN SERVICIO AL CLIENTE (SAC)',
+            xp: '+100 XP',
+            percent: 20,
+            title: `¿En qué se va tu jornada real en Servicio al Cliente?`,
+            subtitle: 'Las tareas vitales para retener clientes y solucionar problemas de las 77 tiendas:',
+            field: 'jornada_diaria',
+            options: [
+              { icon: '🎧', title: 'Resolución de Quejas y Reclamos a Nivel Nacional', desc: 'Atender llamadas, mensajes de WhatsApp y redes de clientes inconformes de cualquier tienda.' },
+              { icon: '🛵', title: 'Seguimiento de Motos en Taller y Garantías', desc: 'Monitorear por qué una moto lleva días parada y dar respuesta al cliente que necesita su moto.' },
+              { icon: '📋', title: 'Encuestas de Satisfacción y Calidad de Servicio', desc: 'Medir cómo fue atendido el cliente tras la entrega de su moto o servicio de taller.' },
+              { icon: '🛡️', title: 'Canalización de Casos Críticos a Gerencia', desc: 'Evitar que un cliente insatisfecho escale su queja al Ministerio Público o dañe la marca en redes.' }
+            ]
+          },
+          {
+            stepNum: 2,
+            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            xp: '+100 XP',
+            percent: 40,
+            title: '¿Qué trabas o burocracia te impiden solucionar rápido al cliente?',
+            subtitle: 'Procesos lentos que hacen que el cliente se desespere más:',
+            field: 'herramientas_checklist',
+            options: [
+              { icon: '✂️', title: 'Pedir al cliente datos que ya están en el sistema', desc: 'Tener que pedir foto de contrato o cédula cuando el cliente ya está registrado en kmpos.' },
+              { icon: '📑', title: 'Manejar reclamos en hojas de Excel separadas', desc: 'Apuntar casos en tablas de cálculo donde no hay trazabilidad ni alertas de vencimiento.' },
+              { icon: '⏳', title: 'Esperar días por una respuesta del taller o la tienda', desc: 'Llamar al encargado de tienda o mecánico y que no contesten ni den estatus del caso.' },
+              { icon: '🔄', title: 'Trámites engorrosos para autorizar devoluciones o cambios', desc: 'Burocracia que tarda semanas para resolver un cambio legítimo de moto defectuosa.' }
+            ]
+          },
+          {
+            stepNum: 3,
+            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            xp: '+100 XP',
+            percent: 60,
+            title: '¿De qué departamentos dependés para resolver el reclamo?',
+            subtitle: '¿Quién no te da respuesta a tiempo o frena la solución?',
+            field: 'conexiones_organigrama',
+            options: [
+              { icon: '🔧', title: 'Taller Central y Encargados de Garantías', desc: 'Tardan en diagnosticar o en enviar repuestos de garantía dejando al cliente a pie.' },
+              { icon: '🏪', title: 'Administradores y Vendedores de Tienda', desc: 'Maltrato en piso o promesas verbales falsas que luego SAC tiene que salir a disculpar.' },
+              { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Llamadas de cobro agresivas a clientes que tienen su moto averiada en taller.' },
+              { icon: '💻', title: 'Sistemas / TI', desc: 'No tener una pantalla única donde se vea todo el expediente del cliente en 1 clic.' }
+            ]
+          },
+          {
+            stepNum: 4,
+            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
+            xp: '+100 XP',
+            percent: 80,
+            title: '¿Cómo SAC protege el dinero y asegura futuras ventas?',
+            subtitle: 'Retener un cliente cuesta 5 veces menos que conseguir uno nuevo:',
+            field: 'multiplicador_valor',
+            options: [
+              { icon: '🛡️', title: 'Retención de clientes de crédito para que no caigan en mora', desc: 'Resolverle el problema al cliente para que siga pagando sus cuotas con gusto.' },
+              { icon: '🤝', title: 'Recompra y recomendación boca a boca', desc: 'Un cliente bien atendido en su reclamo se convierte en el mejor promotor de KM.' },
+              { icon: '⚖️', title: 'Cero denuncias en Protección al Consumidor', desc: 'Cerrar desacuerdos con diálogo justo antes de que se conviertan en multas legales.' },
+              { icon: '⚡', title: 'Detección temprana de malas prácticas operativas', desc: 'Alertar a Dirección qué tienda o mecánico está generando más quejas para corregir.' }
+            ]
+          },
+          {
+            stepNum: 5,
+            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+            xp: '+100 XP',
+            percent: 100,
+            title: '¿Qué módulo urgente de sistemas necesita Servicio al Cliente?',
+            subtitle: 'La herramienta que los desarrolladores deben entregar para modernizar SAC:',
+            field: 'bloqueos_p0',
+            options: [
+              { icon: '📱', title: 'Módulo de Tickets de SAC integrado a kmpos', desc: 'Abrir ticket desde WhatsApp, asignarlo al encargado de tienda y darle seguimiento en vivo.' },
+              { icon: '🤖', title: 'Bot de consulta automática de estatus de moto en taller', desc: 'Que el cliente consulte su placa por WhatsApp y sepa al instante en qué etapa va su moto.' },
+              { icon: '⚠️', title: 'Semáforo de quejas por tienda con alerta a Dirección', desc: 'Notificación automática si un reclamo supera las 48 horas sin resolución.' },
+              { icon: '📊', title: 'Encuesta digital de satisfacción enviada por WhatsApp al facturar', desc: 'Calificar al vendedor y al taller con 1 tap al salir de la tienda.' }
+            ]
+          }
+        ];
+      }
+
+      // ==========================================
+      // 15. SUPERVISIÓN DE VENTAS TIENDAS
+      // ==========================================
+      if (cat === 'supervision') {
+        return [
+          {
+            stepNum: 1,
+            badge: 'PASO 1 DE 5 · TU ESENCIA EN SUPERVISIÓN DE TIENDAS',
+            xp: '+100 XP',
+            percent: 20,
+            title: `¿En qué se va tu jornada real supervisando las tiendas?`,
+            subtitle: 'Las actividades críticas para que las sucursales cumplan su meta de venta:',
+            field: 'jornada_diaria',
+            options: [
+              { icon: '🎯', title: 'Seguimiento Diario a Cuotas de Venta por Tienda', desc: 'Monitorear números hora tras hora, empujar metas quincenales y corregir tiendas caídas.' },
+              { icon: '🏪', title: 'Auditoría Presencial de Tiendas en Ruta', desc: 'Inspeccionar orden, exhibición de motos, precios visibles, disciplina y atención en piso.' },
+              { icon: '👥', title: 'Coaching y Acompañamiento a la Fuerza de Ventas', desc: 'Entrenar a vendedores en técnicas de cierre, manejo de objeciones y venta de créditos.' },
+              { icon: '🚨', title: 'Destrabe Operativo y Apoyo en Cierres Grandes', desc: 'Intervenir cuando un crédito grande está trabado o cuando hay fallas en la sucursal.' }
+            ]
+          },
+          {
+            stepNum: 2,
+            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            xp: '+100 XP',
+            percent: 40,
+            title: '¿Qué reportes o papeleos te hacen perder tiempo en ruta?',
+            subtitle: 'Trámites manuales que te alejan de apoyar a las tiendas a vender:',
+            field: 'herramientas_checklist',
+            options: [
+              { icon: '✂️', title: 'Armar reportes de ventas manuales en Excel por la noche', desc: 'Pasar horas consolidando datos de WhatsApp cuando el ERP debería darlos en vivo.' },
+              { icon: '⏳', title: 'Llamar tienda por tienda para saber cuánto llevan facturado', desc: 'Tener que interrumpir al administrador para preguntar un número que debería estar en el celular.' },
+              { icon: '📑', title: 'Checklists de supervisión en papel físico', desc: 'Llenar hojas de auditoría de tienda que luego se quedan archivadas y nadie analiza.' },
+              { icon: '🔄', title: 'Esperar aprobaciones de oficina central para excepciones comerciales', desc: 'No tener margen de decisión para cerrar un cliente que pide un descuento razonable.' }
+            ]
+          },
+          {
+            stepNum: 3,
+            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            xp: '+100 XP',
+            percent: 60,
+            title: '¿Dónde se cae el testigo entre Supervisión y las áreas centrales?',
+            subtitle: '¿Quién te frena el cumplimiento de la cuota en tu zona?',
+            field: 'conexiones_organigrama',
+            options: [
+              { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Ventas listas pero Créditos tarda horas en aprobar y el cliente se va frustrado.' },
+              { icon: '📦', title: 'Bodega Central (CD) y Despacho', desc: 'Tiendas de la zona desabastecidas de los modelos más vendidos en pleno fin de semana.' },
+              { icon: '👥', title: 'Recursos Humanos', desc: 'Vacantes de vendedores o administradores sin cubrir durante semanas en tiendas clave.' },
+              { icon: '💻', title: 'Sistemas / TI', desc: 'Caídas del sistema de facturación en sábados y días de quincena cuando más se vende.' }
+            ]
+          },
+          {
+            stepNum: 4,
+            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
+            xp: '+100 XP',
+            percent: 80,
+            title: '¿Cómo Supervisión garantiza los ingresos de la empresa?',
+            subtitle: 'El rol como garante del cumplimiento comercial de KM Motos:',
+            field: 'multiplicador_valor',
+            options: [
+              { icon: '🔥', title: 'Cumplimiento del 100% de la cuota nacional', desc: 'Asegurar que cada tienda llegue a su número para que la empresa cubra todas sus obligaciones.' },
+              { icon: '💰', title: 'Cero fugas de dinero y depósitos al día', desc: 'Exigir que todo el efectivo de las ventas se deposite en el banco sin demoras.' },
+              { icon: '📈', title: 'Incremento del ticket promedio', desc: 'Motivar a los vendedores a colocar la moto con casco, seguro y accesorios adicionales.' },
+              { icon: '⚡', title: 'Reacción rápida ante caídas de venta', desc: 'Detectar en la primera semana de quincena qué tienda va baja para meterle acelerador.' }
+            ]
+          },
+          {
+            stepNum: 5,
+            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+            xp: '+100 XP',
+            percent: 100,
+            title: '¿Qué herramienta móvil necesita el Supervisor en el celular?',
+            subtitle: 'Lo que los desarrolladores deben entregar para tener control total de ruta:',
+            field: 'bloqueos_p0',
+            options: [
+              { icon: '📱', title: 'Tablero móvil de ventas por tienda y vendedor en tiempo real', desc: 'Ver en el celular el avance de meta de cada sucursal con actualización al segundo.' },
+              { icon: '🔔', title: 'Alertas automáticas si una tienda lleva 3 horas sin facturar', desc: 'Aviso inmediato al celular para investigar si es falla de sistema o falta de clientes.' },
+              { icon: '📋', title: 'Checklist digital de supervisión en tienda con fotos', desc: 'Evaluar la tienda desde el móvil y que la calificación le llegue directo al Administrador.' },
+              { icon: '💳', title: 'Botón de escalamiento prioritario de créditos trabados', desc: 'Empujar solicitudes clave directamente a la jefatura de créditos para cierre inmediato.' }
             ]
           }
         ];
