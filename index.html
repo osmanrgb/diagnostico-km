@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Así trabajamos KM · Escaneo Operativo 360°</title>
+  <title>Así trabajamos KM · De la Voz al Proceso Vivo · KM 2.0</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,16 +22,19 @@
             'km-bg': '#080B09',
             'km-surface': '#101512',
             'km-surface-high': '#161D19',
-            'km-border': 'rgba(255, 255, 255, 0.09)',
+            'km-surface-card': '#141A16',
+            'km-border': 'rgba(255, 255, 255, 0.08)',
             'km-green': '#39E675',
             'km-green-soft': '#9AF5B8',
             'km-cyan': '#6AD8FF',
             'km-warning': '#FFB84D',
+            'km-danger': '#FF5C5C',
+            'km-purple': '#B088FF',
             'km-text': '#F7FAF8',
             'km-muted': '#96A49B'
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace']
           }
         }
@@ -40,19 +43,16 @@
   </script>
 
   <style>
-    /* ========================================================================= */
-    /* KM NIGHT SHIFT DESIGN SYSTEM                                              */
-    /* Linear calmness × Duolingo momentum × Headspace care                       */
-    /* ========================================================================= */
     :root {
       --km-bg: #080B09;
       --km-surface: #101512;
       --km-surface-high: #161D19;
-      --km-border: rgba(255, 255, 255, 0.09);
       --km-green: #39E675;
       --km-green-soft: #9AF5B8;
       --km-cyan: #6AD8FF;
       --km-warning: #FFB84D;
+      --km-danger: #FF5C5C;
+      --km-purple: #B088FF;
       --km-text: #F7FAF8;
       --km-muted: #96A49B;
     }
@@ -63,59 +63,14 @@
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
     }
 
-    /* TACTILE QUESTION CARD (Designed for greasy thumb & quick taps) */
-    .km-card {
-      background-color: #141A16;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      min-height: 72px;
-      transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), 
-                  border-color 120ms ease, 
-                  background-color 120ms ease,
-                  box-shadow 120ms ease;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      padding: 16px 20px;
-      gap: 16px;
-      position: relative;
-    }
-
-    @media (hover: hover) {
-      .km-card:hover {
-        border-color: rgba(57, 230, 117, 0.35);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.5);
-      }
-    }
-
-    .km-card:active {
-      transform: scale(0.985) translateY(2px);
-    }
-
-    /* SELECTED CARD STATE */
-    .km-card.selected {
-      background-color: rgba(57, 230, 117, 0.08) !important;
-      border-color: var(--km-green) !important;
-      box-shadow: 0 0 0 1px var(--km-green), 0 8px 20px -4px rgba(57, 230, 117, 0.2);
-    }
-
-    /* AMBER TOUCH FOR STEP 3 (Fricciones) */
-    .km-card.warning-card.selected {
-      background-color: rgba(255, 184, 77, 0.08) !important;
-      border-color: var(--km-warning) !important;
-      box-shadow: 0 0 0 1px var(--km-warning), 0 8px 20px -4px rgba(255, 184, 77, 0.2);
-    }
-
-    /* TACTILE DUOLINGO-STYLE 3D BUTTON */
+    /* Tactile 3D Buttons */
     .km-btn-action {
       background-color: var(--km-green);
       color: #051A0B;
       font-weight: 800;
-      border-radius: 18px;
+      border-radius: 16px;
       box-shadow: 0 4px 0 #1FA34E, 0 10px 20px -4px rgba(57, 230, 117, 0.3);
       transition: all 90ms ease;
     }
@@ -124,51 +79,76 @@
       box-shadow: 0 1px 0 #1FA34E, 0 4px 10px -2px rgba(57, 230, 117, 0.2);
     }
 
-    /* MOMENTUM CONNECTOR LINE */
-    .momentum-node {
-      transition: all 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    .km-card {
+      background-color: #141A16;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      transition: all 140ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .km-card:hover {
+      border-color: rgba(57, 230, 117, 0.3);
+      transform: translateY(-1px);
+    }
+    .km-card.selected {
+      background-color: rgba(57, 230, 117, 0.08) !important;
+      border-color: var(--km-green) !important;
+      box-shadow: 0 0 0 1px var(--km-green), 0 8px 20px -4px rgba(57, 230, 117, 0.25);
     }
 
-    /* VOICE RADAR WAVE ANIMATION */
+    /* Node Graph Connectors */
+    .graph-node {
+      transition: all 200ms ease;
+      position: relative;
+    }
+    .graph-node:hover {
+      transform: scale(1.02);
+    }
+    .graph-node.active-friction {
+      border-color: var(--km-danger) !important;
+      box-shadow: 0 0 16px rgba(255, 92, 92, 0.35);
+      animation: frictionPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes frictionPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 92, 92, 0.5); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 92, 92, 0); }
+    }
+
+    /* Voice Radar Wave Animation */
     @keyframes radarPulse {
-      0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(106, 216, 255, 0.6); }
-      70% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 18px rgba(106, 216, 255, 0); }
-      100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(106, 216, 255, 0); }
+      0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(57, 230, 117, 0.6); }
+      70% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 20px rgba(57, 230, 117, 0); }
+      100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(57, 230, 117, 0); }
     }
     .voice-radar {
       animation: radarPulse 1.8s infinite ease-in-out;
     }
 
-    /* VOICE LEVEL BARS */
+    /* Voice Level Bars */
     .voice-bar {
       animation: barDance 1.2s infinite ease-in-out alternate;
     }
     @keyframes barDance {
       0% { height: 6px; }
-      100% { height: 28px; }
+      100% { height: 32px; }
     }
 
-    /* 3D PASSPORT TILT */
-    .passport-container {
-      perspective: 1000px;
-    }
-    .passport-card {
-      background: linear-gradient(145deg, #161D19 0%, #0F1411 100%);
-      border: 1px solid rgba(57, 230, 117, 0.35);
-      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* CONFETTI CANVAS */
+    /* Confetti Canvas */
     #confettiCanvas {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 100;
+      z-index: 999;
     }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #080B09; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(57, 230, 117, 0.4); }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-km-green selection:text-black">
@@ -176,382 +156,813 @@
   <canvas id="confettiCanvas"></canvas>
 
   <!-- ========================================================================= -->
-  <!-- TOP STICKY HEADER (Linear calm + Duolingo momentum)                       -->
+  <!-- TOP APPLICATION NAVBAR                                                    -->
   <!-- ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-[#080B09]/90 backdrop-blur-md border-b border-white/[0.06] px-4 py-3">
-    <div class="max-w-xl mx-auto flex items-center justify-between gap-3">
+  <header class="sticky top-0 z-40 bg-[#080B09]/95 backdrop-blur-md border-b border-white/[0.08] px-4 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       
-      <!-- Brand Minimal Badge -->
-      <div class="flex items-center gap-2 flex-shrink-0">
-        <div class="w-8 h-8 rounded-xl bg-km-surface-high border border-white/10 flex items-center justify-center font-black text-xs text-km-green">
-          KM
-        </div>
-        <span class="text-xs font-bold tracking-tight text-white hidden sm:inline">Así trabajamos</span>
-      </div>
-
-      <a href="/frentes.html" target="_blank" title="Ver Organigrama E2E & Frentes Operativos" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/[0.04] border border-white/10 hover:border-km-green/40 text-[11px] text-km-muted hover:text-km-green transition">
-        <span>🗺️</span> <span>Organigrama & Frentes</span>
-      </a>
-
-      <!-- Center: Momentum Node Pipeline -->
-      <div id="topMomentumBar" class="hidden flex-1 max-w-[280px] flex flex-col items-center gap-1">
-        <div class="flex items-center justify-between w-full text-[11px] font-mono">
-          <span id="stepTitleTracker" class="text-km-green font-bold flex items-center gap-1.5">
-            <span id="stepIconTag">●</span>
-            <span id="stepCounterText">1 de 5</span>
-          </span>
-          <span id="stepMilestoneName" class="text-km-muted font-medium text-[10px] uppercase tracking-wider truncate max-w-[120px]">Tu día</span>
-          <span id="stepPercentText" class="text-white font-bold">20%</span>
+      <!-- Logo & Product Name -->
+      <div class="flex items-center justify-between w-full sm:w-auto gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-km-green/20 to-km-cyan/20 border border-km-green/40 flex items-center justify-center font-black text-sm text-km-green shadow-lg shadow-km-green/10">
+            KM
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-sm font-black tracking-tight text-white flex items-center gap-1.5">
+                Así trabajamos KM
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-km-green/20 text-km-green border border-km-green/30 font-bold uppercase tracking-wider">KM 2.0</span>
+              </h1>
+            </div>
+            <p class="text-[11px] text-km-muted hidden sm:block">Tu voz. Nuestros procesos. Un mejor KM.</p>
+          </div>
         </div>
 
-        <!-- 5 Connecting Nodes -->
-        <div class="w-full flex items-center justify-between relative px-1 py-1">
-          <div class="absolute left-2 right-2 h-0.5 bg-white/10 -z-0"></div>
-          <div id="momentumFillLine" class="absolute left-2 h-0.5 bg-km-green -z-0 transition-all duration-300" style="width: 0%;"></div>
-
-          <div id="node1" class="w-3.5 h-3.5 rounded-full bg-km-green border-2 border-km-bg z-10 momentum-node"></div>
-          <div id="node2" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
-          <div id="node3" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
-          <div id="node4" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
-          <div id="node5" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
+        <!-- View Switcher for Small Screens -->
+        <div class="flex sm:hidden items-center gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/10 text-xs">
+          <button onclick="switchView('guided')" id="tabMobileGuided" class="px-2.5 py-1 rounded-lg font-bold bg-km-green text-black">Voz</button>
+          <button onclick="switchView('graph')" id="tabMobileGraph" class="px-2.5 py-1 rounded-lg text-km-muted">Mapa</button>
+          <button onclick="switchView('dashboard')" id="tabMobileDashboard" class="px-2.5 py-1 rounded-lg text-km-muted">Dirección</button>
         </div>
       </div>
 
-      <!-- Right Controls: Audio & Info -->
-      <div class="flex items-center gap-1.5 flex-shrink-0">
-        <button id="soundToggleBtn" onclick="toggleAudio()" title="Sonido" class="w-8 h-8 rounded-xl bg-km-surface border border-white/10 hover:border-white/20 flex items-center justify-center text-xs text-km-muted transition">
-          <span id="soundIcon">🔊</span>
+      <!-- Center View Switcher (Desktop Tabs) -->
+      <div class="hidden sm:flex items-center gap-1.5 bg-km-surface p-1 rounded-2xl border border-white/[0.08] text-xs font-bold">
+        <button onclick="switchView('guided')" id="tabBtnGuided" class="px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2">
+          <span>🎙️</span> <span>Mi Recorrido en Vivo</span>
         </button>
-        <button onclick="openWhyModal()" title="¿Para qué usamos esto?" class="w-8 h-8 rounded-xl bg-km-surface border border-white/10 hover:border-white/20 flex items-center justify-center text-xs text-km-muted transition font-bold">
-          ?
+        <button onclick="switchView('graph')" id="tabBtnGraph" class="px-4 py-1.5 rounded-xl text-km-muted hover:text-white transition flex items-center gap-2">
+          <span>🗺️</span> <span>Mapa de Procesos E2E</span>
         </button>
+        <button onclick="switchView('dashboard')" id="tabBtnDashboard" class="px-4 py-1.5 rounded-xl text-km-muted hover:text-white transition flex items-center gap-2">
+          <span>📊</span> <span>Tablero de Dirección & Tickets</span>
+        </button>
+      </div>
+
+      <!-- Operational Pillars Status -->
+      <div class="hidden lg:flex items-center gap-2 text-[11px] font-mono text-km-muted">
+        <span class="px-2 py-1 rounded-lg bg-white/[0.03] border border-white/5 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-km-green"></span> <span>77 Tiendas</span>
+        </span>
+        <span class="px-2 py-1 rounded-lg bg-white/[0.03] border border-white/5 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-km-cyan"></span> <span>Mayoreo B2B</span>
+        </span>
+        <span class="px-2 py-1 rounded-lg bg-white/[0.03] border border-white/5 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-km-purple"></span> <span>CD Central</span>
+        </span>
       </div>
 
     </div>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- MAIN ARENA CONTAINER (Max 620px for Linear Focus)                         -->
+  <!-- MAIN CONTAINER                                                            -->
   <!-- ========================================================================= -->
-  <main class="flex-1 max-w-[620px] w-full mx-auto px-4 py-6 flex flex-col justify-center">
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-6 flex flex-col justify-start">
 
     <!-- ========================================================================= -->
-    <!-- SCREEN 0: BIENVENIDA & IDENTIFICACIÓN (Wireframe A)                       -->
+    <!-- VIEW 1: MI RECORRIDO EN VIVO (GUIDED PROCESS MINING)                     -->
     <!-- ========================================================================= -->
-    <div id="welcomeScreen" class="w-full space-y-6 my-auto">
-      
-      <!-- Logo Seal -->
-      <div class="text-center space-y-3">
-        <div class="inline-flex w-14 h-14 rounded-2xl bg-km-surface border border-km-green/30 items-center justify-center shadow-lg shadow-km-green/10">
-          <span class="text-xl font-black text-km-green tracking-tighter">KM</span>
+    <div id="viewGuided" class="w-full max-w-2xl mx-auto space-y-6">
+
+      <!-- STEPPER PROGRESS BAR (5 PARADAS) -->
+      <div id="guidedStepperBar" class="bg-km-surface border border-white/[0.08] rounded-2xl p-3.5 space-y-2.5">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span id="stepperStepTitle" class="text-km-green font-bold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-km-green animate-pulse"></span>
+            <span id="stepperStepNumber">PARADA 1 DE 5</span>
+          </span>
+          <span id="stepperMilestoneLabel" class="text-white font-bold text-xs uppercase tracking-wider">Tu Día Real</span>
+          <span id="stepperPercentText" class="text-km-muted font-bold">20%</span>
         </div>
+
+        <div class="w-full flex items-center justify-between relative px-1 py-1">
+          <div class="absolute left-2 right-2 h-0.5 bg-white/10 -z-0"></div>
+          <div id="stepperLineFill" class="absolute left-2 h-0.5 bg-km-green -z-0 transition-all duration-300" style="width: 20%;"></div>
+
+          <div id="stepDot1" class="w-3.5 h-3.5 rounded-full bg-km-green border-2 border-white z-10 shadow-lg shadow-km-green/50"></div>
+          <div id="stepDot2" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10"></div>
+          <div id="stepDot3" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10"></div>
+          <div id="stepDot4" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10"></div>
+          <div id="stepDot5" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10"></div>
+        </div>
+      </div>
+
+      <!-- ==================== PARADA 0: BIENVENIDA & IDENTIFICACIÓN ==================== -->
+      <div id="stage0Welcome" class="space-y-6">
         
-        <div class="space-y-1">
-          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-            ASÍ TRABAJAMOS KM
-          </h1>
-          <p class="text-sm sm:text-base text-km-muted">
-            Tu voz sin filtros. El mapa para construir <span class="text-km-green font-bold">KM 2.0</span>.
+        <div class="text-center space-y-3 pt-2">
+          <div class="inline-flex w-16 h-16 rounded-3xl bg-gradient-to-br from-km-green/20 via-km-cyan/10 to-transparent border border-km-green/40 items-center justify-center shadow-xl shadow-km-green/10">
+            <span class="text-2xl font-black text-km-green">KM</span>
+          </div>
+          
+          <div class="space-y-1.5">
+            <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+              Tu trabajo hace que KM siga en movimiento
+            </h2>
+            <p class="text-sm sm:text-base text-km-muted max-w-md mx-auto leading-relaxed">
+              Queremos conocer cómo se vive tu trabajo de verdad, para simplificarte la vida, conectar las áreas y construir un <span class="text-km-green font-bold">KM 2.0</span> más fuerte.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 Badges de Confianza -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs text-km-muted">
+          <div class="bg-km-surface p-3 rounded-2xl border border-white/5 flex items-center gap-2">
+            <span class="text-km-green text-base">⚡</span> <span>5 paradas ágiles</span>
+          </div>
+          <div class="bg-km-surface p-3 rounded-2xl border border-white/5 flex items-center gap-2">
+            <span class="text-km-cyan text-base">🎙️</span> <span>Por voz o texto</span>
+          </div>
+          <div class="bg-km-surface p-3 rounded-2xl border border-white/5 flex items-center gap-2">
+            <span class="text-km-warning text-base">🛡️</span> <span>Espacio seguro</span>
+          </div>
+          <div class="bg-km-surface p-3 rounded-2xl border border-white/5 flex items-center gap-2">
+            <span class="text-km-purple text-base">🚀</span> <span>Impacto directo</span>
+          </div>
+        </div>
+
+        <!-- Formulario de Entrada -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-6 space-y-4 shadow-2xl">
+          <form onsubmit="handleStartJourney(event)" class="space-y-4">
+            
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold text-white">Tu Nombre Completo <span class="text-km-green">*</span></label>
+              <input type="text" id="initName" required placeholder="Ej: Osman Garrido, Carlos Mejía..." 
+                class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold text-white">Puesto o Cargo <span class="text-km-green">*</span></label>
+              <input type="text" id="initRole" list="officialRolesList" required placeholder="Escribí tu puesto (ej: Promotor de Marca, Vendedor de Mayoreo...)" 
+                class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
+              
+              <!-- Quick Chips -->
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <button type="button" onclick="setQuickIdentity('Promotor de Marca', 'Mercadeo')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">📢 Promotor de Marca</button>
+                <button type="button" onclick="setQuickIdentity('Vendedor de Mayoreo', 'Ruta Mayoreo')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🚛 Mayoreo B2B</button>
+                <button type="button" onclick="setQuickIdentity('Asesor de Ventas', 'Tienda Choluteca')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🏪 Mostrador</button>
+                <button type="button" onclick="setQuickIdentity('Mecánico de Taller', 'Taller Central')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🔧 Mecánico</button>
+                <button type="button" onclick="setQuickIdentity('Bodeguero', 'CD Almacén Central')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">📦 Bodega CD</button>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold text-white">Sucursal o Área <span class="text-km-green">*</span></label>
+              <input type="text" id="initStore" list="officialStoresList" required placeholder="Escribí tu tienda, CD o área (ej: Mercadeo, CD Central, Tienda Danlí...)" 
+                class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="w-full km-btn-action py-4 px-6 text-sm tracking-wide flex items-center justify-center gap-2">
+                <span>Comenzar mi recorrido</span>
+                <span class="text-base font-bold">➜</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- ==================== PARADA 1: TU DÍA (VOZ / CASO REAL) ==================== -->
+      <div id="stage1Voice" class="hidden space-y-6">
+        
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">PARADA 1 DE 5 · TU DÍA REAL</span>
+            <span class="text-[11px] font-mono text-km-cyan font-bold">🎙️ Voz o Texto</span>
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
+            Contame, ¿cómo es un día típico en tu trabajo?
+          </h2>
+          <p class="text-xs sm:text-sm text-km-muted leading-relaxed">
+            Podés hablar o escribir. Tomate tu tiempo. No hay respuestas incorrectas: contanos cómo lo vivís en la realidad.
           </p>
         </div>
-      </div>
 
-      <!-- Human Leadership Message (Voice of Osman / Empresa) -->
-      <div class="bg-km-surface/90 border border-km-green/30 rounded-2xl p-4 sm:p-5 space-y-2 text-left shadow-lg">
-        <div class="flex items-center gap-2 text-xs font-bold text-km-green">
-          <span class="text-sm">👋</span> <span>Queremos escucharte de verdad</span>
-        </div>
-        <p class="text-xs text-km-muted leading-relaxed">
-          Esto no es un examen ni una evaluación de RRHH. Es tu espacio para poner en orden tus ideas, decirnos qué trabas te frenan y mostrarnos todo lo que podés aportar. No te encasilles en un título de puesto: <strong class="text-white">tu experiencia real es la que manda</strong>.
-        </p>
-      </div>
-
-      <!-- 3 Clean Value Badges -->
-      <div class="bg-km-surface border border-white/[0.07] rounded-2xl p-4 flex items-center justify-between text-xs text-km-muted">
-        <div class="flex items-center gap-1.5">
-          <span class="text-km-green">⚡</span> <span>5 paradas</span>
-        </div>
-        <div class="w-1 h-1 rounded-full bg-white/20"></div>
-        <div class="flex items-center gap-1.5">
-          <span class="text-km-cyan">🛡️</span> <span>Espacio seguro</span>
-        </div>
-        <div class="w-1 h-1 rounded-full bg-white/20"></div>
-        <div class="flex items-center gap-1.5">
-          <span class="text-km-green">🎙️</span> <span>Voz o texto</span>
-        </div>
-      </div>
-
-      <!-- Identification Card -->
-      <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-6 sm:p-7 space-y-4 shadow-xl">
-        
-        <!-- Saved Draft Alert -->
-        <div id="resumeDraftBox" class="hidden p-3.5 rounded-xl bg-km-green/10 border border-km-green/30 flex items-center justify-between gap-3">
-          <div class="text-xs">
-            <span class="text-km-green font-bold block">Tenés un recorrido empezado</span>
-            <span id="resumeDraftName" class="text-km-muted text-[11px]"></span>
-          </div>
-          <button type="button" onclick="resumeDraft()" class="px-3 py-1.5 rounded-lg bg-km-green text-black font-bold text-xs">
-            Retomar ➜
-          </button>
-        </div>
-
-        <form onsubmit="startMission(event)" class="space-y-4">
-          <!-- Nombre -->
-          <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-km-text">Tu Nombre Completo <span class="text-km-green">*</span></label>
-            <input type="text" id="inputName" required placeholder="Ej: Carlos Mejía, Omar Garrido..." 
-              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
-          </div>
-
-          <!-- Puesto con Datalist Oficial (84 Puestos) -->
-          <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-km-text">Puesto o Cargo <span class="text-km-green">*</span></label>
-            <input type="text" id="inputRole" list="officialRolesList" required placeholder="Escribí tu puesto (ej: Mecánico, Asesor, Bodeguero...)" 
-              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
-            
-            <!-- Quick Helper Chips -->
-            <div class="flex flex-wrap gap-1.5 pt-1">
-              <button type="button" onclick="quickFill('Mecánico', 'Taller Central')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🔧 Mecánico</button>
-              <button type="button" onclick="quickFill('Asesor de Ventas', 'Tienda Choluteca')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🏪 Vendedor</button>
-              <button type="button" onclick="quickFill('Bodeguero', 'CD (Centro de Distribución)')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">📦 Bodega</button>
-              <button type="button" onclick="quickFill('Cajera', 'Tienda Danlí')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">💰 Cajera</button>
-              <button type="button" onclick="quickFill('Auditor Operativo', 'Auditoría')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🔍 Auditor</button>
-              <button type="button" onclick="quickFill('Vendedor de Mayoreo', 'Ruta Mayoreo')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🚛 Vendedor Mayoreo</button>
-              <button type="button" onclick="quickFill('Gerente', 'Oficinas Centrales')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">👔 Gerencia / Jefatura</button>
-              <button type="button" onclick="quickFill('Desarrollador de Software', 'Sistemas')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">💻 Sistemas / TI</button>
-            </div>
-          </div>
-
-          <!-- Sucursal o Área -->
-          <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-km-text">Sucursal o Área <span class="text-km-green">*</span></label>
-            <input type="text" id="inputStore" list="officialStoresList" required placeholder="Escribí tu tienda o área (ej: Tienda Choluteca, CD, Taller...)" 
-              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
-          </div>
-
-          <div class="pt-2">
-            <button type="submit" class="w-full km-btn-action py-4 px-6 text-sm tracking-wide flex items-center justify-center gap-2">
-              <span>Empezar mi recorrido</span>
-              <span class="text-base font-bold">➜</span>
-            </button>
-          </div>
-        </form>
-
-        <div class="text-center pt-1">
-          <button type="button" onclick="openWhyModal()" class="text-xs text-km-muted hover:text-white transition underline underline-offset-4">
-            ¿Para qué usamos esto?
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- SCREEN 1-5: RECORRIDO OPERATIVO (Wireframe B & C)                         -->
-    <!-- ========================================================================= -->
-    <div id="missionScreen" class="hidden w-full space-y-6 my-auto pb-12">
-      
-      <!-- Stage Header & Question -->
-      <div class="space-y-2">
-        <div class="flex items-center justify-between">
-          <span id="questTag" class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">PASO 1 DE 5 · TU DÍA</span>
-          <span id="multiSelectHelper" class="hidden text-[11px] font-mono text-km-cyan font-bold">Elegí hasta 3 opciones</span>
-        </div>
-
-        <h2 id="questTitle" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
-          ¿Qué ocupa de verdad la mayor parte de tu día?
-        </h2>
-        
-        <p id="questSubtitle" class="text-sm text-km-muted leading-relaxed">
-          Elegí lo que más se parezca a tu realidad. No lo que diga el puesto.
-        </p>
-      </div>
-
-      <!-- Options Container (Cards) -->
-      <div id="questOptionsGrid" class="space-y-2.5">
-        <!-- Dynamically Rendered Cards -->
-      </div>
-
-      <!-- VOICE INPUT FIRST-CLASS CITIZEN (Wireframe Section 3) -->
-      <div id="voiceSection" class="bg-km-surface border border-white/[0.08] rounded-2xl p-4 space-y-3">
-        
-        <!-- Voice Trigger State (Normal) -->
-        <div id="voiceIdleBox" class="flex items-center justify-between gap-4">
-          <div class="space-y-0.5">
-            <div class="text-xs font-bold text-white flex items-center gap-2">
-              <span>🎙️</span> <span>¿Te queda más fácil contarlo?</span>
-            </div>
-            <p class="text-[11px] text-km-muted">Tocá el micrófono y hablá con tus palabras.</p>
-          </div>
-          <button type="button" onclick="startVoiceRecording()" class="w-14 h-14 rounded-2xl bg-km-surface-high border border-km-cyan/40 hover:border-km-cyan flex items-center justify-center text-xl text-km-cyan transition active:scale-95 flex-shrink-0 shadow-md shadow-km-cyan/10">
-            🎙️
-          </button>
-        </div>
-
-        <!-- Voice Active State (Recording) -->
-        <div id="voiceActiveBox" class="hidden p-4 rounded-xl bg-km-surface-high border border-km-cyan/60 flex flex-col items-center gap-3">
-          <div class="flex items-center gap-2 text-km-cyan font-mono text-xs font-bold">
-            <span class="w-2.5 h-2.5 rounded-full bg-km-cyan animate-ping"></span>
-            <span>Te escucho... hablá normal</span>
-          </div>
-
-          <!-- Audio Level Waves -->
-          <div class="flex items-center gap-1.5 h-8">
-            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.1s;"></div>
-            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.3s;"></div>
-            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.2s;"></div>
-            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.5s;"></div>
-            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.4s;"></div>
-          </div>
-
-          <div id="voiceTranscriptPreview" class="text-xs text-white text-center italic min-h-[20px]">
-            "Escuchando tu voz..."
-          </div>
-
-          <button type="button" onclick="stopVoiceRecording()" class="px-5 py-2 rounded-xl bg-km-cyan text-black font-extrabold text-xs tracking-wide">
-            Listo · Terminar de hablar ✓
-          </button>
-        </div>
-
-        <!-- Voice Confirmation State (Control) -->
-        <div id="voiceConfirmBox" class="hidden p-3.5 rounded-xl bg-km-surface-high border border-white/15 space-y-2">
-          <span class="text-[10px] font-mono text-km-muted block uppercase tracking-wider">Creo que entendí esto:</span>
-          <p id="voiceConfirmedText" class="text-xs text-white leading-relaxed font-medium"></p>
-          <div class="flex items-center gap-2 pt-1">
-            <button type="button" onclick="acceptVoiceText()" class="px-3 py-1.5 rounded-lg bg-km-green text-black text-xs font-bold">
-              ✓ Así es
-            </button>
-            <button type="button" onclick="editVoiceText()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-medium border border-white/10">
-              Editar
-            </button>
-            <button type="button" onclick="startVoiceRecording()" class="text-xs text-km-muted hover:text-white px-2 py-1">
-              Volver a hablar
-            </button>
-          </div>
-        </div>
-
-        <!-- Fallback Textarea -->
-        <div id="manualTextWrapper" class="hidden pt-1">
-          <textarea id="manualTextInput" rows="2" oninput="handleManualTextInput()" placeholder="Escribí con tus palabras o dictá con el micrófono..." 
-            class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl p-3 text-xs text-white placeholder:text-neutral-600 focus:outline-none transition"></textarea>
-        </div>
-
-      </div>
-
-      <!-- Action Footer (For Multi-Select or Manual Entry) -->
-      <div id="multiSelectFooter" class="pt-4 flex items-center justify-between gap-3 border-t border-white/[0.06]">
-        <button type="button" onclick="prevStep()" class="text-xs text-km-muted hover:text-white font-medium px-3 py-2">
-          ‹ Anterior
-        </button>
-        <button type="button" id="nextStepBtn" onclick="confirmAndAdvance()" class="flex-1 km-btn-action py-3.5 px-5 text-xs tracking-wide flex items-center justify-center gap-2">
-          <span id="nextStepBtnLabel">Listo · Continuar</span>
-          <span>➜</span>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- SCREEN 6: CELEBRACIÓN & PASAPORTE DIGITAL KM (Wireframe Section 7)        -->
-    <!-- ========================================================================= -->
-    <div id="celebrationScreen" class="hidden w-full space-y-6 my-auto text-center">
-      
-      <div class="space-y-2">
-        <div class="inline-flex w-12 h-12 rounded-full bg-km-green/20 border border-km-green/40 items-center justify-center text-km-green text-xl font-black">
-          ✓
-        </div>
-        <h2 class="text-3xl font-black text-white tracking-tight">
-          Listo. Tu voz ya está en el mapa.
-        </h2>
-        <p class="text-xs sm:text-sm text-km-muted max-w-md mx-auto">
-          Gracias por enseñarnos cómo se vive tu trabajo de verdad. Tu aporte ya forma parte de <span class="text-white font-bold">Así trabajamos KM</span> rumbo a <span class="text-km-green font-bold">KM 2.0</span>.
-        </p>
-      </div>
-
-      <!-- COGNITIVE MIRROR SUMMARY (Espejo de tu Mapa KM 2.0) -->
-      <div class="bg-km-surface border border-white/10 rounded-2xl p-5 text-left space-y-4 shadow-xl max-w-md mx-auto">
-        <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
-          <div class="flex items-center gap-2">
-            <span class="text-base">🪞</span>
-            <span class="text-xs font-bold uppercase tracking-wider text-km-green">Tu Radiografía Operativa KM 2.0</span>
-          </div>
-          <span class="text-[10px] font-mono text-km-muted uppercase">Espejo de tu Mapa</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-          <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5 space-y-1">
-            <span class="text-[10px] font-mono uppercase text-km-muted block">1. Tu Rol Real</span>
-            <p id="mirrorRoleReal" class="text-white font-medium line-clamp-2">Cargando...</p>
-          </div>
-          <div class="p-3 rounded-xl bg-km-green/[0.06] border border-km-green/20 space-y-1">
-            <span class="text-[10px] font-mono uppercase text-km-green block">2. Tu Talento Clave</span>
-            <p id="mirrorTalent" class="text-km-green-soft font-bold line-clamp-2">Cargando...</p>
-          </div>
-          <div class="p-3 rounded-xl bg-amber-500/[0.06] border border-amber-500/20 space-y-1">
-            <span class="text-[10px] font-mono uppercase text-amber-400 block">3. El Freno Identificado</span>
-            <p id="mirrorFreno" class="text-amber-200 font-medium line-clamp-2">Cargando...</p>
-          </div>
-          <div class="p-3 rounded-xl bg-km-cyan/[0.06] border border-km-cyan/20 space-y-1">
-            <span class="text-[10px] font-mono uppercase text-km-cyan block">4. Tu Aporte para KM 2.0</span>
-            <p id="mirrorAporte" class="text-cyan-200 font-bold line-clamp-2">Cargando...</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3D HOLOGRAPHIC KM PASSPORT CARD -->
-      <div class="passport-container py-2 flex justify-center">
-        <div id="passportCardNode" class="passport-card w-full max-w-[340px] rounded-3xl p-6 text-left space-y-5 relative overflow-hidden">
+        <!-- Voice Radar Orb Interaction -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center text-center space-y-5">
           
-          <!-- Top Watermark & Seal -->
+          <div id="voiceOrbContainer" class="relative cursor-pointer" onclick="toggleVoiceRecording()">
+            <div id="voiceOrbPulse" class="w-28 h-28 rounded-full bg-km-green/20 border-2 border-km-green flex items-center justify-center text-4xl shadow-2xl shadow-km-green/30 transition-all duration-300">
+              <span id="voiceOrbIcon">🎙️</span>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <div id="voiceStatusText" class="text-sm font-bold text-white">Tocá para hablar</div>
+            <p id="voiceSubStatus" class="text-xs text-km-muted font-mono">0:00 / 2:00 max</p>
+          </div>
+
+          <!-- Live Soundwave Animation -->
+          <div id="voiceWaveAnimation" class="hidden flex items-center gap-1.5 h-8">
+            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.1s;"></div>
+            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.3s;"></div>
+            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.2s;"></div>
+            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.5s;"></div>
+            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.4s;"></div>
+          </div>
+
+          <!-- Live Transcript Output -->
+          <div id="voiceLiveTranscript" class="w-full bg-km-bg border border-white/10 rounded-2xl p-4 text-xs text-slate-200 min-h-[72px] text-left italic">
+            "Esperando tu voz... Podés decir por ejemplo: 'Empiezo visitando talleres en ruta, anoto pedidos en libreta y consulto existencias en CD por WhatsApp'..."
+          </div>
+
+          <!-- Text alternative toggle -->
+          <button type="button" onclick="toggleTextInputFallback()" class="text-xs text-km-muted hover:text-white underline underline-offset-4">
+            O preferís escribir en texto ⌨️
+          </button>
+
+          <!-- Text Input Fallback Area -->
+          <div id="textFallbackBox" class="hidden w-full pt-2">
+            <textarea id="textStoryInput" rows="3" placeholder="Escribí aquí cómo empieza tu jornada y qué tareas hacés..." 
+              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl p-3 text-xs text-white placeholder:text-neutral-600 focus:outline-none transition"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Quick Scenario Chips -->
+        <div class="space-y-2">
+          <div class="text-[11px] font-mono font-bold text-km-muted uppercase tracking-wider">O elegí un caso representativo de tu área:</div>
+          <div id="stage1QuickChips" class="grid grid-cols-1 gap-2">
+            <!-- Populated dynamically based on role -->
+          </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="flex items-center justify-between gap-3 pt-2">
+          <button type="button" onclick="goToStage(0)" class="text-xs text-km-muted hover:text-white px-3 py-2">
+            ‹ Volver
+          </button>
+          <button type="button" onclick="processStage1ToGraph()" class="flex-1 km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
+            <span>Generar mi Mapa en Vivo</span>
+            <span>➜</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==================== PARADA 2: MAPA EN VIVO (PROCESS MINING) ==================== -->
+      <div id="stage2LiveGraph" class="hidden space-y-5">
+        
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">PARADA 2 DE 5 · TU TRABAJO REAL</span>
+            <span class="text-[11px] font-mono text-km-cyan font-bold">● Su historia se convierte en diagrama</span>
+          </div>
+          <h2 class="text-2xl font-black text-white tracking-tight">
+            Tu Flujo en Tiempo Real
+          </h2>
+          <p class="text-xs text-km-muted">
+            Este es el mapa vivo de cómo se ejecuta tu proceso. Tocá cualquier nodo para ver detalles o marcar una traba.
+          </p>
+        </div>
+
+        <!-- Interactive Process Canvas -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl relative overflow-hidden">
+          
+          <!-- Legend Pill Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-white/[0.06] text-[10px] font-mono">
+            <div class="flex items-center gap-2">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-km-green"></span> Acciones</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-km-warning"></span> Decisiones</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-km-danger"></span> Frenos P0</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-km-cyan"></span> Sistemas</span>
+            </div>
+            <div class="text-km-muted">
+              <span id="canvasNodeCount">5 nodos detectados</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Flow Graph Canvas (Interactive DOM Nodes) -->
+          <div id="processCanvasContainer" class="space-y-3 py-2">
+            <!-- Dynamically Rendered Process Pipeline -->
+          </div>
+
+          <!-- Quick Node Actions Bar -->
+          <div class="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs">
+            <button type="button" onclick="addCustomNodeToGraph()" class="text-km-cyan hover:text-white font-bold flex items-center gap-1 text-[11px]">
+              <span>➕</span> <span>Agregar otro paso que faltó</span>
+            </button>
+            <span class="text-[11px] text-km-muted font-mono italic">Tocá el paso que más te traba para continuar</span>
+          </div>
+
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="flex items-center justify-between gap-3 pt-2">
+          <button type="button" onclick="goToStage(1)" class="text-xs text-km-muted hover:text-white px-3 py-2">
+            ‹ Modificar relato
+          </button>
+          <button type="button" onclick="goToStage(3)" class="flex-1 km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
+            <span>Identificar Frenos en este punto</span>
+            <span>➜</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==================== PARADA 3: FRENOS Y NECESIDADES ==================== -->
+      <div id="stage3Friction" class="hidden space-y-5">
+        
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono font-bold text-km-danger uppercase tracking-wider">PARADA 3 DE 5 · LOS FRENOS</span>
+            <span class="text-[11px] font-mono text-km-warning font-bold">⚠️ Detección P0 / P1</span>
+          </div>
+          <h2 class="text-2xl font-black text-white tracking-tight">
+            ¿Qué te impide avanzar en este punto?
+          </h2>
+          <p class="text-xs text-km-muted">
+            Esa traba exacta donde la pelota se queda parada en seco y el cliente o vos pierden tiempo.
+          </p>
+        </div>
+
+        <!-- Node Under Audit Highlight Card -->
+        <div class="bg-km-danger/10 border border-km-danger/30 rounded-2xl p-4 flex items-start gap-3">
+          <div class="text-xl flex-shrink-0">⚠️</div>
+          <div class="space-y-0.5">
+            <span class="text-[10px] font-mono uppercase text-km-danger font-bold">Paso analizado:</span>
+            <h4 id="frictionTargetNodeTitle" class="text-sm font-bold text-white">Consulto stock con CD (WhatsApp)</h4>
+            <p id="frictionTargetQuote" class="text-xs text-neutral-300 italic">"Si Bodega CD no confirma existencia o Créditos no me libera la factura, el camión no sale."</p>
+          </div>
+        </div>
+
+        <!-- Causa Raíz Selector -->
+        <div class="space-y-2.5">
+          <div class="text-[11px] font-mono uppercase text-km-muted font-bold">¿De qué tipo de traba se trata?</div>
+          
+          <div class="grid grid-cols-1 gap-2.5">
+            <div onclick="selectFrictionType(this, 'sistema')" class="friction-card km-card p-4 flex items-center gap-3 cursor-pointer">
+              <span class="text-xl">💻</span>
+              <div class="flex-1">
+                <div class="text-xs font-bold text-white">Es un problema del sistema</div>
+                <p class="text-[11px] text-km-muted">La pantalla se congela, se cae la señal, o el dato no está en línea.</p>
+              </div>
+              <span class="chk-icon text-km-green hidden font-bold">✓</span>
+            </div>
+
+            <div onclick="selectFrictionType(this, 'proceso')" class="friction-card km-card p-4 flex items-center gap-3 cursor-pointer">
+              <span class="text-xl">🤝</span>
+              <div class="flex-1">
+                <div class="text-xs font-bold text-white">Es un proceso o depende de otra área</div>
+                <p class="text-[11px] text-km-muted">Créditos tarda en autorizar, Bodega tarda en despachar o faltan firmas.</p>
+              </div>
+              <span class="chk-icon text-km-green hidden font-bold">✓</span>
+            </div>
+
+            <div onclick="selectFrictionType(this, 'informacion')" class="friction-card km-card p-4 flex items-center gap-3 cursor-pointer">
+              <span class="text-xl">💡</span>
+              <div class="flex-1">
+                <div class="text-xs font-bold text-white">Falta información, catálogo o capacitación</div>
+                <p class="text-[11px] text-km-muted">No se sabe con certeza la compatibilidad del repuesto o el código.</p>
+              </div>
+              <span class="chk-icon text-km-green hidden font-bold">✓</span>
+            </div>
+
+            <div onclick="selectFrictionType(this, 'otro')" class="friction-card km-card p-4 flex items-center gap-3 cursor-pointer">
+              <span class="text-xl">➕</span>
+              <div class="flex-1">
+                <div class="text-xs font-bold text-white">Otro motivo diferente</div>
+                <p class="text-[11px] text-km-muted">Contanos qué pasa con tus propias palabras.</p>
+              </div>
+              <span class="chk-icon text-km-green hidden font-bold">✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="flex items-center justify-between gap-3 pt-2">
+          <button type="button" onclick="goToStage(2)" class="text-xs text-km-muted hover:text-white px-3 py-2">
+            ‹ Volver al Mapa
+          </button>
+          <button type="button" onclick="goToStage(4)" class="flex-1 km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
+            <span>Cruzar con Tickets de Desarrollo</span>
+            <span>➜</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ==================== PARADA 4: CONEXIÓN CON TICKETS (JARVIS MATCHER) ==================== -->
+      <div id="stage4Tickets" class="hidden space-y-5">
+        
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono font-bold text-km-cyan uppercase tracking-wider">PARADA 4 DE 5 · CONEXIÓN CON TICKETS</span>
+            <span class="text-[11px] font-mono text-km-green font-bold">✓ Waze Operativo KM</span>
+          </div>
+          <h2 class="text-2xl font-black text-white tracking-tight">
+            Encontramos trabajo relacionado a tu dolor
+          </h2>
+          <p class="text-xs text-km-muted">
+            Cruzamos lo que nos acabás de contar contra el backlog real de desarrollo en Jarvis para ver si ya lo estamos solucionando.
+          </p>
+        </div>
+
+        <!-- Matched Ticket Card -->
+        <div class="bg-km-surface border border-km-cyan/40 rounded-3xl p-5 sm:p-6 space-y-4 shadow-2xl relative overflow-hidden">
+          
           <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-lg bg-km-green/20 text-km-green font-black flex items-center justify-center text-[10px]">
-                KM
-              </div>
-              <span class="text-[10px] font-mono tracking-widest text-km-muted uppercase">PASAPORTE OPERATIVO</span>
+              <span id="ticketBadgeId" class="text-xs font-mono font-black text-km-cyan px-2 py-0.5 rounded-md bg-km-cyan/10 border border-km-cyan/30">#412</span>
+              <span id="ticketBadgeStatus" class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-km-green/20 text-km-green border border-km-green/40">En Progreso</span>
             </div>
-            <span id="passportFolio" class="text-[10px] font-mono text-km-green font-bold">FOLIO #KM-2026-000</span>
+            <span id="ticketScope" class="text-[10px] font-mono text-km-muted">Sistemas • ERP • App Móvil</span>
           </div>
 
-          <!-- Recipient Info -->
-          <div class="space-y-1">
-            <span class="text-[10px] text-km-muted font-mono uppercase">COLABORADOR CERTIFICADO</span>
-            <h3 id="passportName" class="text-lg font-black text-white tracking-tight truncate">Carlos Mejía</h3>
-            <p id="passportRoleStore" class="text-xs text-km-green-soft truncate">Mecánico de Motos • Taller Central</p>
-          </div>
-
-          <!-- 5-Node Milestone Track -->
-          <div class="space-y-1.5 bg-black/40 rounded-xl p-3 border border-white/5">
-            <div class="flex items-center justify-between text-[10px] font-mono text-km-green">
-              <span>●━━━●━━━●━━━●━━━●</span>
-              <span class="font-bold">5 / 5 COMPLETADO</span>
-            </div>
-            <p class="text-[11px] text-neutral-300 italic">
-              "Ayudé a mejorar cómo trabajamos en KM."
+          <div class="space-y-1.5">
+            <h3 id="ticketTitle" class="text-base font-bold text-white leading-snug">
+              Consulta de stock en tiempo real desde app móvil
+            </h3>
+            <p id="ticketDesc" class="text-xs text-km-muted leading-relaxed">
+              Permite consultar existencia de repuestos en el CD y tiendas al instante desde la ruta o mostrador, eliminando consultas por WhatsApp.
             </p>
           </div>
 
-          <!-- Date & Official Stamp -->
-          <div class="flex items-center justify-between text-[10px] font-mono text-km-muted border-t border-white/[0.08] pt-3">
-            <span id="passportDate">18 SEP 2026</span>
-            <span class="text-km-green font-bold">CERTIFICADO OFICIAL ✓</span>
+          <!-- Crucial Alignment Question -->
+          <div class="pt-3 border-t border-white/[0.08] space-y-3">
+            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+              <span>🎯</span> <span>¿Este desarrollo resolvería tu problema?</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2.5">
+              <button type="button" onclick="validateTicketMatch(this, 'si')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-green flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
+                <span class="text-base">😊</span>
+                <span>Sí, totalmente</span>
+              </button>
+              <button type="button" onclick="validateTicketMatch(this, 'en_parte')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-warning flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
+                <span class="text-base">😐</span>
+                <span>En parte</span>
+              </button>
+              <button type="button" onclick="validateTicketMatch(this, 'no')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
+                <span class="text-base">😡</span>
+                <span>No me resuelve</span>
+              </button>
+            </div>
           </div>
 
         </div>
+
+        <!-- Footer Buttons -->
+        <div class="flex items-center justify-between gap-3 pt-2">
+          <button type="button" onclick="goToStage(3)" class="text-xs text-km-muted hover:text-white px-3 py-2">
+            ‹ Volver
+          </button>
+          <button type="button" onclick="goToStage(5)" class="flex-1 km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
+            <span>Ver mi Aporte y Resumen</span>
+            <span>➜</span>
+          </button>
+        </div>
+
       </div>
 
-      <!-- Action Buttons -->
-      <div class="flex flex-col gap-2.5 max-w-[340px] mx-auto pt-2">
-        <button type="button" onclick="downloadPassportImage()" class="w-full km-btn-action py-3.5 px-4 text-xs tracking-wide flex items-center justify-center gap-2">
-          <span>📥 Guardar mi Pasaporte</span>
-        </button>
-        <a href="/frentes.html" target="_blank" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 hover:from-emerald-500/30 hover:to-cyan-500/30 text-emerald-300 font-bold text-xs border border-emerald-500/40 flex items-center justify-center gap-2 transition shadow-lg">
-          <span>🗺️ Ver Frentes & Organigrama E2E</span>
-          <span class="text-sm">➜</span>
-        </a>
-        <button type="button" onclick="shareOnWhatsApp()" class="w-full py-3 px-4 rounded-2xl bg-white/[0.04] hover:bg-white/10 text-white font-semibold text-xs border border-white/10 flex items-center justify-center gap-2 transition">
-          <span>💬 Compartir con mi equipo</span>
-        </button>
+      <!-- ==================== PARADA 5: CIERRE & APORTE KM 2.0 ==================== -->
+      <div id="stage5Summary" class="hidden space-y-6 text-center">
+        
+        <div class="space-y-2 pt-2">
+          <div class="inline-flex w-14 h-14 rounded-full bg-km-green/20 border border-km-green/50 items-center justify-center text-km-green text-2xl font-black shadow-lg shadow-km-green/20">
+            ✓
+          </div>
+          <h2 class="text-3xl font-black text-white tracking-tight">
+            ¡Tu proceso ya forma parte de KM 2.0!
+          </h2>
+          <p class="text-xs sm:text-sm text-km-muted max-w-md mx-auto leading-relaxed">
+            Tu voz ya quedó conectada con el mapa general de la empresa y con los tickets reales de desarrollo.
+          </p>
+        </div>
+
+        <!-- 4 Metric Counters Card -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-5 text-left space-y-4 shadow-xl">
+          
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div>
+              <span class="text-[10px] font-mono text-km-muted uppercase block">EXPEDIENTE OPERATIVO</span>
+              <h3 id="summaryUserName" class="text-base font-black text-white">Osman Garrido</h3>
+              <p id="summaryUserRole" class="text-xs text-km-green-soft">Promotor de Marca • Mercadeo</p>
+            </div>
+            <span class="text-xs font-mono font-bold text-km-green bg-km-green/10 border border-km-green/30 px-2.5 py-1 rounded-xl">
+              FOLIO #KM-2026-1915
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
+              <div class="text-xl font-black text-white" id="statNodesCount">5</div>
+              <div class="text-[10px] text-km-muted font-mono uppercase">Pasos en proceso</div>
+            </div>
+            <div class="p-3 rounded-xl bg-km-danger/10 border border-km-danger/20 space-y-0.5">
+              <div class="text-xl font-black text-km-danger" id="statFrictionsCount">1</div>
+              <div class="text-[10px] text-km-muted font-mono uppercase">Frenos detectados</div>
+            </div>
+            <div class="p-3 rounded-xl bg-km-warning/10 border border-km-warning/20 space-y-0.5">
+              <div class="text-xl font-black text-km-warning" id="statImprovementsCount">2</div>
+              <div class="text-[10px] text-km-muted font-mono uppercase">Ideas de mejora</div>
+            </div>
+            <div class="p-3 rounded-xl bg-km-cyan/10 border border-km-cyan/20 space-y-0.5">
+              <div class="text-xl font-black text-km-cyan" id="statTicketsCount">1</div>
+              <div class="text-[10px] text-km-muted font-mono uppercase">Tickets ligados</div>
+            </div>
+          </div>
+
+          <!-- Highlight of Validated Ticket -->
+          <div class="p-3.5 rounded-2xl bg-km-surface-high border border-white/10 space-y-1">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-white">Ticket Validado por vos:</span>
+              <span class="text-[10px] font-mono text-km-green font-bold">#412 Consulta de Stock</span>
+            </div>
+            <p class="text-[11px] text-km-muted">El equipo de desarrollo de Sistemas ya cuenta con tu confirmación de que esto resuelve tu traba en ruta.</p>
+          </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <button type="button" onclick="switchView('graph')" class="w-full sm:w-auto km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
+            <span>🗺️ Ver Mapa Completo de Procesos</span>
+            <span>➜</span>
+          </button>
+          <button type="button" onclick="switchView('dashboard')" class="w-full sm:w-auto py-3.5 px-6 rounded-2xl bg-white/[0.06] hover:bg-white/10 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-2 transition">
+            <span>📊 Ver Tablero de Dirección</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: MAPA DE PROCESOS E2E (CANVAS DE LA EMPRESA)                      -->
+    <!-- ========================================================================= -->
+    <div id="viewGraph" class="hidden w-full space-y-6">
+      
+      <!-- Top Title & Controls -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-km-surface p-5 rounded-3xl border border-white/[0.08]">
+        <div>
+          <span class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">VISTA DE MAPA ORGANIZACIONAL (LÍDERES)</span>
+          <h2 class="text-xl sm:text-2xl font-black text-white mt-1">
+            Mapa de Procesos KM Motos E2E
+          </h2>
+          <p class="text-xs text-km-muted">Conectando personas, áreas y resultados reales de la operación.</p>
+        </div>
+
+        <!-- Filter Selectors -->
+        <div class="flex flex-wrap items-center gap-2">
+          <select id="graphAreaSelect" onchange="filterGraphProcess(this.value)" class="bg-km-bg border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-km-green">
+            <option value="todos">Todos los Procesos (E2E Completo)</option>
+            <option value="mayoreo" selected>Venta a Talleres (Ruta Mayoreo)</option>
+            <option value="bodega">Recepción y Despacho CD</option>
+            <option value="ventas">Venta en Mostrador Tiendas</option>
+            <option value="creditos">Dictamen y Liberación de Crédito</option>
+            <option value="cajas">Arqueo y Cierre de Caja</option>
+          </select>
+
+          <button onclick="switchView('guided')" class="km-btn-action px-4 py-2 text-xs flex items-center gap-1.5">
+            <span>🎙️</span> <span>Mapear Mi Proceso</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Interactive Diagram Canvas -->
+      <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-6 space-y-6 shadow-2xl">
+        
+        <!-- Process Header & Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div class="bg-white/[0.02] p-3 rounded-2xl border border-white/5">
+            <span class="text-[10px] text-km-muted font-mono uppercase block">Proceso Actual</span>
+            <span class="font-bold text-white text-sm" id="graphCurrentProcName">Venta a Talleres (Ruta Mayoreo)</span>
+          </div>
+          <div class="bg-white/[0.02] p-3 rounded-2xl border border-white/5">
+            <span class="text-[10px] text-km-muted font-mono uppercase block">Tiempo Promedio</span>
+            <span class="font-bold text-km-cyan text-sm">2.4 Días</span>
+          </div>
+          <div class="bg-white/[0.02] p-3 rounded-2xl border border-white/5">
+            <span class="text-[10px] text-km-muted font-mono uppercase block">% de Frenos</span>
+            <span class="font-bold text-km-danger text-sm">32% Retrasos</span>
+          </div>
+          <div class="bg-white/[0.02] p-3 rounded-2xl border border-white/5">
+            <span class="text-[10px] text-km-muted font-mono uppercase block">Impacto Comercial</span>
+            <span class="font-bold text-km-green text-sm">Alto (Flujo de Caja)</span>
+          </div>
+        </div>
+
+        <!-- Full Interactive Flowchart (Rendered via SVG/CSS Nodes) -->
+        <div class="w-full overflow-x-auto p-4 bg-[#0A0E0B] rounded-2xl border border-white/[0.06]">
+          <div class="min-w-[760px] py-6 flex flex-col items-center space-y-4 font-mono text-xs">
+            
+            <!-- Step 1 -->
+            <div class="flex items-center gap-4 w-full justify-center">
+              <div class="px-5 py-3 rounded-2xl bg-km-green/10 border-2 border-km-green text-white font-bold shadow-lg shadow-km-green/10 flex items-center gap-2">
+                <span>🚗</span> <span>Visito Talleres Mecánicos en Ruta</span>
+              </div>
+            </div>
+
+            <div class="text-km-green text-base">▼</div>
+
+            <!-- Step 2 -->
+            <div class="flex items-center gap-4 w-full justify-center">
+              <div class="px-5 py-3 rounded-2xl bg-km-surface-high border-2 border-km-cyan/60 text-white font-bold flex items-center gap-2">
+                <span>📝</span> <span>Registro Pedido en Libreta Manual</span>
+              </div>
+            </div>
+
+            <div class="text-km-cyan text-base">▼</div>
+
+            <!-- Step 3 (Friction Node) -->
+            <div class="flex items-center gap-4 w-full justify-center">
+              <div class="px-5 py-3 rounded-2xl bg-km-danger/10 border-2 border-km-danger text-white font-bold shadow-xl shadow-km-danger/20 flex items-center gap-2 animate-pulse">
+                <span>⚠️</span> <span>Consulto Stock con CD (WhatsApp) [Freno P0]</span>
+              </div>
+            </div>
+
+            <div class="text-km-danger text-base">▼</div>
+
+            <!-- Step 4 (Decision Diamond) -->
+            <div class="flex items-center justify-center">
+              <div class="px-5 py-3 rounded-2xl bg-km-warning/20 border-2 border-km-warning text-km-warning font-black">
+                ¿Hay Stock en Almacén?
+              </div>
+            </div>
+
+            <!-- Branches -->
+            <div class="grid grid-cols-2 gap-8 w-full max-w-lg pt-2">
+              <div class="flex flex-col items-center space-y-2">
+                <span class="text-km-green font-bold text-[11px]">SÍ (70%)</span>
+                <div class="p-3 rounded-xl bg-km-green/10 border border-km-green text-center text-white">
+                  Confirmar pedido y pedir liberación de Crédito
+                </div>
+              </div>
+              <div class="flex flex-col items-center space-y-2">
+                <span class="text-km-danger font-bold text-[11px]">NO (30%)</span>
+                <div class="p-3 rounded-xl bg-km-danger/10 border border-km-danger text-center text-white">
+                  Buscar alternativo o esperar nuevo contenedor
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 3: TABLERO DE DIRECCIÓN & TICKETS (EXECUTIVE INSIGHTS)              -->
+    <!-- ========================================================================= -->
+    <div id="viewDashboard" class="hidden w-full space-y-6">
+      
+      <!-- Top Overview KPI Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+        <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Colaboradores Mapeados</div>
+          <div class="text-2xl font-black text-white">326</div>
+          <div class="text-[11px] text-km-green font-mono">100% de la fuerza laboral</div>
+        </div>
+        <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Procesos Identificados</div>
+          <div class="text-2xl font-black text-km-cyan">74</div>
+          <div class="text-[11px] text-km-muted font-mono">En 10 categorías clave</div>
+        </div>
+        <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Frenos Operativos P0</div>
+          <div class="text-2xl font-black text-km-danger">128</div>
+          <div class="text-[11px] text-km-danger font-mono">Piedras en el zapato reales</div>
+        </div>
+        <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Oportunidades de Impacto</div>
+          <div class="text-2xl font-black text-km-warning">56</div>
+          <div class="text-[11px] text-km-green font-mono">Listas para accionar en Jarvis</div>
+        </div>
+      </div>
+
+      <!-- Two Main Column Blocks: Perfil Real vs Documentado & Top Frenos -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- BLOCK A: PERFIL REAL VS DOCUMENTADO -->
+        <div class="bg-km-surface p-5 sm:p-6 rounded-3xl border border-white/[0.08] space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-km-green font-bold">EL EFECTO ESPEJO</span>
+              <h3 class="text-base font-black text-white">Perfil Real vs. Documentado</h3>
+            </div>
+            <span class="text-[10px] font-mono text-km-cyan px-2 py-0.5 rounded-full bg-km-cyan/10 border border-km-cyan/30">Asesor de Ruta</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead>
+                <tr class="text-km-muted font-mono border-b border-white/5 pb-2 text-[10px] uppercase">
+                  <th class="py-2">Actividad</th>
+                  <th class="py-2">Documentado</th>
+                  <th class="py-2">Realidad de Calle</th>
+                  <th class="py-2 text-right">Diagnóstico</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5 text-slate-200">
+                <tr>
+                  <td class="py-2.5 font-bold text-white">Visitas diarias</td>
+                  <td class="py-2.5 text-km-muted">8 talleres</td>
+                  <td class="py-2.5">6 a 10 talleres</td>
+                  <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded bg-km-green/20 text-km-green font-bold text-[10px]">Cumple</span></td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-white">Toma de pedidos</td>
+                  <td class="py-2.5 text-km-muted">Sistema POS</td>
+                  <td class="py-2.5 text-km-danger">Libreta + WhatsApp</td>
+                  <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded bg-km-danger/20 text-km-danger font-bold text-[10px]">Brecha P0</span></td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-white">Consulta de stock</td>
+                  <td class="py-2.5 text-km-muted">Catálogo ERP</td>
+                  <td class="py-2.5 text-km-danger">Llamada a Bodega</td>
+                  <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded bg-km-danger/20 text-km-danger font-bold text-[10px]">Brecha P0</span></td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-white">Seguimiento crédito</td>
+                  <td class="py-2.5 text-km-muted">No especificado</td>
+                  <td class="py-2.5 text-km-cyan">Cobranza preventiva</td>
+                  <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded bg-km-cyan/20 text-km-cyan font-bold text-[10px]">Extra Real</span></td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-white">Capacitación a nuevos</td>
+                  <td class="py-2.5 text-km-muted">No especificado</td>
+                  <td class="py-2.5 text-km-green">Enseña despieces</td>
+                  <td class="py-2.5 text-right"><span class="px-2 py-0.5 rounded bg-km-green/20 text-km-green font-bold text-[10px]">Talento</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-km-surface-high border border-white/10 text-xs text-km-muted space-y-1">
+            <strong class="text-white block">Hallazgo Clave para Dirección:</strong>
+            El asesor de mayoreo asume tareas de cobranza y soporte técnico que no están en su contrato formal, pero se le cae el 30% de la venta por no tener consulta de stock en el celular.
+          </div>
+        </div>
+
+        <!-- BLOCK B: TOP FRENOS DETECTADOS -->
+        <div class="bg-km-surface p-5 sm:p-6 rounded-3xl border border-white/[0.08] space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-km-danger font-bold">RADAR OPERATIVO EN VIVO</span>
+              <h3 class="text-base font-black text-white">Top Frenos Mencionados</h3>
+            </div>
+            <span class="text-[10px] font-mono text-km-muted">Por colaboradores reales</span>
+          </div>
+
+          <div class="space-y-3">
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-danger">●</span> Liberación de crédito demorada</span>
+                <span class="font-mono text-km-danger font-bold">47 menciones</span>
+              </div>
+              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-km-danger rounded-full" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-warning">●</span> Consulta de stock manual (CD no responde)</span>
+                <span class="font-mono text-km-warning font-bold">39 menciones</span>
+              </div>
+              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-km-warning rounded-full" style="width: 70%;"></div>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-warning">●</span> Retrasos en despacho y empaque en CD</span>
+                <span class="font-mono text-km-warning font-bold">31 menciones</span>
+              </div>
+              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-km-warning rounded-full" style="width: 55%;"></div>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-white flex items-center gap-1.5"><span class="text-km-cyan">●</span> Pantallas del sistema pegadas en cobro</span>
+                <span class="font-mono text-km-cyan font-bold">28 menciones</span>
+              </div>
+              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-km-cyan rounded-full" style="width: 45%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Plan Link -->
+          <div class="pt-2 border-t border-white/[0.08] flex items-center justify-between text-xs">
+            <span class="text-km-muted">Conectado a tickets de desarrollo:</span>
+            <a href="/frentes.html" target="_blank" class="text-km-green font-bold flex items-center gap-1 hover:underline">
+              <span>Ver Frentes E2E</span> <span>➜</span>
+            </a>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -559,1105 +970,494 @@
   </main>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: ¿PARA QUÉ USAMOS ESTO? (Headspace Emotional Safety)                -->
+  <!-- DATALISTS PARA 84 PUESTOS Y TIENDAS                                       -->
   <!-- ========================================================================= -->
-  <div id="whyModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-km-surface border border-white/15 rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <h4 class="text-sm font-bold text-white flex items-center gap-2">
-          <span>🛡️</span> <span>¿Para qué usamos esto?</span>
-        </h4>
-        <button onclick="closeWhyModal()" class="text-km-muted hover:text-white text-sm">✕</button>
-      </div>
-
-      <div class="space-y-2.5 text-xs text-km-muted leading-relaxed">
-        <p>
-          Queremos descubrir tu <strong class="text-white">verdadero talento, ordenar el trabajo real y eliminar las trabas</strong> que no te dejan avanzar.
-        </p>
-        <div class="p-3 rounded-xl bg-km-green/10 border border-km-green/20 text-km-green-soft text-[11px] font-medium">
-          "No es una evaluación con notas ni un examen de RRHH. Queremos entender la realidad para darte mejores herramientas y construir KM 2.0."
-        </div>
-        <p>
-          Tus respuestas alimentan directamente las prioridades de los desarrolladores y la dirección para destrabar el sistema, quitar burocracia y aprovechar todo lo que podés aportar.
-        </p>
-      </div>
-
-      <button type="button" onclick="closeWhyModal()" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition">
-        Entendido ✓
-      </button>
-    </div>
-  </div>
-
-  <!-- DATALISTS FOR ALL 84 ERP PROFILES -->
   <datalist id="officialRolesList">
-    <option value="ADMINISTRADOR DE TIENDA">
-    <option value="ANALISTA DE COMPRAS">
-    <option value="ANALISTA DE GESTION DE PEDIDOS">
+    <option value="PROMOTOR DE MARCA">
+    <option value="VENDEDOR DE MAYOREO">
     <option value="ASESOR DE VENTAS">
-    <option value="ASISTENTE DE GERENCIA COMERCIAL">
-    <option value="ASISTENTE DE JEFE  CREDITO Y COBRANZA">
-    <option value="AUDITOR DE PROCESOS">
-    <option value="AUDITOR OPERATIVO DE ESTACION">
-    <option value="AUDITOR OPERATIVO DE TIENDA">
-    <option value="AUDITOR OPERATIVO DE ZONA">
-    <option value="AUDITOR OPERATIVO I DE ALMACEN">
-    <option value="AUDITOR OPERATIVO II DE ALMACEN">
-    <option value="AUXILIAR ADMINISTRATIVO">
-    <option value="AUXILIAR CONTABLE">
-    <option value="AUXILIAR CONTABLE MAYOREO">
-    <option value="AUXILIAR DE ALMACEN-DESPACHO">
-    <option value="AUXILIAR DE ALMACEN-EMPAQUE">
-    <option value="AUXILIAR DE ALMACEN-RECEPCION">
-    <option value="AUXILIAR DE COMPRAS">
-    <option value="AUXILIAR DE DESPACHO">
-    <option value="AUXILIAR DE FACTURACION">
-    <option value="AUXILIAR DE MERCADEO">
-    <option value="AUXILIAR DE MONITOREO Y SEGURIDAD">
-    <option value="AUXILIAR DE RECURSOS HUMANOS">
-    <option value="AUXILIAR DE SAC MAYOREO">
-    <option value="AUXILIAR DE SERVICIO AL CLIENTE">
-    <option value="AUXILIAR DE SOPORTE TECNICO">
-    <option value="AUXILIAR DE SUMINISTROS Y EQUIPO">
-    <option value="AUXILIAR DE TIENDA">
-    <option value="AUXILIAR SAC Y MERCADEO">
+    <option value="MECANICO DE TALLER">
     <option value="BODEGUERO">
     <option value="CAJERA">
-    <option value="CAJERA DE FINANZAS">
-    <option value="COMODIN ADMINISTRATIVO">
-    <option value="COMODIN DE ALMACEN">
-    <option value="COMODIN DE AUDITORIA">
-    <option value="COMODIN DE TIENDAS">
-    <option value="CONSERJE">
-    <option value="CONSERJE-ALMACEN">
-    <option value="CONTADOR GENERAL">
-    <option value="COORDINADOR DE DESPACHO">
-    <option value="COORDINADOR DE MANTENIMIENTO">
-    <option value="COORDINADOR DE RECEPCION">
-    <option value="COORDINADOR DE TECNOLOGIA DE LA INFORMACION Y SEGURIDAD">
-    <option value="COORDINADOR GENERAL DE ALMACEN">
-    <option value="COORDINADORA DE RECURSOS HUMANOS">
-    <option value="DIRECTOR FINANCIERO">
-    <option value="DIRECTORA DE PUBLICIDAD">
-    <option value="DISEÑADOR GRAFICO">
-    <option value="ENCARGADO DE BODEGA">
-    <option value="GERENTE ADMINISTRATIVO">
-    <option value="GERENTE COMERCIAL">
-    <option value="GERENTE DE AUDITORIA">
-    <option value="GERENTE DE RECURSOS HUMANOS">
-    <option value="GERENTE DE VENTAS DE MAYOREO">
-    <option value="GERENTE GENERAL">
-    <option value="GESTION Y PROCESOS">
-    <option value="GESTOR DE CONTENIDO">
-    <option value="INTELIGENCIA DE COMPRA">
-    <option value="JEFE DE ALMACEN">
-    <option value="JEFE DE COMPRAS">
-    <option value="JEFE DE CREDITO Y COBRANZA">
-    <option value="JEFE DE MERCADEO">
-    <option value="JEFE DE OPERACIONES">
-    <option value="JEFE DE RECURSOS HUMANOS">
-    <option value="JEFE DE VENTAS DE MAYOREO">
-    <option value="JEFE LOGISTICA Y SISTEMAS">
-    <option value="JEFE MERCADEO">
-    <option value="OFICIAL ADMINISTRATIVO">
-    <option value="OFICIAL DE MERCADEO">
-    <option value="OFICIAL DE VENTAS">
-    <option value="OFICIAL FINANCIERO">
-    <option value="OFICIAL FINANZAS">
-    <option value="OFICIAL SERVICIO AL CLIENTE">
-    <option value="PROMOTOR DE MARCA">
-    <option value="PSICOLOGA /TECNICO EN RECURSOS HUMANOS">
-    <option value="SUB COORDINADOR DE DESPACHO">
-    <option value="SUPERVISOR DE COMPRAS">
-    <option value="SUPERVISOR DE MAYOREO">
-    <option value="SUPERVISOR DE VENTAS">
-    <option value="TECNICO DE MANTENIMIENTO">
-    <option value="TECNICO EN RECURSOS HUMANOS">
-    <option value="VENDEDOR DE MAYOREO">
+    <option value="ADMINISTRADOR DE TIENDA">
+    <option value="AUDITOR OPERATIVO">
+    <option value="ANALISTA DE COMPRAS">
+    <option value="AUXILIAR DE RECURSOS HUMANOS">
+    <option value="DESARROLLADOR DE SOFTWARE">
   </datalist>
 
   <datalist id="officialStoresList">
-    <option value="ALMACEN">
-    <option value="Administración">
-    <option value="Administradores de Tienda">
-    <option value="Asesores de Ventas Mayoreo">
-    <option value="Asesores de venta de Tienda">
-    <option value="Auditoría">
-    <option value="Auxiliar de Tienda y Conserjeria">
-    <option value="CREDITOS Y COBRANZA">
-    <option value="Cajeras Tiendas">
-    <option value="Canal-Distribuidores">
-    <option value="Comercial-Tienda">
-    <option value="Compras">
-    <option value="Contabilidad">
-    <option value="Customer Service">
-    <option value="Distribución">
-    <option value="Financiera">
-    <option value="Finanzas">
-    <option value="GESTION Y PROCESOS">
-    <option value="Gerencia Administrativa">
-    <option value="Gerencia General">
-    <option value="IT Y SEGURIDAD">
-    <option value="Import & Export">
-    <option value="Insumos y Suministros">
-    <option value="Inteligencia Artificial">
-    <option value="KM Cars">
-    <option value="Mantenimiento">
-    <option value="Mayoreo">
     <option value="Mercadeo">
-    <option value="Operaciones">
-    <option value="Recursos Humanos">
-    <option value="SERVICIO DE ATENCION AL CLIENTE (SAC)">
-    <option value="Sin Asignar">
-    <option value="Supervision de Ventas Mayoreo">
-    <option value="Supervisión de Ventas Tiendas">
-    <option value="CD (Centro de Distribución)">
-    <option value="Ventas Mayoreo B2B">
-    <option value="Dirección General">
+    <option value="Ruta Mayoreo">
+    <option value="CD Almacén Central">
+    <option value="Taller Central">
     <option value="Tienda Choluteca">
     <option value="Tienda Danlí">
-    <option value="Tienda Comayagua">
-    <option value="Tienda San Pedro Sula">
-    <option value="Tienda Catacamas">
-    <option value="Tienda Juticalpa">
-    <option value="Tienda Tocoa">
+    <option value="Tienda El Progreso">
+    <option value="Tienda SPS 1ra Calle">
+    <option value="Oficinas Centrales">
   </datalist>
 
   <!-- ========================================================================= -->
-  <!-- JAVASCRIPT ENGINE: Linear + Duolingo + Web Audio + Web Speech             -->
+  <!-- CORE JAVASCRIPT ENGINE (VOICE TO GRAPH + MATCHING + PERSISTENCE)         -->
   <!-- ========================================================================= -->
   <script>
+    const DRAFT_KEY = 'km_process_mining_draft_v2';
+
+    let currentView = 'guided'; // 'guided' | 'graph' | 'dashboard'
+    let currentStage = 0; // 0: Welcome, 1: Voice, 2: Graph, 3: Friction, 4: Tickets, 5: Summary
     
-    function showToast(msg, icon = '✨') {
-      let toast = document.getElementById('kmGlobalToast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'kmGlobalToast';
-        toast.className = 'fixed top-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-km-surface-high/95 border border-km-green/40 shadow-2xl backdrop-blur-md text-xs font-semibold text-white flex items-center gap-2 transition-all duration-300 pointer-events-none opacity-0 translate-y-[-10px]';
-        document.body.appendChild(toast);
+    let currentUser = {
+      name: '',
+      role: '',
+      store: ''
+    };
+
+    let activeProcessNodes = [];
+    let selectedFrictionNode = null;
+    let selectedFrictionType = 'sistema';
+    let validatedTicketResult = 'si';
+
+    // Mock Active Tickets DB in Jarvis
+    const JARVIS_TICKETS = [
+      {
+        id: '#412',
+        title: 'Consulta de stock en tiempo real desde app móvil',
+        scope: 'Sistemas • ERP • App Móvil',
+        desc: 'Permite consultar existencia de repuestos en el CD y tiendas al instante desde la ruta o mostrador, eliminando consultas por WhatsApp.',
+        status: 'En Progreso',
+        matchTags: ['stock', 'whatsapp', 'cd', 'almacen', 'existencia', 'pedido']
+      },
+      {
+        id: '#2790',
+        title: 'Visibilidad de cuentas y depósitos bancarios centrales',
+        scope: 'Finanzas • Cajas • Auditoría',
+        desc: 'Permite a cajas y auxiliares conciliar depósitos directos a cuentas centrales sin exponer otras tiendas.',
+        status: 'Listo Mergeable',
+        matchTags: ['banco', 'deposito', 'caja', 'transferencia', 'conciliacion']
+      },
+      {
+        id: '#3079',
+        title: 'Lote r7 Emilia: Traslados, Packing y Pedidos foráneos',
+        scope: 'Bodega • CD • Rutas',
+        desc: 'Trazabilidad de bultos con responsable de empaque y resolución de traslados cross-empresa.',
+        status: 'Listo Mergeable',
+        matchTags: ['packing', 'empaque', 'traslado', 'camion', 'despacho', 'bulto']
+      },
+      {
+        id: '#3080',
+        title: 'Traslado de tienda invalida metas y supervisor anterior',
+        scope: 'RRHH • Nómina • Comisiones',
+        desc: 'Desasigna automáticamente al supervisor anterior al cambiar de sucursal para evitar distorsión de metas.',
+        status: 'En Develop',
+        matchTags: ['tienda', 'supervisor', 'comision', 'traslado_personal', 'meta']
       }
-      toast.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
-      toast.classList.remove('opacity-0', 'translate-y-[-10px]');
-      toast.classList.add('opacity-100', 'translate-y-0');
+    ];
 
-      if (window.toastTimer) clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', 'translate-y-[-10px]');
-      }, 3000);
-    }
-  
-    const DRAFT_KEY = 'km_journey_draft_v1';
-    let soundEnabled = true;
-    let currentUser = { name: '', role: '', store: '' };
-    let currentStep = 1;
-    let selectedChoices = [];
-    let auditData = {};
-    let isMultiSelect = false;
-    let voiceRecognition = null;
+    // =========================================================================
+    // VIEW SWITCHING
+    // =========================================================================
+    function switchView(viewName) {
+      currentView = viewName;
 
-    /* Web Audio Synthesizer (Zero external files) */
-    function playTone(type) {
-      if (!soundEnabled) return;
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const now = ctx.currentTime;
-        if (type === 'tap') {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(440, now);
-          gain.gain.setValueAtTime(0.08, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.05);
-        } else if (type === 'step') {
-          [523.25, 659.25].forEach((f, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(f, now + i * 0.07);
-            gain.gain.setValueAtTime(0.12, now + i * 0.07);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.12);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + i * 0.07);
-            osc.stop(now + i * 0.07 + 0.14);
-          });
-        } else if (type === 'victory') {
-          [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(f, now + i * 0.09);
-            gain.gain.setValueAtTime(0.16, now + i * 0.09);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.35);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + i * 0.09);
-            osc.stop(now + i * 0.09 + 0.38);
-          });
+      // Hide all main containers
+      document.getElementById('viewGuided').classList.add('hidden');
+      document.getElementById('viewGraph').classList.add('hidden');
+      document.getElementById('viewDashboard').classList.add('hidden');
+
+      // Reset active tabs (desktop)
+      ['tabBtnGuided', 'tabBtnGraph', 'tabBtnDashboard'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.className = 'px-4 py-1.5 rounded-xl text-km-muted hover:text-white transition flex items-center gap-2';
         }
-      } catch (e) {}
-    }
-
-    function toggleAudio() {
-      soundEnabled = !soundEnabled;
-      document.getElementById('soundIcon').innerText = soundEnabled ? '🔊' : '🔇';
-    }
-
-    /* Quick Fill Helper */
-    function quickFill(role, store) {
-      document.getElementById('inputRole').value = role;
-      document.getElementById('inputStore').value = store;
-      playTone('tap');
-    }
-
-    /* CATEGORY DETECTOR (Prioritizes leadership vs operational front-line) */
-    function detectRoleCategory(role, store) {
-      const norm = (s) => (s || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      const r = norm(role);
-      const s = norm(store);
-
-      // 1. B2B MAYOREO & RUTAS (Ventas por mayor a talleres, refaccionarias y clientes foráneos)
-      if (r.includes('mayoreo') || r.includes('ruta') || r.includes('distribuid') || r.includes('mayorist') || 
-          s.includes('mayoreo') || s.includes('ruta')) {
-        return 'mayoreo';
-      }
-
-      // 2. LEADERSHIP / MANAGEMENT / COORDINATION / SUPERVISION (Takes precedence over location!)
-      if (r.includes('geren') || r.includes('direct') || r.includes('jef') || r.includes('coordin') || 
-          r.includes('ceo') || r.includes('seo') || r.includes('duen') || r.includes('fundad') || 
-          r.includes('administra') || r.includes('lider') || r.includes('supervis') || r.includes('encargad')) {
-        return 'liderazgo';
-      }
-
-      // 3. SYSTEMS / IT / DEVELOPMENT / SOFTWARE
-      if (r.includes('sistem') || r.includes('program') || r.includes('desarroll') || r.includes('software') || 
-          r.includes('tecnolog') || r.includes('it ') || r.includes(' it') || r === 'it' || r.includes('dev') || r.includes('computo') || r.includes('redes') || r.includes('seguridad inf')) {
-        return 'sistemas';
-      }
-
-      // 4. AUDIT / ACCOUNTING / FINANCE / CREDIT
-      if (r.includes('audit') || r.includes('control interno') || r.includes('conta') || r.includes('finan') || 
-          r.includes('tesorer') || r.includes('credit') || r.includes('cobro')) {
-        return 'auditoria';
-      }
-
-      // 5. PURCHASES / IMPORTS / SUPPLY CHAIN ADMIN
-      if (r.includes('compr') || r.includes('import') || r.includes('proveed') || r.includes('aduana') || r.includes('logist')) {
-        return 'compras';
-      }
-
-      // 6. HR / PAYROLL / TALENT
-      if (r.includes('rrhh') || r.includes('recursos humanos') || r.includes('talent') || r.includes('planill') || r.includes('nomin')) {
-        return 'rrhh';
-      }
-
-      // 7. MECHANIC / WORKSHOP (Instalación y pruebas de repuestos)
-      if (r.includes('mecanic') || r.includes('taller') || r.includes('mantenimiento') || r.includes('reparac') || r.includes('garantia')) {
-        return 'mecanico';
-      }
-
-      // 8. CASHIER
-      if (r.includes('cajer') || r.includes('caja')) {
-        return 'cajero';
-      }
-
-      // 9. RETAIL SALES / MOSTRADOR TIENDA (Venta al detalle de repuestos)
-      if (r.includes('vended') || r.includes('asesor') || r.includes('mostrador') || r.includes('ventas')) {
-        return 'vendedor';
-      }
-
-      // 10. WAREHOUSE PHYSICAL LABOR (ONLY if role explicitly matches warehouse labor!)
-      if (r.includes('bodeg') || r.includes('almacen') || r.includes('estib') || r.includes('picking') || 
-          r.includes('despach') || r.includes('chofer') || r.includes('pilot') || r.includes('motorist') || 
-          r.includes('auxiliar') || r.includes('carga')) {
-        return 'bodeguero';
-      }
-
-      // Fallbacks by store if role is generic or empty
-      if (!r && (s.includes('taller') || s.includes('mecanic'))) return 'mecanico';
-      if (!r && (s.includes('bodega') || s.includes('cd') || s.includes('almacen'))) return 'bodeguero';
-
-      return 'general';
-    }
-
-    /* 5 STEPS GENERATOR (Bespoke to real job realities + universal escape hatches) */
-    function getStepsForUser(user) {
-      const cat = detectRoleCategory(user.role, user.store);
-
-      // =========================================================================
-      // STEP 1: TU DÍA & ROL REAL
-      // =========================================================================
-      let step1Options = [];
-
-      if (cat === 'mayoreo') {
-        step1Options = [
-          { icon: '🚗', title: 'Visitar talleres mecánicos y repuesteras en ruta', desc: 'Recorrer la zona asignada para atender a clientes mayoristas y levantar pedidos.' },
-          { icon: '📋', title: 'Levantar pedidos de repuestos por catálogo / volumen', desc: 'Anotar pedidos de llantas, cilindros, kits de arrastre, lubricantes y baterías.' },
-          { icon: '💵', title: 'Cobranza y gestión de cartera de clientes', desc: 'Recoger abonos, pagos en cheque o transferencias de talleres y repuesteras.' },
-          { icon: '📦', title: 'Dar seguimiento a despachos desde el CD', desc: 'Verificar que los bultos de repuestos salgan a tiempo hacia los clientes de ruta.' }
-        ];
-      } else if (cat === 'liderazgo') {
-        step1Options = [
-          { icon: '📋', title: 'Coordinar al equipo y dar seguimiento', desc: 'Organizar las prioridades del día, revisar avances y destrabar al personal.' },
-          { icon: '📊', title: 'Monitorear números, ventas y metas', desc: 'Revisar cumplimiento de presupuestos, márgenes y cierres operativos de repuestos.' },
-          { icon: '🚨', title: 'Resolver problemas y emergencias del día', desc: 'Apagar fuegos cotidianos, atender excepciones y quejas críticas.' },
-          { icon: '📞', title: 'Reuniones, llamadas y acuerdos clave', desc: 'Coordinar con otras áreas, gerencias, bancos o proveedores externos.' }
-        ];
-      } else if (cat === 'sistemas') {
-        step1Options = [
-          { icon: '💻', title: 'Programar nuevas pantallas y módulos', desc: 'Desarrollo de software, nuevas funciones y mejoras al sistema de inventario y ventas.' },
-          { icon: '🛠️', title: 'Resolver bugs y estabilizar caídas', desc: 'Investigar fallas en producción, depurar errores y aplicar parches.' },
-          { icon: '🎧', title: 'Soporte técnico a tiendas y usuarios', desc: 'Atender tickets, pantallas trabadas, cajas de mayoreo o dudas del personal.' },
-          { icon: '🗄️', title: 'Mantener servidores, bases de datos y redes', desc: 'Respaldos, infraestructura en la nube y optimización técnica.' }
-        ];
-      } else if (cat === 'auditoria') {
-        step1Options = [
-          { icon: '🔍', title: 'Arqueos de caja y conciliación de cobros', desc: 'Revisar cortes de caja, depósitos bancarios y cuadres diarios en tiendas y mayoreo.' },
-          { icon: '📦', title: 'Conteos físicos y auditoría de inventario de repuestos', desc: 'Auditar piezas, kits y accesorios en estanterías de tiendas o en el CD.' },
-          { icon: '📑', title: 'Revisión de expedientes de crédito y facturas', desc: 'Validar pagarés, contratos de crédito y documentación legal.' },
-          { icon: '⚖️', title: 'Cruzar datos entre sistemas y conciliar cuentas', desc: 'Verificar que las ventas de repuestos coincidan con facturas CAI y bancos.' }
-        ];
-      } else if (cat === 'compras') {
-        step1Options = [
-          { icon: '🚢', title: 'Seguimiento a contenedores y aduanas', desc: 'Monitorear importaciones de repuestos desde China, navieras y puertos.' },
-          { icon: '📞', title: 'Negociar con fabricantes y cotizar repuestos', desc: 'Cotizaciones de repuestos de motocicleta, precios por volumen y tiempos de entrega.' },
-          { icon: '📈', title: 'Planificar compras según rotación de inventario', desc: 'Analizar qué repuestos y consumibles hacen falta en las 77 tiendas y en mayoreo.' },
-          { icon: '💵', title: 'Gestión de pagos a proveedores y cartas de crédito', desc: 'Coordinar transferencias al exterior y flujo con proveedores internacionales.' }
-        ];
-      } else if (cat === 'rrhh') {
-        step1Options = [
-          { icon: '👥', title: 'Reclutamiento, entrevistas y contratación', desc: 'Buscar y seleccionar personal para tiendas, CD, rutas y oficinas.' },
-          { icon: '💰', title: 'Cálculo y revisión de planilla / nómina', desc: 'Procesar horas extras, comisiones, deducciones y pagos quincenales.' },
-          { icon: '🤝', title: 'Atención a consultas de colaboradores', desc: 'Resolver dudas de sueldo, permisos, constancias y clima laboral.' },
-          { icon: '📚', title: 'Inducción y capacitación de nuevo ingreso', desc: 'Formar al personal nuevo para que conozcan los códigos de repuestos y procesos.' }
-        ];
-      } else if (cat === 'vendedor') {
-        step1Options = [
-          { icon: '🤝', title: 'Atender clientes en mostrador de tienda', desc: 'Cotizar y buscar repuestos de motocicleta, cascos y accesorios.' },
-          { icon: '📋', title: 'Consultar compatibilidad y códigos en catálogo', desc: 'Identificar la pieza exacta para la marca, modelo y año de la motocicleta.' },
-          { icon: '📲', title: 'Dar seguimiento a pedidos especiales por WhatsApp', desc: 'Avisar al cliente cuando llega el repuesto encargado de bodega.' },
-          { icon: '📦', title: 'Entrega y verificación de repuestos en mostrador', desc: 'Revisar códigos, empaques y estado físico de la pieza antes de entregar.' }
-        ];
-      } else if (cat === 'cajero') {
-        step1Options = [
-          { icon: '💵', title: 'Cobrar ventas de mostrador y facturar', desc: 'Cobro en efectivo, tarjetas o transferencias emitiendo factura CAI.' },
-          { icon: '💳', title: 'Cobrar abonos y cuotas de crédito', desc: 'Ingresar pagos de clientes y entregar el comprobante oficial al día.' },
-          { icon: '🔒', title: 'Custodia de efectivo y arqueos parciales', desc: 'Ordenar el fondo de caja y preparar depósitos bancarios.' },
-          { icon: '📑', title: 'Cuadre diario de caja y Corte Z', desc: 'Cierre al final del día cuadrando centavo a centavo sistema vs dinero.' }
-        ];
-      } else if (cat === 'mecanico') {
-        step1Options = [
-          { icon: '🔧', title: 'Instalación y afinación de repuestos mecánicos', desc: 'Cambios de cilindro, pistón, biela, kit de tracción, frenos y motor.' },
-          { icon: '⚡', title: 'Diagnóstico de fallas mecánicas y eléctricas', desc: 'Identificar el repuesto defectuoso o dañado en la motocicleta del cliente.' },
-          { icon: '🛠️', title: 'Mantenimiento preventivo de motocicletas', desc: 'Cambios de aceite, bujías, cables, calibración de válvulas y carburador.' },
-          { icon: '🛡️', title: 'Revisión técnica de garantías de repuestos', desc: 'Evaluar piezas con reclamo para validar si aplica garantía con fábrica.' }
-        ];
-      } else if (cat === 'bodeguero') {
-        step1Options = [
-          { icon: '📦', title: 'Descargar camiones y contenedores de repuestos', desc: 'Bajar cajas de repuestos pesados y estibar en pasillos del CD.' },
-          { icon: '📋', title: 'Alistar pedidos (Picking) para tiendas y mayoreo', desc: 'Buscar códigos en estanterías y empacar bultos de repuestos.' },
-          { icon: '🚚', title: 'Cargar y despachar camiones de ruta', desc: 'Subir la carga de repuestos a los camiones y verificar manifiestos.' },
-          { icon: '🔍', title: 'Conteos de inventario físico y averías', desc: 'Revisar existencias de repuestos y separar empaques dañados o incompletos.' }
-        ];
-      } else {
-        step1Options = [
-          { icon: '🤝', title: 'Atender clientes, usuarios o compañeros', desc: 'Servicio directo, resolver dudas y dar soporte en el día a día.' },
-          { icon: '💻', title: 'Trabajo operativo en computadora y sistema', desc: 'Ingresar registros, procesar solicitudes o cuadrar información.' },
-          { icon: '📦', title: 'Movimiento, acomodo o revisión física de repuestos', desc: 'Manejo de mercadería, herramientas o documentos.' },
-          { icon: '⚙️', title: 'Tareas técnicas, manuales o de campo', desc: 'Operación técnica, pruebas o traslados.' }
-        ];
-      }
-
-      // Special talent card on Step 1: Going beyond the job title
-      step1Options.push({
-        icon: '👥',
-        title: 'Cubro responsabilidades más allá de mi puesto formal',
-        desc: 'Hago tareas de otras áreas, resuelvo emergencias o apoyo a compañeros porque me nace sacar el trabajo adelante.'
       });
 
-      // Universal escape hatch card on Step 1
-      step1Options.push({
-        icon: '➕',
-        title: 'Otra actividad diferente',
-        desc: 'Lo que yo hago no está en esta lista (escribí o hablá por el micrófono)',
-        isCustom: true
-      });
-
-      // =========================================================================
-      // STEP 2: TU TRABAJO REAL & TU TALENTO CLAVE (Efecto Espejo)
-      // =========================================================================
-      let step2Options = [];
-
-      if (cat === 'mayoreo') {
-        step2Options = [
-          { icon: '🤝', title: 'Cerrar pedidos grandes y ganar la confianza de talleres difíciles', desc: 'Conozco al dueño del taller, sé qué repuestos necesita y no me voy con las manos vacías.' },
-          { icon: '🧠', title: 'Conocer de memoria qué repuesto le queda a cada modelo de moto', desc: 'Compatibilidades exactas de cilindros, kits de tracción, barras y carburadores.' },
-          { icon: '💰', title: 'Cobranza efectiva de cartera sin pelear con el cliente', desc: 'Recuperar saldos vencidos manteniendo abierta la relación comercial para seguir vendiendo.' },
-          { icon: '🗺️', title: 'Organizar la ruta para rendir el día y visitar más clientes', desc: 'Planificación de paradas y tiempos para no perder horas en carretera.' }
-        ];
-      } else if (cat === 'liderazgo') {
-        step2Options = [
-          { icon: '🔥', title: 'Motivar al equipo y mantener alta la energía y las ventas', desc: 'Liderar con el ejemplo, escuchar al personal y empujar las metas de la tienda o área.' },
-          { icon: '💡', title: 'Resolver problemas difíciles y calmar clientes molestos', desc: 'Dar la cara con criterio comercial protegiendo el negocio y al cliente.' },
-          { icon: '📊', title: 'Analizar números y detectar oportunidades de negocio rápido', desc: 'Ver qué códigos rotan más, dónde se frena el dinero y cómo vender más repuestos.' },
-          { icon: '👨‍🏫', title: 'Desarrollar a la gente para que asuman más responsabilidad', desc: 'Enseñar procesos para no tener que estar encima de cada detalle.' }
-        ];
-      } else if (cat === 'sistemas') {
-        step2Options = [
-          { icon: '💻', title: 'Crear soluciones limpias que le resuelvan el día al usuario', desc: 'Diseñar pantallas y flujos fáciles de usar que eviten errores en tiendas y CD.' },
-          { icon: '🔍', title: 'Depurar bugs complejos y encontrar la causa raíz rápido', desc: 'Ir a la base de datos o al código y arreglar el problema de fondo sin parches.' },
-          { icon: '🎧', title: 'Paciencia para escuchar y guiar a usuarios con dudas técnicas', desc: 'Traducir problemas complejos a lenguaje sencillo para destrabar la operación.' },
-          { icon: '⚙️', title: 'Automatizar tareas manuales repetitivas que quitan tiempo', desc: 'Scripts, jobs y validaciones que ahorran horas de trabajo a los demás.' }
-        ];
-      } else if (cat === 'auditoria') {
-        step2Options = [
-          { icon: '🔍', title: 'Detectar inconsistencias o fugas de inventario y dinero a tiempo', desc: 'Cruzar ventas, compras, traslados y depósitos con precisión milimétrica.' },
-          { icon: '📊', title: 'Convertir datos desordenados en informes claros para la gerencia', desc: 'Mostrar la realidad de tiendas y almacenes con evidencia indiscutible.' },
-          { icon: '⚖️', title: 'Firmeza con respeto para hacer cumplir las normas del grupo', desc: 'Exigir orden sin crear conflictos innecesarios con los equipos.' },
-          { icon: '💡', title: 'Proponer mejoras a los controles para que no frenen la venta', desc: 'Auditoría constructiva que ayuda al negocio en lugar de ser un obstáculo.' }
-        ];
-      } else if (cat === 'compras') {
-        step2Options = [
-          { icon: '🚢', title: 'Negociar excelentes precios y condiciones con proveedores', desc: 'Conseguir repuestos de alta calidad a costos que aseguran el margen de KM.' },
-          { icon: '📈', title: 'Prever qué repuestos se van a necesitar antes de que se agoten', desc: 'Analizar la estacionalidad de llantas, aceites, frenos y kits de arrastre.' },
-          { icon: '⏱️', title: 'Destrabar contenedores en puertos y trámites aduanales rápido', desc: 'Seguimiento implacable a navieras y agencias para que la carga no duerma.' },
-          { icon: '🤝', title: 'Relación cercana con fabricantes para asegurar abastecimiento', desc: 'Comunicación directa con fábricas para resolver garantías y faltantes.' }
-        ];
-      } else if (cat === 'rrhh') {
-        step2Options = [
-          { icon: '👥', title: 'Ojo para identificar personas con ganas de trabajar y valores', desc: 'Seleccionar colaboradores comprometidos que cuiden a KM y crezcan aquí.' },
-          { icon: '💰', title: 'Cuadre riguroso y puntual de planillas y comisiones de venta', desc: 'Asegurar que cada colaborador cobre lo justo en la fecha prometida.' },
-          { icon: '🤝', title: 'Empatía y justicia para resolver diferencias laborales', desc: 'Escuchar con calma y mediar para mantener un clima de equipo sano.' },
-          { icon: '📚', title: 'Diseñar capacitaciones que de verdad le sirvan al personal', desc: 'Formación práctica en repuestos, atención y uso de herramientas.' }
-        ];
-      } else if (cat === 'vendedor') {
-        step2Options = [
-          { icon: '🔍', title: 'Identificar el repuesto exacto cuando el cliente trae la muestra', desc: 'Medir, comparar y dar con el código preciso aunque no sepan el nombre técnico.' },
-          { icon: '📈', title: 'Explicar la calidad y vender repuestos de mayor margen', desc: 'Asesorar al cliente para que lleve el kit completo, aceite y consumibles.' },
-          { icon: '⚡', title: 'Rapidez y paciencia para atender en mostrador en horas pico', desc: 'Mantener la calma, facturar ágil y que ningún cliente se vaya sin ser atendido.' },
-          { icon: '✨', title: 'Ordenar y exhibir mercadería para que la tienda venda más', desc: 'Mantener estantes limpios, repuestos a la vista y vitrinas atractivas.' }
-        ];
-      } else if (cat === 'cajero') {
-        step2Options = [
-          { icon: '🎯', title: 'Cuadre perfecto de caja centavo a centavo sin faltantes', desc: 'Disciplina estricta en cada cobro, fondo de cambio y arqueos diarios.' },
-          { icon: '👁️', title: 'Ojo clínico para detectar billetes falsos y transferencias dudosas', desc: 'Verificar comprobantes bancarios en el acto antes de entregar la mercadería.' },
-          { icon: '😊', title: 'Trato rápido y cortés al cliente para que salga satisfecho', desc: 'Agilidad en el cobro y una sonrisa que invita a regresar a la tienda.' },
-          { icon: '📋', title: 'Mantener expedientes de crédito, vouchers y boletas al día', desc: 'Cero desorden en los documentos que respaldan el dinero de la empresa.' }
-        ];
-      } else if (cat === 'mecanico') {
-        step2Options = [
-          { icon: '⚡', title: 'Diagnosticar fallas raras de motor o electricidad a la primera', desc: 'Descubrir ruidos, cortos o fallas complejas sin hacer gastar de más al cliente.' },
-          { icon: '🔧', title: 'Desarmar y armar con precisión y limpieza impecable', desc: 'Ajustes de válvulas, prensas, cajas de cambio y cilindros con el torque exacto.' },
-          { icon: '👨‍🏫', title: 'Enseñar técnicas y mañas mecánicas a compañeros junior', desc: 'Compartir trucos de taller para que todo el equipo trabaje mejor y más rápido.' },
-          { icon: '🛡️', title: 'Detectar piezas que de verdad salieron defectuosas para garantía', desc: 'Criterio técnico estricto para diferenciar mala instalación de falla de fábrica.' }
-        ];
-      } else if (cat === 'bodeguero') {
-        step2Options = [
-          { icon: '📍', title: 'Ubicar cualquier código de repuesto en el CD en segundos', desc: 'Memoria fotográfica y orden en pasillos y estanterías de repuestos.' },
-          { icon: '📦', title: 'Empacar pedidos pesados y frágiles para que lleguen intactos', desc: 'Protección de barras, plásticos y baterías para que el viaje en camión no los dañe.' },
-          { icon: '⚡', title: 'Rapidez física y resistencia para descargar contenedores y estibar', desc: 'Sacar la carga pesada a tiempo con técnica segura y sin maltratar cajas.' },
-          { icon: '🔍', title: 'Ojo para detectar faltantes o daños en bultos antes de despachar', desc: 'Evitar reclamos de tiendas y rutas revisando antes de que el camión arranque.' }
-        ];
-      } else {
-        step2Options = [
-          { icon: '⚡', title: 'Resolver imprevistos rápido con iniciativa propia', desc: 'Buscarle solución a las cosas sin esperar que me digan cada paso.' },
-          { icon: '🤝', title: 'Trabajo en equipo y excelente disposición para colaborar', desc: 'Buena actitud para apoyar a cualquier compañero cuando se acumula el trabajo.' },
-          { icon: '🔍', title: 'Detallismo y cuidado para que las cosas salgan bien hechas', desc: 'Revisión minuciosa para no cometer errores ni entregar trabajos a medias.' },
-          { icon: '📚', title: 'Facilidad para aprender procesos y herramientas nuevas', desc: 'Adaptarme con rapidez cuando la empresa implementa cambios.' }
-        ];
-      }
-
-      step2Options.push({
-        icon: '💡',
-        title: 'Lo que mejor me sale es otra cosa',
-        desc: 'Tengo otro talento o fortaleza importante (contanos por voz o texto)',
-        isCustom: true
-      });
-
-      // =========================================================================
-      // STEP 3: LOS FRENOS REALES (Ámbar)
-      // =========================================================================
-      let step3Options = [];
-
-      if (cat === 'mayoreo') {
-        step3Options = [
-          { icon: '🚫', title: 'Repuestos clave agotados en el CD', desc: 'El cliente mayorista pide 20 o 50 piezas de un código y no hay stock suficiente para despachar.' },
-          { icon: '⏳', title: 'Pedidos retenidos por Créditos', desc: 'Talleres o repuesteras con pedidos bloqueados por pequeños saldos o demora en dictamen.' },
-          { icon: '🚚', title: 'Demoras en el despacho de bultos desde el CD', desc: 'El pedido tarda días en salir del almacén central y el cliente se molesta.' },
-          { icon: '💻', title: 'Sistema de pedidos lento o sin señal en ruta', desc: 'No poder cotizar, consultar catálogo o emitir pedidos fluido desde el celular en campo.' }
-        ];
-      } else if (cat === 'liderazgo') {
-        step3Options = [
-          { icon: '👥', title: 'Falta de autonomía del equipo (todo me lo tienen que consultar)', desc: 'No poder delegar porque los mandos operativos no resuelven solos.' },
-          { icon: '📊', title: 'Falta de reportes o números confiables en tiempo real', desc: 'Tener que pedir tablas manuales en vez de ver el dato directo en pantalla.' },
-          { icon: '🧱', title: 'Cuellos de botella entre áreas centrales y tiendas', desc: 'Fricciones entre Bodega, Créditos y Ventas que frenan la facturación.' },
-          { icon: '🚨', title: 'El día a día me absorbe y no deja tiempo para estrategia', desc: 'Pasar apagando fuegos urgentes sin tiempo para ordenar el negocio.' }
-        ];
-      } else if (cat === 'sistemas') {
-        step3Options = [
-          { icon: '🎯', title: 'Requerimientos que cambian a medio camino sin reglas claras', desc: 'Especificaciones incompletas que obligan a reprogramar sobre la marcha.' },
-          { icon: '🛑', title: 'Desfase entre lo que se programa y lo que llega a producción', desc: 'Soluciones listas que se quedan frenadas por falta de pruebas o despliegue.' },
-          { icon: '🔔', title: 'Interrupciones constantes por tickets que no son prioridad', desc: 'Fuegos que cortan el flujo de trabajo en proyectos de impacto real.' },
-          { icon: '🔒', title: 'Falta de ambientes de prueba o accesos con datos reales', desc: 'Tener que adivinar comportamientos sin poder reproducir el caso real.' }
-        ];
-      } else if (cat === 'auditoria') {
-        step3Options = [
-          { icon: '📬', title: 'Sucursales que no envían sus cortes o boletas al día', desc: 'Falta de disciplina en el envío oportuno de información contable.' },
-          { icon: '🧩', title: 'Sistemas que no concilian solos o no guardan trazabilidad', desc: 'Falta de bitácoras claras de quién cambió qué en el sistema.' },
-          { icon: '🤷', title: 'Falta de consecuencias cuando se incumplen las normas', desc: 'Se detectan anomalías pero no se toman acciones correctivas a tiempo.' },
-          { icon: '🗂️', title: 'Información clave dispersa en archivos de Excel individuales', desc: 'Datos desintegrados sin una sola fuente de la verdad.' }
-        ];
-      } else if (cat === 'compras') {
-        step3Options = [
-          { icon: '🚢', title: 'Contenedores de repuestos retenidos en puerto o aduanas', desc: 'Trámites burocráticos y demoras de navieras que retrasan la mercancía.' },
-          { icon: '💸', title: 'Falta de flujo o atraso en pagos a proveedores en China', desc: 'Retrasos en transferencias que frenan nuevos despachos de repuestos.' },
-          { icon: '📦', title: 'Falta de visibilidad del inventario que viene en camino', desc: 'No saber con certeza en qué fecha exacta ingresará el producto a bodega.' },
-          { icon: '📉', title: 'Desfase entre lo que se pidió y lo que despachó fábrica', desc: 'Diferencias en códigos, medidas o cantidades enviadas desde origen.' }
-        ];
-      } else if (cat === 'rrhh') {
-        step3Options = [
-          { icon: '📬', title: 'Tiendas o jefes que mandan reportes de personal con retraso', desc: 'Novedades de última hora que ponen en riesgo el cálculo de nómina.' },
-          { icon: '🏃', title: 'Alta rotación en puestos operativos clave', desc: 'Tener que reclutar constantemente personal de bodega, talleres o tiendas.' },
-          { icon: '📉', title: 'Falta de capacitación formal para el personal que entra', desc: 'Colaboradores que empiezan a operar sin dominar los sistemas ni códigos de repuestos.' },
-          { icon: '💻', title: 'Sistemas de nómina desconectados de las operaciones diarias', desc: 'Tener que conciliar manualmente asistencia y comisiones.' }
-        ];
-      } else if (cat === 'vendedor') {
-        step3Options = [
-          { icon: '🚫', title: 'Falta de inventario en tienda (repuesto o accesorio agotado)', desc: 'Cliente listo para pagar pero la pieza no está en estantería ni en stock.' },
-          { icon: '📱', title: 'El sistema se pone lento o se cae en horas pico', desc: 'Pantallas pegadas cuando el mostrador está lleno de clientes esperando.' },
-          { icon: '🏷️', title: 'Precios o códigos en sistema que no coinciden con la etiqueta', desc: 'Confusiones de precios que generan reclamos en mostrador.' },
-          { icon: '⏳', title: 'Demoras para consultar existencias en otras sucursales', desc: 'Tener que llamar por teléfono para saber si otra tienda tiene el repuesto.' }
-        ];
-      } else if (cat === 'cajero') {
-        step3Options = [
-          { icon: '💻', title: 'El sistema de facturación se congela o se cae al cobrar', desc: 'Clientes molestos en la fila mientras el sistema no responde.' },
-          { icon: '🏦', title: 'La banca en línea tarda en reflejar la transferencia del cliente', desc: 'No poder entregar la mercadería hasta ver el dinero acreditado.' },
-          { icon: '📝', title: 'Faltan datos del cliente para emitir la factura CAI', desc: 'Tener que esperar que el vendedor consiga el RTN o dirección exacta.' },
-          { icon: '🤷', title: 'Dudas en autorizaciones o notas de crédito sin respuesta rápida', desc: 'Esperar llamadas o aprobaciones para poder cerrar el cobro.' }
-        ];
-      } else if (cat === 'mecanico') {
-        step3Options = [
-          { icon: '🚫', title: 'El repuesto necesario no está en la tienda ni en el CD', desc: 'Motocicletas paradas en el taller porque falta una pieza específica.' },
-          { icon: '🔨', title: 'Herramientas o extractores incompletos o desgastados', desc: 'Trabajar con herramientas inadecuadas que complican el desmontaje.' },
-          { icon: '⏰', title: 'Presión por tiempos de entrega irreales', desc: 'Compromisos de entrega hechos sin consultar la complejidad de la reparación.' },
-          { icon: '⏳', title: 'Demoras largas para autorizar reclamos de garantía de fábrica', desc: 'Trámites lentos esperando que aprueben el cambio de una pieza defectuosa.' }
-        ];
-      } else if (cat === 'bodeguero') {
-        step3Options = [
-          { icon: '📦', title: 'Falta de espacio ordenado en pasillos de bodega', desc: 'Dificultad para acomodar repuestos nuevos por saturación de espacio.' },
-          { icon: '🏷️', title: 'Mercadería que entra sin código de barra o mal rotulada', desc: 'Tener que adivinar qué repuesto viene dentro de cada paquete.' },
-          { icon: '🚚', title: 'Camiones que llegan tarde o fuera de horario programado', desc: 'Descargas de última hora que rompen la planificación del día.' },
-          { icon: '❌', title: 'Diferencias entre la orden del sistema y el producto físico', desc: 'Discrepancias en cantidades que obligan a desarmar bultos.' }
-        ];
-      } else {
-        step3Options = [
-          { icon: '📦', title: 'Falta de repuestos, materiales o insumos a tiempo', desc: 'Falta de producto físico para poder avanzar o entregar.' },
-          { icon: '⏳', title: 'Tener que esperar que alguien me apruebe o responda', desc: 'Quedar con las manos atadas esperando la firma o respuesta de otros.' },
-          { icon: '📱', title: 'El sistema se pone lento o se congela', desc: 'Pantallas pegadas en momentos críticos de la operación.' },
-          { icon: '🔁', title: 'Hacer lo mismo dos veces por desorden o falta de claridad', desc: 'Procesos dobles por falta de un flujo de trabajo unificado.' }
-        ];
-      }
-
-      step3Options.push({
-        icon: '➕',
-        title: 'Otro freno diferente',
-        desc: 'Hay otra traba distinta que me frena (contanos por voz o texto)',
-        isCustom: true
-      });
-
-      // =========================================================================
-      // STEP 4: CÓMO FLUYE (La Posta)
-      // =========================================================================
-      let step4Options = [
-        { icon: '📦', title: 'Almacén Central / Bodega CD', desc: 'Dependo de que surtan, reciban o despachen la mercadería a tiempo.' },
-        { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Dependo de dictámenes rápidos y liberación de pedidos retenidos.' },
-        { icon: '🏪', title: 'Las Tiendas / Sucursales', desc: 'Dependo de que me manden la información completa, cortes e inventarios al día.' },
-        { icon: '💼', title: 'Oficina Central / Finanzas / Gerencia', desc: 'Dependo de autorizaciones de pago, transferencias o decisiones clave.' },
-        { icon: '💻', title: 'Sistemas / TI', desc: 'Dependo de que el sistema, las computadoras y el internet funcionen sin trabarse.' },
-        { icon: '🤝', title: 'Mi trabajo fluye bien con los demás', desc: 'No siento que ninguna otra área me frene de forma importante.' }
-      ];
-
-      step4Options.push({
-        icon: '➕',
-        title: 'Otra área o persona',
-        desc: 'Dependo de alguien más que no está aquí (contanos por voz o texto)',
-        isCustom: true
-      });
-
-      // =========================================================================
-      // STEP 5: TU MEJORA & APORTE A KM 2.0 (El Salto hacia Adelante)
-      // =========================================================================
-      let step5Options = [];
-
-      if (cat === 'mayoreo') {
-        step5Options = [
-          { icon: '🚀', title: 'Abrir más talleres y repuesteras en ruta para duplicar ventas', desc: 'Usar el tiempo liberado para prospectar clientes nuevos y crecer la zona asignada.' },
-          { icon: '👨‍🏫', title: 'Capacitar a vendedores de ruta nuevos con mis mejores técnicas', desc: 'Enseñarles cómo negociar, cómo armar pedidos y cómo cuidar la cobranza.' },
-          { icon: '📊', title: 'Ayudar a planificar qué repuestos comprar según la demanda de calle', desc: 'Retroalimentar a compras con las marcas y modelos que más buscan los talleres.' },
-          { icon: '🛡️', title: 'Mejorar la cobranza preventiva para que ningún cliente caiga en mora', desc: 'Dar seguimiento cercano para que la cartera se mantenga siempre sana y activa.' }
-        ];
-      } else if (cat === 'liderazgo') {
-        step5Options = [
-          { icon: '🎯', title: 'Salir a la calle a visitar clientes clave y supervisar tiendas', desc: 'Estar donde se genera el dinero en lugar de estar atrapado resolviendo incendios.' },
-          { icon: '📈', title: 'Diseñar estrategias comerciales para ganarle mercado a la competencia', desc: 'Nuevas promociones, alianzas con talleres y metas agresivas de ventas.' },
-          { icon: '👥', title: 'Desarrollar líderes y encargados para que la operación funcione sola', desc: 'Empoderar a la gente para que tomen decisiones con criterio sin depender de mí.' },
-          { icon: '💡', title: 'Mejorar los procesos internos para reducir costos y desperdicios', desc: 'Eliminar trámites inútiles que no le agregan valor al cliente ni a la empresa.' }
-        ];
-      } else if (cat === 'sistemas') {
-        step5Options = [
-          { icon: '🚀', title: 'Construir herramientas automáticas que le ahorren horas al personal', desc: 'Desarrollar el Waze Operativo y pantallas que resuelvan en un solo clic.' },
-          { icon: '🗄️', title: 'Mejorar la velocidad y estabilidad de servidores y bases de datos', desc: 'Que ninguna pantalla se pegue en horas pico de facturación o bodega.' },
-          { icon: '📲', title: 'Crear aplicaciones móviles ágiles para ventas de mayoreo y cobros', desc: 'Herramientas modernas que funcionen con o sin señal en ruta.' },
-          { icon: '📊', title: 'Crear tableros de control en tiempo real para gerencia y tiendas', desc: 'Métricas claras y vivas para tomar decisiones al instante.' }
-        ];
-      } else if (cat === 'auditoria') {
-        step5Options = [
-          { icon: '🛡️', title: 'Auditoría preventiva que ayude a las tiendas a evitar errores', desc: 'Asesorar al personal para que no cometan fallas en lugar de solo sancionar.' },
-          { icon: '📊', title: 'Automatizar cruces de inventario y bancos con herramientas modernas', desc: 'Reportes que concilien solos para enfocar el tiempo en análisis de fondo.' },
-          { icon: '🔍', title: 'Investigar a fondo las causas de averías y pérdidas de repuestos', desc: 'Identificar dónde se rompen las piezas para corregir el empaque o traslado.' },
-          { icon: '📚', title: 'Capacitar al personal en buenas prácticas de control y custodia', desc: 'Crear cultura de orden y cuidado en todas las 77 tiendas.' }
-        ];
-      } else if (cat === 'compras') {
-        step5Options = [
-          { icon: '🚢', title: 'Explorar nuevos fabricantes y mejorar catálogo de repuestos en China', desc: 'Traer mejores marcas y piezas novedosas que el mercado esté pidiendo.' },
-          { icon: '📈', title: 'Afinar el cálculo de compras para no tener repuestos dormidos en bodega', desc: 'Invertir el capital de la empresa en repuestos de alta rotación.' },
-          { icon: '🤝', title: 'Negociar fletes marítimos más baratos y tiempos de entrega más cortos', desc: 'Reducir costos de importación para mejorar la rentabilidad del grupo.' },
-          { icon: '🔍', title: 'Cruzar información con talleres y rutas para anticipar la demanda', desc: 'Saber qué modelos de motos están entrando al país para traer sus repuestos.' }
-        ];
-      } else if (cat === 'rrhh') {
-        step5Options = [
-          { icon: '🤝', title: 'Trabajar más de cerca con la gente en tiendas y talleres (clima y apoyo)', desc: 'Visitar sucursales, escuchar inquietudes y elevar la motivación del equipo.' },
-          { icon: '📚', title: 'Crear un programa continuo de capacitación técnica en repuestos', desc: 'Formar expertos en repuestos que vendan con seguridad y orgullo.' },
-          { icon: '📈', title: 'Diseñar planes de incentivos que premien al que de verdad aporta', desc: 'Comisiones justas que motiven a los mejores talentos a crecer en KM.' },
-          { icon: '👥', title: 'Agilizar la contratación para que ninguna tienda se quede sin personal', desc: 'Procesos de selección rápidos y efectivos para cubrir vacantes críticas.' }
-        ];
-      } else if (cat === 'vendedor') {
-        step5Options = [
-          { icon: '🤝', title: 'Vender más repuestos y accesorios asesorando a fondo a cada cliente', desc: 'Ofrecer kits completos, mejores marcas y fidelizar a mototaxistas y talleres.' },
-          { icon: '📦', title: 'Organizar y perfeccionar el inventario de la tienda para no perder ni un minuto', desc: 'Cada repuesto rotulado y en su lugar exacto para despachar en segundos.' },
-          { icon: '👨‍🏫', title: 'Enseñar catálogo y despieces a compañeros recién contratados', desc: 'Reducir el tiempo de aprendizaje de los nuevos asesores de mostrador.' },
-          { icon: '📲', title: 'Dar seguimiento por WhatsApp a clientes con pedidos especiales', desc: 'Recuperar ventas de piezas que no teníamos y que ya llegaron a la tienda.' }
-        ];
-      } else if (cat === 'cajero') {
-        step5Options = [
-          { icon: '⚡', title: 'Facturar y cobrar con mayor velocidad para eliminar filas en tienda', desc: 'Que el cliente pague y salga con su factura y repuesto sin esperar un segundo.' },
-          { icon: '📊', title: 'Apoyar al administrador de tienda en arqueos y control de inventario', desc: 'Utilizar el tiempo libre para auditar estantes y detectar diferencias.' },
-          { icon: '🤝', title: 'Brindar una mejor atención al cliente en el momento del pago', desc: 'Promover accesorios pequeños de mostrador o resolver dudas de crédito.' },
-          { icon: '💡', title: 'Proponer mejoras para simplificar el cierre diario de caja', desc: 'Ideas prácticas para que el cuadre Z sea más rápido y sin fricciones.' }
-        ];
-      } else if (cat === 'mecanico') {
-        step5Options = [
-          { icon: '⚡', title: 'Atender más motocicletas por día y elevar la facturación del taller', desc: 'Despachar afinaciones y reparaciones con mayor velocidad y garantía total.' },
-          { icon: '👨‍🏫', title: 'Enseñar mecánica y diagnóstico a ayudantes o mecánicos junior', desc: 'Formar escuela técnica dentro de KM para tener los mejores mecánicos del país.' },
-          { icon: '🛠️', title: 'Diseñar paquetes de mantenimiento preventivo atractivos para clientes', desc: 'Crear combos de servicios periódicos que traigan clientes cada mes.' },
-          { icon: '🔍', title: 'Apoyar a la tienda en asesoría técnica para repuestos difíciles', desc: 'Ayudar a los vendedores a identificar piezas complejas cuando el cliente duda.' }
-        ];
-      } else if (cat === 'bodeguero') {
-        step5Options = [
-          { icon: '🚚', title: 'Acelerar el despacho para que los camiones de ruta salgan más temprano', desc: 'Que los clientes foráneos reciban sus repuestos en tiempo récord.' },
-          { icon: '📐', title: 'Rediseñar la ubicación de repuestos de alta rotación en el CD', desc: 'Colocar las piezas más vendidas más cerca de las bahías de empaque.' },
-          { icon: '👨‍🏫', title: 'Capacitar a compañeros nuevos en estiba segura y manejo de carga', desc: 'Evitar averías y accidentes cuidando la integridad de los repuestos.' },
-          { icon: '🔍', title: 'Realizar conteos cíclicos constantes para tener inventario 100% confiable', desc: 'Auditar pasillos todos los días para que el sistema nunca mienta.' }
-        ];
-      } else {
-        step5Options = [
-          { icon: '🚀', title: 'Asumir más responsabilidades y apoyar en tareas de mayor impacto', desc: 'Aprender cosas nuevas para tener oportunidad de crecer dentro de KM.' },
-          { icon: '🤝', title: 'Ayudar a mis compañeros para que el equipo supere sus metas', desc: 'Colaborar en lo que haga falta para que el trabajo salga con calidad.' },
-          { icon: '💡', title: 'Proponer ideas prácticas para que el trabajo sea más ágil y ordenado', desc: 'Aportar soluciones desde mi experiencia en el día a día.' },
-          { icon: '📚', title: 'Capacitarme en repuestos y sistemas para mejorar mi rendimiento', desc: 'Prepararme para dar un mejor servicio y avanzar en la empresa.' }
-        ];
-      }
-
-      step5Options.push({
-        icon: '🚀',
-        title: 'Tengo otra propuesta para aportar a KM 2.0',
-        desc: 'Contanos con tus palabras en qué te gustaría aportar más a la empresa (voz o texto)',
-        isCustom: true
-      });
-
-      return [
-        {
-          stepNum: 1,
-          tag: 'PARADA 1 DE 5 · TU DÍA Y ROL REAL',
-          milestone: 'Tu día',
-          percent: 20,
-          title: '¿Qué ocupa de verdad la mayor parte de tu día?',
-          subtitle: 'Elegí lo que más se parezca a tu realidad. Si cubrís otras cosas o hacés algo diferente, contanos:',
-          field: 'jornada_diaria',
-          multi: false,
-          warning: false,
-          options: step1Options
-        },
-        {
-          stepNum: 2,
-          tag: 'PARADA 2 DE 5 · TU TALENTO CLAVE',
-          milestone: 'Tu talento',
-          percent: 40,
-          title: '¿Qué es lo que MEJOR te sale hacer en tu trabajo?',
-          subtitle: 'Ese conocimiento, habilidad o destreza donde sentís que de verdad destacás y aportás a KM:',
-          field: 'herramientas_checklist',
-          multi: false,
-          warning: false,
-          options: step2Options
-        },
-        {
-          stepNum: 3,
-          tag: 'PARADA 3 DE 5 · LOS FRENOS REALES',
-          milestone: 'Los frenos',
-          percent: 60,
-          title: 'Cuando el día se complica o tu trabajo se detiene, ¿qué pasó?',
-          subtitle: 'Esa traba o dolor que te quita tiempo y no te deja avanzar:',
-          field: 'conexiones_organigrama',
-          multi: false,
-          warning: true,
-          options: step3Options
-        },
-        {
-          stepNum: 4,
-          tag: 'PARADA 4 DE 5 · CÓMO FLUYE (LA POSTA)',
-          milestone: 'La posta',
-          percent: 80,
-          title: 'Para que tu trabajo quede impecable, ¿de quién dependés más?',
-          subtitle: '¿Qué área te entrega la posta y cómo llega la información o mercadería?',
-          field: 'multiplicador_valor',
-          multi: false,
-          warning: false,
-          options: step4Options
-        },
-        {
-          stepNum: 5,
-          tag: 'PARADA 5 DE 5 · TU APORTE A KM 2.0',
-          milestone: 'KM 2.0',
-          percent: 100,
-          title: 'Si te quitáramos esa traba mañana... ¿a qué le dedicarías tu tiempo?',
-          subtitle: 'Queremos aprovechar tu verdadero talento en KM 2.0. ¿En qué podrías aportar más a la empresa?',
-          field: 'bloqueos_p0',
-          multi: false,
-          warning: false,
-          heroVoice: true,
-          options: step5Options
-        }
-      ];
-    }
-
-    /* START MISSION */
-    function startMission(e) {
-      e.preventDefault();
-      const name = document.getElementById('inputName').value.trim();
-      const role = document.getElementById('inputRole').value.trim();
-      const store = document.getElementById('inputStore').value.trim();
-
-      if (!name || !role || !store) return;
-
-      currentUser = { name, role, store };
-      playTone('step');
-
-      document.getElementById('welcomeScreen').classList.add('hidden');
-      document.getElementById('topMomentumBar').classList.remove('hidden');
-      document.getElementById('missionScreen').classList.remove('hidden');
-
-      renderStep(1);
-    }
-
-    /* RENDER STEP (Clean, patient, zero pressure) */
-    function renderStep(stepNum) {
-      currentStep = stepNum;
-      const steps = getStepsForUser(currentUser);
-      const conf = steps.find(s => s.stepNum === stepNum);
-      if (!conf) return;
-
-      isMultiSelect = !!conf.multi;
-      selectedChoices = [];
-
-      // Update Momentum Header
-      document.getElementById('stepCounterText').innerText = `${stepNum} de 5`;
-      document.getElementById('stepPercentText').innerText = `${conf.percent}%`;
-      document.getElementById('stepMilestoneName').innerText = conf.milestone;
-      document.getElementById('momentumFillLine').style.width = `${(stepNum - 1) * 25}%`;
-
-      for (let i = 1; i <= 5; i++) {
-        const node = document.getElementById(`node${i}`);
-        if (i < stepNum) {
-          node.className = 'w-3.5 h-3.5 rounded-full bg-km-green border-2 border-km-bg z-10 momentum-node';
-        } else if (i === stepNum) {
-          node.className = 'w-4 h-4 rounded-full bg-km-green border-2 border-white z-10 momentum-node shadow-lg shadow-km-green/50';
-        } else {
-          node.className = 'w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node';
-        }
-      }
-
-      // Text updates
-      document.getElementById('questTag').innerText = conf.tag;
-      document.getElementById('questTitle').innerText = conf.title;
-      document.getElementById('questSubtitle').innerText = conf.subtitle;
-
-      // Multi-select indicator helper
-      const multiHelper = document.getElementById('multiSelectHelper');
-      if (isMultiSelect) {
-        multiHelper.classList.remove('hidden');
-      } else {
-        multiHelper.classList.add('hidden');
-      }
-
-      // Action Footer is ALWAYS visible on every step!
-      const footer = document.getElementById('multiSelectFooter');
-      if (footer) footer.classList.remove('hidden');
-
-      // Reset Voice & Text
-      resetVoiceState();
-      const existingData = auditData[conf.field] || '';
-      document.getElementById('manualTextInput').value = existingData;
-
-      // Button state
-      if (existingData) {
-        updateActionButton(true, 'Continuar ➜');
-      } else {
-        updateActionButton(false, isMultiSelect ? 'Elegí hasta 3 opciones' : 'Continuar ➜');
-      }
-
-      // Render Cards
-      const grid = document.getElementById('questOptionsGrid');
-      grid.innerHTML = '';
-
-      conf.options.forEach(opt => {
-        const card = document.createElement('div');
-        const warnClass = conf.warning ? 'warning-card' : '';
-        const isOptSelected = existingData && existingData.includes(`[${opt.title}]`);
-
-        card.className = `km-card ${warnClass} ${isOptSelected ? 'selected' : ''}`;
-        card.innerHTML = `
-          <div class="text-2xl flex-shrink-0">${opt.icon}</div>
-          <div class="flex-1 space-y-0.5">
-            <div class="font-bold text-white text-sm flex items-center justify-between">
-              <span>${opt.title}</span>
-              <span class="check-mark text-km-green font-bold text-xs ${isOptSelected ? '' : 'hidden'}">✓</span>
-            </div>
-            <p class="text-xs text-km-muted leading-relaxed">${opt.desc}</p>
-          </div>
-        `;
-
-        card.onclick = () => onCardClicked(card, opt, conf);
-        grid.appendChild(card);
-      });
-
-      // If existing data was custom text, show the text area
-      if (existingData && !conf.options.some(opt => existingData.includes(`[${opt.title}]`))) {
-        document.getElementById('manualTextWrapper').classList.remove('hidden');
-        updateActionButton(true, 'Continuar con mi respuesta ➜');
+      // Show selected
+      if (viewName === 'guided') {
+        document.getElementById('viewGuided').classList.remove('hidden');
+        document.getElementById('tabBtnGuided').className = 'px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2';
+      } else if (viewName === 'graph') {
+        document.getElementById('viewGraph').classList.remove('hidden');
+        document.getElementById('tabBtnGraph').className = 'px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2';
+      } else if (viewName === 'dashboard') {
+        document.getElementById('viewDashboard').classList.remove('hidden');
+        document.getElementById('tabBtnDashboard').className = 'px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2';
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* CARD CLICK HANDLER (User in full control, no rushing) */
-    function onCardClicked(cardEl, opt, conf) {
-      playTone('tap');
+    // =========================================================================
+    // STAGE NAVIGATION (GUIDED MINING)
+    // =========================================================================
+    function goToStage(stageNum) {
+      currentStage = stageNum;
 
-      // If user tapped "Otra cosa diferente" / Escape Hatch
-      if (opt.isCustom) {
-        document.querySelectorAll('.km-card').forEach(c => {
-          c.classList.remove('selected');
-          const chk = c.querySelector('.check-mark');
-          if (chk) chk.classList.add('hidden');
-        });
+      // Hide all stage screens
+      ['stage0Welcome', 'stage1Voice', 'stage2LiveGraph', 'stage3Friction', 'stage4Tickets', 'stage5Summary'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
 
-        cardEl.classList.add('selected');
-        const chk = cardEl.querySelector('.check-mark');
-        if (chk) chk.classList.remove('hidden');
-        
-        // Open custom voice / text input box
-        const wrapper = document.getElementById('manualTextWrapper');
-        wrapper.classList.remove('hidden');
-        const ta = document.getElementById('manualTextInput');
-        ta.focus();
-        ta.placeholder = 'Contanos con tus palabras qué hacés vos o qué pasa en tu caso (podés escribir o dictar por el micro)...';
-        
-        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        const currentVal = ta.value.trim();
-        if (currentVal.length > 0) {
-          auditData[conf.field] = currentVal;
-          saveDraftProgress();
-          updateActionButton(true, 'Continuar con mi respuesta ➜');
-        } else {
-          updateActionButton(true, 'Continuar con mi respuesta ➜');
-        }
-        return;
-      }
-
-      if (!isMultiSelect) {
-        // Single select: visual selection, user controls when to advance
-        document.querySelectorAll('.km-card').forEach(c => {
-          c.classList.remove('selected');
-          const chk = c.querySelector('.check-mark');
-          if (chk) chk.classList.add('hidden');
-        });
-
-        cardEl.classList.add('selected');
-        const chk = cardEl.querySelector('.check-mark');
-        if (chk) chk.classList.remove('hidden');
-
-        // Clear manual input if standard card chosen
-        document.getElementById('manualTextInput').value = '';
-        auditData[conf.field] = `[${opt.title}]: ${opt.desc}`;
-        saveDraftProgress();
-
-        // Highlight button and update label
-        updateActionButton(true, 'Continuar ➜');
-
+      // Update Stepper Line
+      const stepper = document.getElementById('guidedStepperBar');
+      if (stageNum === 0) {
+        stepper.classList.add('hidden');
       } else {
-        // Multi select: toggle (up to 3)
-        const titleTag = `[${opt.title}]`;
-        const idx = selectedChoices.indexOf(titleTag);
+        stepper.classList.remove('hidden');
+        document.getElementById('stepperStepNumber').innerText = `PARADA ${stageNum} DE 5`;
+        const pct = stageNum * 20;
+        document.getElementById('stepperPercentText').innerText = `${pct}%`;
+        document.getElementById('stepperLineFill').style.width = `${pct}%`;
 
-        if (idx !== -1) {
-          selectedChoices.splice(idx, 1);
-          cardEl.classList.remove('selected');
-          const chk = cardEl.querySelector('.check-mark');
-          if (chk) chk.classList.add('hidden');
-        } else {
-          if (selectedChoices.length >= 3) {
-            showToast('Podés seleccionar hasta 3 opciones principales.', 'ℹ️');
-            return;
+        for (let i = 1; i <= 5; i++) {
+          const dot = document.getElementById(`stepDot${i}`);
+          if (dot) {
+            if (i < stageNum) {
+              dot.className = 'w-3.5 h-3.5 rounded-full bg-km-green border-2 border-km-bg z-10';
+            } else if (i === stageNum) {
+              dot.className = 'w-3.5 h-3.5 rounded-full bg-km-green border-2 border-white z-10 shadow-lg shadow-km-green/50';
+            } else {
+              dot.className = 'w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10';
+            }
           }
-          selectedChoices.push(titleTag);
-          cardEl.classList.add('selected');
-          const chk = cardEl.querySelector('.check-mark');
-          if (chk) chk.classList.remove('hidden');
-        }
-
-        auditData[conf.field] = selectedChoices.join(', ');
-        saveDraftProgress();
-
-        const count = selectedChoices.length;
-        updateActionButton(count > 0, count > 0 ? `Listo · (${count}) Continuar ➜` : 'Elegí hasta 3 opciones');
-      }
-    }
-
-    /* HANDLE MANUAL TEXT INPUT */
-    function handleManualTextInput() {
-      const steps = getStepsForUser(currentUser);
-      const conf = steps.find(s => s.stepNum === currentStep);
-      const val = document.getElementById('manualTextInput').value.trim();
-
-      if (val.length > 0) {
-        if (conf) auditData[conf.field] = val;
-        updateActionButton(true, 'Continuar con mi respuesta ➜');
-      } else {
-        if (conf && !auditData[conf.field]) {
-          updateActionButton(false, 'Continuar ➜');
         }
       }
+
+      // Show stage
+      if (stageNum === 0) {
+        document.getElementById('stage0Welcome').classList.remove('hidden');
+      } else if (stageNum === 1) {
+        document.getElementById('stage1Voice').classList.remove('hidden');
+        renderStage1Options();
+      } else if (stageNum === 2) {
+        document.getElementById('stage2LiveGraph').classList.remove('hidden');
+        renderProcessGraph();
+      } else if (stageNum === 3) {
+        document.getElementById('stage3Friction').classList.remove('hidden');
+        setupFrictionStage();
+      } else if (stageNum === 4) {
+        document.getElementById('stage4Tickets').classList.remove('hidden');
+        matchTicketForFriction();
+      } else if (stageNum === 5) {
+        document.getElementById('stage5Summary').classList.remove('hidden');
+        renderSummaryStage();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* UPDATE ACTION BUTTON */
-    function updateActionButton(enabled, label) {
-      const btn = document.getElementById('nextStepBtn');
-      const btnText = document.getElementById('nextStepBtnLabel');
-      if (btnText && label) btnText.innerText = label;
-      
-      if (enabled) {
-        btn.classList.remove('opacity-50', 'pointer-events-none');
-        btn.classList.add('opacity-100', 'cursor-pointer');
+    // =========================================================================
+    // STAGE 0: START JOURNEY
+    // =========================================================================
+    function setQuickIdentity(role, store) {
+      document.getElementById('initRole').value = role;
+      document.getElementById('initStore').value = store;
+    }
+
+    function handleStartJourney(e) {
+      e.preventDefault();
+      const name = document.getElementById('initName').value.trim();
+      const role = document.getElementById('initRole').value.trim();
+      const store = document.getElementById('initStore').value.trim();
+
+      if (!name || !role || !store) return;
+
+      currentUser = { name, role, store };
+      goToStage(1);
+    }
+
+    // =========================================================================
+    // STAGE 1: VOICE / DICTATION & QUICK CHIPS
+    // =========================================================================
+    let isRecording = false;
+    let recognition = null;
+    let recordingTimer = null;
+    let recordingSeconds = 0;
+
+    function renderStage1Options() {
+      const container = document.getElementById('stage1QuickChips');
+      container.innerHTML = '';
+
+      const r = currentUser.role.toLowerCase();
+      let chips = [];
+
+      if (r.includes('mayoreo') || r.includes('promotor') || r.includes('ruta')) {
+        chips = [
+          { text: "Visito talleres mecánicos en Danlí, anoto pedidos en libreta, pregunto stock por WhatsApp a Bodega CD y espero confirmación para liberar.", tags: ["talleres", "libreta", "whatsapp", "stock"] },
+          { text: "Cobro cartera de crédito a talleres en ruta, entrego recibo físico y liquido por la tarde en el banco o caja.", tags: ["cobro", "banco", "cartera"] },
+          { text: "Hago labor de prospección de repuesteras nuevas para ofrecer el catálogo de mayoreo y kits de arrastre.", tags: ["prospeccion", "catalogo"] }
+        ];
+      } else if (r.includes('mecanic') || r.includes('taller')) {
+        chips = [
+          { text: "Recibo la moto del cliente, diagnostico falla eléctrica o de motor, pido repuesto a mostrador y espero que me lo entreguen para instalar.", tags: ["diagnostico", "mostrador", "espera"] },
+          { text: "Hago afinaciones rápidas, cambio de cilindro y kit de tracción probando que no queden ruidos raros.", tags: ["afinacion", "cilindro"] }
+        ];
+      } else if (r.includes('bodeg') || r.includes('almacen')) {
+        chips = [
+          { text: "Descargo camión de repuestos, cotejo cajas con el manifiesto, estibo en pasillos del CD y empaco bultos para ruta.", tags: ["descarga", "estiba", "picking"] },
+          { text: "Alisto pedidos de tiendas (picking), verifico códigos en estante y despacho camiones.", tags: ["picking", "despacho"] }
+        ];
       } else {
-        btn.classList.add('opacity-50', 'pointer-events-none');
-        btn.classList.remove('opacity-100', 'cursor-pointer');
+        chips = [
+          { text: "Atiendo clientes en mostrador, busco el código en el catálogo, facturo en el sistema y entrego la pieza en mano.", tags: ["mostrador", "factura", "entrega"] },
+          { text: "Apago emergencias de otras áreas, resuelvo dudas de compañeros y ayudo en lo que haga falta en la tienda.", tags: ["emergencias", "apoyo"] }
+        ];
+      }
+
+      chips.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'p-3 rounded-xl bg-km-surface border border-white/5 hover:border-km-green/40 cursor-pointer transition text-xs flex items-start gap-2.5';
+        div.innerHTML = `
+          <span class="text-km-green font-bold mt-0.5">↳</span>
+          <span class="text-slate-300 leading-relaxed">${c.text}</span>
+        `;
+        div.onclick = () => {
+          document.getElementById('voiceLiveTranscript').innerText = `"${c.text}"`;
+          document.getElementById('textStoryInput').value = c.text;
+        };
+        container.appendChild(div);
+      });
+    }
+
+    function toggleTextInputFallback() {
+      const box = document.getElementById('textFallbackBox');
+      box.classList.toggle('hidden');
+    }
+
+    function toggleVoiceRecording() {
+      if (isRecording) {
+        stopVoiceRecording();
+      } else {
+        startVoiceRecording();
       }
     }
 
-    /* CONFIRM AND ADVANCE */
-    function confirmAndAdvance() {
-      const steps = getStepsForUser(currentUser);
-      const conf = steps.find(s => s.stepNum === currentStep);
-      const manual = document.getElementById('manualTextInput').value.trim();
-
-      // If user typed custom text, that takes priority
-      if (manual) {
-        auditData[conf.field] = manual;
-      }
-
-      if (!auditData[conf.field]) {
-        showToast('Por favor seleccioná una opción o contanos con tus palabras.', '✍️');
+    function startVoiceRecording() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        document.getElementById('voiceStatusText').innerText = "Tu navegador no soporta voz directo";
+        toggleTextInputFallback();
         return;
       }
 
-      saveDraftProgress();
-      playTone('step');
-      advanceToNextStep();
-    }
+      recognition = new SpeechRecognition();
+      recognition.lang = 'es-HN';
+      recognition.interimResults = true;
+      recognition.continuous = true;
 
-    function advanceToNextStep() {
-      if (currentStep < 5) {
-        renderStep(currentStep + 1);
-      } else {
-        finishJourney();
-      }
-    }
-
-    function prevStep() {
-      if (currentStep > 1) {
-        playTone('tap');
-        renderStep(currentStep - 1);
-      }
-    }
-
-    /* FINISH JOURNEY & REVEAL PASSPORT */
-    async function finishJourney() {
-      playTone('victory');
-
-      document.getElementById('topMomentumBar').classList.add('hidden');
-      document.getElementById('missionScreen').classList.add('hidden');
-      document.getElementById('celebrationScreen').classList.remove('hidden');
-
-            // Populate Cognitive Mirror Cards (KM 2.0)
-      const cleanTitleOnly = (t) => {
-        if (!t) return 'No especificado';
-        const m = t.match(/^\[(.*?)\]/);
-        return m ? m[1] : t;
+      recognition.onstart = () => {
+        isRecording = true;
+        document.getElementById('voiceStatusText').innerText = "Te escucho... hablá con tus palabras";
+        document.getElementById('voiceOrbPulse').classList.add('voice-radar', 'border-km-cyan');
+        document.getElementById('voiceWaveAnimation').classList.remove('hidden');
+        recordingSeconds = 0;
+        recordingTimer = setInterval(() => {
+          recordingSeconds++;
+          const m = Math.floor(recordingSeconds / 60);
+          const s = recordingSeconds % 60;
+          document.getElementById('voiceSubStatus').innerText = `${m}:${s < 10 ? '0' : ''}${s} / 2:00`;
+        }, 1000);
       };
 
-      const elMirrorRole = document.getElementById('mirrorRoleReal');
-      if (elMirrorRole) elMirrorRole.innerText = cleanTitleOnly(auditData.jornada_diaria);
+      recognition.onresult = (e) => {
+        let transcript = '';
+        for (let i = 0; i < e.results.length; i++) {
+          transcript += e.results[i][0].transcript + ' ';
+        }
+        document.getElementById('voiceLiveTranscript').innerText = `"${transcript.trim()}"`;
+        document.getElementById('textStoryInput').value = transcript.trim();
+      };
 
-      const elMirrorTalent = document.getElementById('mirrorTalent');
-      if (elMirrorTalent) elMirrorTalent.innerText = cleanTitleOnly(auditData.herramientas_checklist);
+      recognition.onerror = () => {
+        stopVoiceRecording();
+      };
 
-      const elMirrorFreno = document.getElementById('mirrorFreno');
-      if (elMirrorFreno) elMirrorFreno.innerText = cleanTitleOnly(auditData.conexiones_organigrama);
+      recognition.start();
+    }
 
-      const elMirrorAporte = document.getElementById('mirrorAporte');
-      if (elMirrorAporte) elMirrorAporte.innerText = cleanTitleOnly(auditData.bloqueos_p0);
+    function stopVoiceRecording() {
+      if (recognition) {
+        recognition.stop();
+      }
+      isRecording = false;
+      clearInterval(recordingTimer);
+      document.getElementById('voiceStatusText').innerText = "Listo · Relato registrado";
+      document.getElementById('voiceOrbPulse').classList.remove('voice-radar', 'border-km-cyan');
+      document.getElementById('voiceWaveAnimation').classList.add('hidden');
+    }
 
-      // Fill Passport
-      const folioNum = Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('passportFolio').innerText = `FOLIO #KM-2026-${folioNum}`;
-      document.getElementById('passportName').innerText = currentUser.name;
-      document.getElementById('passportRoleStore').innerText = `${currentUser.role} • ${currentUser.store}`;
+    // =========================================================================
+    // STAGE 2: PARSE STORY TO INTERACTIVE PROCESS GRAPH
+    // =========================================================================
+    function processStage1ToGraph() {
+      stopVoiceRecording();
 
-      const today = new Date();
-      const dateStr = today.toLocaleDateString('es-HN', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
-      document.getElementById('passportDate').innerText = dateStr;
+      const story = document.getElementById('textStoryInput').value.trim() || 
+                    document.getElementById('voiceLiveTranscript').innerText.replace(/^"|"$/g, '').trim();
 
-      // 3D Tilt Effect on mouse
-      const card = document.getElementById('passportCardNode');
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        card.style.transform = `rotateY(${x / 14}deg) rotateX(${-y / 14}deg)`;
+      // Deconstruct into default nodes or parsed story
+      if (story.length < 15) {
+        // Fallback realistic sequence for Promotor/Mayoreo
+        activeProcessNodes = [
+          { id: 1, title: 'Visito talleres en Danlí', type: 'action', icon: '🚗', dept: 'Ruta' },
+          { id: 2, title: 'Registro pedido en libreta manual', type: 'action', icon: '📝', dept: 'Ruta' },
+          { id: 3, title: 'Consulto stock con CD (WhatsApp)', type: 'friction', icon: '⚠️', dept: 'Bodega CD', quote: 'Si Créditos no libera o Bodega no responde, el camión no sale.' },
+          { id: 4, title: '¿Hay stock suficiente en almacén?', type: 'decision', icon: '⚖️', dept: 'Bodega CD' },
+          { id: 5, title: 'Confirmar pedido con el cliente', type: 'action', icon: '✅', dept: 'Ruta' },
+          { id: 6, title: 'Despacho de bultos en camión foráneo', type: 'action', icon: '🚚', dept: 'Despacho' }
+        ];
+      } else {
+        // Dynamic Parser
+        activeProcessNodes = [
+          { id: 1, title: 'Visito talleres y puntos clave', type: 'action', icon: '🚗', dept: 'Ruta' },
+          { id: 2, title: 'Toma de pedidos y requerimientos', type: 'action', icon: '📝', dept: 'Ruta' },
+          { id: 3, title: 'Consulto existencia con Almacén CD', type: 'friction', icon: '⚠️', dept: 'Bodega CD', quote: story },
+          { id: 4, title: '¿Hay stock y aprobación?', type: 'decision', icon: '⚖️', dept: 'Créditos' },
+          { id: 5, title: 'Entrega y confirmación de factura', type: 'action', icon: '✅', dept: 'Mostrador' }
+        ];
+      }
+
+      selectedFrictionNode = activeProcessNodes.find(n => n.type === 'friction') || activeProcessNodes[2];
+
+      goToStage(2);
+    }
+
+    function renderProcessGraph() {
+      const container = document.getElementById('processCanvasContainer');
+      container.innerHTML = '';
+
+      document.getElementById('canvasNodeCount').innerText = `${activeProcessNodes.length} nodos mapeados`;
+
+      activeProcessNodes.forEach((node, idx) => {
+        const nodeCard = document.createElement('div');
+        const isFriction = node.type === 'friction';
+        const isDecision = node.type === 'decision';
+
+        let borderColor = 'border-white/10';
+        let bgStyle = 'bg-km-surface-high';
+        let badgeColor = 'bg-white/10 text-km-muted';
+
+        if (isFriction) {
+          borderColor = 'border-km-danger';
+          bgStyle = 'bg-km-danger/10';
+          badgeColor = 'bg-km-danger/20 text-km-danger font-bold';
+        } else if (isDecision) {
+          borderColor = 'border-km-warning';
+          bgStyle = 'bg-km-warning/10';
+          badgeColor = 'bg-km-warning/20 text-km-warning font-bold';
+        } else if (node.type === 'action') {
+          borderColor = 'border-km-green/40';
+          bgStyle = 'bg-km-green/[0.05]';
+          badgeColor = 'bg-km-green/20 text-km-green font-bold';
+        }
+
+        nodeCard.className = `graph-node p-4 rounded-2xl border-2 ${borderColor} ${bgStyle} flex items-center justify-between gap-3 cursor-pointer shadow-md`;
+        
+        nodeCard.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">${node.icon}</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[9px] font-mono uppercase px-2 py-0.5 rounded-full ${badgeColor}">PASO ${idx + 1} • ${node.dept}</span>
+                ${isFriction ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-km-danger text-white font-black animate-pulse">FRENO P0</span>' : ''}
+              </div>
+              <h4 class="text-xs sm:text-sm font-bold text-white mt-1">${node.title}</h4>
+            </div>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <span class="text-xs text-km-muted font-mono hover:text-white">Editar ➜</span>
+          </div>
+        `;
+
+        nodeCard.onclick = () => {
+          selectedFrictionNode = node;
+          goToStage(3);
+        };
+
+        container.appendChild(nodeCard);
+
+        // Arrow connector
+        if (idx < activeProcessNodes.length - 1) {
+          const arrow = document.createElement('div');
+          arrow.className = 'text-center text-xs font-bold text-km-muted/50 py-0.5';
+          arrow.innerHTML = '▼';
+          container.appendChild(arrow);
+        }
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-      });
+    }
 
-      // Shoot Confetti
+    function addCustomNodeToGraph() {
+      const title = prompt("Ingresá el nombre del paso que querés agregar:");
+      if (!title) return;
+      activeProcessNodes.push({
+        id: Date.now(),
+        title,
+        type: 'action',
+        icon: '⚙️',
+        dept: currentUser.store || 'Operación'
+      });
+      renderProcessGraph();
+    }
+
+    // =========================================================================
+    // STAGE 3: FRENOS Y NECESIDADES
+    // =========================================================================
+    function setupFrictionStage() {
+      if (!selectedFrictionNode) {
+        selectedFrictionNode = activeProcessNodes[2] || { title: 'Consulta de stock CD', quote: 'Demora en respuesta' };
+      }
+      document.getElementById('frictionTargetNodeTitle').innerText = selectedFrictionNode.title;
+      document.getElementById('frictionTargetQuote').innerText = selectedFrictionNode.quote || '"Demoras que traban la salida de la mercadería y generan quejas."';
+    }
+
+    function selectFrictionType(cardEl, type) {
+      selectedFrictionType = type;
+      document.querySelectorAll('.friction-card').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelector('.chk-icon').classList.add('hidden');
+      });
+      cardEl.classList.add('selected');
+      cardEl.querySelector('.chk-icon').classList.remove('hidden');
+    }
+
+    // =========================================================================
+    // STAGE 4: TICKET MATCHING
+    // =========================================================================
+    function matchTicketForFriction() {
+      // Find best match in JARVIS_TICKETS
+      const matched = JARVIS_TICKETS[0]; // #412
+      document.getElementById('ticketBadgeId').innerText = matched.id;
+      document.getElementById('ticketBadgeStatus').innerText = matched.status;
+      document.getElementById('ticketScope').innerText = matched.scope;
+      document.getElementById('ticketTitle').innerText = matched.title;
+      document.getElementById('ticketDesc').innerText = matched.desc;
+    }
+
+    function validateTicketMatch(btnEl, answer) {
+      validatedTicketResult = answer;
+      document.querySelectorAll('.ticket-btn').forEach(b => {
+        b.classList.remove('border-km-green', 'bg-km-green/20');
+      });
+      btnEl.classList.add('border-km-green', 'bg-km-green/20');
+    }
+
+    // =========================================================================
+    // STAGE 5: SUMMARY & PASSPORT
+    // =========================================================================
+    async function renderSummaryStage() {
+      document.getElementById('summaryUserName').innerText = currentUser.name || 'Osman Garrido';
+      document.getElementById('summaryUserRole').innerText = `${currentUser.role || 'Promotor de Marca'} • ${currentUser.store || 'Mercadeo'}`;
+      
+      document.getElementById('statNodesCount').innerText = activeProcessNodes.length || 5;
+      document.getElementById('statFrictionsCount').innerText = '1';
+      document.getElementById('statImprovementsCount').innerText = '2';
+      document.getElementById('statTicketsCount').innerText = '1';
+
       launchConfetti();
 
-      // Submit Final to Server
+      // Submit Payload to /api/auditorias
       try {
         await fetch('/api/auditorias', {
           method: 'POST',
@@ -1666,181 +1466,35 @@
             nombre: currentUser.name,
             sucursal: currentUser.store,
             rol: currentUser.role,
-            responsabilidades: auditData.jornada_diaria || '',
-            procesos_clave: auditData.herramientas_checklist || '',
-            cuellos_botella: auditData.conexiones_organigrama || '',
-            sistemas_afectados: auditData.multiplicador_valor || '',
-            bloqueos_p0: auditData.bloqueos_p0 || '',
+            responsabilidades: `[Proceso Mapeado]: ${activeProcessNodes.map(n => n.title).join(' ➜ ')}`,
+            procesos_clave: selectedFrictionNode?.title || 'Consulta de stock CD',
+            cuellos_botella: `[Freno P0]: ${selectedFrictionType}`,
+            sistemas_afectados: `Ticket Validado #412 (${validatedTicketResult})`,
+            bloqueos_p0: 'Consulta de stock en tiempo real desde app móvil',
             user: currentUser,
-            data: auditData,
+            data: {
+              nodes: activeProcessNodes,
+              friction: selectedFrictionNode,
+              ticket_id: '#412',
+              ticket_answer: validatedTicketResult
+            },
             completed_at: new Date().toISOString()
           })
         });
-        localStorage.removeItem(DRAFT_KEY);
       } catch (e) {}
     }
 
-    /* SAVE PROGRESS DRAFT */
-    async function saveDraftProgress() {
-      const payload = {
-        user: currentUser,
-        currentStep,
-        auditData,
-        updated_at: new Date().toISOString()
-      };
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
-      try {
-        fetch('/api/auditorias/draft', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }).catch(() => {});
-      } catch (e) {}
+    // Filter Graph in View 2
+    function filterGraphProcess(val) {
+      const nameEl = document.getElementById('graphCurrentProcName');
+      if (val === 'mayoreo') nameEl.innerText = "Venta a Talleres (Ruta Mayoreo)";
+      else if (val === 'bodega') nameEl.innerText = "Recepción y Despacho en CD Central";
+      else if (val === 'ventas') nameEl.innerText = "Venta en Mostrador 77 Tiendas";
+      else if (val === 'creditos') nameEl.innerText = "Dictamen y Liberación de Línea de Crédito";
+      else nameEl.innerText = "Cadena Operativa Completa E2E";
     }
 
-    function checkDraft() {
-      try {
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if (!raw) return;
-        const draft = JSON.parse(raw);
-        if (draft && draft.user?.name && draft.currentStep > 1) {
-          currentUser = draft.user;
-          auditData = draft.auditData || {};
-          document.getElementById('resumeDraftName').innerText = `${draft.user.name} (${draft.user.role}) · Parada ${draft.currentStep} de 5`;
-          document.getElementById('resumeDraftBox').classList.remove('hidden');
-        }
-      } catch (e) {}
-    }
-
-    function resumeDraft() {
-      try {
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if (!raw) return;
-        const draft = JSON.parse(raw);
-        currentUser = draft.user;
-        auditData = draft.auditData || {};
-        
-        document.getElementById('welcomeScreen').classList.add('hidden');
-        document.getElementById('topMomentumBar').classList.remove('hidden');
-        document.getElementById('missionScreen').classList.remove('hidden');
-        
-        renderStep(draft.currentStep || 1);
-      } catch (e) {}
-    }
-
-    /* VOICE RECOGNITION (Web Speech API es-HN) */
-    function startVoiceRecording() {
-      playTone('tap');
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        showToast('Tu navegador no soporta dictado directo. Escribí en el recuadro.', '🎙️');
-        document.getElementById('manualTextWrapper').classList.remove('hidden');
-        return;
-      }
-
-      document.getElementById('voiceIdleBox').classList.add('hidden');
-      document.getElementById('voiceActiveBox').classList.remove('hidden');
-      document.getElementById('voiceConfirmBox').classList.add('hidden');
-
-      voiceRecognition = new SpeechRecognition();
-      voiceRecognition.lang = 'es-HN';
-      voiceRecognition.interimResults = true;
-      voiceRecognition.continuous = true;
-
-      let fullTranscript = '';
-
-      voiceRecognition.onresult = (e) => {
-        let interim = '';
-        for (let i = e.resultIndex; i < e.results.length; ++i) {
-          if (e.results[i].isFinal) {
-            fullTranscript += e.results[i][0].transcript + ' ';
-          } else {
-            interim += e.results[i][0].transcript;
-          }
-        }
-        const display = (fullTranscript + interim).trim();
-        document.getElementById('voiceTranscriptPreview').innerText = `"${display}"`;
-      };
-
-      voiceRecognition.onerror = () => {
-        stopVoiceRecording();
-      };
-
-      voiceRecognition.start();
-    }
-
-    function stopVoiceRecording() {
-      playTone('step');
-      if (voiceRecognition) {
-        voiceRecognition.stop();
-      }
-      const text = document.getElementById('voiceTranscriptPreview').innerText.replace(/^"|"$/g, '').trim();
-
-      document.getElementById('voiceActiveBox').classList.add('hidden');
-
-      if (!text || text === 'Escuchando tu voz...') {
-        document.getElementById('voiceIdleBox').classList.remove('hidden');
-        return;
-      }
-
-      document.getElementById('voiceConfirmedText').innerText = `"${text}"`;
-      document.getElementById('voiceConfirmBox').classList.remove('hidden');
-    }
-
-    function acceptVoiceText() {
-      const text = document.getElementById('voiceConfirmedText').innerText.replace(/^"|"$/g, '').trim();
-      const steps = getStepsForUser(currentUser);
-      const conf = steps.find(s => s.stepNum === currentStep);
-
-      auditData[conf.field] = text;
-      saveDraftProgress();
-
-      playTone('step');
-      setTimeout(() => {
-        advanceToNextStep();
-      }, 200);
-    }
-
-    function editVoiceText() {
-      const text = document.getElementById('voiceConfirmedText').innerText.replace(/^"|"$/g, '').trim();
-      document.getElementById('manualTextWrapper').classList.remove('hidden');
-      document.getElementById('manualTextInput').value = text;
-      document.getElementById('voiceConfirmBox').classList.add('hidden');
-      document.getElementById('voiceIdleBox').classList.remove('hidden');
-    }
-
-    function resetVoiceState() {
-      if (voiceRecognition) {
-        try { voiceRecognition.stop(); } catch(e) {}
-      }
-      document.getElementById('voiceIdleBox').classList.remove('hidden');
-      document.getElementById('voiceActiveBox').classList.add('hidden');
-      document.getElementById('voiceConfirmBox').classList.add('hidden');
-      document.getElementById('manualTextWrapper').classList.add('hidden');
-      document.getElementById('voiceTranscriptPreview').innerText = '"Escuchando tu voz..."';
-    }
-
-    /* MODAL HELPERS */
-    function openWhyModal() {
-      playTone('tap');
-      document.getElementById('whyModal').classList.remove('hidden');
-    }
-    function closeWhyModal() {
-      playTone('tap');
-      document.getElementById('whyModal').classList.add('hidden');
-    }
-
-    /* SHARE & DOWNLOAD PASSPORT */
-    function shareOnWhatsApp() {
-      const text = `¡Completé mi recorrido en Así trabajamos KM! Ayudé a mapear la realidad de mi puesto para eliminar trabas y hacer crecer a la empresa. 🚀🏍️ https://tablero.apps.kmmotos.com/`;
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-    }
-
-    function downloadPassportImage() {
-      showToast('¡Pasaporte generado! Podés tomarle captura o compartirlo.', '🎫');
-    }
-
-    /* 2D CANVAS CONFETTI */
+    // Confetti Engine
     function launchConfetti() {
       const canvas = document.getElementById('confettiCanvas');
       const ctx = canvas.getContext('2d');
@@ -1850,16 +1504,16 @@
       const particles = [];
       const colors = ['#39E675', '#9AF5B8', '#6AD8FF', '#FFFFFF', '#FFB84D'];
 
-      for (let i = 0; i < 90; i++) {
+      for (let i = 0; i < 80; i++) {
         particles.push({
           x: canvas.width / 2,
           y: canvas.height / 2,
-          vx: (Math.random() - 0.5) * 16,
-          vy: (Math.random() - 0.5) * 16 - 3,
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.5) * 14 - 3,
           size: Math.random() * 8 + 4,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * 360,
-          vRot: (Math.random() - 0.5) * 10,
+          vRot: (Math.random() - 0.5) * 8,
           opacity: 1
         });
       }
@@ -1870,9 +1524,9 @@
         particles.forEach(p => {
           p.x += p.vx;
           p.y += p.vy;
-          p.vy += 0.25; // gravity
+          p.vy += 0.25;
           p.rotation += p.vRot;
-          p.opacity -= 0.012;
+          p.opacity -= 0.014;
 
           ctx.save();
           ctx.translate(p.x, p.y);
@@ -1884,7 +1538,7 @@
         });
 
         frames++;
-        if (frames < 90) {
+        if (frames < 80) {
           requestAnimationFrame(render);
         } else {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1892,11 +1546,6 @@
       }
       render();
     }
-
-    // Check drafts on load
-    window.addEventListener('DOMContentLoaded', () => {
-      checkDraft();
-    });
   </script>
 </body>
 </html>
