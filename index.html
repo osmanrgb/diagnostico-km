@@ -1089,6 +1089,50 @@
 
       </div>
 
+      <!-- BLOCK C: BITÁCORA DE ENVÍOS EN VIVO (MONITOREO EN TIEMPO REAL) -->
+      <div class="bg-km-surface p-5 sm:p-6 rounded-3xl border border-white/[0.08] space-y-4 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-km-green animate-pulse"></span>
+            <div>
+              <h3 class="text-base font-black text-white flex items-center gap-2">
+                <span>Envíos Recibidos en Vivo</span>
+                <span id="liveAuditoriasCountBadge" class="text-xs font-mono px-2 py-0.5 rounded-md bg-km-green/20 text-km-green border border-km-green/40">Cargando...</span>
+              </h3>
+              <p class="text-xs text-km-muted">Colaboradores que han completado su radiografía operativa.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="loadLiveSubmissionsTable()" class="px-3.5 py-1.5 rounded-xl bg-white/[0.05] hover:bg-white/10 border border-white/10 text-xs font-bold text-white flex items-center gap-1.5 transition active:scale-95">
+              <span>🔄 Actualizar</span>
+            </button>
+            <button type="button" onclick="exportAuditoriasCSV()" class="px-3.5 py-1.5 rounded-xl bg-km-green/10 hover:bg-km-green/20 border border-km-green/30 text-xs font-bold text-km-green flex items-center gap-1.5 transition active:scale-95">
+              <span>📥 Descargar CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead>
+              <tr class="text-km-muted font-mono border-b border-white/5 pb-2 text-[10px] uppercase">
+                <th class="py-2.5 px-3">Hora</th>
+                <th class="py-2.5 px-3">Colaborador</th>
+                <th class="py-2.5 px-3">Puesto / Cargo</th>
+                <th class="py-2.5 px-3">Sucursal</th>
+                <th class="py-2.5 px-3">Freno P0 / Queja</th>
+                <th class="py-2.5 px-3">Solución / Ticket</th>
+              </tr>
+            </thead>
+            <tbody id="liveSubmissionsTbody" class="divide-y divide-white/5 text-slate-200">
+              <tr>
+                <td colspan="6" class="py-6 text-center text-km-muted">Cargando envíos en tiempo real...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -1295,6 +1339,7 @@
       } else if (viewName === 'dashboard') {
         document.getElementById('viewDashboard').classList.remove('hidden');
         document.getElementById('tabBtnDashboard').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        loadLiveSubmissionsTable();
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2010,7 +2055,82 @@
       else if (val === 'bodega') nameEl.innerText = "Recepción y Despacho en CD Central";
       else if (val === 'ventas') nameEl.innerText = "Venta en Mostrador 77 Tiendas";
       else if (val === 'creditos') nameEl.innerText = "Dictamen y Liberación de Línea de Crédito";
-      else nameEl.innerText = "Cadena Operativa Completa E2E";
+    // =========================================================================
+    // LIVE SUBMISSIONS MONITOR & CSV EXPORT
+    // =========================================================================
+    let cachedSubmissions = [];
+
+    async function loadLiveSubmissionsTable() {
+      const badge = document.getElementById('liveAuditoriasCountBadge');
+      const tbody = document.getElementById('liveSubmissionsTbody');
+      if (!tbody) return;
+
+      if (badge) badge.innerText = "Consultando...";
+
+      try {
+        const res = await fetch('/api/auditorias');
+        const data = await res.json();
+        if (data.ok && Array.isArray(data.auditorias)) {
+          cachedSubmissions = data.auditorias;
+          if (badge) badge.innerText = `${cachedSubmissions.length} envíos recibidos`;
+
+          if (cachedSubmissions.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-km-muted">Aún no hay envíos registrados hoy.</td></tr>`;
+            return;
+          }
+
+          tbody.innerHTML = '';
+          cachedSubmissions.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-white/[0.02] transition';
+
+            const timeStr = item.created_at ? item.created_at.split(' ')[1] || item.created_at.slice(11, 16) : '--:--';
+            const frena = item.cuellos_botella || item.procesos_clave || 'Fricción operativa';
+            const sol = item.sistemas_afectados || item.bloqueos_p0 || 'Validación estándar';
+
+            tr.innerHTML = `
+              <td class="py-2.5 px-3 text-km-muted font-mono text-[11px] whitespace-nowrap">${timeStr}</td>
+              <td class="py-2.5 px-3 font-bold text-white whitespace-nowrap">${item.nombre || 'Anónimo'}</td>
+              <td class="py-2.5 px-3 text-km-cyan font-mono text-[11px] whitespace-nowrap">${item.rol || 'Operativo'}</td>
+              <td class="py-2.5 px-3 text-slate-300 font-bold whitespace-nowrap">${item.sucursal || 'N/D'}</td>
+              <td class="py-2.5 px-3 text-km-danger text-xs">${frena}</td>
+              <td class="py-2.5 px-3 text-km-green text-xs font-mono">${sol}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        if (badge) badge.innerText = "Error de conexión";
+        tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-km-danger">Error al cargar datos del servidor.</td></tr>`;
+      }
+    }
+
+    function exportAuditoriasCSV() {
+      if (!cachedSubmissions || cachedSubmissions.length === 0) {
+        alert("No hay datos para exportar todavía.");
+        return;
+      }
+
+      const headers = ["ID", "Hora", "Nombre", "Rol", "Sucursal", "Freno P0", "Solucion", "Proceso Mapeado"];
+      const rows = cachedSubmissions.map(item => [
+        item.id || '',
+        `"${(item.created_at || '').replace(/"/g, '""')}"`,
+        `"${(item.nombre || '').replace(/"/g, '""')}"`,
+        `"${(item.rol || '').replace(/"/g, '""')}"`,
+        `"${(item.sucursal || '').replace(/"/g, '""')}"`,
+        `"${(item.cuellos_botella || '').replace(/"/g, '""')}"`,
+        `"${(item.sistemas_afectados || '').replace(/"/g, '""')}"`,
+        `"${(item.responsabilidades || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `envios_km_2.0_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     // Confetti Engine
