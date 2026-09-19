@@ -179,23 +179,35 @@
         </div>
 
         <!-- View Switcher for Small Screens -->
-        <div class="flex sm:hidden items-center gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/10 text-xs">
-          <button onclick="switchView('guided')" id="tabMobileGuided" class="px-2.5 py-1 rounded-lg font-bold bg-km-green text-black">Voz</button>
-          <button onclick="switchView('graph')" id="tabMobileGraph" class="px-2.5 py-1 rounded-lg text-km-muted">Mapa</button>
+        <div class="flex sm:hidden items-center gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/10 text-[11px]">
+          <button onclick="switchView('guided')" id="tabMobileGuided" class="px-2.5 py-1 rounded-lg font-bold bg-km-green text-black">Mi Recorrido</button>
+          <button onclick="switchView('graph')" id="tabMobileGraph" class="px-2.5 py-1 rounded-lg text-km-muted">Mapa E2E</button>
           <button onclick="switchView('dashboard')" id="tabMobileDashboard" class="px-2.5 py-1 rounded-lg text-km-muted">Dirección</button>
         </div>
       </div>
 
-      <!-- Center View Switcher (Desktop Tabs) -->
+      <!-- Center View Switcher (Desktop Tabs with Clear Audience Roles) -->
       <div class="hidden sm:flex items-center gap-1.5 bg-km-surface p-1 rounded-2xl border border-white/[0.08] text-xs font-bold">
-        <button onclick="switchView('guided')" id="tabBtnGuided" class="px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2">
-          <span>🎙️</span> <span>Mi Recorrido en Vivo</span>
+        <button onclick="switchView('guided')" id="tabBtnGuided" class="px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5">
+          <span class="text-sm">🎙️</span> 
+          <span class="flex flex-col text-left">
+            <span>Mi Recorrido en Vivo</span>
+            <span class="text-[9px] font-normal opacity-80 leading-none">Para todo el equipo</span>
+          </span>
         </button>
-        <button onclick="switchView('graph')" id="tabBtnGraph" class="px-4 py-1.5 rounded-xl text-km-muted hover:text-white transition flex items-center gap-2">
-          <span>🗺️</span> <span>Mapa de Procesos E2E</span>
+        <button onclick="switchView('graph')" id="tabBtnGraph" class="px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5">
+          <span class="text-sm">🗺️</span> 
+          <span class="flex flex-col text-left">
+            <span>Mapa de Procesos E2E</span>
+            <span class="text-[9px] font-normal opacity-80 leading-none">Visión general KM</span>
+          </span>
         </button>
-        <button onclick="switchView('dashboard')" id="tabBtnDashboard" class="px-4 py-1.5 rounded-xl text-km-muted hover:text-white transition flex items-center gap-2">
-          <span>📊</span> <span>Tablero de Dirección & Tickets</span>
+        <button onclick="switchView('dashboard')" id="tabBtnDashboard" class="px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5">
+          <span class="text-sm">📊</span> 
+          <span class="flex flex-col text-left">
+            <span>Tablero de Dirección</span>
+            <span class="text-[9px] font-normal opacity-80 leading-none">Jefaturas & Dirección</span>
+          </span>
         </button>
       </div>
 
@@ -324,69 +336,163 @@
 
       </div>
 
-      <!-- ==================== PARADA 1: TU DÍA (VOZ / CASO REAL) ==================== -->
-      <div id="stage1Voice" class="hidden space-y-6">
+      <!-- ==================== PARADA 1: TU DÍA (INTERROGATORIO ADAPTATIVO EN 3 PASOS) ==================== -->
+      <div id="stage1Voice" class="hidden space-y-5">
         
-        <div class="space-y-2">
+        <div class="space-y-1.5">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">PARADA 1 DE 5 · TU DÍA REAL</span>
-            <span class="text-[11px] font-mono text-km-cyan font-bold">🎙️ Voz o Texto</span>
+            <span class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">PARADA 1 DE 5 · TU RADIOGRAFÍA OPERATIVA</span>
+            <span class="text-[11px] font-mono text-km-cyan font-bold">🎙️ Voz o Toques Rápidos</span>
           </div>
 
           <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
-            Contame, ¿cómo es un día típico en tu trabajo?
+            Contanos cómo se vive tu trabajo en la realidad
           </h2>
           <p class="text-xs sm:text-sm text-km-muted leading-relaxed">
-            Podés hablar o escribir. Tomate tu tiempo. No hay respuestas incorrectas: contanos cómo lo vivís en la realidad.
+            Queremos entender tu rutina real sin formalismos. Si sos de pocas palabras, no te preocupes: tocá las opciones que apliquen o usá el micrófono.
           </p>
         </div>
 
-        <!-- Voice Radar Orb Interaction -->
-        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center text-center space-y-5">
-          
-          <div id="voiceOrbContainer" class="relative cursor-pointer" onclick="toggleVoiceRecording()">
-            <div id="voiceOrbPulse" class="w-28 h-28 rounded-full bg-km-green/20 border-2 border-km-green flex items-center justify-center text-4xl shadow-2xl shadow-km-green/30 transition-all duration-300">
-              <span id="voiceOrbIcon">🎙️</span>
+        <!-- BEAT 1: TAREAS PRINCIPALES DEL DÍA A DÍA -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-5 sm:p-6 space-y-3.5 shadow-xl">
+          <div class="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-km-green/20 text-km-green font-black text-xs flex items-center justify-center">1</span>
+              <h3 class="text-sm font-bold text-white">¿Cuáles son tus tareas principales de cada día?</h3>
             </div>
+            <span class="text-[10px] font-mono text-km-green font-bold" id="tasksCountBadge">0 seleccionadas</span>
+          </div>
+          
+          <p class="text-[11px] text-km-muted">
+            Tocá las tareas que hacés en tu jornada habitual (podés elegir varias):
+          </p>
+          
+          <div id="stage1TasksChips" class="flex flex-wrap gap-2">
+            <!-- Populated dynamically based on role -->
           </div>
 
-          <div class="space-y-1">
-            <div id="voiceStatusText" class="text-sm font-bold text-white">Tocá para hablar</div>
-            <p id="voiceSubStatus" class="text-xs text-km-muted font-mono">0:00 / 2:00 max</p>
-          </div>
+          <!-- Voice & Text integration for Beat 1 -->
+          <div class="pt-2 border-t border-white/[0.06] space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold text-white flex items-center gap-1.5">
+                <span>🎙️</span> <span>O contalo con tus propias palabras:</span>
+              </span>
+              <button type="button" onclick="toggleVoiceRecording()" id="voiceMiniBtn" class="px-3 py-1.5 rounded-xl bg-km-green/10 border border-km-green/30 text-km-green text-xs font-bold flex items-center gap-1.5 hover:bg-km-green/20 transition active:scale-95">
+                <span id="voiceMiniIcon">🎙️</span>
+                <span id="voiceMiniLabel">Hablar</span>
+              </button>
+            </div>
 
-          <!-- Live Soundwave Animation -->
-          <div id="voiceWaveAnimation" class="hidden flex items-center gap-1.5 h-8">
-            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.1s;"></div>
-            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.3s;"></div>
-            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.2s;"></div>
-            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.5s;"></div>
-            <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.4s;"></div>
-          </div>
-
-          <!-- Live Transcript Output -->
-          <div id="voiceLiveTranscript" class="w-full bg-km-bg border border-white/10 rounded-2xl p-4 text-xs text-slate-200 min-h-[72px] text-left italic">
-            "Esperando tu voz... Podés decir por ejemplo: 'Empiezo visitando talleres en ruta, anoto pedidos en libreta y consulto existencias en CD por WhatsApp'..."
-          </div>
-
-          <!-- Text alternative toggle -->
-          <button type="button" onclick="toggleTextInputFallback()" class="text-xs text-km-muted hover:text-white underline underline-offset-4">
-            O preferís escribir en texto ⌨️
-          </button>
-
-          <!-- Text Input Fallback Area -->
-          <div id="textFallbackBox" class="hidden w-full pt-2">
-            <textarea id="textStoryInput" rows="3" placeholder="Escribí aquí cómo empieza tu jornada y qué tareas hacés..." 
+            <textarea id="textStoryInput" rows="2" placeholder="O escribí/dictá: 'visito talleres en ruta, armo cotizaciones, cobro facturas y consulto stock'..." 
               class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl p-3 text-xs text-white placeholder:text-neutral-600 focus:outline-none transition"></textarea>
+            
+            <div id="voiceWaveAnimation" class="hidden flex items-center gap-1.5 h-4 justify-center">
+              <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.1s;"></div>
+              <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.3s;"></div>
+              <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.2s;"></div>
+              <div class="w-1.5 bg-km-green rounded-full voice-bar" style="animation-delay: 0.4s;"></div>
+            </div>
+            <div id="voiceLiveTranscript" class="hidden text-[11px] text-km-cyan italic"></div>
           </div>
-
         </div>
 
-        <!-- Quick Scenario Chips -->
-        <div class="space-y-2">
-          <div class="text-[11px] font-mono font-bold text-km-muted uppercase tracking-wider">O elegí un caso representativo de tu área:</div>
-          <div id="stage1QuickChips" class="grid grid-cols-1 gap-2">
-            <!-- Populated dynamically based on role -->
+        <!-- BEAT 2: HERRAMIENTAS Y REGISTRO (DÓNDE VIVE LA OPERACIÓN) -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-5 sm:p-6 space-y-3 shadow-xl">
+          <div class="flex items-center gap-2 border-b border-white/[0.06] pb-2.5">
+            <span class="w-6 h-6 rounded-lg bg-km-cyan/20 text-km-cyan font-black text-xs flex items-center justify-center">2</span>
+            <h3 class="text-sm font-bold text-white">¿Dónde anotás, registrás o consultás para trabajar?</h3>
+          </div>
+
+          <p class="text-[11px] text-km-muted">
+            Elegí dónde vive la información real en tu día a día (lo que usás en la práctica):
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="toolsSelectorGrid">
+            <button type="button" onclick="toggleToolSelection(this, 'WhatsApp')" class="tool-btn p-2.5 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-cyan text-left text-xs text-white flex items-center gap-2 transition">
+              <span class="text-base">📱</span> <span>WhatsApp / Chats</span>
+            </button>
+            <button type="button" onclick="toggleToolSelection(this, 'Libreta')" class="tool-btn p-2.5 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-cyan text-left text-xs text-white flex items-center gap-2 transition">
+              <span class="text-base">📝</span> <span>Libreta / Cuaderno</span>
+            </button>
+            <button type="button" onclick="toggleToolSelection(this, 'ERP / Sistema')" class="tool-btn p-2.5 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-cyan text-left text-xs text-white flex items-center gap-2 transition">
+              <span class="text-base">💻</span> <span>Sistema ERP / POS</span>
+            </button>
+            <button type="button" onclick="toggleToolSelection(this, 'Excel')" class="tool-btn p-2.5 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-cyan text-left text-xs text-white flex items-center gap-2 transition">
+              <span class="text-base">📊</span> <span>Excel / Tablas</span>
+            </button>
+            <button type="button" onclick="toggleToolSelection(this, 'Memoria / Palabra')" class="tool-btn p-2.5 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-cyan text-left text-xs text-white flex items-center gap-2 transition">
+              <span class="text-base">🗣️</span> <span>De palabra / Memoria</span>
+            </button>
+            <button type="button" onclick="toggleToolSelection(this, 'Llamadas')" class="tool-btn p-2.5 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-cyan text-left text-xs text-white flex items-center gap-2 transition">
+              <span class="text-base">📞</span> <span>Llamadas telefónicas</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- BEAT 3: DE QUIÉN DEPENDÉS Y DÓNDE SE TRABA LA PELOTA -->
+        <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-5 sm:p-6 space-y-3 shadow-xl">
+          <div class="flex items-center gap-2 border-b border-white/[0.06] pb-2.5">
+            <span class="w-6 h-6 rounded-lg bg-km-danger/20 text-km-danger font-black text-xs flex items-center justify-center">3</span>
+            <h3 class="text-sm font-bold text-white">¿De quién dependés o dónde sentís que la pelota se traba?</h3>
+          </div>
+
+          <p class="text-[11px] text-km-muted">
+            Elegí el área o situación donde más tiempo se pierde o hay demoras:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="frictionSelectorGrid">
+            <button type="button" onclick="selectFrictionDependency(this, 'Bodega CD', 'Demora en confirmar existencias o despacho de bultos')" class="fric-dep-btn p-3 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger text-left text-xs text-white flex items-center gap-2.5 transition">
+              <span class="text-lg">📦</span>
+              <div>
+                <div class="font-bold text-white">Bodega / CD Central</div>
+                <div class="text-[10px] text-km-muted">Tardan en responder existencias o despachar</div>
+              </div>
+            </button>
+
+            <button type="button" onclick="selectFrictionDependency(this, 'Créditos y Cobranzas', 'Límites de crédito bloqueados o demora en liberar pedidos')" class="fric-dep-btn p-3 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger text-left text-xs text-white flex items-center gap-2.5 transition">
+              <span class="text-lg">💳</span>
+              <div>
+                <div class="font-bold text-white">Créditos y Cobranzas</div>
+                <div class="text-[10px] text-km-muted">Límites copados, facturas frenadas o firmas</div>
+              </div>
+            </button>
+
+            <button type="button" onclick="selectFrictionDependency(this, 'Sistema y TI', 'El sistema se congela, se cae la señal o no da el stock en vivo')" class="fric-dep-btn p-3 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger text-left text-xs text-white flex items-center gap-2.5 transition">
+              <span class="text-lg">💻</span>
+              <div>
+                <div class="font-bold text-white">El Sistema / ERP</div>
+                <div class="text-[10px] text-km-muted">Pantallas pegadas, sin señal o datos desfasados</div>
+              </div>
+            </button>
+
+            <button type="button" onclick="selectFrictionDependency(this, 'Fletes y Transporte', 'El camión foráneo tarda en llegar o se atrasa la entrega')" class="fric-dep-btn p-3 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger text-left text-xs text-white flex items-center gap-2.5 transition">
+              <span class="text-lg">🚚</span>
+              <div>
+                <div class="font-bold text-white">Fletes / Transporte</div>
+                <div class="text-[10px] text-km-muted">Camión foráneo no llega o bultos sin rastreo</div>
+              </div>
+            </button>
+
+            <button type="button" onclick="selectFrictionDependency(this, 'Catálogo y Repuestos', 'Dudas de compatibilidad, códigos cruzados o falta de despiece')" class="fric-dep-btn p-3 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger text-left text-xs text-white flex items-center gap-2.5 transition">
+              <span class="text-lg">🔍</span>
+              <div>
+                <div class="font-bold text-white">Catálogo y Repuestos</div>
+                <div class="text-[10px] text-km-muted">No se sabe con certeza la compatibilidad</div>
+              </div>
+            </button>
+
+            <button type="button" onclick="selectFrictionDependency(this, 'Jefatura / Aprobaciones', 'Falta de autorización rápida para cerrar venta o descuentos')" class="fric-dep-btn p-3 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger text-left text-xs text-white flex items-center gap-2.5 transition">
+              <span class="text-lg">📋</span>
+              <div>
+                <div class="font-bold text-white">Aprobación de Jefatura</div>
+                <div class="text-[10px] text-km-muted">Falta de respuesta rápida en permisos</div>
+              </div>
+            </button>
+          </div>
+
+          <div class="pt-1">
+            <input type="text" id="frictionCustomQuoteInput" placeholder="¿Querés agregar una queja o detalle con tus palabras? (opcional)..." 
+              class="w-full bg-km-bg border border-white/10 focus:border-km-danger rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none transition">
           </div>
         </div>
 
@@ -581,25 +687,33 @@
             </p>
           </div>
 
-          <!-- Crucial Alignment Question -->
+          <!-- Crucial Alignment Question & Responsive State -->
           <div class="pt-3 border-t border-white/[0.08] space-y-3">
-            <div class="text-xs font-bold text-white flex items-center gap-1.5">
-              <span>🎯</span> <span>¿Este desarrollo resolvería tu problema?</span>
+            <div class="text-xs font-bold text-white flex items-center justify-between">
+              <span class="flex items-center gap-1.5">
+                <span>🎯</span> <span>¿Este desarrollo resolvería tu problema?</span>
+              </span>
+              <span id="ticketAnswerStatusBadge" class="hidden text-[10px] font-mono px-2 py-0.5 rounded-full font-bold"></span>
             </div>
 
-            <div class="grid grid-cols-3 gap-2.5">
-              <button type="button" onclick="validateTicketMatch(this, 'si')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-green flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
+            <div class="grid grid-cols-3 gap-2.5" id="ticketValidationButtons">
+              <button type="button" id="ticketBtnSi" onclick="validateTicketMatch(this, 'si')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-green flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
                 <span class="text-base">😊</span>
                 <span>Sí, totalmente</span>
               </button>
-              <button type="button" onclick="validateTicketMatch(this, 'en_parte')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-warning flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
+              <button type="button" id="ticketBtnEnParte" onclick="validateTicketMatch(this, 'en_parte')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-warning flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
                 <span class="text-base">😐</span>
                 <span>En parte</span>
               </button>
-              <button type="button" onclick="validateTicketMatch(this, 'no')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
+              <button type="button" id="ticketBtnNo" onclick="validateTicketMatch(this, 'no')" class="ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-km-danger flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95">
                 <span class="text-base">😡</span>
                 <span>No me resuelve</span>
               </button>
+            </div>
+
+            <!-- DYNAMIC INTERACTION FEEDBACK PANEL -->
+            <div id="ticketFeedbackPanel" class="hidden rounded-2xl p-4 transition-all duration-300">
+              <!-- Rendered dynamically by validateTicketMatch() -->
             </div>
           </div>
 
@@ -610,7 +724,7 @@
           <button type="button" onclick="goToStage(3)" class="text-xs text-km-muted hover:text-white px-3 py-2">
             ‹ Volver
           </button>
-          <button type="button" onclick="goToStage(5)" class="flex-1 km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
+          <button type="button" id="btnNextToSummary" onclick="goToStage(5)" class="flex-1 km-btn-action py-3.5 px-6 text-xs flex items-center justify-center gap-2">
             <span>Ver mi Aporte y Resumen</span>
             <span>➜</span>
           </button>
@@ -666,13 +780,13 @@
             </div>
           </div>
 
-          <!-- Highlight of Validated Ticket -->
-          <div class="p-3.5 rounded-2xl bg-km-surface-high border border-white/10 space-y-1">
+          <!-- Dynamic Highlight of Validated Ticket or Custom Requirement -->
+          <div id="summaryTicketContainer" class="p-3.5 rounded-2xl bg-km-surface-high border border-white/10 space-y-1.5">
             <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-white">Ticket Validado por vos:</span>
-              <span class="text-[10px] font-mono text-km-green font-bold">#412 Consulta de Stock</span>
+              <span class="font-bold text-white" id="summaryTicketLabel">Conexión con Desarrollo:</span>
+              <span id="summaryTicketBadge" class="text-[10px] font-mono text-km-green font-bold bg-km-green/10 border border-km-green/30 px-2 py-0.5 rounded-md">#412 Consulta de Stock</span>
             </div>
-            <p class="text-[11px] text-km-muted">El equipo de desarrollo de Sistemas ya cuenta con tu confirmación de que esto resuelve tu traba en ruta.</p>
+            <p id="summaryTicketDesc" class="text-[11px] text-km-muted">El equipo de desarrollo de Sistemas ya cuenta con tu confirmación de que esto resuelve tu traba operativa.</p>
           </div>
 
         </div>
@@ -1013,44 +1127,83 @@
       store: ''
     };
 
+    let selectedTasks = [];
+    let selectedTools = [];
+    let selectedFrictionDep = null;
+    let customSolution = '';
+    let partialNotes = '';
+    let matchedTicket = null;
+
     let activeProcessNodes = [];
     let selectedFrictionNode = null;
     let selectedFrictionType = 'sistema';
     let validatedTicketResult = 'si';
 
-    // Mock Active Tickets DB in Jarvis
+    // Comprehensive Active Tickets Backlog in Jarvis KM
     const JARVIS_TICKETS = [
+      {
+        id: '#405',
+        title: 'Generador de cotizaciones offline y catálogo digital para ruta mayoreo',
+        scope: 'Ventas • Mayoreo • App Móvil',
+        desc: 'Permite a los asesores de mayoreo armar cotizaciones y registrar pedidos sin depender de señal celular, sincronizando automáticamente al conectar.',
+        status: 'En Develop',
+        matchTags: ['cotizacion', 'mayoreo', 'ruta', 'pedido', 'preventa', 'taller', 'cliente']
+      },
+      {
+        id: '#388',
+        title: 'Validación automática de límite de crédito y recibo digital de cobro',
+        scope: 'Finanzas • Créditos • Cobranzas',
+        desc: 'Libera pedidos automáticamente si el cliente tiene límite disponible y genera recibos provisorios de cobranza con firma digital desde el móvil.',
+        status: 'Listo Testeo',
+        matchTags: ['credito', 'cobro', 'cartera', 'limite', 'liberacion', 'factura', 'recibo']
+      },
       {
         id: '#412',
         title: 'Consulta de stock en tiempo real desde app móvil',
-        scope: 'Sistemas • ERP • App Móvil',
-        desc: 'Permite consultar existencia de repuestos en el CD y tiendas al instante desde la ruta o mostrador, eliminando consultas por WhatsApp.',
+        scope: 'Bodega • CD • App Móvil',
+        desc: 'Permite consultar existencia de repuestos en el CD y tiendas al instante desde la calle o mostrador, eliminando llamadas y WhatsApps a bodega.',
         status: 'En Progreso',
-        matchTags: ['stock', 'whatsapp', 'cd', 'almacen', 'existencia', 'pedido']
-      },
-      {
-        id: '#2790',
-        title: 'Visibilidad de cuentas y depósitos bancarios centrales',
-        scope: 'Finanzas • Cajas • Auditoría',
-        desc: 'Permite a cajas y auxiliares conciliar depósitos directos a cuentas centrales sin exponer otras tiendas.',
-        status: 'Listo Mergeable',
-        matchTags: ['banco', 'deposito', 'caja', 'transferencia', 'conciliacion']
+        matchTags: ['stock', 'bodega', 'almacen', 'cd', 'existencia', 'repuesto']
       },
       {
         id: '#3079',
-        title: 'Lote r7 Emilia: Traslados, Packing y Pedidos foráneos',
-        scope: 'Bodega • CD • Rutas',
-        desc: 'Trazabilidad de bultos con responsable de empaque y resolución de traslados cross-empresa.',
+        title: 'Lote r7: Trazabilidad de bultos foráneos y confirmación de entrega',
+        scope: 'Bodega • Logística • Rutas',
+        desc: 'Control de bultos con responsable de empaque y seguimiento en tiempo real del camión foráneo con confirmación de entrega en tienda o taller.',
         status: 'Listo Mergeable',
-        matchTags: ['packing', 'empaque', 'traslado', 'camion', 'despacho', 'bulto']
+        matchTags: ['flete', 'camion', 'bulto', 'despacho', 'empaque', 'entrega', 'transporte']
+      },
+      {
+        id: '#394',
+        title: 'Buscador inteligente de repuestos por modelo/chasis y catálogo digital',
+        scope: 'Sistemas • Catálogo • Tiendas',
+        desc: 'Búsqueda instantánea de repuestos compatibles por cilindrada, modelo y año para evitar dudas de compatibilidad o errores en mostrador.',
+        status: 'En Progreso',
+        matchTags: ['sistema', 'lento', 'congelado', 'catalogo', 'codigo', 'despiece', 'compatibilidad', 'chasis']
       },
       {
         id: '#3080',
-        title: 'Traslado de tienda invalida metas y supervisor anterior',
+        title: 'Reasignación automática de metas de venta y comisiones por sucursal',
         scope: 'RRHH • Nómina • Comisiones',
-        desc: 'Desasigna automáticamente al supervisor anterior al cambiar de sucursal para evitar distorsión de metas.',
+        desc: 'Ajuste automático de comisiones y metas al cambiar de tienda o ruta para evitar distorsión de incentivos salariales.',
         status: 'En Develop',
-        matchTags: ['tienda', 'supervisor', 'comision', 'traslado_personal', 'meta']
+        matchTags: ['tienda', 'meta', 'comision', 'sucursal', 'supervisor', 'sueldo']
+      },
+      {
+        id: '#2790',
+        title: 'Conciliación de depósitos bancarios directos y visibilidad de cuentas',
+        scope: 'Finanzas • Cajas • Auditoría',
+        desc: 'Permite a cajas y auxiliares conciliar transferencias y depósitos bancarios de clientes sin intermediarios ni demoras.',
+        status: 'Listo Mergeable',
+        matchTags: ['caja', 'deposito', 'banco', 'transferencia', 'arqueo']
+      },
+      {
+        id: '#450',
+        title: 'Mesa de soporte operativo y simplificación de procesos de sucursal',
+        scope: 'Operaciones • Soporte KM 2.0',
+        desc: 'Canal directo de resolución de trabas operativas para agilizar aprobaciones de jefatura y reducir trámites burocráticos.',
+        status: 'En Progreso',
+        matchTags: ['jefatura', 'aprobacion', 'firma', 'proceso', 'general']
       }
     ];
 
@@ -1069,20 +1222,20 @@
       ['tabBtnGuided', 'tabBtnGraph', 'tabBtnDashboard'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-          el.className = 'px-4 py-1.5 rounded-xl text-km-muted hover:text-white transition flex items-center gap-2';
+          el.className = 'px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5';
         }
       });
 
       // Show selected
       if (viewName === 'guided') {
         document.getElementById('viewGuided').classList.remove('hidden');
-        document.getElementById('tabBtnGuided').className = 'px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2';
+        document.getElementById('tabBtnGuided').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
       } else if (viewName === 'graph') {
         document.getElementById('viewGraph').classList.remove('hidden');
-        document.getElementById('tabBtnGraph').className = 'px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2';
+        document.getElementById('tabBtnGraph').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
       } else if (viewName === 'dashboard') {
         document.getElementById('viewDashboard').classList.remove('hidden');
-        document.getElementById('tabBtnDashboard').className = 'px-4 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex items-center gap-2';
+        document.getElementById('tabBtnDashboard').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1165,11 +1318,17 @@
       if (!name || !role || !store) return;
 
       currentUser = { name, role, store };
+      selectedTasks = [];
+      selectedTools = [];
+      selectedFrictionDep = null;
+      customSolution = '';
+      partialNotes = '';
+
       goToStage(1);
     }
 
     // =========================================================================
-    // STAGE 1: VOICE / DICTATION & QUICK CHIPS
+    // STAGE 1: ADAPTIVE 3-BEAT CONVERSATIONAL INTERROGATORY
     // =========================================================================
     let isRecording = false;
     let recognition = null;
@@ -1177,53 +1336,108 @@
     let recordingSeconds = 0;
 
     function renderStage1Options() {
-      const container = document.getElementById('stage1QuickChips');
+      const container = document.getElementById('stage1TasksChips');
       container.innerHTML = '';
 
-      const r = currentUser.role.toLowerCase();
-      let chips = [];
+      const r = (currentUser.role || '').toLowerCase();
+      let taskChips = [];
 
       if (r.includes('mayoreo') || r.includes('promotor') || r.includes('ruta')) {
-        chips = [
-          { text: "Visito talleres mecánicos en Danlí, anoto pedidos en libreta, pregunto stock por WhatsApp a Bodega CD y espero confirmación para liberar.", tags: ["talleres", "libreta", "whatsapp", "stock"] },
-          { text: "Cobro cartera de crédito a talleres en ruta, entrego recibo físico y liquido por la tarde en el banco o caja.", tags: ["cobro", "banco", "cartera"] },
-          { text: "Hago labor de prospección de repuesteras nuevas para ofrecer el catálogo de mayoreo y kits de arrastre.", tags: ["prospeccion", "catalogo"] }
+        taskChips = [
+          '🚗 Rutear clientes y visitas a talleres',
+          '📝 Armar cotizaciones y tomar pedidos',
+          '💰 Gestión y recaudación de cobros',
+          '📞 Seguimiento y fidelización de clientes',
+          '📦 Consultar existencias con CD / sucursales',
+          '🤝 Prospección de talleres nuevos en zona'
         ];
       } else if (r.includes('mecanic') || r.includes('taller')) {
-        chips = [
-          { text: "Recibo la moto del cliente, diagnostico falla eléctrica o de motor, pido repuesto a mostrador y espero que me lo entreguen para instalar.", tags: ["diagnostico", "mostrador", "espera"] },
-          { text: "Hago afinaciones rápidas, cambio de cilindro y kit de tracción probando que no queden ruidos raros.", tags: ["afinacion", "cilindro"] }
+        taskChips = [
+          '🔧 Diagnóstico de motocicletas en taller',
+          '🔩 Desarme y reemplazo de repuestos',
+          '📋 Solicitud de piezas a mostrador / tienda',
+          '✅ Prueba de ruta y entrega de moto al cliente',
+          '🧰 Mantenimiento y afinación de motores'
         ];
       } else if (r.includes('bodeg') || r.includes('almacen')) {
-        chips = [
-          { text: "Descargo camión de repuestos, cotejo cajas con el manifiesto, estibo en pasillos del CD y empaco bultos para ruta.", tags: ["descarga", "estiba", "picking"] },
-          { text: "Alisto pedidos de tiendas (picking), verifico códigos en estante y despacho camiones.", tags: ["picking", "despacho"] }
+        taskChips = [
+          '📦 Picking de repuestos por código en estantería',
+          '📋 Cotejo y verificación de pedidos foráneos',
+          '🚚 Carga y despacho de camiones de reparto',
+          '📥 Recepción y descarga de contenedores',
+          '🏷️ Reetiquetado y conteo de inventario'
+        ];
+      } else if (r.includes('caj')) {
+        taskChips = [
+          '💵 Cobro de facturas y recepción de efectivo',
+          '💳 Procesamiento de transferencias y depósitos',
+          '📊 Arqueo y cierre de caja diario',
+          '🧾 Emisión de recibos y facturas fiscales'
         ];
       } else {
-        chips = [
-          { text: "Atiendo clientes en mostrador, busco el código en el catálogo, facturo en el sistema y entrego la pieza en mano.", tags: ["mostrador", "factura", "entrega"] },
-          { text: "Apago emergencias de otras áreas, resuelvo dudas de compañeros y ayudo en lo que haga falta en la tienda.", tags: ["emergencias", "apoyo"] }
+        taskChips = [
+          '🏪 Atención al cliente en mostrador',
+          '🔍 Búsqueda de códigos en catálogo de repuestos',
+          '🧾 Facturación de pedidos en sistema',
+          '📦 Entrega de mercadería al cliente',
+          '📞 Consultas de clientes por WhatsApp',
+          '⚡ Apoyo y resolución de urgencias operativas'
         ];
       }
 
-      chips.forEach(c => {
-        const div = document.createElement('div');
-        div.className = 'p-3 rounded-xl bg-km-surface border border-white/5 hover:border-km-green/40 cursor-pointer transition text-xs flex items-start gap-2.5';
-        div.innerHTML = `
-          <span class="text-km-green font-bold mt-0.5">↳</span>
-          <span class="text-slate-300 leading-relaxed">${c.text}</span>
-        `;
-        div.onclick = () => {
-          document.getElementById('voiceLiveTranscript').innerText = `"${c.text}"`;
-          document.getElementById('textStoryInput').value = c.text;
-        };
-        container.appendChild(div);
+      taskChips.forEach(task => {
+        const isSelected = selectedTasks.includes(task);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `task-chip px-3 py-2 rounded-xl border text-xs font-bold transition flex items-center gap-1.5 ${
+          isSelected 
+            ? 'bg-km-green text-black border-km-green shadow-md shadow-km-green/20' 
+            : 'bg-km-surface-high text-white border-white/10 hover:border-km-green'
+        }`;
+        btn.innerHTML = `<span>${task}</span>`;
+        btn.onclick = () => toggleTaskChip(btn, task);
+        container.appendChild(btn);
       });
+
+      updateTasksBadge();
     }
 
-    function toggleTextInputFallback() {
-      const box = document.getElementById('textFallbackBox');
-      box.classList.toggle('hidden');
+    function toggleTaskChip(btnEl, taskText) {
+      const idx = selectedTasks.indexOf(taskText);
+      if (idx > -1) {
+        selectedTasks.splice(idx, 1);
+        btnEl.className = 'task-chip px-3 py-2 rounded-xl border text-xs font-bold transition flex items-center gap-1.5 bg-km-surface-high text-white border-white/10 hover:border-km-green';
+      } else {
+        selectedTasks.push(taskText);
+        btnEl.className = 'task-chip px-3 py-2 rounded-xl border text-xs font-bold transition flex items-center gap-1.5 bg-km-green text-black border-km-green shadow-md shadow-km-green/20';
+      }
+      updateTasksBadge();
+    }
+
+    function updateTasksBadge() {
+      const badge = document.getElementById('tasksCountBadge');
+      if (badge) {
+        badge.innerText = `${selectedTasks.length} seleccionada${selectedTasks.length === 1 ? '' : 's'}`;
+      }
+    }
+
+    function toggleToolSelection(btnEl, toolName) {
+      const idx = selectedTools.indexOf(toolName);
+      if (idx > -1) {
+        selectedTools.splice(idx, 1);
+        btnEl.classList.remove('bg-km-cyan/20', 'border-km-cyan', 'text-km-cyan', 'font-black');
+      } else {
+        selectedTools.push(toolName);
+        btnEl.classList.add('bg-km-cyan/20', 'border-km-cyan', 'text-km-cyan', 'font-black');
+      }
+    }
+
+    function selectFrictionDependency(btnEl, dept, summary) {
+      selectedFrictionDep = { dept, summary };
+      document.querySelectorAll('.fric-dep-btn').forEach(b => {
+        b.classList.remove('border-km-danger', 'bg-km-danger/20', 'ring-2', 'ring-km-danger/40');
+      });
+      btnEl.classList.add('border-km-danger', 'bg-km-danger/20', 'ring-2', 'ring-km-danger/40');
     }
 
     function toggleVoiceRecording() {
@@ -1237,8 +1451,7 @@
     function startVoiceRecording() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        document.getElementById('voiceStatusText').innerText = "Tu navegador no soporta voz directo";
-        toggleTextInputFallback();
+        alert("Tu navegador no soporta grabación directa de voz. Podés escribir en el campo de texto.");
         return;
       }
 
@@ -1249,16 +1462,9 @@
 
       recognition.onstart = () => {
         isRecording = true;
-        document.getElementById('voiceStatusText').innerText = "Te escucho... hablá con tus palabras";
-        document.getElementById('voiceOrbPulse').classList.add('voice-radar', 'border-km-cyan');
+        document.getElementById('voiceMiniLabel').innerText = "Grabando...";
+        document.getElementById('voiceMiniBtn').classList.add('bg-km-danger/20', 'border-km-danger', 'text-km-danger');
         document.getElementById('voiceWaveAnimation').classList.remove('hidden');
-        recordingSeconds = 0;
-        recordingTimer = setInterval(() => {
-          recordingSeconds++;
-          const m = Math.floor(recordingSeconds / 60);
-          const s = recordingSeconds % 60;
-          document.getElementById('voiceSubStatus').innerText = `${m}:${s < 10 ? '0' : ''}${s} / 2:00`;
-        }, 1000);
       };
 
       recognition.onresult = (e) => {
@@ -1266,8 +1472,10 @@
         for (let i = 0; i < e.results.length; i++) {
           transcript += e.results[i][0].transcript + ' ';
         }
-        document.getElementById('voiceLiveTranscript').innerText = `"${transcript.trim()}"`;
         document.getElementById('textStoryInput').value = transcript.trim();
+        const liveTranscript = document.getElementById('voiceLiveTranscript');
+        liveTranscript.innerText = `"${transcript.trim()}"`;
+        liveTranscript.classList.remove('hidden');
       };
 
       recognition.onerror = () => {
@@ -1282,44 +1490,140 @@
         recognition.stop();
       }
       isRecording = false;
-      clearInterval(recordingTimer);
-      document.getElementById('voiceStatusText').innerText = "Listo · Relato registrado";
-      document.getElementById('voiceOrbPulse').classList.remove('voice-radar', 'border-km-cyan');
-      document.getElementById('voiceWaveAnimation').classList.add('hidden');
+      const label = document.getElementById('voiceMiniLabel');
+      if (label) label.innerText = "Hablar";
+      const btn = document.getElementById('voiceMiniBtn');
+      if (btn) btn.classList.remove('bg-km-danger/20', 'border-km-danger', 'text-km-danger');
+      const wave = document.getElementById('voiceWaveAnimation');
+      if (wave) wave.classList.add('hidden');
     }
 
     // =========================================================================
-    // STAGE 2: PARSE STORY TO INTERACTIVE PROCESS GRAPH
+    // STAGE 2: PARSE STORY & SELECTIONS TO DYNAMIC PROCESS GRAPH
     // =========================================================================
     function processStage1ToGraph() {
       stopVoiceRecording();
 
-      const story = document.getElementById('textStoryInput').value.trim() || 
-                    document.getElementById('voiceLiveTranscript').innerText.replace(/^"|"$/g, '').trim();
+      const freeText = document.getElementById('textStoryInput').value.trim();
+      const customQuote = document.getElementById('frictionCustomQuoteInput').value.trim();
+      const toolsText = selectedTools.length > 0 ? selectedTools.join(' y ') : 'Libreta y WhatsApp';
 
-      // Deconstruct into default nodes or parsed story
-      if (story.length < 15) {
-        // Fallback realistic sequence for Promotor/Mayoreo
-        activeProcessNodes = [
-          { id: 1, title: 'Visito talleres en Danlí', type: 'action', icon: '🚗', dept: 'Ruta' },
-          { id: 2, title: 'Registro pedido en libreta manual', type: 'action', icon: '📝', dept: 'Ruta' },
-          { id: 3, title: 'Consulto stock con CD (WhatsApp)', type: 'friction', icon: '⚠️', dept: 'Bodega CD', quote: 'Si Créditos no libera o Bodega no responde, el camión no sale.' },
-          { id: 4, title: '¿Hay stock suficiente en almacén?', type: 'decision', icon: '⚖️', dept: 'Bodega CD' },
-          { id: 5, title: 'Confirmar pedido con el cliente', type: 'action', icon: '✅', dept: 'Ruta' },
-          { id: 6, title: 'Despacho de bultos en camión foráneo', type: 'action', icon: '🚚', dept: 'Despacho' }
-        ];
-      } else {
-        // Dynamic Parser
-        activeProcessNodes = [
-          { id: 1, title: 'Visito talleres y puntos clave', type: 'action', icon: '🚗', dept: 'Ruta' },
-          { id: 2, title: 'Toma de pedidos y requerimientos', type: 'action', icon: '📝', dept: 'Ruta' },
-          { id: 3, title: 'Consulto existencia con Almacén CD', type: 'friction', icon: '⚠️', dept: 'Bodega CD', quote: story },
-          { id: 4, title: '¿Hay stock y aprobación?', type: 'decision', icon: '⚖️', dept: 'Créditos' },
-          { id: 5, title: 'Entrega y confirmación de factura', type: 'action', icon: '✅', dept: 'Mostrador' }
-        ];
+      // Ensure sensible friction dependency
+      if (!selectedFrictionDep) {
+        const r = (currentUser.role || '').toLowerCase();
+        if (r.includes('mayoreo') || r.includes('ruta')) {
+          selectedFrictionDep = { dept: 'Créditos y Cobranzas', summary: 'Límites de crédito bloqueados o demora en autorizaciones' };
+        } else if (r.includes('mostrador') || r.includes('venta')) {
+          selectedFrictionDep = { dept: 'El Sistema / ERP', summary: 'Pantallas pegadas en cobro y falta de existencias en línea' };
+        } else {
+          selectedFrictionDep = { dept: 'Bodega CD', summary: 'Demora en respuesta de existencias o despacho de bultos' };
+        }
       }
 
-      selectedFrictionNode = activeProcessNodes.find(n => n.type === 'friction') || activeProcessNodes[2];
+      const frictionQuote = customQuote || freeText || selectedFrictionDep.summary;
+
+      // Extract tasks
+      let finalTasks = [...selectedTasks];
+      if (finalTasks.length === 0 && freeText.length > 5) {
+        // Parse freeText into steps
+        const sentences = freeText.split(/[,\.\n]+/).map(s => s.trim()).filter(s => s.length > 3);
+        if (sentences.length > 0) {
+          finalTasks = sentences.slice(0, 3);
+        }
+      }
+
+      if (finalTasks.length === 0) {
+        const r = (currentUser.role || '').toLowerCase();
+        if (r.includes('mayoreo') || r.includes('promotor') || r.includes('ruta')) {
+          finalTasks = [
+            'Rutear clientes y visitas a talleres mecánicos',
+            'Armar cotizaciones y registrar pedidos'
+          ];
+        } else {
+          finalTasks = [
+            'Atención al cliente en mostrador',
+            'Búsqueda de códigos y repuestos en catálogo'
+          ];
+        }
+      }
+
+      // Build Dynamic 5 to 6 nodes
+      activeProcessNodes = [];
+      let nodeId = 1;
+
+      // Step 1: Initial Task
+      activeProcessNodes.push({
+        id: nodeId++,
+        title: finalTasks[0].replace(/^[🚗📝💰📞📦🤝🔧🔩📋✅🧰💵💳📊🧾🏪🔍⚡\s]+/, ''),
+        type: 'action',
+        icon: '🚗',
+        dept: currentUser.role.includes('Mayoreo') ? 'Ruta' : 'Atención'
+      });
+
+      // Step 2: Second Task (if any)
+      if (finalTasks.length > 1) {
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: finalTasks[1].replace(/^[🚗📝💰📞📦🤝🔧🔩📋✅🧰💵💳📊🧾🏪🔍⚡\s]+/, ''),
+          type: 'action',
+          icon: '📝',
+          dept: 'Ventas'
+        });
+      }
+
+      // Step 3: Tool / Registration
+      activeProcessNodes.push({
+        id: nodeId++,
+        title: `Registro de operación en ${toolsText}`,
+        type: 'action',
+        icon: '📱',
+        dept: 'Sistemas / Soporte'
+      });
+
+      // Step 4: Friction / Bottleneck Node (EXACTLY WHERE THE COLLABORATOR SAID)
+      activeProcessNodes.push({
+        id: nodeId++,
+        title: `Coordinación con ${selectedFrictionDep.dept}: ${selectedFrictionDep.summary}`,
+        type: 'friction',
+        icon: '⚠️',
+        dept: selectedFrictionDep.dept,
+        quote: `"${frictionQuote}"`
+      });
+
+      // Step 5: Follow-up / Cobro / Entrega
+      if (currentUser.role.includes('Mayoreo') || currentUser.role.includes('Promotor')) {
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: 'Gestión y recaudación de cobros en ruta',
+          type: 'action',
+          icon: '💰',
+          dept: 'Cobranzas'
+        });
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: 'Confirmación de entrega y liquidación de ruta',
+          type: 'action',
+          icon: '✅',
+          dept: 'Cierre'
+        });
+      } else {
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: 'Facturación y cobro en sistema',
+          type: 'action',
+          icon: '🧾',
+          dept: 'Caja'
+        });
+        activeProcessNodes.push({
+          id: nodeId++,
+          title: 'Entrega de repuestos al cliente',
+          type: 'action',
+          icon: '✅',
+          dept: 'Entrega'
+        });
+      }
+
+      selectedFrictionNode = activeProcessNodes.find(n => n.type === 'friction') || activeProcessNodes[3];
 
       goToStage(2);
     }
@@ -1341,7 +1645,7 @@
 
         if (isFriction) {
           borderColor = 'border-km-danger';
-          bgStyle = 'bg-km-danger/10';
+          bgStyle = 'bg-km-danger/10 shadow-lg shadow-km-danger/10';
           badgeColor = 'bg-km-danger/20 text-km-danger font-bold';
         } else if (isDecision) {
           borderColor = 'border-km-warning';
@@ -1353,7 +1657,7 @@
           badgeColor = 'bg-km-green/20 text-km-green font-bold';
         }
 
-        nodeCard.className = `graph-node p-4 rounded-2xl border-2 ${borderColor} ${bgStyle} flex items-center justify-between gap-3 cursor-pointer shadow-md`;
+        nodeCard.className = `graph-node p-4 rounded-2xl border-2 ${borderColor} ${bgStyle} flex items-center justify-between gap-3 cursor-pointer shadow-md transition hover:scale-[1.01]`;
         
         nodeCard.innerHTML = `
           <div class="flex items-center gap-3">
@@ -1364,16 +1668,24 @@
                 ${isFriction ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-km-danger text-white font-black animate-pulse">FRENO P0</span>' : ''}
               </div>
               <h4 class="text-xs sm:text-sm font-bold text-white mt-1">${node.title}</h4>
+              ${node.quote ? `<p class="text-[11px] text-km-muted italic mt-0.5">${node.quote}</p>` : ''}
             </div>
           </div>
           <div class="text-right flex-shrink-0">
-            <span class="text-xs text-km-muted font-mono hover:text-white">Editar ➜</span>
+            <span class="text-xs font-bold ${isFriction ? 'text-km-danger' : 'text-km-cyan'} font-mono hover:underline">
+              ${isFriction ? 'Freno Activo ➜' : 'Marcar Traba ➜'}
+            </span>
           </div>
         `;
 
         nodeCard.onclick = () => {
+          // Switch friction node to clicked node
+          activeProcessNodes.forEach(n => {
+            if (n.type === 'friction') n.type = 'action';
+          });
+          node.type = 'friction';
           selectedFrictionNode = node;
-          goToStage(3);
+          renderProcessGraph();
         };
 
         container.appendChild(nodeCard);
@@ -1406,10 +1718,10 @@
     // =========================================================================
     function setupFrictionStage() {
       if (!selectedFrictionNode) {
-        selectedFrictionNode = activeProcessNodes[2] || { title: 'Consulta de stock CD', quote: 'Demora en respuesta' };
+        selectedFrictionNode = activeProcessNodes.find(n => n.type === 'friction') || activeProcessNodes[2] || { title: 'Gestión operativa', quote: 'Demora en proceso' };
       }
       document.getElementById('frictionTargetNodeTitle').innerText = selectedFrictionNode.title;
-      document.getElementById('frictionTargetQuote').innerText = selectedFrictionNode.quote || '"Demoras que traban la salida de la mercadería y generan quejas."';
+      document.getElementById('frictionTargetQuote').innerText = selectedFrictionNode.quote || '"Demoras que traban la salida de la mercadería o la venta."';
     }
 
     function selectFrictionType(cardEl, type) {
@@ -1423,24 +1735,127 @@
     }
 
     // =========================================================================
-    // STAGE 4: TICKET MATCHING
+    // STAGE 4: INTELLIGENT TICKET MATCHING & INTERACTION
     // =========================================================================
     function matchTicketForFriction() {
-      // Find best match in JARVIS_TICKETS
-      const matched = JARVIS_TICKETS[0]; // #412
-      document.getElementById('ticketBadgeId').innerText = matched.id;
-      document.getElementById('ticketBadgeStatus').innerText = matched.status;
-      document.getElementById('ticketScope').innerText = matched.scope;
-      document.getElementById('ticketTitle').innerText = matched.title;
-      document.getElementById('ticketDesc').innerText = matched.desc;
+      const textToMatch = `${currentUser.role} ${selectedFrictionNode?.dept || ''} ${selectedFrictionNode?.title || ''} ${selectedFrictionNode?.quote || ''}`.toLowerCase();
+      
+      let bestTicket = JARVIS_TICKETS[0];
+      let maxScore = -1;
+
+      JARVIS_TICKETS.forEach(t => {
+        let score = 0;
+        t.matchTags.forEach(tag => {
+          if (textToMatch.includes(tag)) score += 2;
+        });
+        if (score > maxScore) {
+          maxScore = score;
+          bestTicket = t;
+        }
+      });
+
+      matchedTicket = bestTicket;
+
+      document.getElementById('ticketBadgeId').innerText = matchedTicket.id;
+      document.getElementById('ticketBadgeStatus').innerText = matchedTicket.status;
+      document.getElementById('ticketScope').innerText = matchedTicket.scope;
+      document.getElementById('ticketTitle').innerText = matchedTicket.title;
+      document.getElementById('ticketDesc').innerText = matchedTicket.desc;
+
+      // Reset feedback panel
+      const panel = document.getElementById('ticketFeedbackPanel');
+      panel.className = 'hidden rounded-2xl p-4 transition-all duration-300';
+      panel.innerHTML = '';
+
+      const statusBadge = document.getElementById('ticketAnswerStatusBadge');
+      statusBadge.className = 'hidden text-[10px] font-mono px-2 py-0.5 rounded-full font-bold';
+
+      // Reset buttons
+      document.querySelectorAll('.ticket-btn').forEach(b => {
+        b.className = 'ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-white/30 flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95';
+      });
     }
 
     function validateTicketMatch(btnEl, answer) {
       validatedTicketResult = answer;
+
+      // Reset all 3 buttons
       document.querySelectorAll('.ticket-btn').forEach(b => {
-        b.classList.remove('border-km-green', 'bg-km-green/20');
+        b.className = 'ticket-btn py-3 px-2 rounded-xl bg-km-surface-high border border-white/10 hover:border-white/30 flex flex-col items-center gap-1 text-xs font-bold text-white transition active:scale-95';
       });
-      btnEl.classList.add('border-km-green', 'bg-km-green/20');
+
+      const panel = document.getElementById('ticketFeedbackPanel');
+      const badge = document.getElementById('ticketAnswerStatusBadge');
+      badge.classList.remove('hidden');
+
+      if (answer === 'si') {
+        btnEl.className = 'ticket-btn py-3 px-2 rounded-xl bg-km-green text-black font-black border-2 border-km-green shadow-lg shadow-km-green/30 flex flex-col items-center gap-1 text-xs transition active:scale-95';
+        badge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-km-green/20 text-km-green border border-km-green/40';
+        badge.innerText = '✓ Confirmado Resuelve';
+
+        panel.className = 'rounded-2xl p-4 bg-km-green/10 border border-km-green/30 space-y-2 block';
+        panel.innerHTML = `
+          <div class="flex items-center gap-2 text-xs font-bold text-km-green">
+            <span>🎯</span> <span>¡Tu voto fue registrado en el Backlog!</span>
+          </div>
+          <p class="text-xs text-slate-200 leading-relaxed">
+            Tu confirmación respalda este ticket para que el equipo de desarrollo le dé máxima prioridad en el próximo sprint.
+          </p>
+        `;
+      } else if (answer === 'en_parte') {
+        btnEl.className = 'ticket-btn py-3 px-2 rounded-xl bg-km-warning text-black font-black border-2 border-km-warning shadow-lg shadow-km-warning/30 flex flex-col items-center gap-1 text-xs transition active:scale-95';
+        badge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-km-warning/20 text-km-warning border border-km-warning/40';
+        badge.innerText = '● Resuelve en parte';
+
+        panel.className = 'rounded-2xl p-4 bg-km-warning/10 border border-km-warning/30 space-y-2.5 block';
+        panel.innerHTML = `
+          <div class="flex items-center gap-2 text-xs font-bold text-km-warning">
+            <span>✍️</span> <span>¿Qué detalle le falta a este desarrollo?</span>
+          </div>
+          <p class="text-xs text-slate-200 leading-relaxed">
+            Contanos en una línea qué necesitarías para que cubra tu traba al 100%:
+          </p>
+          <textarea id="ticketPartialInput" rows="2" placeholder="Ej: Me serviría si además permite ver el precio especial autorizado..." oninput="partialNotes = this.value" 
+            class="w-full bg-km-bg border border-white/10 rounded-xl p-2.5 text-xs text-white placeholder:text-neutral-500 focus:border-km-warning focus:outline-none transition"></textarea>
+        `;
+      } else if (answer === 'no') {
+        btnEl.className = 'ticket-btn py-3 px-2 rounded-xl bg-km-danger text-white font-black border-2 border-km-danger shadow-lg shadow-km-danger/30 flex flex-col items-center gap-1 text-xs transition active:scale-95';
+        badge.className = 'text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-km-danger/20 text-km-danger border border-km-danger/40';
+        badge.innerText = '✖ No Resuelve';
+
+        panel.className = 'rounded-2xl p-4 bg-km-danger/10 border border-km-danger/30 space-y-2.5 block';
+        panel.innerHTML = `
+          <div class="flex items-center gap-2 text-xs font-bold text-km-danger">
+            <span>💡</span> <span>¡Entendido! Planteemos tu solución propia</span>
+          </div>
+          <p class="text-xs text-slate-200 leading-relaxed">
+            Dirección General necesita saber qué te resolvería realmente en la calle o sucursal. Escribí tu propuesta de solución:
+          </p>
+          <textarea id="ticketCustomSolutionInput" rows="2" placeholder="Ej: Necesito un botón en el celular para generar un recibo provisional de cobro sin tener que esperar que oficina me conteste..." oninput="customSolution = this.value" 
+            class="w-full bg-km-bg border border-white/10 rounded-xl p-2.5 text-xs text-white placeholder:text-neutral-500 focus:border-km-danger focus:outline-none transition"></textarea>
+          <div class="flex items-center justify-between pt-1">
+            <button type="button" onclick="recordCustomSolutionProposal()" class="px-3.5 py-1.5 rounded-xl bg-km-danger/20 hover:bg-km-danger/30 border border-km-danger/40 text-xs font-bold text-white flex items-center gap-1.5 transition active:scale-95">
+              <span>💡 Guardar Solución en Backlog</span>
+            </button>
+            <span id="customReqSavedMsg" class="hidden text-[11px] text-km-green font-bold">✓ Guardada para Dirección</span>
+          </div>
+        `;
+      }
+
+      // Highlight next button
+      const nextBtn = document.getElementById('btnNextToSummary');
+      if (nextBtn) {
+        nextBtn.classList.add('ring-2', 'ring-km-green', 'shadow-lg', 'shadow-km-green/30');
+      }
+    }
+
+    function recordCustomSolutionProposal() {
+      const input = document.getElementById('ticketCustomSolutionInput');
+      if (input && input.value.trim()) {
+        customSolution = input.value.trim();
+        const msg = document.getElementById('customReqSavedMsg');
+        if (msg) msg.classList.remove('hidden');
+      }
     }
 
     // =========================================================================
@@ -1448,12 +1863,34 @@
     // =========================================================================
     async function renderSummaryStage() {
       document.getElementById('summaryUserName').innerText = currentUser.name || 'Osman Garrido';
-      document.getElementById('summaryUserRole').innerText = `${currentUser.role || 'Promotor de Marca'} • ${currentUser.store || 'Mercadeo'}`;
+      document.getElementById('summaryUserRole').innerText = `${currentUser.role || 'Vendedor de Mayoreo'} • ${currentUser.store || 'Ruta Mayoreo'}`;
       
       document.getElementById('statNodesCount').innerText = activeProcessNodes.length || 5;
       document.getElementById('statFrictionsCount').innerText = '1';
-      document.getElementById('statImprovementsCount').innerText = '2';
-      document.getElementById('statTicketsCount').innerText = '1';
+      document.getElementById('statImprovementsCount').innerText = customSolution ? '1 Propuesta Propia' : (validatedTicketResult === 'en_parte' ? '1 Ajuste' : '0');
+      document.getElementById('statTicketsCount').innerText = validatedTicketResult === 'no' && customSolution ? '1 Nuevo' : '1';
+
+      // Update Highlight card in summary
+      const ticketBadge = document.getElementById('summaryTicketBadge');
+      const ticketDesc = document.getElementById('summaryTicketDesc');
+      const ticketLabel = document.getElementById('summaryTicketLabel');
+
+      if (validatedTicketResult === 'no' && customSolution) {
+        ticketLabel.innerText = "Solución Propuesta por vos:";
+        ticketBadge.className = "text-[10px] font-mono text-km-danger font-bold bg-km-danger/10 border border-km-danger/30 px-2 py-0.5 rounded-md";
+        ticketBadge.innerText = "Nuevo Requerimiento Propuesto";
+        ticketDesc.innerText = `"${customSolution}" — Esta propuesta fue agregada al tablero de Dirección para evaluar su desarrollo.`;
+      } else if (validatedTicketResult === 'en_parte') {
+        ticketLabel.innerText = "Ticket Validado con Ajuste:";
+        ticketBadge.className = "text-[10px] font-mono text-km-warning font-bold bg-km-warning/10 border border-km-warning/30 px-2 py-0.5 rounded-md";
+        ticketBadge.innerText = `${matchedTicket.id} (Con Observaciones)`;
+        ticketDesc.innerText = partialNotes ? `Observación: "${partialNotes}". El equipo de Sistemas incorporará este detalle.` : matchedTicket.desc;
+      } else {
+        ticketLabel.innerText = "Ticket Respaldado por vos:";
+        ticketBadge.className = "text-[10px] font-mono text-km-green font-bold bg-km-green/10 border border-km-green/30 px-2 py-0.5 rounded-md";
+        ticketBadge.innerText = `${matchedTicket.id} ${matchedTicket.title}`;
+        ticketDesc.innerText = `Tu voto le suma máxima prioridad a este desarrollo en Jarvis para resolver tu traba en ${currentUser.store}.`;
+      }
 
       launchConfetti();
 
@@ -1467,15 +1904,22 @@
             sucursal: currentUser.store,
             rol: currentUser.role,
             responsabilidades: `[Proceso Mapeado]: ${activeProcessNodes.map(n => n.title).join(' ➜ ')}`,
-            procesos_clave: selectedFrictionNode?.title || 'Consulta de stock CD',
-            cuellos_botella: `[Freno P0]: ${selectedFrictionType}`,
-            sistemas_afectados: `Ticket Validado #412 (${validatedTicketResult})`,
-            bloqueos_p0: 'Consulta de stock en tiempo real desde app móvil',
+            procesos_clave: selectedFrictionNode?.title || 'Fricción operativa',
+            cuellos_botella: `[Freno P0]: ${selectedFrictionNode?.dept || selectedFrictionType}`,
+            sistemas_afectados: validatedTicketResult === 'no' && customSolution 
+              ? `Requerimiento Nuevo Propuesto: ${customSolution}`
+              : `Ticket Validado ${matchedTicket.id} (${validatedTicketResult})`,
+            bloqueos_p0: selectedFrictionNode?.quote || selectedFrictionNode?.title || '',
             user: currentUser,
             data: {
+              tasks: selectedTasks,
+              tools: selectedTools,
+              friction_dep: selectedFrictionDep,
+              custom_solution: customSolution,
+              partial_notes: partialNotes,
               nodes: activeProcessNodes,
               friction: selectedFrictionNode,
-              ticket_id: '#412',
+              ticket_id: matchedTicket.id,
               ticket_answer: validatedTicketResult
             },
             completed_at: new Date().toISOString()
@@ -1497,6 +1941,7 @@
     // Confetti Engine
     function launchConfetti() {
       const canvas = document.getElementById('confettiCanvas');
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
