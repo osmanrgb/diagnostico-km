@@ -201,11 +201,11 @@
           <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-[1.08]">
             Tu puesto importa. <br>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
-              Conectemos tu trabajo con la venta y el flujo.
+              Queremos escucharte de verdad.
             </span>
           </h1>
           <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-            Acá no hay manuales de 80 páginas ni preguntas decorativas: queremos saber <strong class="text-white">qué hacés de verdad</strong>, qué procesos estorban y cómo tu área ayuda a que el dinero entre y el inventario rote sin trabas.
+            Esto no es una evaluación ni un examen: queremos conocer <strong class="text-white">tu día a día real</strong>, qué cosas te quitan tiempo y qué podemos mejorar para que trabajes con tranquilidad y con ganas.
           </p>
         </div>
 
@@ -237,43 +237,43 @@
           </div>
         </div>
 
-        <!-- THE END-TO-END VALUE STREAM PIPELINE -->
-        <div class="glass-shell rounded-2xl p-4 space-y-3 border-emerald-500/20 bg-emerald-950/20">
+        <!-- THE 5 FRIENDLY STEPS PREVIEW -->
+        <div class="glass-shell rounded-2xl p-4 space-y-2.5 border-emerald-500/20 bg-emerald-950/20">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-emerald-300 font-mono flex items-center gap-2">
-              <span>⚡</span> EL FLUJO DE EFECTIVIDAD Y DINERO KM
+              <span>🌟</span> TU RADIOGRAFÍA EN 5 PREGUNTAS SIMPLES
             </span>
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">End-to-End</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">Sin rodeos</span>
           </div>
           <div class="grid grid-cols-5 gap-1.5 text-center">
             <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">🚢</span>
-              <span class="text-[9px] font-bold text-slate-300 block">PUERTO</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Navieras</span>
+              <span class="text-base block">📋</span>
+              <span class="text-[9px] font-bold text-slate-300 block">1. Tu día a día</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Lo que hacés</span>
             </div>
             <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">📦</span>
-              <span class="text-[9px] font-bold text-slate-300 block">BODEGA CD</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Picking / Rutas</span>
+              <span class="text-base block">✂️</span>
+              <span class="text-[9px] font-bold text-slate-300 block">2. Lo que estorba</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Lo que quita tiempo</span>
             </div>
             <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">🏪</span>
-              <span class="text-[9px] font-bold text-slate-300 block">77 TIENDAS</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Venta / Mayoreo</span>
+              <span class="text-base block">🤝</span>
+              <span class="text-[9px] font-bold text-slate-300 block">3. En equipo</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Quién te frena</span>
             </div>
             <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">💳</span>
-              <span class="text-[9px] font-bold text-slate-300 block">CRÉDITOS</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Dictamen < 20m</span>
+              <span class="text-base block">⭐</span>
+              <span class="text-[9px] font-bold text-slate-300 block">4. Tu impacto</span>
+              <span class="text-[8px] text-slate-500 block leading-tight">Cómo ayudás</span>
             </div>
             <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-0.5">
-              <span class="text-base block">💰</span>
-              <span class="text-[9px] font-bold text-emerald-300 block">BANCOS</span>
-              <span class="text-[8px] text-emerald-400 block leading-tight">Conciliación 4P</span>
+              <span class="text-base block">🚀</span>
+              <span class="text-[9px] font-bold text-emerald-300 block">5. Tu pedido</span>
+              <span class="text-[8px] text-emerald-400 block leading-tight">Qué arreglamos</span>
             </div>
           </div>
           <p class="text-[11px] text-slate-400 leading-relaxed border-t border-white/5 pt-2">
-            Cada puesto de los <strong class="text-white">84 perfiles oficiales del ERP</strong> es un eslabón de esta cadena: si un área retiene la pelota, el ciclo se corta, se pagan multas y se frena la venta.
+            Podés elegir opciones con 1 toque o usar el micrófono <span class="text-emerald-400 font-bold">🎙️</span> para hablar con tus propias palabras como en una charla normal.
           </p>
         </div>
       </div>
@@ -800,1345 +800,294 @@
     let selectedOptionText = '';
     let currentCategorySteps = [];
 
-    /* CATEGORY DETECTOR (Adaptative to each profile) */
+    /* CATEGORY DETECTOR (Adaptative and friendly) */
     function detectRoleCategory(role, store) {
       const norm = (str) => (str || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       const r = norm(role);
       const s = norm(store);
       const combined = `${r} ${s}`;
       
-      // 1. DIRECCIÓN / CEO / JUNTA
-      if (r.includes('ceo') || r.includes('seo') || r.includes('director') || r.includes('dueño') || r.includes('dueno') || 
-          r.includes('gerente general') || r.includes('gerencia general') || r.includes('presidente') || r.includes('fundador') || 
-          r.includes('estrategia') || r.includes('socio') || s.includes('direcci') || s.includes('gerencia general')) {
-        return 'direccion';
+      if (combined.includes('bodega') || combined.includes('almacen') || combined.includes('cd') || combined.includes('despacho') || combined.includes('recepcion') || combined.includes('empaque')) {
+        return 'bodega';
       }
-
-      // 2. AUDITORÍA / CONTROL INTERNO
-      if (combined.includes('auditor') || combined.includes('auditoria') || combined.includes('control interno') || combined.includes('fiscaliz')) {
-        return 'auditoria';
-      }
-
-      // 3. TECNOLOGÍA / PROGRAMACIÓN / TI
-      if (combined.includes('programad') || combined.includes('desarroll') || combined.includes(' dev') || combined.startsWith('dev') ||
-          combined.includes('software') || combined.includes('sistemas') || combined.includes('tecnolog') || combined.includes('soporte') ||
-          combined.includes('qa') || combined.includes('backend') || combined.includes('frontend') || combined.includes('fullstack') ||
-          /\b(ti|it)\b/.test(combined)) {
-        return 'tecnologia';
-      }
-
-      // 4. MAYOREO / B2B
-      if (combined.includes('mayoreo') || combined.includes('b2b') || combined.includes('mayorista') || combined.includes('corporativ')) {
-        return 'mayoreo';
-      }
-
-      // 5. LOGÍSTICA / CD / BODEGA CENTRAL
-      if (combined.includes('bodega') || combined.includes('cd') || combined.includes('distribucion') || combined.includes('logistica') || 
-          combined.includes('despacho') || combined.includes('almacen') || combined.includes('estiba') || combined.includes('montacarga')) {
-        return 'logistica';
-      }
-
-      // 6. CRÉDITOS Y COBRANZAS
-      if (combined.includes('credito') || combined.includes('cobranza') || combined.includes('mora') || combined.includes('validador') || 
-          combined.includes('recuperacion') || combined.includes('cartera') || combined.includes('cobrador')) {
-        return 'creditos';
-      }
-
-      // 7. FINANZAS / CONTABILIDAD / TESORERÍA
-      if (combined.includes('contad') || combined.includes('finanz') || combined.includes('tesorer') || combined.includes('banc') || 
-          combined.includes('concilia') || combined.includes('cuentas por pagar') || combined.includes('cuentas por cobrar') || 
-          combined.includes('cxp') || combined.includes('cxc') || combined.includes('fiscal') || combined.includes('sar') || combined.includes('impuesto')) {
-        return 'finanzas';
-      }
-
-      // 8. RECURSOS HUMANOS / TALENTO / NÓMINA
-      if (combined.includes('rrhh') || combined.includes('recursos humanos') || combined.includes('talento') || combined.includes('personal') || 
-          combined.includes('nomina') || combined.includes('planilla') || combined.includes('recluta') || combined.includes('capacitac')) {
-        return 'rrhh';
-      }
-
-      // 9. COMPRAS / IMPORTACIONES / COMERCIO EXTERIOR
-      if (combined.includes('compra') || combined.includes('importac') || combined.includes('aduana') || combined.includes('naviera') || 
-          combined.includes('proveedor') || combined.includes('comercio exterior') || combined.includes('puerto')) {
-        return 'compras';
-      }
-
-      // 10. MERCADEO / PUBLICIDAD / DISEÑO
-      if (combined.includes('mercadeo') || combined.includes('publicidad') || combined.includes('disenador') || 
-          combined.includes('contenido') || combined.includes('promotor') || combined.includes('marketing')) {
-        return 'mercadeo';
-      }
-
-      // 11. SERVICIO AL CLIENTE (SAC)
-      if (combined.includes('servicio al cliente') || combined.includes(' sac') || combined.startsWith('sac') || 
-          combined.includes('customer service') || combined.includes('atencion al cliente')) {
-        return 'sac';
-      }
-
-      // 12. SUPERVISIÓN DE VENTAS TIENDAS
-      if (combined.includes('supervisor de ventas') || combined.includes('supervision') || combined.includes('supervisor') || combined.includes('gerente comercial')) {
-        return 'supervision';
-      }
-
-      // 10. TALLER / MECÁNICA / ARMADO / GARANTÍAS
-      if (combined.includes('taller') || combined.includes('mecanic') || combined.includes('tecnico') || combined.includes('armado') || 
-          combined.includes('ensamble') || combined.includes('garantia') || combined.includes('mantenimiento')) {
+      if (combined.includes('taller') || combined.includes('mecanic') || combined.includes('mantenimiento') || combined.includes('armado')) {
         return 'taller';
       }
-
-      // 11. CAJA DE TIENDA
       if (combined.includes('cajer') || combined.includes('caja')) {
-        return 'caja_tienda';
+        return 'caja';
       }
-
-      // 12. TIENDA RETAIL (Default fallback)
+      if (combined.includes('mayoreo') || combined.includes('b2b')) {
+        return 'mayoreo';
+      }
+      if (combined.includes('credito') || combined.includes('cobranza') || combined.includes('mora')) {
+        return 'creditos';
+      }
+      if (combined.includes('contad') || combined.includes('finanz') || combined.includes('tesorer') || combined.includes('banc')) {
+        return 'oficina';
+      }
+      if (combined.includes('rrhh') || combined.includes('recursos humanos') || combined.includes('personal') || combined.includes('nomina') || combined.includes('planilla')) {
+        return 'rrhh';
+      }
+      if (combined.includes('auditor') || combined.includes('control interno')) {
+        return 'auditoria';
+      }
+      if (combined.includes('programad') || combined.includes('dev') || combined.includes('sistemas') || combined.includes('tecnolog') || combined.includes('soporte')) {
+        return 'sistemas';
+      }
+      if (combined.includes('ceo') || combined.includes('seo') || combined.includes('director') || combined.includes('gerente general') || combined.includes('dueno')) {
+        return 'direccion';
+      }
+      // Default: Tienda / General
       return 'tienda';
     }
 
-    /* ADAPTIVE QUESTIONS BUILDER */
+    /* RADIOGRAFÍA AMIGABLE, CLARA Y HUMANA */
     function buildStepsForUser(user) {
       const cat = detectRoleCategory(user.role, user.store);
+      const role = user.role || 'tu puesto';
+      const store = user.store || 'tu lugar de trabajo';
 
       // ==========================================
-      // 1. DIRECCIÓN / CEO
+      // ADAPTACIONES ESPECÍFICAS SEGÚN ÁREA FÍSICA
       // ==========================================
-      if (cat === 'direccion') {
+      
+      // 1. BODEGA / ALMACÉN / CD
+      if (cat === 'bodega') {
         return [
           {
             stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA OPERATIVA',
+            badge: 'PASO 1 DE 5 · TU DÍA A DÍA REAL',
             xp: '+100 XP',
             percent: 20,
-            title: `¿En qué se va tu tiempo real liderando la empresa?`,
-            subtitle: 'Identifiquemos las 2 o 3 prioridades críticas de tu rol como Dirección:',
+            title: `¿En qué se te va la mayor parte de tu jornada en Bodega?`,
+            subtitle: `Las tareas principales de tu día a día como ${role}:`,
             field: 'jornada_diaria',
             options: [
-              { icon: '🚢', title: 'Importaciones y Navieras', desc: 'Gestionar aduanas, navieras y desaduanaje de contenedores en puerto para evitar multas.' },
-              { icon: '💰', title: 'Flujo de Caja y Deudas', desc: 'Conseguir liquidez bancaria, pagar a proveedores de China/Honduras y asegurar capital de trabajo.' },
-              { icon: '🎯', title: 'Alineación de Gerencias', desc: 'Reuniones estratégicas para que Bodega, Créditos y Ventas dejen de operar como islas.' },
-              { icon: '🚨', title: 'Apagafuegos Operativo (Bombero)', desc: 'Resolver emergencias cotidianas en el teléfono porque los mandos medios no tienen autonomía.' }
+              { icon: '📦', title: 'Descargar y acomodar mercadería', desc: 'Recibir contenedores o camiones, bajar cajas y estibar en los pasillos de bodega.' },
+              { icon: '📋', title: 'Alistar pedidos (Picking)', desc: 'Revisar las hojas de pedido, buscar las piezas en estantería y empacarlas bien.' },
+              { icon: '🚚', title: 'Cargar y despachar camiones', desc: 'Subir la carga a los camiones de ruta y revisar que todo vaya completo hacia las tiendas.' },
+              { icon: '🔍', title: 'Contar inventario y revisar averías', desc: 'Hacer conteos físicos de piezas y apartar producto que viene dañado o con faltantes.' }
             ]
           },
           {
             stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            badge: 'PASO 2 DE 5 · LO QUE TE QUITA TIEMPO',
             xp: '+100 XP',
             percent: 40,
-            title: '¿Qué desarrollos o procesos sentís que no sirven y quitan foco?',
-            subtitle: 'Detectemos qué tickets o inventos de sistemas le están quitando tiempo a lo urgente:',
+            title: '¿Qué cosas o trámites sentís que te atrasan en Bodega?',
+            subtitle: 'Trámites o situaciones que complican el despacho:',
             field: 'herramientas_checklist',
             options: [
-              { icon: '✂️', title: 'Modales y trabas absurdas en el sistema', desc: 'Ejemplo: Forzar aperturas de caja con L 0.00 en ventas B2B/Mayoreo donde no hay efectivo.' },
-              { icon: '📄', title: 'Reportes manuales en Excel que nadie lee', desc: 'Gente pasando horas armando Excels cuando el ERP debería dar el número directo.' },
-              { icon: '🛠️', title: 'Fixes a cosas que ya funcionaban bien', desc: 'Programadores parchando pantallas secundarias mientras la facturación o la carga se cuelga.' },
-              { icon: '⏳', title: 'Reuniones y aprobaciones de firma por gusto', desc: 'Trámites burocráticos que alargan decisiones simples y frenan el despacho de producto.' }
+              { icon: '📄', title: 'Hojas y papeleos físicos firmados a mano', desc: 'Manejar carpetas de papel que se ensucian, se rompen o se traspapelan al cargar.' },
+              { icon: '⏳', title: 'Tener que contar dos veces por desconfianza', desc: 'Contar varias veces porque el sistema no coincide con lo que está en la estantería.' },
+              { icon: '⌨️', title: 'Digitar códigos a mano en vez de escanear', desc: 'Escribir números largos de chasis o repuestos en una compu en vez de usar pistola láser.' },
+              { icon: '🔄', title: 'Esperar aprobaciones para poder despachar', desc: 'Tener el camión listo pero detenido esperando que alguien en oficina autorice la salida.' }
             ]
           },
           {
             stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            badge: 'PASO 3 DE 5 · TRABAJO EN EQUIPO (LA POSTA)',
             xp: '+100 XP',
             percent: 60,
-            title: '¿Dónde se cae el testigo entre tus departamentos?',
-            subtitle: '¿Qué área le está frenando la pelota a la otra en la carrera del negocio?',
+            title: '¿Con qué otra área te coordinás y dónde se frena el trabajo?',
+            subtitle: 'En el día a día, ¿quién te manda tarde la información o te frena?',
             field: 'conexiones_organigrama',
             options: [
-              { icon: '📦', title: 'CD hacia las 77 Tiendas', desc: 'Los contenedores llegan pero Bodega tarda días en surtir a las tiendas que tienen la venta lista.' },
-              { icon: '💳', title: 'Créditos hacia Ventas', desc: 'Vendedores con clientes listos pero Créditos tarda horas en dictaminar y se cae la venta.' },
-              { icon: '💼', title: 'Ventas hacia Finanzas', desc: 'Tiendas que no depositan al día o retienen dinero que se necesita para pagar obligaciones.' },
-              { icon: '👥', title: 'Desconexión total entre islas', desc: 'Cuando una tienda o un contenedor tiene problemas, a las demás áreas les da igual.' }
+              { icon: '🏪', title: 'Las Tiendas', desc: 'Piden pedidos urgentes de última hora o tardan en confirmar lo que recibieron.' },
+              { icon: '🚢', title: 'Importaciones y Compras', desc: 'Llegan contenedores de sorpresa sin avisar con tiempo o sin lista de empaque clara.' },
+              { icon: '💼', title: 'Oficina Central / Facturación', desc: 'Demoras en liberar los traslados en el sistema para que podamos cargar.' },
+              { icon: '💻', title: 'Sistemas / TI', desc: 'El sistema se pone lento al hacer traslados masivos y frena todo el despacho.' }
             ]
           },
           {
             stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
+            badge: 'PASO 4 DE 5 · TU APORTE AL CLIENTE Y LA VENTA',
             xp: '+100 XP',
             percent: 80,
-            title: '¿Dónde está la fuga principal de dinero y ventas hoy?',
-            subtitle: 'El punto ciego que más golpea las utilidades de KM Motos:',
+            title: '¿Cómo ayuda tu trabajo en Bodega a que la empresa venda más?',
+            subtitle: 'Tu impacto directo para que el negocio funcione:',
             field: 'multiplicador_valor',
             options: [
-              { icon: '🛑', title: 'Multas y demoras de contenedores en puerto', desc: 'Miles de dólares pagados a navieras por contenedores parados en Puerto Cortés.' },
-              { icon: '⏳', title: 'Quiebres de stock en repuestos de alta rotación', desc: 'Clientes buscando repuestos en tiendas y teniendo que comprar en la competencia.' },
-              { icon: '💳', title: 'Mora y créditos mal colocados', desc: 'Ventas a crédito que no se recuperan a tiempo y ahogan el flujo de caja.' },
-              { icon: '📉', title: 'Falta de velocidad operativa en piso', desc: 'Procesos manuales lentos que impiden duplicar la facturación con el mismo personal.' }
+              { icon: '⚡', title: 'Que el producto llegue rápido a las tiendas', desc: 'Despachar a tiempo para que la tienda tenga motos y repuestos listos cuando el cliente llega.' },
+              { icon: '🛡️', title: 'Cuidar que nada se pierda ni se dañe', desc: 'Cuidar cada pieza para que la empresa no pierda dinero en mercancía rota o extraviada.' },
+              { icon: '🔒', title: 'Que el inventario sea exacto', desc: 'Asegurar que lo que dice el sistema sea exactamente lo que está en la bodega física.' },
+              { icon: '🤝', title: 'Apoyar a los choferes y compañeros', desc: 'Trabajar en equipo para que las rutas salgan temprano y sin retrasos.' }
             ]
           },
           {
             stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+            badge: 'PASO 5 DE 5 · TU PEDIDO PRINCIPAL',
             xp: '+100 XP',
             percent: 100,
-            title: '¿Qué tienen que resolver los 4 programadores y la IA YA MISMO?',
-            subtitle: 'La orden ejecutiva directa: una sola prioridad de vida o muerte:',
+            title: 'Si pudieras pedir una sola mejora en tu trabajo mañana, ¿qué sería?',
+            subtitle: 'Lo que más te facilitaría el trabajo diario en bodega:',
             field: 'bloqueos_p0',
             options: [
-              { icon: '🚀', title: 'Axioma «Merged ≠ Deployed» en producción real', desc: 'Dejar de reportar cosas como hechas si el usuario en piso no las tiene operando al 100%.' },
-              { icon: '🚢', title: 'Tablero de Control de Contenedores y Demoras', desc: 'Visibilidad total de buques, días libres en puerto y costos para no pagar multas.' },
-              { icon: '⚡', title: 'kmpos ultra veloz sin caídas en horas pico', desc: 'Que ninguna tienda se detenga jamás para facturar y cobrar de inmediato.' },
-              { icon: '🤖', title: 'Automatización de tareas repetitivas con IA', desc: 'Eliminar Excels manuales y que el sistema procese inventario y cobros en automático.' }
+              { icon: '📱', title: 'Pistolas lectoras de código de barra', desc: 'Poder escanear cajas y motos desde el celular o lector para no digitar nada a mano.' },
+              { icon: '🚀', title: 'Sistema de traslados más rápido y en un clic', desc: 'Poder autorizar y mover traslados sin que la computadora se quede pegada.' },
+              { icon: '🏷️', title: 'Ubicaciones claras de cada pieza', desc: 'Saber exactamente en qué estante y nivel está cada repuesto para encontrarlo rápido.' },
+              { icon: '🤝', title: 'Mejor coordinación con tiendas y oficinas', desc: 'Que respeten los días de pedido y avisen con tiempo los cambios de ruta.' }
             ]
           }
         ];
       }
 
-      // ==========================================
-      // 2. VENTAS MAYOREO (B2B)
-      // ==========================================
-      if (cat === 'mayoreo') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN MAYOREO',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real vendiendo Mayoreo?`,
-            subtitle: 'Las 2 o 3 actividades críticas para colocar volumen y mover contenedores:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '📞', title: 'Negociación y Cierre con Distribuidores', desc: 'Cotizar lotes grandes de motos y repuestos a clientes mayoristas por WhatsApp y teléfono.' },
-              { icon: '💳', title: 'Gestión de Pagos por Transferencia Bancaria', desc: 'Recibir comprobantes de transferencias bancarias y esperar validación de finanzas.' },
-              { icon: '📦', title: 'Coordinación de Fletes y Despacho con CD', desc: 'Asegurar que Bodega Central cargue los camiones con los pedidos completos.' },
-              { icon: '📊', title: 'Seguimiento de Cartera y Cobro Mayorista', desc: 'Revisar cuentas corrientes de clientes B2B para habilitar nuevos pedidos.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué trabas del sistema te hacen perder tiempo en Mayoreo?',
-            subtitle: 'Inventos o requisitos del POS que no aplican a la venta corporativa:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Obligación absurda de aperturar caja física en L 0.00', desc: 'En Mayoreo no tocamos billetes; obligarnos a abrir caja y hacer modales es perder tiempo.' },
-              { icon: '⏳', title: 'Esperar horas por validación de transferencias', desc: 'El cliente ya pagó al banco pero no podemos facturar hasta que alguien en oficina confirme.' },
-              { icon: '📄', title: 'Cotizaciones y pedidos en hojas de Excel paralelas', desc: 'Tener que cotizar en Excel porque el sistema no permite armar paquetes B2B ágiles.' },
-              { icon: '🔄', title: 'Aprobaciones manuales para descuentos por volumen', desc: 'Tener que llamar a gerencia para aplicar tablas de descuento que deberían ser automáticas.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Dónde se traba la venta entre Mayoreo y los demás?',
-            subtitle: '¿Quién te frena la entrega o la facturación del pedido?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '📦', title: 'Bodega Central (CD)', desc: 'Venta cerrada pero CD tarda días en preparar y cargar el pedido en el transporte.' },
-              { icon: '💼', title: 'Finanzas / Tesorería', desc: 'Demora en confirmar que la transferencia cayó a la cuenta de KM Motos.' },
-              { icon: '🚢', title: 'Importaciones y Compras', desc: 'Clientes pidiendo volumen de modelos que están trabados en puerto sin desaduanar.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'Pantallas diseñadas para tiendas de mostrador que no se adaptan al flujo de Mayoreo.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo Mayoreo inyecta liquidez y rota el inventario?',
-            subtitle: 'El valor masivo de mover volumen rápido para la empresa:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '💰', title: 'Inyección masiva de efectivo en transferencias', desc: 'Entradas de millones de lempiras para que la empresa pague proveedores y bancos.' },
-              { icon: '📦', title: 'Vaciado rápido de contenedores en CD', desc: 'Mover contenedores enteros de un solo golpe para liberar espacio en bodega central.' },
-              { icon: '🤝', title: 'Alianzas de largo plazo con distribuidores', desc: 'Clientes que compran todos los meses sin requerir costos de publicidad en tiendas.' },
-              { icon: '⚡', title: 'Velocidad de colocación de producto nuevo', desc: 'Llevar los nuevos modelos a todo el territorio nacional en menos de 48 horas.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué función específica necesita Mayoreo en el sistema YA?',
-            subtitle: 'Lo que los desarrolladores deben dejar listo esta semana:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '🚀', title: 'Módulo de Venta Mayorista sin apertura de caja física', desc: 'Facturar contra transferencia o crédito bancario directo con 1 solo clic.' },
-              { icon: '🏦', title: 'Validación instantánea de transferencias bancarias', desc: 'Confirmar el pago con el extracto bancario en tiempo real sin llamar a contabilidad.' },
-              { icon: '📦', title: 'Reserva automática de inventario para pedidos grandes', desc: 'Que nadie venda en tienda las motos que ya están comprometidas para un mayorista.' },
-              { icon: '📊', title: 'Lista de precios y descuentos dinámicos por volumen', desc: 'Escalas de precios automáticas según la cantidad de unidades sin pedir autorizaciones.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 3. LOGÍSTICA / CD / BODEGA CENTRAL
-      // ==========================================
-      if (cat === 'logistica') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN EL CD (8:00 AM - 6:00 PM)',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real en el Centro de Distribución?`,
-            subtitle: 'Las tareas operativas pesadas que mueven el inventario físico:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🚢', title: 'Descarga y Desestiba de Contenedores', desc: 'Bajar huacales de motos y cajas de repuestos de los contenedores que entran del puerto.' },
-              { icon: '📦', title: 'Picking y Preparación de Rutas para 77 Tiendas', desc: 'Separar, empacar y armar los pedidos semanales de motos y repuestos para las sucursales.' },
-              { icon: '🚚', title: 'Carga y Despacho de Camiones', desc: 'Revisar guías, estibar camiones de ruta y despachar hacia todo el país a tiempo.' },
-              { icon: '🔍', title: 'Conteos Físicos y Control de Averías', desc: 'Auditoría interna de estanterías, separación de daños de tránsito y reclamos a navieras.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué papeleos o trabas retrasan el despacho en Bodega?',
-            subtitle: 'Cosas que frenan la salida rápida de los camiones hacia las tiendas:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Hojas físicas de traslado firmadas a mano', desc: 'Manejar carpetas de papel que se ensucian o traspapelan en vez de firmas digitales.' },
-              { icon: '⏳', title: 'Ingreso manual código por código al descargar', desc: 'Digitar a mano números de chasis o repuestos en vez de escaneo con pistola láser.' },
-              { icon: '📄', title: 'Doble conteo por desconfianza en el sistema', desc: 'Tener que contar tres veces porque el sistema muestra existencias desfasadas.' },
-              { icon: '🔄', title: 'Esperar autorizaciones de traslado que tardan horas', desc: 'Camiones parados esperando que alguien en oficina central apruebe el traslado en el ERP.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿De quién depende el CD para que la mercadería fluya?',
-            subtitle: '¿Quién te avisa tarde o no cumple su parte en la cadena?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🚢', title: 'Importaciones y Aduanas', desc: 'Llegan contenedores de sorpresa sin previo aviso o sin el packing list traducido y cuadrado.' },
-              { icon: '🏪', title: 'Tiendas Retail (Las 77 Sucursales)', desc: 'Piden repuestos de última hora fuera de su día de ruta o no confirman la recepción a tiempo.' },
-              { icon: '💼', title: 'Compras / Proveedores Locales', desc: 'Proveedores que entregan sin orden de compra oficial en el sistema.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'El sistema se pone lento al hacer traslados masivos y frena la operación de despacho.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo el CD acelera las ventas de toda la empresa?',
-            subtitle: 'El impacto directo de la logística en la facturación de KM:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '⚡', title: 'Despacho en 24 horas hacia las tiendas', desc: 'Tener la mercadería lista en el mostrador antes de que el cliente final la pida.' },
-              { icon: '🛡️', title: 'Cero faltantes y cero daños en tránsito', desc: 'Asegurar que cada moto y pieza llegue intacta para que no haya pérdidas de dinero.' },
-              { icon: '📦', title: 'Descarga express para no pagar estadías de contenedor', desc: 'Vaciar los contenedores en tiempo récord para devolverlos a la naviera sin multas.' },
-              { icon: '🔒', title: 'Certeza total del inventario físico', desc: 'Que lo que dice el sistema sea exactamente lo que está en la estantería del CD.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué herramienta de sistemas necesita el CD de inmediato?',
-            subtitle: 'Lo que cambiaría radicalmente la eficiencia del Centro de Distribución:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Escaneo con pistolas / móvil para recepción y picking', desc: 'Escanear códigos de barra o QR para dar entrada a contenedores y armar traslados en minutos.' },
-              { icon: '🚀', title: 'Traslados masivos entre CD y tiendas en 1 clic', desc: 'Generar las transferencias automáticas sin que el sistema se cuelgue ni requiera doble confirmación.' },
-              { icon: '📦', title: 'Control digital de chasis y motores por ubicación', desc: 'Saber exactamente en qué pasillo y nivel está cada moto sin tener que buscar a ciegas.' },
-              { icon: '📊', title: 'Tablero en pantalla gigante de avance de rutas', desc: 'Monitoreo en vivo de qué camiones están cargados, en ruta o con retraso.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 4. AUDITORÍA / CONTROL INTERNO
-      // ==========================================
-      if (cat === 'auditoria') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN AUDITORÍA',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se concentran tus auditorías de control?`,
-            subtitle: 'Las 2 o 3 actividades críticas para blindar el dinero y los inventarios:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🔍', title: 'Arqueos Sorpresivos de Caja', desc: 'Verificación física de efectivo en tiendas, control de fondos fijos y cuadre de depósitos bancarios.' },
-              { icon: '📦', title: 'Auditoría Física de Inventarios', desc: 'Conteos cíclicos de motos y repuestos en tiendas y CD contrastando con el ERP.' },
-              { icon: '📑', title: 'Cumplimiento Fiscal y SAR', desc: 'Revisión de facturación, correlativos CAI y control de proformas abiertas que congelan stock.' },
-              { icon: '⚖️', title: 'Investigación de Mermas y Descuadres', desc: 'Determinar causa raíz de faltantes y proponer acciones correctivas objetivas.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué te hace perder tiempo en tus revisiones de auditoría?',
-            subtitle: 'Cosas que retrasan detectar anomalías a tiempo:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Pedir bases de datos en Excel', desc: 'Tener que esperar que sistemas o contabilidad exporte tablas en vez de auditar en vivo.' },
-              { icon: '📄', title: 'Actas en papel físico que se archivan y se olvidan', desc: 'Levantar observaciones a mano sin seguimiento automatizado de resolución.' },
-              { icon: '⏳', title: 'Falta de alertas automáticas en el sistema', desc: 'Tener que buscar anomalías a ciegas en vez de que el ERP avise proformas viejas o stock en rojo.' },
-              { icon: '🔄', title: 'Descargos informales por WhatsApp', desc: 'Justificaciones que quedan en chats personales sin trazabilidad institucional.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Qué áreas te deben entregar información limpia?',
-            subtitle: '¿De quién depende que las cuentas y el stock cuadren sin retrasos?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🛒', title: 'Administradores de Tienda', desc: 'Que envíen los depósitos bancarios y cierres de caja conciliados al centavo al día siguiente.' },
-              { icon: '📦', title: 'Bodega Central (CD)', desc: 'Que no dejen transferencias en tránsito flotando ni averías sin dictamen formal.' },
-              { icon: '💼', title: 'Contabilidad y Finanzas', desc: 'Que apliquen los ajustes y sanciones autorizados sin demorar semanas.' },
-              { icon: '👥', title: 'Gerencia y Dirección', desc: 'Que respalden las observaciones de control y no dejen pasar faltantes por comodidad.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LA LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo ayuda Auditoría a que la empresa tenga más flujo?',
-            subtitle: 'El control no es burocracia: es proteger el dinero que paga los compromisos:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🛡️', title: 'Blindaje contra fugas y robos hormiga', desc: 'Cuidar cada lempira y cada repuesto para que la empresa no pierda capital.' },
-              { icon: '🔒', title: 'Certeza del inventario real para vender', desc: 'Si el stock en sistema es exacto, el vendedor promete lo que sí hay y la venta no se cae.' },
-              { icon: '⚖️', title: 'Cero multas del SAR por facturación', desc: 'Asegurar que los cortes y CAI estén en regla para no pagar sanciones innecesarias.' },
-              { icon: '⚡', title: 'Disciplina operativa en los 77 puntos', desc: 'Que cada encargado sepa que el estándar de KM no se negocia ni se acomoda.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué herramienta de control le pedís al equipo técnico?',
-            subtitle: 'Lo que te permitiría auditar la empresa en tiempo real:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '🛑', title: 'Tablero de Telemetría de Auditoría en Vivo', desc: 'Un monitor que marque en rojo automático: proformas abiertas > 24h, stock negativo y cierres con diferencia.' },
-              { icon: '📦', title: 'Trazabilidad estricta de ajustes de inventario', desc: 'Que nadie pueda alterar existencias sin motivo, usuario y autorización registrada.' },
-              { icon: '📱', title: 'Módulo móvil para actas de auditoría digital', desc: 'Levantar la auditoría desde el celular en tienda con fotos y firma digital.' },
-              { icon: '🚀', title: 'Bloqueo automático de cajas no depositadas', desc: 'Que la tienda que no deposita en 48 horas tenga alerta bloqueante en el POS.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 5. TECNOLOGÍA / PROGRAMACIÓN / DEV
-      // ==========================================
-      if (cat === 'tecnologia') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN TECNOLOGÍA',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real de programación y soporte?`,
-            subtitle: 'Las tareas vitales de arquitectura y código que mantienen a KM viva:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '💻', title: 'Desarrollo de Funciones que Aceleran la Venta', desc: 'Programar módulos de facturación rápida, cobros B2B y conexión con aduanas/CD.' },
-              { icon: '🛑', title: 'Estabilidad de Servidores y Bases de Datos', desc: 'Monitorear que kmpos, APIs y bases de datos no se congelen ni se caigan en horas pico.' },
-              { icon: '🔧', title: 'Resolución de Bugs Críticos (Fixes P0)', desc: 'Apagar fuegos de pantallas que traban la operación diaria de tiendas o bodega.' },
-              { icon: '🤖', title: 'Automatización e Integraciones con IA', desc: 'Construir agentes y flujos para eliminar tareas manuales y reportes en Excel.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué tickets o inventos sentís que no sirven y quitan foco?',
-            subtitle: 'Cosas que nos piden programar y que no tienen impacto real en el negocio:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Modales para procesos ficticios', desc: 'Ejemplo: Crear modales de apertura en cero para mayoreo donde no se maneja efectivo.' },
-              { icon: '🔄', title: 'Parchando lo secundario mientras lo crítico se cuelga', desc: 'Gastar tiempo en detalles cosméticos mientras la facturación en mostrador es lenta.' },
-              { icon: '📑', title: 'Requerimientos vagos sin especificación clara', desc: 'Tener que adivinar qué quiere el usuario porque el pedido viene en un audio informal.' },
-              { icon: '⏳', title: 'Cambios de alcance a mitad de desarrollo', desc: 'Empezar a construir algo y que al tercer día cambien totalmente la regla del negocio.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Con quién te coordinás y dónde se corta la comunicación?',
-            subtitle: '¿Qué te impide entregar código probado a producción a tiempo?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏢', title: 'Dirección y Jefaturas de Área', desc: 'Necesito una lista única de prioridades P0 aprobada para no estar cambiando de foco a cada hora.' },
-              { icon: '🛒', title: 'Usuarios Finales en Tienda y CD', desc: 'Falta de pruebas reales con ellos antes de pasar a producción (Merged ≠ Deployed).' },
-              { icon: '🛡️', title: 'Auditoría y Finanzas', desc: 'Que validen que las reglas de negocio y control contable estén bien contempladas.' },
-              { icon: '👥', title: 'Equipo de Desarrollo / Agentes', desc: 'Mantener estándares de código limpios para que lo que uno programa no rompa lo del otro.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo ayuda Tecnología a que entre dinero a la empresa?',
-            subtitle: 'El software es el motor del negocio: ¿cómo aceleramos la máquina?',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '⚡', title: 'Facturación en 2 segundos sin caídas', desc: 'Si kmpos vuela, la tienda atiende más gente, nadie se va frustrado y la caja suma más ventas.' },
-              { icon: '📦', title: 'Visibilidad de inventario al 100%', desc: 'Saber con exactitud qué motos hay en aduana y CD para venderlas antes de que acumulen multas.' },
-              { icon: '🤖', title: 'Automatización de procesos repetitivos', desc: 'Que tareas de 4 horas en créditos, compras o bodega se hagan solas en 1 clic.' },
-              { icon: '📊', title: 'Telemetría ejecutiva para toma de decisiones', desc: 'Que Dirección vea en tiempo real dónde está trabado el dinero sin pedir reportes.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA EL EQUIPO TÉCNICO',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué compromiso operativo asumimos como equipo técnico?',
-            subtitle: 'La regla de oro para que nuestro trabajo transforme a KM 2.0:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '🛑', title: 'Cero tickets basura: 100% foco en flujo y venta', desc: 'No programar nada que no reduzca costos, evite multas o aumente la facturación.' },
-              { icon: '📦', title: 'Axioma «Merged ≠ Deployed» cumplido al 100%', desc: 'No declarar nada como listo hasta que esté probado en el piso real con usuarios.' },
-              { icon: '💻', title: 'Arquitectura limpia sin parches temporales', desc: 'Construir soluciones sólidas para no pasar el día apagando fuegos en WhatsApp.' },
-              { icon: '🚀', title: 'Integración continua y automatizaciones con IA', desc: 'Multiplicar la capacidad del equipo usando agentes para acelerar 10 años en semanas.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 6. CRÉDITOS & COBRANZAS
-      // ==========================================
-      if (cat === 'creditos') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN CRÉDITOS Y COBRANZAS',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real en Créditos y Cobranzas?`,
-            subtitle: 'Las actividades críticas para colocar créditos sanos y recuperar la cartera:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '⚡', title: 'Dictamen y Evaluación Rápida', desc: 'Analizar solicitudes de crédito de las 77 tiendas en minutos para no perder al cliente.' },
-              { icon: '📞', title: 'Investigación y Validación de Referencias', desc: 'Llamar a referencias personales/laborales y consultar buró crediticio para filtrar riesgos.' },
-              { icon: '💰', title: 'Gestión de Cobranza Preventiva y en Mora', desc: 'Contactar clientes antes y después del vencimiento, coordinar gestores y convenios.' },
-              { icon: '🗂️', title: 'Liberación de Contratos y Pagarés', desc: 'Revisar documentación legal y autorizar la facturación y entrega de la moto en el POS.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué trabas o burocracia sentís que retrasan el dictamen o cobro?',
-            subtitle: 'Procesos lentos o manuales que estorban la colocación de créditos:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '📄', title: 'Expedientes físicos en papel carbón', desc: 'Exigir copias impresas de recibos de luz o cédulas cuando ya están enviadas en digital.' },
-              { icon: '⏳', title: 'Consultas manuales repetitivas en plataformas externas', desc: 'Consultar burós y antecedentes manualmente uno por uno en vez de una consulta integrada.' },
-              { icon: '✍️', title: 'Múltiples firmas y autorizaciones escalonadas', desc: 'Esperar que un jefe firme para créditos pequeños que cumplen con todas las políticas.' },
-              { icon: '📊', title: 'Excels paralelos para control de cartera y mora', desc: 'Registrar abonos y acuerdos en tablas de cálculo separadas del sistema oficial.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Dónde se traba la posta entre Créditos y los demás?',
-            subtitle: '¿Quién te envía la información tarde, incompleta o te frena el proceso?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏪', title: 'Tiendas / Vendedores', desc: 'Mandan expedientes incompletos, números de teléfono falsos o fotos ilegibles que atrasan todo.' },
-              { icon: '💼', title: 'Finanzas / Bancos', desc: 'Tardan en conciliar transferencias de clientes que pagaron su cuota, dejando mora falsa.' },
-              { icon: '🛵', title: 'Cobradores de Campo / Gestores', desc: 'Reportan recibos de cobro con días de retraso o no actualizan las visitas en el sistema.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'El módulo de créditos o kmpos se cae o no actualiza el estado de cuenta en tiempo real al abonar.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo tu trabajo acelera el flujo de efectivo y protege a KM?',
-            subtitle: 'El balance vital entre vender a crédito y asegurar que el dinero vuelva:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '⏱️', title: 'Dictamen en menos de 20 minutos', desc: 'Cerrar la venta en caliente mientras el cliente está emocionado en la tienda con su prima.' },
-              { icon: '🛡️', title: 'Blindaje contra cuentas incobrables', desc: 'Evitar fraudes y morosidad temprana colocando motos a clientes con capacidad real de pago.' },
-              { icon: '💵', title: 'Recuperación diaria de cartera vencida', desc: 'Inyectar liquidez inmediata a la empresa para que haya fondos para pagar compras y planillas.' },
-              { icon: '🔄', title: 'Reactivación de clientes puntuales', desc: 'Ofrecer ampliación de crédito y segunda moto a clientes con récord impecable.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué módulo o mejora urgente de sistemas necesitás YA?',
-            subtitle: 'Lo que los programadores deben resolver esta semana para destrabar créditos:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Pre-calificación crediticia instantánea en kmpos', desc: 'Que el vendedor meta el DNI y en 10 segundos sepa si aplica y cuánto límite tiene.' },
-              { icon: '💳', title: 'Módulo móvil de cobranza en calle con geolocalización', desc: 'Registrar cobros y recibos digitales directo desde el celular del gestor.' },
-              { icon: '🔔', title: 'Recordatorios automáticos por WhatsApp a clientes', desc: 'Avisos de pago 3 días antes del corte con enlace digital para evitar caer en mora.' },
-              { icon: '📊', title: 'Motor de score crediticio automatizado', desc: 'Aprobación automática de perfiles clase A sin requerir intervención manual.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 7. FINANZAS / CONTABILIDAD / TESORERÍA
-      // ==========================================
-      if (cat === 'finanzas') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN CONTABILIDAD Y FINANZAS',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu tiempo real en Finanzas y Contabilidad?`,
-            subtitle: 'Las tareas críticas para custodiar el dinero y el orden fiscal de KM:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🏦', title: 'Conciliación Bancaria Diaria (4 Puntas)', desc: 'Cruzar depósitos de las 77 tiendas, cobros con tarjeta, ventas en ERP y extracto bancario.' },
-              { icon: '🚢', title: 'Tesorería y Pagos a Proveedores', desc: 'Programar giros a fábricas de China, navieras en puerto y proveedores locales de Honduras.' },
-              { icon: '📜', title: 'Cumplimiento Tributario y SAR', desc: 'Control de rangos CAI de facturación, retenciones, declaraciones fiscales y cierre contable.' },
-              { icon: '💵', title: 'Flujo de Caja y Dispersión de Nómina', desc: 'Asegurar saldo en cuentas de débito para pago puntual de planillas y gastos operativos.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué trámites manuales o cuellos de botella estorban tu trabajo?',
-            subtitle: 'Procesos que consumen horas en hojas de cálculo y deberían automatizarse:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '📑', title: 'Digitar manualmente estados de cuenta en Excel', desc: 'Copiar y pegar movimientos bancarios renglón por renglón para conciliar depósitos.' },
-              { icon: '🧾', title: 'Papeleo físico de boletas de depósito', desc: 'Exigir el voucher en papel cuando el depósito ya aparece reflejado en la banca en línea.' },
-              { icon: '⏳', title: 'Facturas y CAI con procesos manuales', desc: 'Autorizaciones manuales de proformas o correcciones de facturación que saturan el fin de mes.' },
-              { icon: '🔁', title: 'Aprobaciones de firmas físicas para pagos menores', desc: 'Trámites burocráticos para autorizar compras menores de caja chica o repuestos urgentes.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿De quién dependés para que las cuentas cuadren al centavo?',
-            subtitle: '¿Qué área no te entrega a tiempo o te pasa datos descuadrados?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏪', title: 'Tiendas Retail (Cajas)', desc: 'No depositan el efectivo a tiempo, mandan boletas con números erróneos o arqueos descuadrados.' },
-              { icon: '📦', title: 'CD / Compras', desc: 'Ingresan pólizas de importación y facturas tarde, desfasando el costo real del inventario.' },
-              { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Reportan abonos de clientes sin identificar la factura o el contrato exacto al que aplica el pago.' },
-              { icon: '🏢', title: 'Dirección / Gerencias', desc: 'Ordenan pagos imprevistos de última hora sin soporte documental ni tiempo para programar flujo.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo tu trabajo protege la caja y garantiza la continuidad?',
-            subtitle: 'El impacto directo de las finanzas en mantener las tiendas y los barcos operando:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🚢', title: 'Liquidez inmediata para desaduanar', desc: 'Pagar a navieras y aduanas a tiempo para evitar multas de almacenaje en Puerto Cortés.' },
-              { icon: '⚖️', title: 'Blindaje fiscal y cero multas SAR', desc: 'Mantener los CAI al día para que ninguna tienda se quede sin poder facturar legalmente.' },
-              { icon: '🛡️', title: 'Detección temprana de fugas de dinero', desc: 'Alertar de inmediato faltantes de caja, depósitos no acreditados o cobros no liquidados.' },
-              { icon: '📊', title: 'Visibilidad real del costo y margen', desc: 'Saber con exactitud cuánto gana la empresa por moto y por repuesto para no vender a pérdida.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué desarrollo urgente del sistema necesita Finanzas?',
-            subtitle: 'Lo que el equipo de programación e IA debe construir o corregir primero:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '🔄', title: 'Conciliador bancario automático', desc: 'Subir el archivo TXT/Excel del banco y que el sistema cruce el 95% de los depósitos en segundos.' },
-              { icon: '⚠️', title: 'Alerta en vivo de CAI próximo a vencer', desc: 'Notificación automática cuando a una tienda le queden menos de 100 facturas o 15 días.' },
-              { icon: '📊', title: 'Dashboard de flujo de caja y compromisos en tiempo real', desc: 'Ver en una sola pantalla lo que entra hoy vs lo que se debe pagar a China/Honduras.' },
-              { icon: '🛑', title: 'Pre-flight check de nómina y pagos bancarios', desc: 'Validación automática que detenga pagos a empleados inactivos o números de cuenta erróneos.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 8. RECURSOS HUMANOS / TALENTO / NÓMINA
-      // ==========================================
-      if (cat === 'rrhh') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN TALENTO HUMANO Y NÓMINA',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real en Talento Humano y Nómina?`,
-            subtitle: 'Las prioridades vitales para gestionar al equipo de las 77 tiendas y CD:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '💼', title: 'Cálculo y Dispersión de Nómina', desc: 'Calcular quincenas, comisiones por venta, horas extras y deducciones legales al centavo.' },
-              { icon: '👥', title: 'Reclutamiento y Contratación Rápida', desc: 'Cubrir vacantes urgentes de vendedores, mecánicos y bodegueros para no frenar la operación.' },
-              { icon: '⏰', title: 'Control de Asistencia y Novedades', desc: 'Registrar altas, bajas efectivas, permisos médicos, vacaciones e incapacidades.' },
-              { icon: '📜', title: 'Relaciones Laborales y Cumplimiento', desc: 'Manejo de contratos, expedientes de personal, descargos y finiquitos conforme a ley.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué burocracia o papeleo sentís que atrasa la gestión del personal?',
-            subtitle: 'Trámites arcaicos en hojas de cálculo que consumen días enteros:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '📄', title: 'Cálculo manual de comisiones en Excel', desc: 'Cruzar ventas de kmpos a mano con fórmulas complejas propensas a errores de dedo.' },
-              { icon: '✍️', title: 'Permisos y solicitudes en boletas de papel', desc: 'Firmas físicas para permisos o vacaciones que se pierden o llegan semanas después.' },
-              { icon: '📁', title: 'Expedientes de personal físicos duplicados', desc: 'Carpetas en gavetas que nadie puede consultar de forma remota cuando hay una urgencia.' },
-              { icon: '⏳', title: 'Atención repetitiva de reclamos de planilla', desc: 'Empleados llamando para entender por qué cobraron menos porque no tienen recibo digital.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿De qué departamentos dependés para procesar la nómina a tiempo?',
-            subtitle: '¿Quién no te reporta a tiempo las novedades o frena los procesos?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏪', title: 'Supervisores y Jefes de Tienda', desc: 'Reportan bajas, despidos o ausencias días después, pagando días a personas que ya no laboran.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'Retrasos en dar de alta o cancelar usuarios en kmpos cuando un empleado entra o sale.' },
-              { icon: '💼', title: 'Finanzas / Contabilidad', desc: 'Bloqueos o demoras en la disponibilidad de fondos bancarios para dispersar la planilla el día de pago.' },
-              { icon: '🎯', title: 'Ventas / Gerencia Comercial', desc: 'Modifican los esquemas de comisiones a última hora sin dar tiempo para parametrizar el sistema.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo Talento Humano impacta directamente en ventas y dinero?',
-            subtitle: 'El vínculo directo entre la gente correcta y los resultados del negocio:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🚀', title: 'Tiendas 100% cubiertas con personal calificado', desc: 'Cero tiendas cerradas o sin vendedor estrella en quincenas y fines de semana.' },
-              { icon: '💰', title: 'Nómina blindada contra pagos indebidos', desc: 'Cero dispersiones a exempleados dados de baja y comisiones pagadas solo por ventas reales.' },
-              { icon: '🛡️', title: 'Prevención de contingencias laborales', desc: 'Contratos y finiquitos en regla para evitar demandas y embargos que drenen la caja.' },
-              { icon: '🔥', title: 'Personal motivado y sin reclamos', desc: 'Pagos puntuales y transparentes que hacen que la fuerza de ventas salga a comerse la meta.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué herramienta o módulo debe programar Sistemas para RRHH?',
-            subtitle: 'La automatización prioritaria para erradicar los Excels de personal:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Portal del Colaborador (Boletas de pago en celular)', desc: 'Que cada empleado descargue su recibo con desglose de comisiones en su teléfono.' },
-              { icon: '🔄', title: 'Cálculo automático de comisiones ligado a kmpos', desc: 'Que el sistema liquide comisiones en un clic según ventas netas facturadas reales.' },
-              { icon: '📍', title: 'Marcaje de asistencia móvil con geolocalización', desc: 'Reloj marcador digital en tiendas para validar que el empleado está en su puesto.' },
-              { icon: '🛑', title: 'Baja automática de accesos al tramitar finiquito', desc: 'Deshabilitar usuarios de kmpos y correo en el instante exacto en que se aprueba la baja.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 9. COMPRAS / IMPORTACIONES / COMERCIO EXT.
-      // ==========================================
-      if (cat === 'compras') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN COMPRAS E IMPORTACIONES',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu tiempo real en Compras e Importaciones?`,
-            subtitle: 'Las tareas críticas para traer mercadería de China y surtir a la empresa:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🚢', title: 'Tracking de Contenedores y Navieras', desc: 'Monitorear buques, tiempos de arribo a Puerto Cortés y días libres de almacenaje.' },
-              { icon: '🏭', title: 'Negociación y Pedidos a Fábricas de China', desc: 'Colocar órdenes de compra de motos y repuestos, negociar precios FOB y tiempos de entrega.' },
-              { icon: '📦', title: 'Planificación de Demanda y Repuestos', desc: 'Calcular qué modelos y piezas se necesitan en base a la rotación de las 77 tiendas.' },
-              { icon: '🏛️', title: 'Gestión de Aduanas y Desaduanaje', desc: 'Coordinar con agencias aduaneras la revisión física, pago de pólizas e impuestos SAR en puerto.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué cuellos de botella o trámites retrasan las importaciones?',
-            subtitle: 'Procesos lentos que causan multas o desabastecimiento en tiendas:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '📄', title: 'Cálculo de pedidos en hojas de Excel desconectadas', desc: 'Pasar días cruzando tablas para saber qué comprar sin visibilidad del stock real.' },
-              { icon: '⏳', title: 'Falta de visibilidad de días libres de almacenaje', desc: 'Descubrir que un contenedor incurrió en multa de estadía cuando ya llegó la factura.' },
-              { icon: '📑', title: 'Papeleo manual para nacionalización', desc: 'Intercambio de documentos escaneados por correo que se retrasan en revisión aduanera.' },
-              { icon: '🔄', title: 'Aprobaciones de compra lentas', desc: 'Esperar semanas por firmas para ordenar repuestos críticos que ya están agotados.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Dónde se cae el testigo entre Compras y las demás áreas?',
-            subtitle: '¿Qué departamento te frena el proceso o no te da la información a tiempo?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '💼', title: 'Finanzas / Tesorería', desc: 'Retrasos en liberar pagos a navieras o cartas de crédito a China, dejando contenedores varados.' },
-              { icon: '📦', title: 'CD / Bodega Central', desc: 'Tardan días en descargar, contar e ingresar al sistema los contenedores al llegar al plantel.' },
-              { icon: '🏪', title: 'Ventas / Tiendas', desc: 'No reportan a tiempo los repuestos agotados o solicitan compras de modelos con baja rotación.' },
-              { icon: '🚢', title: 'Agencias Aduaneras / Navieras', desc: 'Falta de actualización del estatus real de los embarques y demoras en inspección física.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo Compras e Importaciones protege el dinero de KM?',
-            subtitle: 'La clave entre tener stock que rota rápido vs capital muerto en bodega:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🛑', title: 'Cero multas de almacenaje en Puerto Cortés', desc: 'Desaduanar dentro de los días libres para no regalar miles de dólares en demoras.' },
-              { icon: '🚀', title: 'Inventario fresco de alta rotación', desc: 'Traer los modelos que el cliente busca hoy para que las tiendas no pierdan ventas por desabasto.' },
-              { icon: '💰', title: 'Negociación de mejores costos y plazos con fábricas', desc: 'Maximizar el margen bruto y conseguir crédito con proveedores de China.' },
-              { icon: '⚖️', title: 'Evitar compras de producto muerto', desc: 'No enterrar dinero de la empresa en piezas que pasan años estancadas en bodega.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué desarrollo urgente necesita Compras e Importaciones?',
-            subtitle: 'La herramienta prioritaria que los desarrolladores deben entregar ya:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '🚢', title: 'Tablero de Tracking de Contenedores con Alerta de Días Libres', desc: 'Semáforo visual en vivo que avise cuántos días quedan antes de pagar multa portuaria.' },
-              { icon: '📈', title: 'Sugerido de Compra Inteligente ligado a kmpos', desc: 'Algoritmo que calcule automáticamente cuánto comprar según la velocidad de venta real.' },
-              { icon: '📦', title: 'Recepción ciega con escáner de código de barras', desc: 'Ingreso de contenedores en CD escaneando bultos para cuadrar contra packing list en minutos.' },
-              { icon: '📊', title: 'Cálculo automático de costo landed en bodega', desc: 'Prorratear fletes, aranceles y gastos portuarios directo al costo unitario del producto.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 10. TALLER / MECÁNICA / ARMADO / GARANTÍAS
-      // ==========================================
+      // 2. TALLER / MECÁNICA
       if (cat === 'taller') {
         return [
           {
             stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN TALLER Y MECÁNICA',
+            badge: 'PASO 1 DE 5 · TU DÍA A DÍA REAL',
             xp: '+100 XP',
             percent: 20,
-            title: `¿En qué se va tu jornada real en Taller y Mecánica?`,
-            subtitle: 'Las actividades vitales para que las motos rueden y los clientes estén satisfechos:',
+            title: `¿En qué se te va la mayor parte de tu jornada en el Taller?`,
+            subtitle: `Las tareas principales de tu día a día como ${role}:`,
             field: 'jornada_diaria',
             options: [
-              { icon: '🛵', title: 'Armado y Preparación de Motos Nuevas', desc: 'Desembalar de huacales, armar, calibrar y dejar listas para exhibición y entrega inmediata.' },
-              { icon: '🔧', title: 'Diagnóstico y Reparación de Mantenimientos', desc: 'Servicios preventivos (aceite, frenos, bujías) y corrección de fallas mecánicas y eléctricas.' },
-              { icon: '🛡️', title: 'Gestión de Garantías Técnicas', desc: 'Inspección de unidades con fallas de fábrica, dictamen técnico y solicitud de piezas.' },
-              { icon: '📦', title: 'Control y Solicitud de Repuestos de Taller', desc: 'Mantener el stock de refacciones de alta rotación para no dejar motos paradas.' }
+              { icon: '🛵', title: 'Armar motos nuevas de paquete', desc: 'Desembalar huacales, ensamblar, calibrar y dejarlas impecables para exhibición y venta.' },
+              { icon: '🔧', title: 'Mantenimientos y servicios rápidos', desc: 'Cambios de aceite, frenos, bujías, ajustes de cadena y afinación general.' },
+              { icon: '🛠️', title: 'Diagnóstico y reparación de fallas', desc: 'Revisar motos que entran con fallas mecánicas o eléctricas complejas y solucionarlas.' },
+              { icon: '🛡️', title: 'Revisión de garantías de fábrica', desc: 'Inspeccionar unidades con defectos de fábrica y tramitar el cambio de piezas.' }
             ]
           },
           {
             stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+            badge: 'PASO 2 DE 5 · LO QUE TE QUITA TIEMPO',
             xp: '+100 XP',
             percent: 40,
-            title: '¿Qué trámites o trabas te quitan tiempo con la llave en mano?',
-            subtitle: 'Papeleos innecesarios que retrasan la entrega de motos a los clientes:',
+            title: '¿Qué cosas te frenan o te quitan tiempo con la herramienta en mano?',
+            subtitle: 'Trámites o faltantes que retrasan la entrega de las motos:',
             field: 'herramientas_checklist',
             options: [
-              { icon: '📄', title: 'Órdenes de servicio en papel carbón', desc: 'Llenar a mano boletas físicas de recepción y diagnóstico que se manchan o pierden.' },
-              { icon: '⏳', title: 'Esperar días por aprobación de repuestos de garantía', desc: 'La moto desarmada ocupando espacio en el taller mientras oficina central autoriza.' },
-              { icon: '📞', title: 'Llamar por teléfono para consultar stock de repuestos', desc: 'No poder ver en pantalla si la tienda o CD tiene el repuesto disponible.' },
-              { icon: '✍️', title: 'Múltiples firmas del cliente en hojas sueltas', desc: 'Trámites burocráticos que alargan la entrega de la moto al cliente que tiene prisa.' }
+              { icon: '⏳', title: 'Falta de repuestos para terminar el trabajo', desc: 'Tener la moto desarmada ocupando espacio esperando que lleguen las piezas.' },
+              { icon: '📄', title: 'Llenar hojas de servicio a mano', desc: 'Llenar boletas de papel carbón que se manchan de grasa y toman mucho tiempo.' },
+              { icon: '📞', title: 'Llamar para averiguar si hay repuestos', desc: 'Tener que llamar por teléfono porque en la pantalla no se ve el stock real.' },
+              { icon: '🔄', title: 'Esperar días por aprobación de garantías', desc: 'Tener al cliente esperando mientras oficina central autoriza cambiar una pieza defectuosa.' }
             ]
           },
           {
             stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+            badge: 'PASO 3 DE 5 · TRABAJO EN EQUIPO (LA POSTA)',
             xp: '+100 XP',
             percent: 60,
-            title: '¿De qué departamentos dependés para entregar las motos a tiempo?',
-            subtitle: '¿Quién te retrasa las piezas o te complica el flujo de trabajo?',
+            title: '¿De quién dependés para entregar las motos a tiempo?',
+            subtitle: '¿Quién te apoya rápido y quién te frena la entrega?',
             field: 'conexiones_organigrama',
             options: [
-              { icon: '📦', title: 'Bodega CD / Repuestos', desc: 'Tardan demasiado en surtir los repuestos solicitados para reparaciones y garantías.' },
-              { icon: '🏪', title: 'Vendedores de Tienda', desc: 'Prometen tiempos de entrega irreales a clientes sin consultar si el taller tiene cupo o repuestos.' },
-              { icon: '🏢', title: 'Garantías Central / Calidad', desc: 'Ponen trabas excesivas para aprobar reclamos legítimos de clientes con motos defectuosas.' },
-              { icon: '💻', title: 'Sistemas / kmpos', desc: 'No tener un módulo ágil para facturar mano de obra y repuestos de taller en un solo recibo.' }
+              { icon: '📦', title: 'Bodega de Repuestos', desc: 'Demoras en surtir los repuestos que ocupamos para reparar o armar.' },
+              { icon: '🏪', title: 'Vendedores de Tienda', desc: 'Le prometen tiempos irreales al cliente sin consultar si el taller tiene cupo o repuestos.' },
+              { icon: '💼', title: 'Oficina Central / Garantías', desc: 'Ponen demasiadas trabas para autorizar piezas de garantía de clientes.' },
+              { icon: '💻', title: 'Sistemas / Facturación', desc: 'Cuesta facturar la mano de obra y los repuestos en un solo recibo claro para el cliente.' }
             ]
           },
           {
             stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
+            badge: 'PASO 4 DE 5 · TU APORTE AL CLIENTE Y LA VENTA',
             xp: '+100 XP',
             percent: 80,
-            title: '¿Cómo el taller mecánico impacta en las ventas de KM?',
-            subtitle: 'El servicio posventa como motor de recompra y recomendación de clientes:',
+            title: '¿Cómo ayuda el taller a que la empresa gane clientes fieles?',
+            subtitle: 'El valor de tu trabajo técnico para KM:',
             field: 'multiplicador_valor',
             options: [
-              { icon: '⚡', title: 'Entrega express de motos armadas', desc: 'Que el cliente compre su moto y se la lleve rodando el mismo día, sin esperar 24 horas.' },
-              { icon: '🤝', title: 'Fidelización y clientes que vuelven a comprar', desc: 'Un cliente bien atendido en taller recomienda KM Motos y compra su próxima moto acá.' },
-              { icon: '💰', title: 'Facturación ágil de servicios y repuestos', desc: 'Convertir el taller en un centro de rentabilidad con cobro transparente de mantenimientos.' },
-              { icon: '🛡️', title: 'Detección temprana de fallas de fábrica', desc: 'Alertar a Compras si un modelo o lote de China viene con defecto recurrente para reclamar.' }
+              { icon: '⚡', title: 'Entrega rápida de motos armadas', desc: 'Que el cliente compre su moto y se la lleve rodando el mismo día sin esperar 24 horas.' },
+              { icon: '🤝', title: 'Clientes contentos que recomiendan la marca', desc: 'Un cliente bien atendido en taller vuelve a comprar su próxima moto en KM.' },
+              { icon: '🛡️', title: 'Motos bien calibradas y seguras', desc: 'Garantizar que nadie tenga un accidente por una tuerca floja o un freno mal ajustado.' },
+              { icon: '💰', title: 'Cobro justo y claro de servicios', desc: 'Hacer que el taller sea rentable cobrando bien cada mantenimiento y repuesto.' }
             ]
           },
           {
             stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+            badge: 'PASO 5 DE 5 · TU PEDIDO PRINCIPAL',
             xp: '+100 XP',
             percent: 100,
-            title: '¿Qué módulo o mejora urgente del sistema necesita Taller?',
-            subtitle: 'Lo que los programadores deben crear para modernizar el servicio técnico:',
+            title: 'Si pudieras pedir una sola mejora en el taller, ¿qué sería?',
+            subtitle: 'Lo que más te ayudaría a trabajar con tranquilidad:',
             field: 'bloqueos_p0',
             options: [
-              { icon: '📱', title: 'Orden de Servicio Digital en Celular o Tablet', desc: 'Recibir la moto, tomar foto de daños, firmar digitalmente y mandar boleta por WhatsApp.' },
-              { icon: '🔍', title: 'Consulta visual de catálogo de despiece y stock', desc: 'Ver el diagrama de la moto y saber en un clic si el repuesto está en tienda o CD.' },
-              { icon: '🔔', title: 'Aviso automático al cliente cuando su moto está lista', desc: 'Mensaje SMS o WhatsApp para que pase a retirar su moto de inmediato.' },
-              { icon: '🛡️', title: 'Módulo ágil de reclamo de garantías en kmpos', desc: 'Subir evidencia técnica y recibir aprobación de oficina central en menos de 2 horas.' }
+              { icon: '📱', title: 'Orden de servicio digital en celular o tablet', desc: 'Recibir la moto, marcar daños, firmar en pantalla y mandar el comprobante por WhatsApp.' },
+              { icon: '📦', title: 'Tener siempre los repuestos de mayor uso', desc: 'Que nunca falten aceites, cables, bujías, filtros y tornillería para armar.' },
+              { icon: '⚡', title: 'Aprobación rápida de garantías', desc: 'Que con mandar foto de la pieza rota se autorice el cambio en menos de 2 horas.' },
+              { icon: '🔧', title: 'Herramientas y espacio de trabajo adecuado', desc: 'Contar con herramientas en buen estado y rampas seguras para trabajar cómodo.' }
             ]
           }
         ];
       }
 
-      // ==========================================
-      // 11. CAJA DE TIENDA & ARQUEOS
-      // ==========================================
-      if (cat === 'caja_tienda') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN CAJA DE TIENDA',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real en la Caja de Tienda?`,
-            subtitle: 'Las tareas vitales para cobrar rápido y custodiar el dinero de la sucursal:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '💰', title: 'Cobro Ágil de Ventas y Repuestos', desc: 'Cobrar en efectivo, tarjeta o transferencias emitiendo facturas y recibos oficiales SAR.' },
-              { icon: '💳', title: 'Cobro de Cuotas de Crédito', desc: 'Recibir abonos de clientes con crédito directo y entregar su comprobante de pago al día.' },
-              { icon: '🔒', title: 'Custodia de Efectivo y Arqueos', desc: 'Mantener el fondo fijo en orden, contar el dinero en gaveta y preparar depósitos bancarios.' },
-              { icon: '📑', title: 'Corte Z y Cuadre de Cierre Diario', desc: 'Cerrar caja al final de la tarde cuadrando sistema vs efectivo y vouchers de POS.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué trabas o pasos del sistema te retrasan al cobrar?',
-            subtitle: 'Problemas en el punto de cobro que hacen esperar a los clientes:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Congelamiento de kmpos al facturar', desc: 'El sistema se queda pegado cuando hay fila de clientes esperando pagar en mostrador.' },
-              { icon: '🧾', title: 'Impresión excesiva de copias en papel', desc: 'Imprimir 3 o 4 copias de comprobantes cuando el cliente solo quiere su factura en digital.' },
-              { icon: '⏳', title: 'Esperar validaciones remotas para anular o corregir', desc: 'Si hay un error de dedo en un ítem, esperar horas a que oficina central autorice.' },
-              { icon: '🔄', title: 'Pasos innecesarios al aperturar o cerrar caja', desc: 'Formularios redundantes que complican el cuadre cuando hay que salir al banco.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿De quién dependés para que tu caja opere sin problemas?',
-            subtitle: '¿Quién te manda información tarde o te frena el cuadre?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏪', title: 'Vendedores de Mostrador', desc: 'Pasan cotizaciones con datos de cliente incompletos o precios que no coinciden con sistema.' },
-              { icon: '💼', title: 'Contabilidad / Finanzas', desc: 'Tardan en verificar transferencias bancarias de clientes que están frente a caja.' },
-              { icon: '💻', title: 'Sistemas / Soporte TI', desc: 'Tardan en resolver cuando la impresora térmica no responde o el CAI se bloquea.' },
-              { icon: '🛡️', title: 'Auditoría Interna', desc: 'Necesitamos criterios claros y apoyo para resolver descuadres involuntarios de inmediato.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo tu rol en caja acelera el flujo de efectivo?',
-            subtitle: 'La caja es el punto donde el esfuerzo de todos se convierte en dinero real:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '⚡', title: 'Cobro express sin clientes desesperados', desc: 'Despachar la fila rápido para que nadie se vaya sin pagar por lentitud en caja.' },
-              { icon: '🛡️', title: 'Cero faltantes y depósitos bancarios al día', desc: 'Depositar todo el efectivo puntualmente para que el dinero esté seguro en el banco.' },
-              { icon: '⚖️', title: 'Cero sanciones tributarias del SAR', desc: 'Emitir cada comprobante con los requisitos legales para blindar a la empresa de multas.' },
-              { icon: '🤝', title: 'Atención amable y despedida con sonrisa', desc: 'El cajero es la última persona que ve el cliente: una buena atención asegura que regrese.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué mejora urgente en kmpos necesita la Caja?',
-            subtitle: 'Lo que los desarrolladores deben arreglar hoy mismo:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '🚀', title: 'Emisión de factura en menos de 2 segundos', desc: 'Optimizar la base de datos para que la impresión del ticket sea instantánea.' },
-              { icon: '💳', title: 'Integración directa con datáfonos de tarjeta', desc: 'Cobrar con tarjeta sin tener que digitar el monto a mano en el sistema y en el POS.' },
-              { icon: '⚠️', title: 'Alerta de rango CAI antes de que se agote', desc: 'Avisar con 100 facturas de anticipación para no quedarse bloqueado en pleno sábado.' },
-              { icon: '📱', title: 'Validación de transferencias en pantalla en tiempo real', desc: 'Confirmar pagos por banco sin tener que pedir captura por WhatsApp a contabilidad.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 13. MERCADEO / PUBLICIDAD / DISEÑO
-      // ==========================================
-      if (cat === 'mercadeo') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN MERCADEO',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real en Mercadeo y Publicidad?`,
-            subtitle: 'Las actividades vitales para llenar de prospectos y ventas las 77 tiendas:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🎯', title: 'Generación de Leads Calificados para Tiendas', desc: 'Campañas digitales en Meta/TikTok para mandar prospectos calificados por WhatsApp a cada sucursal.' },
-              { icon: '📢', title: 'Lanzamiento de Modelos y Campañas de Marca', desc: 'Producción de artes, videos, fichas técnicas y presencia de marca KM en todo Honduras.' },
-              { icon: '🏷️', title: 'Material POP y Promociones Quincenales', desc: 'Rótulos de tienda, afiches, banners y precios para vestir las 77 tiendas en cada campaña.' },
-              { icon: '📊', title: 'Medición de Conversión y Retorno Publicitario', desc: 'Medir cuántas personas que vieron la pauta terminaron comprando moto o repuesto en tienda.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué trabas o burocracia frenan el impacto de Mercadeo?',
-            subtitle: 'Procesos que consumen tiempo sin mover la aguja comercial:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Publicitar motos o repuestos agotados', desc: 'Gastar presupuesto promocionando modelos que no tienen inventario en CD ni en tiendas.' },
-              { icon: '⏳', title: 'Aprobaciones de artes y copys que tardan días', desc: 'Campañas que pierden la oportunidad del fin de semana esperando visto bueno de Dirección.' },
-              { icon: '📑', title: 'Material impreso que no llega o no se coloca', desc: 'Afiches y volantes enviados a sucursales que se quedan guardados en cajas en la trastienda.' },
-              { icon: '🔄', title: 'Cambios de precios y promociones a última hora', desc: 'Enterarnos de una promoción cuando ya está en piso sin tiempo para armar la campaña visual.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Dónde se cae el testigo entre Mercadeo y las demás áreas?',
-            subtitle: '¿Quién no atiende los prospectos o no te da la información a tiempo?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏪', title: 'Vendedores de Tienda Retail', desc: 'Mandamos prospectos calificados con número de teléfono y los vendedores no los llaman ni atienden.' },
-              { icon: '📦', title: 'Compras y Bodega Central (CD)', desc: 'No nos informan qué modelos tienen sobrestock acumulado para enfocarles pauta y liquidarlos.' },
-              { icon: '💼', title: 'Finanzas / Tesorería', desc: 'Trabas para liberar pagos de tarjetas para pauta publicitaria en Meta y Google Ads.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'Falta de integración entre los formularios de WhatsApp y la base de datos de kmpos.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo Mercadeo acelera la facturación de KM?',
-            subtitle: 'El valor de la publicidad conectado a los ingresos reales de la empresa:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🚀', title: 'Llenar las tiendas de clientes con dinero en mano', desc: 'Asegurar que cada sucursal tenga tráfico diario de personas preguntando por motos.' },
-              { icon: '📦', title: 'Rotación acelerada de inventario parado', desc: 'Lanzar promociones agresivas para liberar capital de motos que llevan meses en bodega.' },
-              { icon: '🛡️', title: 'Posicionamiento dominante frente a la competencia', desc: 'Hacer que el hondureño piense en KM Motos primero antes de ir a otra marca.' },
-              { icon: '💰', title: 'Costo por adquisición de cliente rentable', desc: 'Asegurar que cada dólar invertido en publicidad devuelva al menos 10 veces en ventas.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué herramienta urgente de sistemas necesita Mercadeo?',
-            subtitle: 'Lo que el equipo de programación e IA debe integrar de inmediato:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Enrutador automático de WhatsApp a kmpos', desc: 'Que el cliente de redes caiga directo en la pantalla del vendedor de su ciudad en segundos.' },
-              { icon: '🔍', title: 'Catálogo web de motos con stock real por tienda', desc: 'Mostrar en la página oficial qué colores y modelos están disponibles en cada sucursal.' },
-              { icon: '📊', title: 'Dashboard de conversión de campañas en vivo', desc: 'Ver en tiempo real cuántas motos se vendieron atribuidas a cada campaña de redes.' },
-              { icon: '🔔', title: 'Módulo de WhatsApp masivo para clientes en cartera', desc: 'Notificar ofertas a clientes que ya terminaron de pagar para que saquen su segunda moto.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 14. SERVICIO AL CLIENTE (SAC)
-      // ==========================================
-      if (cat === 'sac') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN SERVICIO AL CLIENTE (SAC)',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real en Servicio al Cliente?`,
-            subtitle: 'Las tareas vitales para retener clientes y solucionar problemas de las 77 tiendas:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🎧', title: 'Resolución de Quejas y Reclamos a Nivel Nacional', desc: 'Atender llamadas, mensajes de WhatsApp y redes de clientes inconformes de cualquier tienda.' },
-              { icon: '🛵', title: 'Seguimiento de Motos en Taller y Garantías', desc: 'Monitorear por qué una moto lleva días parada y dar respuesta al cliente que necesita su moto.' },
-              { icon: '📋', title: 'Encuestas de Satisfacción y Calidad de Servicio', desc: 'Medir cómo fue atendido el cliente tras la entrega de su moto o servicio de taller.' },
-              { icon: '🛡️', title: 'Canalización de Casos Críticos a Gerencia', desc: 'Evitar que un cliente insatisfecho escale su queja al Ministerio Público o dañe la marca en redes.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué trabas o burocracia te impiden solucionar rápido al cliente?',
-            subtitle: 'Procesos lentos que hacen que el cliente se desespere más:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Pedir al cliente datos que ya están en el sistema', desc: 'Tener que pedir foto de contrato o cédula cuando el cliente ya está registrado en kmpos.' },
-              { icon: '📑', title: 'Manejar reclamos en hojas de Excel separadas', desc: 'Apuntar casos en tablas de cálculo donde no hay trazabilidad ni alertas de vencimiento.' },
-              { icon: '⏳', title: 'Esperar días por una respuesta del taller o la tienda', desc: 'Llamar al encargado de tienda o mecánico y que no contesten ni den estatus del caso.' },
-              { icon: '🔄', title: 'Trámites engorrosos para autorizar devoluciones o cambios', desc: 'Burocracia que tarda semanas para resolver un cambio legítimo de moto defectuosa.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿De qué departamentos dependés para resolver el reclamo?',
-            subtitle: '¿Quién no te da respuesta a tiempo o frena la solución?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🔧', title: 'Taller Central y Encargados de Garantías', desc: 'Tardan en diagnosticar o en enviar repuestos de garantía dejando al cliente a pie.' },
-              { icon: '🏪', title: 'Administradores y Vendedores de Tienda', desc: 'Maltrato en piso o promesas verbales falsas que luego SAC tiene que salir a disculpar.' },
-              { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Llamadas de cobro agresivas a clientes que tienen su moto averiada en taller.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'No tener una pantalla única donde se vea todo el expediente del cliente en 1 clic.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo SAC protege el dinero y asegura futuras ventas?',
-            subtitle: 'Retener un cliente cuesta 5 veces menos que conseguir uno nuevo:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🛡️', title: 'Retención de clientes de crédito para que no caigan en mora', desc: 'Resolverle el problema al cliente para que siga pagando sus cuotas con gusto.' },
-              { icon: '🤝', title: 'Recompra y recomendación boca a boca', desc: 'Un cliente bien atendido en su reclamo se convierte en el mejor promotor de KM.' },
-              { icon: '⚖️', title: 'Cero denuncias en Protección al Consumidor', desc: 'Cerrar desacuerdos con diálogo justo antes de que se conviertan en multas legales.' },
-              { icon: '⚡', title: 'Detección temprana de malas prácticas operativas', desc: 'Alertar a Dirección qué tienda o mecánico está generando más quejas para corregir.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué módulo urgente de sistemas necesita Servicio al Cliente?',
-            subtitle: 'La herramienta que los desarrolladores deben entregar para modernizar SAC:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Módulo de Tickets de SAC integrado a kmpos', desc: 'Abrir ticket desde WhatsApp, asignarlo al encargado de tienda y darle seguimiento en vivo.' },
-              { icon: '🤖', title: 'Bot de consulta automática de estatus de moto en taller', desc: 'Que el cliente consulte su placa por WhatsApp y sepa al instante en qué etapa va su moto.' },
-              { icon: '⚠️', title: 'Semáforo de quejas por tienda con alerta a Dirección', desc: 'Notificación automática si un reclamo supera las 48 horas sin resolución.' },
-              { icon: '📊', title: 'Encuesta digital de satisfacción enviada por WhatsApp al facturar', desc: 'Calificar al vendedor y al taller con 1 tap al salir de la tienda.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 15. SUPERVISIÓN DE VENTAS TIENDAS
-      // ==========================================
-      if (cat === 'supervision') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU ESENCIA EN SUPERVISIÓN DE TIENDAS',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se va tu jornada real supervisando las tiendas?`,
-            subtitle: 'Las actividades críticas para que las sucursales cumplan su meta de venta:',
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🎯', title: 'Seguimiento Diario a Cuotas de Venta por Tienda', desc: 'Monitorear números hora tras hora, empujar metas quincenales y corregir tiendas caídas.' },
-              { icon: '🏪', title: 'Auditoría Presencial de Tiendas en Ruta', desc: 'Inspeccionar orden, exhibición de motos, precios visibles, disciplina y atención en piso.' },
-              { icon: '👥', title: 'Coaching y Acompañamiento a la Fuerza de Ventas', desc: 'Entrenar a vendedores en técnicas de cierre, manejo de objeciones y venta de créditos.' },
-              { icon: '🚨', title: 'Destrabe Operativo y Apoyo en Cierres Grandes', desc: 'Intervenir cuando un crédito grande está trabado o cuando hay fallas en la sucursal.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué reportes o papeleos te hacen perder tiempo en ruta?',
-            subtitle: 'Trámites manuales que te alejan de apoyar a las tiendas a vender:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '✂️', title: 'Armar reportes de ventas manuales en Excel por la noche', desc: 'Pasar horas consolidando datos de WhatsApp cuando el ERP debería darlos en vivo.' },
-              { icon: '⏳', title: 'Llamar tienda por tienda para saber cuánto llevan facturado', desc: 'Tener que interrumpir al administrador para preguntar un número que debería estar en el celular.' },
-              { icon: '📑', title: 'Checklists de supervisión en papel físico', desc: 'Llenar hojas de auditoría de tienda que luego se quedan archivadas y nadie analiza.' },
-              { icon: '🔄', title: 'Esperar aprobaciones de oficina central para excepciones comerciales', desc: 'No tener margen de decisión para cerrar un cliente que pide un descuento razonable.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Dónde se cae el testigo entre Supervisión y las áreas centrales?',
-            subtitle: '¿Quién te frena el cumplimiento de la cuota en tu zona?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Ventas listas pero Créditos tarda horas en aprobar y el cliente se va frustrado.' },
-              { icon: '📦', title: 'Bodega Central (CD) y Despacho', desc: 'Tiendas de la zona desabastecidas de los modelos más vendidos en pleno fin de semana.' },
-              { icon: '👥', title: 'Recursos Humanos', desc: 'Vacantes de vendedores o administradores sin cubrir durante semanas en tiendas clave.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'Caídas del sistema de facturación en sábados y días de quincena cuando más se vende.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y LIQUIDEZ',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo Supervisión garantiza los ingresos de la empresa?',
-            subtitle: 'El rol como garante del cumplimiento comercial de KM Motos:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '🔥', title: 'Cumplimiento del 100% de la cuota nacional', desc: 'Asegurar que cada tienda llegue a su número para que la empresa cubra todas sus obligaciones.' },
-              { icon: '💰', title: 'Cero fugas de dinero y depósitos al día', desc: 'Exigir que todo el efectivo de las ventas se deposite en el banco sin demoras.' },
-              { icon: '📈', title: 'Incremento del ticket promedio', desc: 'Motivar a los vendedores a colocar la moto con casco, seguro y accesorios adicionales.' },
-              { icon: '⚡', title: 'Reacción rápida ante caídas de venta', desc: 'Detectar en la primera semana de quincena qué tienda va baja para meterle acelerador.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
-            xp: '+100 XP',
-            percent: 100,
-            title: '¿Qué herramienta móvil necesita el Supervisor en el celular?',
-            subtitle: 'Lo que los desarrolladores deben entregar para tener control total de ruta:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Tablero móvil de ventas por tienda y vendedor en tiempo real', desc: 'Ver en el celular el avance de meta de cada sucursal con actualización al segundo.' },
-              { icon: '🔔', title: 'Alertas automáticas si una tienda lleva 3 horas sin facturar', desc: 'Aviso inmediato al celular para investigar si es falla de sistema o falta de clientes.' },
-              { icon: '📋', title: 'Checklist digital de supervisión en tienda con fotos', desc: 'Evaluar la tienda desde el móvil y que la calificación le llegue directo al Administrador.' },
-              { icon: '💳', title: 'Botón de escalamiento prioritario de créditos trabados', desc: 'Empujar solicitudes clave directamente a la jefatura de créditos para cierre inmediato.' }
-            ]
-          }
-        ];
-      }
-
-      // ==========================================
-      // 12. TIENDA RETAIL (Ventas, Mostrador, Sucursales)
-      // ==========================================
+      // 3. TIENDAS RETAIL / GENERAL (Vendedores, Cajeras, Administradores, etc.)
       return [
         {
           stepNum: 1,
-          badge: 'PASO 1 DE 5 · TU ESENCIA OPERATIVA EN TIENDA',
+          badge: 'PASO 1 DE 5 · TU DÍA A DÍA REAL',
           xp: '+100 XP',
           percent: 20,
-          title: `¿En qué se va tu jornada real de trabajo en ${user.store}?`,
-          subtitle: `Las 2 o 3 actividades vitales que sostienen tu día a día como ${user.role}:`,
+          title: `¿En qué se te va la mayor parte de tu tiempo en ${store}?`,
+          subtitle: `Contanos qué hacés en tu día a día como ${role}:`,
           field: 'jornada_diaria',
           options: [
-            { icon: '🌅', title: 'Venta y Asesoría en Mostrador', desc: 'Atención a clientes, cotizaciones de motos/repuestos y cierre de ventas en piso.' },
-            { icon: '💰', title: 'Caja, Cobranzas y Arqueos', desc: 'Cobro a clientes, recibos de cuotas de crédito y cuadre diario de la tienda.' },
-            { icon: '📦', title: 'Inventario, Bodega y Exhibición', desc: 'Recepción de mercadería de CD, exhibición de motos limpias y conteo físico de piezas.' },
-            { icon: '⚙️', title: 'Mecánica, Armado y Taller', desc: 'Armado de motos nuevas de paquete, mantenimientos de clientes y garantías técnicas.' },
-            { icon: '📋', title: 'Gestión y Supervisión de Tienda', desc: 'Coordinación del equipo, control de metas quincenales, cuadres y resolución de fallas.' }
+            { icon: '🤝', title: 'Atender clientes y vender', desc: 'Atención a personas en mostrador, cotizar motos y repuestos, y cerrar ventas.' },
+            { icon: '💰', title: 'Cobrar en caja y hacer arqueos', desc: 'Recibir pagos en efectivo o tarjeta, cobrar cuotas de crédito y cuadrar la caja.' },
+            { icon: '📦', title: 'Acomodar tienda y revisar inventario', desc: 'Limpiar motos en exhibición, recibir producto de bodega y contar piezas en estante.' },
+            { icon: '📋', title: 'Supervisar y coordinar el equipo', desc: 'Organizar las tareas de la tienda, revisar metas del día y resolver problemas.' }
           ]
         },
         {
           stepNum: 2,
-          badge: 'PASO 2 DE 5 · PROCESOS INÚTILES A PODAR',
+          badge: 'PASO 2 DE 5 · LO QUE TE QUITA TIEMPO',
           xp: '+100 XP',
           percent: 40,
-          title: '¿Qué pasos o trámites sentís que no tienen sentido y te quitan tiempo?',
-          subtitle: 'Procesos burocráticos o botones del sistema que estorban la venta:',
+          title: '¿Qué cosas o trámites sentís que te hacen perder tiempo?',
+          subtitle: 'Procesos que sentís que complican el trabajo en vez de ayudar:',
           field: 'herramientas_checklist',
           options: [
-            { icon: '✂️', title: 'Lentitud o congelamiento de kmpos al facturar', desc: 'El sistema se queda pegado en horas pico con fila de clientes esperando pagar.' },
-            { icon: '📄', title: 'Papeleos físicos duplicados para garantías o créditos', desc: 'Llenar hojas a mano que luego toca volver a escribir en la computadora.' },
-            { icon: '⏳', title: 'Esperar autorizaciones remotas de horas', desc: 'El cliente está con el dinero en la mano pero falta una aprobación de oficina central.' },
-            { icon: '🔄', title: 'Aperturas o cierres de caja con pasos innecesarios', desc: 'Procedimientos rígidos que complican el flujo cuando se necesita atender rápido.' }
+            { icon: '💻', title: 'El sistema se pone lento o se congela', desc: 'Pantallas pegadas al facturar en horas pico con clientes esperando en mostrador.' },
+            { icon: '📄', title: 'Llenar papeles y formatos a mano', desc: 'Hojas físicas que luego toca volver a escribir en la computadora o mandar por foto.' },
+            { icon: '⏳', title: 'Esperar autorizaciones de oficina central', desc: 'El cliente listo para comprar pero esperando horas por la aprobación de un crédito o descuento.' },
+            { icon: '🔄', title: 'Trámites complicados para abrir o cerrar caja', desc: 'Pasos o modales innecesarios que quitan tiempo cuando hay que atender rápido.' }
           ]
         },
         {
           stepNum: 3,
-          badge: 'PASO 3 DE 5 · RELEVOS ENTRE ÁREAS (LA POSTA)',
+          badge: 'PASO 3 DE 5 · TRABAJO EN EQUIPO (LA POSTA)',
           xp: '+100 XP',
           percent: 60,
-          title: '¿De qué departamento dependés para cerrar la venta?',
-          subtitle: '¿Quién te apoya rápido y quién te frena la pelota?',
+          title: '¿De qué otra área dependés y dónde sentís que se frena el trabajo?',
+          subtitle: 'En el día a día, ¿quién te apoya rápido y quién tarda en responder?',
           field: 'conexiones_organigrama',
           options: [
-            { icon: '📦', title: 'Bodega Central (CD)', desc: 'Pido motos o repuestos para clientes pero tardan días en autorizar o despachar el traslado.' },
-            { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Envío la solicitud del cliente pero tardan tanto en dictaminar que el cliente se va a otra tienda.' },
-            { icon: '💼', title: 'Administración y Finanzas', desc: 'Reporto cuadres y depósitos pero cuando ocupo soporte con facturas o CAI tardan en responder.' },
-            { icon: '🔧', title: 'Taller Central / Repuestos', desc: 'Demora en enviar repuestos de garantía para clientes con motos paradas.' }
+            { icon: '📦', title: 'Bodega Central (CD)', desc: 'Tardan en mandarme las motos o repuestos que los clientes me están pidiendo.' },
+            { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Tardan mucho en dictaminar solicitudes y los clientes se cansan de esperar y se van.' },
+            { icon: '💼', title: 'Administración y Finanzas', desc: 'Demoras para validar transferencias bancarias o dar soporte con facturas y CAI.' },
+            { icon: '🔧', title: 'Taller y Garantías', desc: 'Retrasos en armar motos para entrega o en responder por reclamos de clientes.' }
           ]
         },
         {
           stepNum: 4,
-          badge: 'PASO 4 DE 5 · IMPACTO EN LA VENTA Y EL DINERO',
+          badge: 'PASO 4 DE 5 · TU APORTE AL CLIENTE Y LA VENTA',
           xp: '+100 XP',
           percent: 80,
-          title: '¿Cómo ayudás a que la tienda cumpla su meta de venta?',
-          subtitle: 'Tu contribución directa para que el negocio crezca y sea rentable:',
+          title: '¿Cómo sentís que tu trabajo ayuda a que la tienda cumpla su meta?',
+          subtitle: 'Tu contribución personal para que el negocio crezca:',
           field: 'multiplicador_valor',
           options: [
-            { icon: '🔥', title: 'Cierre agresivo y seguimiento a clientes', desc: 'No dejar ir a nadie sin moto: asesorar, ofrecer financiamiento y convencer con el producto.' },
-            { icon: '⚡', title: 'Cobro y depósito rápido del dinero', desc: 'Que cada lempira que entra a la tienda esté depositado en el banco el mismo día.' },
-            { icon: '🛵', title: 'Entrega de motos armadas y funcionando', desc: 'Asegurar que el cliente se vaya contento con su moto lista para rodar y sin fallas.' },
-            { icon: '🤝', title: 'Seguimiento a clientes de crédito', desc: 'Llamar a los clientes para que paguen sus cuotas a tiempo y no caigan en mora.' }
+            { icon: '🔥', title: 'Atender con ganas y no dejar ir al cliente', desc: 'Buscarle la vuelta, ofrecer opciones de crédito y cerrar la venta con amabilidad.' },
+            { icon: '⚡', title: 'Cobrar y despachar rápido', desc: 'Atender la fila sin demoras para que el cliente se vaya contento con su compra.' },
+            { icon: '🛡️', title: 'Cuidar que el dinero y el stock cuadren', desc: 'Depositar el efectivo puntual y cuidar que las existencias no tengan diferencias.' },
+            { icon: '🤝', title: 'Dar seguimiento a los clientes', desc: 'Llamar a los clientes para recordarles sus cuotas y ofrecerles promociones.' }
           ]
         },
         {
           stepNum: 5,
-          badge: 'PASO 5 DE 5 · PRIORIDAD P0 PARA LOS PROGRAMADORES',
+          badge: 'PASO 5 DE 5 · TU PEDIDO PRINCIPAL',
           xp: '+100 XP',
           percent: 100,
-          title: '¿Cuál es la traba técnica que los programadores deben arreglar hoy?',
-          subtitle: 'El problema real del sistema que te permitiría trabajar con total tranquilidad:',
+          title: 'Si pudieras pedir que arreglen una sola cosa mañana, ¿qué sería?',
+          subtitle: 'Lo que más te ayudaría a trabajar con tranquilidad y sin estrés:',
           field: 'bloqueos_p0',
           options: [
-            { icon: '🛑', title: 'Estabilidad y velocidad de kmpos', desc: 'Que la pantalla de facturación no se congele jamás y emita la factura en 3 segundos.' },
-            { icon: '📦', title: 'Inventario exacto entre pantalla y bodega', desc: 'Que lo que dice kmpos sea exactamente lo que está físicamente en la estantería.' },
-            { icon: '💳', title: 'Aprobación de créditos en minutos', desc: 'Poder vender motos financiadas de inmediato sin perder clientes por esperas eternas.' },
-            { icon: '🚀', title: 'Todo opera al 100% sin trabas graves', desc: 'Mi puesto trabaja con fluidez y no tengo bloqueos críticos en este momento.' }
+            { icon: '🚀', title: 'Que kmpos facture en 2 segundos sin trabarse', desc: 'Poder emitir facturas y cobrar de inmediato sin miedo a que el sistema se cuelgue.' },
+            { icon: '📦', title: 'Inventario exacto entre pantalla y tienda', desc: 'Que lo que dice el sistema sea exactamente lo que tenemos físicamente en estante.' },
+            { icon: '💳', title: 'Aprobación de créditos mucho más rápida', desc: 'Poder dar respuesta al cliente en minutos para cerrar ventas en el momento.' },
+            { icon: '✂️', title: 'Menos papeleo y procesos más directos', desc: 'Poder trabajar sin tantas firmas ni pasos que no aportan nada a la venta.' }
           ]
         }
       ];
