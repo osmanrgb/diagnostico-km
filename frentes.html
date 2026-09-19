@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KM Motos — Tablero Operativo & Organigrama E2E</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              500: '#06b6d4',
+              600: '#0891b2',
+              900: '#164e63',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    pre, code { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+  <!-- Top Navbar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center font-black text-slate-950 text-lg shadow-lg shadow-emerald-500/20">
+          KM
+        </div>
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+            KM MOTOS · Organigrama Operativo E2E
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">En Vivo</span>
+          </h1>
+          <p class="text-xs text-slate-400">Flujo Completo de Negocio: RRHH → Bodega → Ventas → Cajas → Finanzas → Contabilidad</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="/" class="inline-flex text-xs font-bold px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 transition shadow-sm items-center gap-1.5">
+          <span>⚡</span> <span>Mi Radiografía 360°</span>
+        </a>
+        <a href="#organigrama" class="hidden sm:inline-flex text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          🗺️ Cadena E2E
+        </a>
+        <button onclick="window.location.reload()" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold transition shadow-sm">
+          ↻ Refrescar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- KPI Summary Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm">
+        <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">🟢 En Producción</div>
+        <div class="text-2xl font-black text-emerald-400 mt-1" id="count-prod">6</div>
+        <div class="text-[11px] text-slate-400 mt-1">Verificado en tiendas reales</div>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm">
+        <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">🟢 Listos Mergeables</div>
+        <div class="text-2xl font-black text-cyan-400 mt-1" id="count-mergeable">7</div>
+        <div class="text-[11px] text-slate-400 mt-1">En cola develop / Certificados</div>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm">
+        <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">🟡 En Revisión</div>
+        <div class="text-2xl font-black text-amber-400 mt-1" id="count-review">8</div>
+        <div class="text-[11px] text-slate-400 mt-1">Con PR y pruebas activas</div>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm">
+        <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">⚠️ Bloqueado / HOLD</div>
+        <div class="text-2xl font-black text-rose-400 mt-1" id="count-hold">3</div>
+        <div class="text-[11px] text-slate-400 mt-1">Requiere decisión o deploy</div>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm col-span-2 sm:col-span-1">
+        <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">⚪ Disponibles (Bolsa)</div>
+        <div class="text-2xl font-black text-purple-400 mt-1" id="count-available">4</div>
+        <div class="text-[11px] text-slate-400 mt-1">Tickets listos para programar</div>
+      </div>
+    </div>
+
+    <!-- Organigrama E2E Architecture Flow -->
+    <div id="organigrama" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-md space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+            <span>🗺️</span> Cadena de Valor & Flujo Operativo End-to-End
+          </h2>
+          <p class="text-xs text-slate-400">Cómo viaja la mercadería, el dinero y los datos fiscales en todo el grupo</p>
+        </div>
+        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-full border border-slate-700 font-mono">
+          7 Bounded Contexts
+        </span>
+      </div>
+
+      <div class="overflow-x-auto pb-2">
+        <div class="min-w-[920px] bg-slate-950 p-4 rounded-xl border border-slate-800/80 font-mono text-xs leading-relaxed text-slate-300">
+<span class="text-pink-400">👥 1. RRHH &amp; TALENTO</span>         <span class="text-teal-400">📦 2. BODEGA &amp; CD</span>             <span class="text-amber-400">🏷️ 3. VENTAS &amp; POS</span>           <span class="text-emerald-400">💰 4. CAJAS &amp; BANCOS</span>
+┌─────────────────────┐       ┌──────────────────────┐      ┌────────────────────┐       ┌────────────────────┐
+│ Empleados, tiendas, │──────►│ Recepción atómica,   │─────►│ Cotizaciones,      │──────►│ Cobro estricto,    │
+│ metas de vendedor y │       │ empaque, packing y   │      │ proformas, guard   │       │ apertura de caja,  │
+│ control de bajas    │       │ traslados foráneos   │      │ CAI y descuentos   │       │ depósitos y banco  │
+└─────────────────────┘       └──────────────────────┘      └────────────────────┘       └────────────────────┘
+                                         │                             │                            │
+                                         ▼                             ▼                            ▼
+<span class="text-cyan-400">🤝 5. CRM &amp; COBRANZA</span>                                                <span class="text-blue-400">📊 6. FINANZAS</span>               <span class="text-purple-400">📑 7. CONTABILIDAD</span>
+┌─────────────────────┐                                             ┌────────────────────┐       ┌────────────────────┐
+│ Clientes, cartera,  │◄────────────────────────────────────────────│ Cartera FIFO,      │──────►│ Catálogo cuentas,  │
+│ estados de cuenta   │                                             │ conciliación banc. │       │ nómina mayoreo,    │
+│ PDF vía WhatsApp    │                                             │ y anticipos cliente│       │ y cierre fiscal SAR│
+└─────────────────────┘                                             └────────────────────┘       └────────────────────┘
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Buttons & Search Bar -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+      <div class="flex flex-wrap items-center gap-1.5" id="filter-bar">
+        <button onclick="filterArea('todos')" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-slate-950 shadow">
+          Todos los Frentes
+        </button>
+        <button onclick="filterArea('rrhh')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          👥 RRHH
+        </button>
+        <button onclick="filterArea('bodega')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          📦 Bodega &amp; CD
+        </button>
+        <button onclick="filterArea('ventas')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          🏷️ Ventas POS
+        </button>
+        <button onclick="filterArea('waze')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          ⚡ Waze Core
+        </button>
+        <button onclick="filterArea('finanzas')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          💰 Finanzas &amp; Cajas
+        </button>
+        <button onclick="filterArea('contabilidad')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          📊 Contabilidad
+        </button>
+        <button onclick="filterArea('crm')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700">
+          🤝 CRM &amp; Cobranza
+        </button>
+      </div>
+
+      <div class="w-full sm:w-72">
+        <input type="text" id="search-input" onkeyup="searchCards()" placeholder="Buscar por área, PR, dueño, archivo..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500">
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="cards-container">
+
+      <!-- ==================== AREA: RRHH & TALENTO ==================== -->
+
+      <!-- CARD R1: RRHH Persistencia de Sanciones E15 -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="rrhh">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-pink-950 text-pink-300 border border-pink-800">R1 · RRHH</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-800">🟡 En Revisión</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Persistencia de Sanciones y Override Supervisor (E15)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Saúl Cruz (@friday)</span><br>
+            PR #3073 · PR #3097
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor (Emergencia E15):</strong> Sanciones y deducciones aplicadas en el expediente del empleado se perdían al cambiar de ciclo o tienda, distorsionando el cálculo de planilla.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Sanción aplicada ──► Validación con Supervisor
+                         │
+                         ▼
+             Persistencia con auditoría en EmployeeSanction ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Services/EmployeeSanctionServiceTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por RRHH:</strong> Aplicar una sanción y verificar en el perfil del empleado que quede fija y se refleje en la pre-nómina.
+        </div>
+      </div>
+
+      <!-- CARD R2: RRHH Mover de Tienda Invalida Metas Viejas -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="rrhh">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-pink-950 text-pink-300 border border-pink-800">R2 · RRHH</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 En Develop</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Traslado de Tienda Invalida Supervisor y Metas Viejas</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Code / Batch 3</span><br>
+            PR #3080 (Mergeado)
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> Al mover a un vendedor a otra sucursal, seguía reportando comisiones al supervisor de la tienda anterior y arrastraba metas cruzadas.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Cambio de Sucursal ──► Transacción Atómica:
+                        ├─► Invalida SellerGroup tienda vieja
+                        ├─► Desasigna Supervisor anterior
+                        └─► Inicializa metas en tienda nueva ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Services/EmployeeStoreTransferTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por RRHH:</strong> Al cambiar a un colaborador en el módulo de personal, su supervisor anterior ya no lo ve en su equipo.
+        </div>
+      </div>
+
+      <!-- ==================== AREA: BODEGA & CD ==================== -->
+
+      <!-- CARD B1: Bodega Recepción Atómica PI > 0 -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="bodega">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-teal-950 text-teal-300 border border-teal-800">B1 · BODEGA</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-950 text-rose-300 border border-rose-800">⚠️ Prometido Deploy</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Recepción Atómica PI > 0 (E8, E10, E16)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Luis / Bodega</span><br>
+            Fix prometido
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor (Emergencias E8/E10/E16):</strong> Tiendas aceptan transferencias, el estado dice "Aceptada", pero `ProductInventory` queda en 0. Mercadería física en tienda pero no facturable.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Tienda hace "Recibir" ──► DB Transaction Atómica:
+                          ├─► Transfer.status = 'completed'
+                          ├─► ProductInventory::increment(qty)
+                          └─► Ledger::record(IN)
+              ¿PI incrementado? ──NO──► ROLLBACK TOTAL ❌
+                                ──SÍ──► Confirmado ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          ssh km-netcup "docker exec km-php php artisan tinker --execute='echo App\Models\ProductInventory::where(\"product_id\", 26997)->first()->quantity;'"
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Bodega:</strong> Aceptar un traslado en Villa o Entrada #2; el stock del producto pasa a reflejarse en mostrador al instante.
+        </div>
+      </div>
+
+      <!-- CARD B2: Bodega & Traslados Lote r7 Emilia -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="bodega">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-teal-950 text-teal-300 border border-teal-800">B2 · BODEGA &amp; TRASLADOS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Lote r7 Emilia: Traslados, Packing y Pedidos</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Eysthen (IT)</span><br>
+            PR #3079 (5 PRs)
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> 97/100 cuentas de banco salían vacías en traslados y 5,176 traslados cross-empresa mostraban cuentas ajenas. Packing no mostraba responsable ni orden.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Sub-PRs Certificadas con Medición:</div>
+          <ul class="text-[11px] text-slate-300 space-y-1 font-mono">
+            <li>• <strong class="text-emerald-400">#2680</strong>: Tienda receptora ve cuenta origen (97 vacías → 0).</li>
+            <li>• <strong class="text-emerald-400">#2676</strong>: Cuenta destino cross-empresa en SU base (5,176 corregidos).</li>
+            <li>• <strong class="text-emerald-400">#3042</strong>: Packing muestra responsable y apoyos del surtido.</li>
+            <li>• <strong class="text-emerald-400">#3044</strong>: Pedidos muestra order_number en packing.</li>
+            <li>• <strong class="text-emerald-400">#3062</strong>: Coordinar packing exige tienda asignada.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 3079 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Bodega/IT:</strong> Cada PR tiene medición publicada anclada a su commit y controles positivos aprobados.
+        </div>
+      </div>
+
+      <!-- CARD B3: Bodega Lote r8 Emilia -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="bodega">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-teal-950 text-teal-300 border border-teal-800">B3 · BODEGA &amp; PACKING</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Lote r8 Emilia: Metas, Aviso Cliente y Surtido</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Eysthen (IT)</span><br>
+            PR #3088 (6 PRs)
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>Alcance:</strong> Metas de surtido, aviso automático al cliente, fecha programada de traslado, packing y optimización de surtido CD (#3075, #3077, #3084, #2996, #3060, #3063).
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 3088 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Bodega:</strong> Empaque y traslado con tracking integral para tiendas foráneas.
+        </div>
+      </div>
+
+      <!-- CARD B4: Bodega SKUs Huérfanos -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="bodega">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-teal-950 text-teal-300 border border-teal-800">B4 · BODEGA</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-800">🟡 En Revisión</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Tratamiento de SKUs Huérfanos y Ubicaciones</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Saúl Cruz (@friday)</span><br>
+            PR #3085
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> Productos dados de alta sin lote o sin asignación de ubicación física bloqueaban la consulta de inventario por pasillo.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Services/ProductOrphanSkuGuardTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Bodega:</strong> Todo SKU nuevo exige al menos una ubicación física predeterminada.
+        </div>
+      </div>
+
+      <!-- ==================== AREA: VENTAS & POS ==================== -->
+
+      <!-- CARD V1: Ventas Conversión Cotización E1 -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="ventas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-950 text-amber-300 border border-amber-800">V1 · VENTAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-950 text-rose-300 border border-rose-800">⚠️ HOLD Deploy</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Conversión Cotización con Fecha Real (E1)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Luis / Go-Live</span><br>
+            PR en cola (PRO-000143)
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor (Emergencia E1):</strong> Cotizaciones hechas ayer al convertirse hoy a factura conservaban la fecha de ayer (`invoice_date=2026-09-17`), generando reparo fiscal SAR.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Cotización COT-000033 (Fecha: Ayer)
+              │
+              ▼ [Acción: Convertir a Factura]
+Factura PRO-000143: invoice_date = now() (NUNCA hereda fecha vieja) ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Services/QuoteToInvoiceDateGuardTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Tiendas:</strong> Convertir una cotización de fecha pasada y verificar que la factura salga con la fecha y hora de hoy.
+        </div>
+      </div>
+
+      <!-- CARD V2: Ventas RTN en Facturas E6 -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="ventas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-950 text-amber-300 border border-amber-800">V2 · VENTAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 En Producción</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">RTN de Empresa Emisora en Facturas (E6)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Eysthen / Fiscal</span><br>
+            En Producción (1 sem)
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>Cerrado y Verificado:</strong> Los 6 RTN actualizados + logo + nombre de comerciante individual o conglomerado. Editable, revisado y operando en producción.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Emisión de Factura ──► Consulta tenant.company_rtn
+                       │
+                       ▼
+          Inyección obligatoria en cabecera de PDF y Ticket Térmico ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          pnpm --dir frontend test:unit src/utils/userPayload.test.ts
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación en Vivo:</strong> Confirmado por Eysthen (IT): los 6 RTNs con sus membretes fiscales están emitiendo correctamente en producción.
+        </div>
+      </div>
+
+      <!-- CARD V3: Ventas Guard Proformas Anuladas -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="ventas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-950 text-amber-300 border border-amber-800">V3 · VENTAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Blindaje 100% (2 PRs)</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Guard contra Facturar Proformas Anuladas (Crédito + Contado)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Claude + ITKM</span><br>
+            PR #3107 · PR #3109
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>Blindaje Completo de 2 Puntas:</strong> PR #3107 bloquea la conversión a crédito en <code>InvoiceService</code> y PR #3109 bloquea el cobro por caja/banco en <code>PaymentRepository</code>. 101 tests pasando.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Doble Barrera Anti-Fraude:</div>
+          <ul class="text-[11px] text-slate-300 space-y-1 font-mono">
+            <li>• <strong class="text-emerald-400">Vía Crédito (#3107)</strong>: <code>$invoice->isVoided()</code> en transición a pagaré.</li>
+            <li>• <strong class="text-emerald-400">Vía Contado (#3109)</strong>: Rechaza cobro de proforma anulada antes de emitir CAI.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Repositories/ProformaAnuladaNoSeFacturaPorPagoTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación Fiscal:</strong> Ninguna proforma anulada puede salir facturada ni por mostrador ni por crédito.
+        </div>
+      </div>
+
+      <!-- CARD V4: Ventas Cotización sin Exigir Caja Abierta -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="ventas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-950 text-amber-300 border border-amber-800">V4 · VENTAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-800">🟡 En Revisión</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Cotización no Exige Caja Abierta al Guardarse</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Saúl Cruz</span><br>
+            PR #3100
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> Guardar una cotización (que no mueve dinero ni rebaja inventario) bloqueaba al vendedor diciendo "Abre la caja primero".
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Http/QuoteWithoutCashCountGuardTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Ventas:</strong> Cualquier asesor puede cotizar a las 7 AM sin tener caja aperturada.
+        </div>
+      </div>
+
+      <!-- ==================== AREA: WAZE ERP (CORE) ==================== -->
+
+      <!-- CARD W1: Waze ERP Interlock Proformas -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="waze">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-purple-950 text-purple-300 border border-purple-800">W1 · WAZE ERP</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-800">🟡 En Revisión</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Interlock Proforma vs Factura (ADR-003)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Osman / Antigravity</span><br>
+            PR #3059
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> Cajeros entregaban mercadería con proformas pensando que eran ventas finales. La proforma no rebajaba stock ni sumaba comisiones.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Cobro con Proforma ──► BLOQUEO: "Convertir a Factura"
+                       │ (skipStock=true, sin comisiones)
+                       ▼
+            Conversión a Factura ──► Rebaja Stock + Ticket Fiscal ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Console/AuditProformasCommandTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Tiendas:</strong> Al presionar "Cobrar" en una proforma, el Copilot bloquea la impresión y abre el asistente de conversión.
+        </div>
+      </div>
+
+      <!-- CARD W2: Waze ERP Gate de Proformas al Abrir Caja -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="waze">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-purple-950 text-purple-300 border border-purple-800">W2 · WAZE ERP</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-800">🟡 En Revisión</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Gate de Proformas al Abrir Caja (ADR-003)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Osman / Antigravity</span><br>
+            PR #3065
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> Cajeros dejaban proformas pendientes de días anteriores y abrían caja nueva sin haber liquidado ni facturado lo del turno anterior.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Services/CashCountOpeningGuardTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Auditoría:</strong> Si hay proformas huérfanas sin convertir del día anterior, el sistema exige resolverlas antes del corte inicial.
+        </div>
+      </div>
+
+      <!-- CARD W3: Waze ERP Apertura Multi-Grupo CD -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="waze">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-purple-950 text-purple-300 border border-purple-800">W3 · WAZE ERP</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Vista Previa de Apertura con Grupo Seleccionado</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Saúl Cruz (@friday)</span><br>
+            PR #3101
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> Osman Figueroa no podía abrir caja en el CD porque el sistema usaba `sellerGroups()->first()` sin respetar el grupo seleccionado por el cajero.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Services/CashCountPreviewSellerGroupTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación en CD:</strong> El usuario con múltiples grupos selecciona cuál abrir y la vista previa carga sus saldos correctos.
+        </div>
+      </div>
+
+      <!-- ==================== AREA: FINANZAS & CAJAS ==================== -->
+
+      <!-- CARD F1: Finanzas Deuda Declarada available_cash -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="finanzas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-950 text-blue-300 border border-blue-800">F1 · FINANZAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-950 text-cyan-300 border border-cyan-800">⚙️ CI Shard 1</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Available Cash Sale de la Deuda Declarada</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Osman / Code</span><br>
+            PR #3104
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> `available_cash` en reportes de corte leía campos virtuales en vez de la deuda declarada real, arrojando diferencias en auditoría de caja física.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Certificación CI en Curso:</div>
+          <div class="text-[11px] text-emerald-400 font-mono">
+            ✓ deploy-contract (1m 28s)<br>
+            ✓ backend-test-shards (2) (27m 31s)<br>
+            ⏳ backend-test-shards (1) (Corriendo en Runner 2)
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Architecture/ChartDefaultsFieldsExistTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Finanzas:</strong> El efectivo disponible del corte cuadra al centavo con el arqueo físico de billetes y monedas.
+        </div>
+      </div>
+
+      <!-- CARD F2: Finanzas Adelantos de Clientes E2 -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="finanzas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-950 text-blue-300 border border-blue-800">F2 · FINANZAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 En Develop</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Cuentas Bancarias en Adelantos de Clientes (E2)</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Luis (@lajy)</span><br>
+            PR #3069 (Mergeado 62493ef)
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor (Emergencia E2):</strong> Al registrar anticipos de clientes por transferencia, el selector de cuentas bancarias de la empresa salía vacío o congelado.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 3069 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Tesorería:</strong> Captar un anticipo de cliente y verificar que liste las cuentas de Banco de Occidente, BAC y Atlántida del tenant activo.
+        </div>
+      </div>
+
+      <!-- CARD F3: Finanzas Asignar CAI -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="finanzas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-950 text-blue-300 border border-blue-800">F3 · FINANZAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Botón Asignar CAI y Rangos Fiscales en Tiempo Real</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Luis (@lajy)</span><br>
+            PR #3049
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> Asignar una nueva autorización SAR de facturación a una tienda exigía intervención manual en base de datos.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 3049 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación Fiscal:</strong> El administrador asigna el CAI desde la UI y las terminales de esa tienda facturan de inmediato.
+        </div>
+      </div>
+
+      <!-- CARD F4: Finanzas Cartera de Créditos FIFO -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="finanzas">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-950 text-blue-300 border border-blue-800">F4 · FINANZAS</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-800">🟡 En Revisión</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Cartera de Créditos en Cascada FIFO</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Saúl Cruz</span><br>
+            PR #3058
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> Abonos de clientes se aplicaban a pagarés recientes dejando pagarés viejos acumulando mora y distorsionando la antigüedad de saldo.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Cliente abona L 5,000 ──► Algoritmo Cascada FIFO
+                          │
+                          ├─► Liquida Cuota #1 (Vencida hace 30 días)
+                          ├─► Liquida Cuota #2 (Vencida hace 10 días)
+                          └─► Aplica remanente a Cuota #3 (Por vencer) ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          vendor/bin/pest backend/tests/Unit/Http/CreditServiceAndControllerTest.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Créditos:</strong> En el estado de cuenta del cliente, el abono liquida de forma estricta las cuotas en orden cronológico.
+        </div>
+      </div>
+
+      <!-- ==================== AREA: CONTABILIDAD ==================== -->
+
+      <!-- CARD K1: Contabilidad Facturas en Giras Planilla Mayoreo -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="contabilidad">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">K1 · CONTABILIDAD</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-950 text-purple-300 border border-purple-800">⚪ Por Asignar</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Facturas en Giras (`tour_invoices`) — Planilla Mayoreo</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Kellin / Agente 8</span><br>
+            2026-09-19.md
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor (Bloqueo de Planilla Mayoreo):</strong> Faltan 9 de las 19 columnas, omite 254 preventas (17% del volumen) y filtra por fecha de gira en vez de fecha de factura.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Los 3 Huecos a Corregir:</div>
+          <ul class="text-[11px] text-slate-300 space-y-1 font-mono">
+            <li>• 1. Filtrar por <code>invoices.invoice_date</code> (no por fechas de gira).</li>
+            <li>• 2. Unir <code>tours_invoices</code> (Venta) + <code>tours_presales</code> (Preventa).</li>
+            <li>• 3. Sumar columnas: Fecha Pago, Balance, Estatus, Tipo y Es Crédito.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          Scope Lease: backend/app/Jobs/Reports/GenerateTourInvoicesJob.php
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Mayoreo:</strong> Kellin descarga el Excel y el total cuadra facturado contra cobrado con preventas incluidas.
+        </div>
+      </div>
+
+      <!-- CARD K2: Contabilidad Reportes Cross-Empresa -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="contabilidad">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">K2 · CONTABILIDAD</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Alcance de Reportes Cross-Empresa</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Luis (@lajy)</span><br>
+            PR #3092
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> Para auditar las 6 razones sociales había que iniciar sesión empresa por empresa. Permite consolidación de saldos en un solo reporte.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 3092 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Contabilidad:</strong> Auditoría emite el balance y el reporte recorre todos los tenants con un solo clic.
+        </div>
+      </div>
+
+      <!-- CARD K3: Contabilidad Descarga sin Tope de Filas -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="contabilidad">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">K3 · CONTABILIDAD</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Descarga Masiva en Streaming sin Tope de 2,000 Filas</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Luis / IT</span><br>
+            PR #2973
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> La descarga de reportes moría por límite de memoria o recortaba a 2,000 registros cuando el mes traía 15,000 transacciones.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 2973 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Contraloría:</strong> Descargar el histórico anual completo en Excel sin error 504 Gateway Timeout.
+        </div>
+      </div>
+
+      <!-- ==================== AREA: CRM & CLIENTES ==================== -->
+
+      <!-- CARD CRM1: CRM Estados de Cuenta PDF por WhatsApp -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="crm">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">CRM 1 · CLIENTES</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">🟢 Listo Mergeable</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Estado de Cuenta de Cliente en PDF para WhatsApp</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">IT KM Motos</span><br>
+            PR #2980 · PR #3036
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor Resuelto:</strong> Cobradores en calle no podían mostrarle al cliente su saldo desglosado con cuotas pagadas y pendientes desde el móvil.
+        </p>
+
+        <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+          <div class="text-[11px] font-semibold text-slate-400 mb-1">Flujo Operativo:</div>
+          <pre class="text-emerald-400">Ficha del Cliente ──► "Generar Estado de Cuenta PDF"
+                           │
+                           ▼
+               Envío con un clic directo a WhatsApp del cliente ✅</pre>
+        </div>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          gh pr view 2980 --repo osmanrgb/new-dashboard
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Cobranza:</strong> El cobrador abre la app en su teléfono y genera el PDF limpio para cobrar en el instante.
+        </div>
+      </div>
+
+      <!-- CARD CRM2: CRM Validación de Identidad Duplicada -->
+      <div class="card bg-slate-800/90 border border-slate-700 rounded-xl p-5 shadow-lg space-y-4" data-area="crm">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">CRM 2 · CLIENTES</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-950 text-rose-300 border border-rose-800">⚠️ Rescate en Cola</span>
+            </div>
+            <h3 class="text-base font-bold text-white mt-1.5">Validación de DNI/RTN Único y Limpieza de Duplicados</h3>
+          </div>
+          <div class="text-right text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Parches Prod</span><br>
+            PR #2986 · PR #3076
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-300">
+          <strong>El Dolor:</strong> Se creaban clientes duplicados con diferente nombre pero mismo número de identidad, fragmentando el historial de crédito.
+        </p>
+
+        <div class="bg-slate-950 p-2.5 rounded border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto">
+          Scope Lease: backend/app/Http/Controllers/ClientController.php:validateUniqueField()
+        </div>
+
+        <div class="text-xs text-slate-400 pt-2 border-t border-slate-700/60">
+          <strong class="text-emerald-400">Validación por Créditos:</strong> Al digitar la identidad de un cliente existente, el sistema avisa de inmediato y muestra su expediente activo.
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800 py-6 mt-12 bg-slate-900/50 text-center text-xs text-slate-400">
+    KM MOTOS ERP · Tablero de Frentes Operativos E2E · Actualizado en Tiempo Real
+  </footer>
+
+  <script>
+    function filterArea(area) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-emerald-500', 'text-slate-950');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+
+      // Highlight active button
+      event.target.classList.remove('bg-slate-800', 'text-slate-300');
+      event.target.classList.add('bg-emerald-500', 'text-slate-950');
+
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        if (area === 'todos' || card.getAttribute('data-area') === area) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function searchCards() {
+      const input = document.getElementById('search-input').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(input)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
