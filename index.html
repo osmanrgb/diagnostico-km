@@ -940,9 +940,9 @@
       <!-- Top Overview KPI Cards -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
         <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
-          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Colaboradores Mapeados</div>
-          <div class="text-2xl font-black text-white">326</div>
-          <div class="text-[11px] text-km-green font-mono">100% de la fuerza laboral</div>
+          <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Envíos Recibidos Hoy</div>
+          <div id="liveTotalAuditoriasCard" class="text-2xl font-black text-km-green">--</div>
+          <div id="liveTotalAuditoriasSub" class="text-[11px] text-km-muted font-mono">Actualizándose en vivo</div>
         </div>
         <div class="bg-km-surface p-4 rounded-2xl border border-white/[0.08] space-y-1">
           <div class="text-[11px] font-mono text-km-muted uppercase font-bold">Procesos Identificados</div>
@@ -1265,10 +1265,13 @@
     // ADMIN SECURITY GUARD & VIEW SWITCHING
     // =========================================================================
     let isAdminUnlocked = false;
+    let pollInterval = null;
 
     function unlockAdminView() {
       isAdminUnlocked = true;
-      localStorage.setItem('km_admin_unlocked', 'true');
+      try {
+        localStorage.setItem('km_admin_unlocked', 'true');
+      } catch (e) {}
       document.querySelectorAll('.admin-tab').forEach(el => {
         el.classList.remove('hidden');
       });
@@ -1280,7 +1283,9 @@
       if (isAdminUnlocked) {
         if (confirm("¿Deseás bloquear el modo Dirección y volver a vista Colaborador?")) {
           isAdminUnlocked = false;
-          localStorage.removeItem('km_admin_unlocked');
+          try {
+            localStorage.removeItem('km_admin_unlocked');
+          } catch (e) {}
           document.querySelectorAll('.admin-tab').forEach(el => {
             el.classList.add('hidden');
           });
@@ -1294,19 +1299,11 @@
       const pin = prompt("🔒 Acceso Exclusivo de Dirección KM:\nIngresá el PIN de seguridad:");
       if (pin === "1915" || pin === "km2026") {
         unlockAdminView();
-        alert("✓ Acceso concedido a Dirección. Pestañas de Mapa E2E y Tablero habilitadas.");
+        switchView('dashboard');
       } else if (pin !== null) {
         alert("PIN incorrecto.");
       }
     }
-
-    // Auto-check on load (via ?admin=1 or ?dir=1 or saved localStorage)
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('admin') === '1' || urlParams.get('dir') === '1' || localStorage.getItem('km_admin_unlocked') === 'true') {
-        unlockAdminView();
-      }
-    });
 
     function switchView(viewName) {
       if ((viewName === 'graph' || viewName === 'dashboard') && !isAdminUnlocked) {
@@ -1317,33 +1314,102 @@
       currentView = viewName;
 
       // Hide all main containers
-      document.getElementById('viewGuided').classList.add('hidden');
-      document.getElementById('viewGraph').classList.add('hidden');
-      document.getElementById('viewDashboard').classList.add('hidden');
+      const vGuided = document.getElementById('viewGuided');
+      const vGraph = document.getElementById('viewGraph');
+      const vDashboard = document.getElementById('viewDashboard');
+      if (vGuided) vGuided.classList.add('hidden');
+      if (vGraph) vGraph.classList.add('hidden');
+      if (vDashboard) vDashboard.classList.add('hidden');
 
-      // Reset active tabs (desktop)
+      // Reset desktop tabs
       ['tabBtnGuided', 'tabBtnGraph', 'tabBtnDashboard'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
           el.className = 'px-3.5 py-1.5 rounded-xl text-km-muted hover:text-white transition flex flex-col sm:flex-row items-center gap-1.5';
+          if (id !== 'tabBtnGuided') {
+            el.classList.add('admin-tab');
+            if (!isAdminUnlocked) el.classList.add('hidden');
+          }
         }
       });
 
-      // Show selected
+      // Reset mobile tabs
+      ['tabMobileGuided', 'tabMobileGraph', 'tabMobileDashboard'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.className = 'px-2.5 py-1 rounded-lg text-km-muted';
+          if (id !== 'tabMobileGuided') {
+            el.classList.add('admin-tab');
+            if (!isAdminUnlocked) el.classList.add('hidden');
+          }
+        }
+      });
+
+      // Show selected view and activate tab
       if (viewName === 'guided') {
-        document.getElementById('viewGuided').classList.remove('hidden');
-        document.getElementById('tabBtnGuided').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        if (vGuided) vGuided.classList.remove('hidden');
+        const dt = document.getElementById('tabBtnGuided');
+        if (dt) dt.className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        const mt = document.getElementById('tabMobileGuided');
+        if (mt) mt.className = 'px-2.5 py-1 rounded-lg font-bold bg-km-green text-black';
       } else if (viewName === 'graph') {
-        document.getElementById('viewGraph').classList.remove('hidden');
-        document.getElementById('tabBtnGraph').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        if (vGraph) vGraph.classList.remove('hidden');
+        const dt = document.getElementById('tabBtnGraph');
+        if (dt) dt.className = 'admin-tab px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        const mt = document.getElementById('tabMobileGraph');
+        if (mt) mt.className = 'admin-tab px-2.5 py-1 rounded-lg font-bold bg-km-green text-black';
       } else if (viewName === 'dashboard') {
-        document.getElementById('viewDashboard').classList.remove('hidden');
-        document.getElementById('tabBtnDashboard').className = 'px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        if (vDashboard) vDashboard.classList.remove('hidden');
+        const dt = document.getElementById('tabBtnDashboard');
+        if (dt) dt.className = 'admin-tab px-3.5 py-1.5 rounded-xl font-bold bg-km-green text-black shadow-sm transition flex flex-col sm:flex-row items-center gap-1.5';
+        const mt = document.getElementById('tabMobileDashboard');
+        if (mt) mt.className = 'admin-tab px-2.5 py-1 rounded-lg font-bold bg-km-green text-black';
         loadLiveSubmissionsTable();
+        startSubmissionsPolling();
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    function startSubmissionsPolling() {
+      if (pollInterval) clearInterval(pollInterval);
+      pollInterval = setInterval(() => {
+        if (currentView === 'dashboard') {
+          loadLiveSubmissionsTable();
+        }
+      }, 15000);
+    }
+
+    function checkUrlParamsAndInit() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmParam = urlParams.get('admin') === '1' || urlParams.get('dir') === '1' || urlParams.get('tab') === 'dashboard' || urlParams.get('view') === 'dashboard';
+        const isGraphParam = urlParams.get('tab') === 'graph' || urlParams.get('view') === 'graph';
+        let isSaved = false;
+        try {
+          isSaved = localStorage.getItem('km_admin_unlocked') === 'true';
+        } catch (e) {}
+
+        if (isAdmParam || isGraphParam || isSaved) {
+          unlockAdminView();
+        }
+
+        if (isAdmParam) {
+          switchView('dashboard');
+        } else if (isGraphParam) {
+          switchView('graph');
+        }
+      } catch (e) {
+        console.error("Init params error:", e);
+      }
+    }
+
+    // Run immediately AND on DOMContentLoaded
+    checkUrlParamsAndInit();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkUrlParamsAndInit);
+    }
+    window.addEventListener('load', checkUrlParamsAndInit);
 
     // =========================================================================
     // STAGE NAVIGATION (GUIDED MINING)
@@ -2051,10 +2117,13 @@
     // Filter Graph in View 2
     function filterGraphProcess(val) {
       const nameEl = document.getElementById('graphCurrentProcName');
+      if (!nameEl) return;
       if (val === 'mayoreo') nameEl.innerText = "Venta a Talleres (Ruta Mayoreo)";
       else if (val === 'bodega') nameEl.innerText = "Recepción y Despacho en CD Central";
       else if (val === 'ventas') nameEl.innerText = "Venta en Mostrador 77 Tiendas";
       else if (val === 'creditos') nameEl.innerText = "Dictamen y Liberación de Línea de Crédito";
+      else nameEl.innerText = "Cadena Operativa Completa E2E";
+    }
     // =========================================================================
     // LIVE SUBMISSIONS MONITOR & CSV EXPORT
     // =========================================================================
@@ -2073,6 +2142,8 @@
         if (data.ok && Array.isArray(data.auditorias)) {
           cachedSubmissions = data.auditorias;
           if (badge) badge.innerText = `${cachedSubmissions.length} envíos recibidos`;
+          const totalKpi = document.getElementById('liveTotalAuditoriasCard');
+          if (totalKpi) totalKpi.innerText = cachedSubmissions.length;
 
           if (cachedSubmissions.length === 0) {
             tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-km-muted">Aún no hay envíos registrados hoy.</td></tr>`;
