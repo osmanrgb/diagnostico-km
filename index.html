@@ -2,599 +2,542 @@
 <html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Así trabajamos KM — Radiografía 360 & Cadena de Valor</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Así trabajamos KM · Escaneo Operativo 360°</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
           colors: {
-            brand: {
-              50: '#f0fdf4',
-              500: '#10b981',
-              600: '#059669',
-              700: '#047857',
-            },
-            km: {
-              red: '#f43f5e',
-              redHover: '#e11d48',
-              bg: '#07090e',
-              card: '#0f1420',
-              cardHover: '#151c2e',
-              border: 'rgba(255, 255, 255, 0.08)'
-            }
+            'km-bg': '#080B09',
+            'km-surface': '#101512',
+            'km-surface-high': '#161D19',
+            'km-border': 'rgba(255, 255, 255, 0.09)',
+            'km-green': '#39E675',
+            'km-green-soft': '#9AF5B8',
+            'km-cyan': '#6AD8FF',
+            'km-warning': '#FFB84D',
+            'km-text': '#F7FAF8',
+            'km-muted': '#96A49B'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
           }
         }
       }
     }
   </script>
+
   <style>
-    :root { color-scheme: dark; }
+    /* ========================================================================= */
+    /* KM NIGHT SHIFT DESIGN SYSTEM                                              */
+    /* Linear calmness × Duolingo momentum × Headspace care                       */
+    /* ========================================================================= */
+    :root {
+      --km-bg: #080B09;
+      --km-surface: #101512;
+      --km-surface-high: #161D19;
+      --km-border: rgba(255, 255, 255, 0.09);
+      --km-green: #39E675;
+      --km-green-soft: #9AF5B8;
+      --km-cyan: #6AD8FF;
+      --km-warning: #FFB84D;
+      --km-text: #F7FAF8;
+      --km-muted: #96A49B;
+    }
+
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #07090e;
-      background-image: 
-        radial-gradient(ellipse 70% 40% at 50% -10%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 95% 95%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
-      background-attachment: fixed;
-    }
-    .glass-shell {
-      background: rgba(15, 20, 32, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    }
-    .duo-card {
-      background: #111726;
-      border: 2px solid rgba(255, 255, 255, 0.07);
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
+      background-color: var(--km-bg);
+      color: var(--km-text);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
-    .duo-card:hover {
-      background: #172033;
-      border-color: rgba(16, 185, 129, 0.4);
-      transform: translateY(-2px);
+
+    /* TACTILE QUESTION CARD (Designed for greasy thumb & quick taps) */
+    .km-card {
+      background-color: #141A16;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      min-height: 72px;
+      transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 120ms ease, 
+                  background-color 120ms ease,
+                  box-shadow 120ms ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      gap: 16px;
+      position: relative;
     }
-    .duo-card.selected {
-      background: rgba(16, 185, 129, 0.12);
-      border-color: #10b981;
-      box-shadow: 0 0 0 1px #10b981, 0 12px 24px -6px rgba(16, 185, 129, 0.25);
-      transform: translateY(-2px);
+
+    @media (hover: hover) {
+      .km-card:hover {
+        border-color: rgba(57, 230, 117, 0.35);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.5);
+      }
     }
-    .btn-duo-green {
-      background: #10b981;
-      box-shadow: 0 5px 0 #047857, 0 12px 24px rgba(16, 185, 129, 0.3);
-      transition: all 0.12s ease;
+
+    .km-card:active {
+      transform: scale(0.985) translateY(2px);
     }
-    .btn-duo-green:hover:not(:disabled) {
-      background: #34d399;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 0 #047857, 0 16px 28px rgba(16, 185, 129, 0.4);
+
+    /* SELECTED CARD STATE */
+    .km-card.selected {
+      background-color: rgba(57, 230, 117, 0.08) !important;
+      border-color: var(--km-green) !important;
+      box-shadow: 0 0 0 1px var(--km-green), 0 8px 20px -4px rgba(57, 230, 117, 0.2);
     }
-    .btn-duo-green:active:not(:disabled) {
-      transform: translateY(4px);
-      box-shadow: 0 1px 0 #047857;
+
+    /* AMBER TOUCH FOR STEP 3 (Fricciones) */
+    .km-card.warning-card.selected {
+      background-color: rgba(255, 184, 77, 0.08) !important;
+      border-color: var(--km-warning) !important;
+      box-shadow: 0 0 0 1px var(--km-warning), 0 8px 20px -4px rgba(255, 184, 77, 0.2);
     }
-    .btn-duo-green:disabled {
-      background: #1e293b;
-      box-shadow: 0 4px 0 #0f172a;
-      cursor: not-allowed;
-      opacity: 0.6;
+
+    /* TACTILE DUOLINGO-STYLE 3D BUTTON */
+    .km-btn-action {
+      background-color: var(--km-green);
+      color: #051A0B;
+      font-weight: 800;
+      border-radius: 18px;
+      box-shadow: 0 4px 0 #1FA34E, 0 10px 20px -4px rgba(57, 230, 117, 0.3);
+      transition: all 90ms ease;
     }
-    .progress-candy {
-      background: linear-gradient(90deg, #10b981 0%, #06b6d4 100%);
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
-      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .km-btn-action:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #1FA34E, 0 4px 10px -2px rgba(57, 230, 117, 0.2);
     }
-    .progress-candy::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 6px;
-      right: 6px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.45);
-      border-radius: 9999px;
+
+    /* MOMENTUM CONNECTOR LINE */
+    .momentum-node {
+      transition: all 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.75; transform: scale(1.05); }
+
+    /* VOICE RADAR WAVE ANIMATION */
+    @keyframes radarPulse {
+      0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(106, 216, 255, 0.6); }
+      70% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 0 18px rgba(106, 216, 255, 0); }
+      100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 0 0 rgba(106, 216, 255, 0); }
     }
-    .mic-recording {
-      animation: pulseGlow 1.2s infinite;
-      background-color: #ef4444 !important;
-      border-color: #f87171 !important;
+    .voice-radar {
+      animation: radarPulse 1.8s infinite ease-in-out;
     }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 6px; }
-    ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+    /* VOICE LEVEL BARS */
+    .voice-bar {
+      animation: barDance 1.2s infinite ease-in-out alternate;
+    }
+    @keyframes barDance {
+      0% { height: 6px; }
+      100% { height: 28px; }
+    }
+
+    /* 3D PASSPORT TILT */
+    .passport-container {
+      perspective: 1000px;
+    }
+    .passport-card {
+      background: linear-gradient(145deg, #161D19 0%, #0F1411 100%);
+      border: 1px solid rgba(57, 230, 117, 0.35);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* CONFETTI CANVAS */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 100;
+    }
   </style>
 </head>
-<body class="text-slate-100 min-h-screen antialiased flex flex-col selection:bg-emerald-600 selection:text-white pb-20">
+<body class="min-h-screen flex flex-col justify-between selection:bg-km-green selection:text-black">
 
-  <!-- TOP GAMIFIED HUD HEADER -->
-  <header class="border-b border-white/[0.08] bg-[#07090e]/95 backdrop-blur-xl sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ========================================================================= -->
+  <!-- TOP STICKY HEADER (Linear calm + Duolingo momentum)                       -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-[#080B09]/90 backdrop-blur-md border-b border-white/[0.06] px-4 py-3">
+    <div class="max-w-xl mx-auto flex items-center justify-between gap-3">
       
-      <!-- Brand & Project Seal -->
-      <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 font-black text-white flex items-center justify-center text-sm shadow-md shadow-emerald-500/20 ring-1 ring-white/20">KM</div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-black tracking-tight text-white">Así trabajamos KM</span>
-              <span class="hidden sm:inline-block text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                ⚡ RADIOGRAFÍA END-TO-END
-              </span>
-            </div>
-            <div class="text-[11px] text-slate-400 hidden sm:block">Conectando las áreas al flujo y la venta real</div>
-          </div>
-        </a>
+      <!-- Brand Minimal Badge -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <div class="w-8 h-8 rounded-xl bg-km-surface-high border border-white/10 flex items-center justify-center font-black text-xs text-km-green">
+          KM
+        </div>
+        <span class="text-xs font-bold tracking-tight text-white hidden sm:inline">Así trabajamos</span>
       </div>
 
-      <!-- Center: Duolingo Interactive Progress Bar -->
-      <div id="hudProgressSection" class="hidden flex-1 max-w-md mx-2 sm:mx-6 flex flex-col gap-1.5">
-        <div class="flex items-center justify-between text-[11px] font-mono">
-          <span id="hudStepLabel" class="text-emerald-400 font-bold flex items-center gap-1.5">
-            <span>🔥</span> <span id="hudStepText">Paso 1 de 5</span>
+      <!-- Center: Momentum Node Pipeline -->
+      <div id="topMomentumBar" class="hidden flex-1 max-w-[280px] flex flex-col items-center gap-1">
+        <div class="flex items-center justify-between w-full text-[11px] font-mono">
+          <span id="stepTitleTracker" class="text-km-green font-bold flex items-center gap-1.5">
+            <span id="stepIconTag">●</span>
+            <span id="stepCounterText">1 de 5</span>
           </span>
-          <span id="hudPercentText" class="text-slate-400 font-bold">20%</span>
+          <span id="stepMilestoneName" class="text-km-muted font-medium text-[10px] uppercase tracking-wider truncate max-w-[120px]">Tu día</span>
+          <span id="stepPercentText" class="text-white font-bold">20%</span>
         </div>
-        <div class="w-full h-3.5 bg-slate-900 rounded-full p-0.5 border border-white/10 relative overflow-hidden">
-          <div id="hudProgressBar" class="h-full rounded-full progress-candy relative" style="width: 20%;"></div>
+
+        <!-- 5 Connecting Nodes -->
+        <div class="w-full flex items-center justify-between relative px-1 py-1">
+          <div class="absolute left-2 right-2 h-0.5 bg-white/10 -z-0"></div>
+          <div id="momentumFillLine" class="absolute left-2 h-0.5 bg-km-green -z-0 transition-all duration-300" style="width: 0%;"></div>
+
+          <div id="node1" class="w-3.5 h-3.5 rounded-full bg-km-green border-2 border-km-bg z-10 momentum-node"></div>
+          <div id="node2" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
+          <div id="node3" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
+          <div id="node4" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
+          <div id="node5" class="w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node"></div>
         </div>
       </div>
 
-      <!-- Right Controls: Sound, Save status & Pause -->
-      <div class="flex items-center gap-2">
-        <button id="soundToggleBtn" onclick="toggleSound()" title="Sonido activado" class="w-8 h-8 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] flex items-center justify-center text-xs transition">
+      <!-- Right Controls: Audio & Info -->
+      <div class="flex items-center gap-1.5 flex-shrink-0">
+        <button id="soundToggleBtn" onclick="toggleAudio()" title="Sonido" class="w-8 h-8 rounded-xl bg-km-surface border border-white/10 hover:border-white/20 flex items-center justify-center text-xs text-km-muted transition">
           <span id="soundIcon">🔊</span>
         </button>
-
-        <div id="hudSaveBadge" class="hidden sm:flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="hudSaveStatusText">Guardado</span>
-        </div>
-
-        <button id="hudPauseBtn" onclick="pauseAndExit()" class="hidden text-xs text-slate-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] px-3 py-1.5 rounded-xl font-medium transition flex items-center gap-1.5">
-          <span>☕</span> <span class="hidden md:inline">Pausar</span>
-        </button>
-
-        <button onclick="promptAdminAccess()" class="text-xs text-slate-500 hover:text-slate-300 font-mono px-2 py-1 transition" title="Supervisión">
-          🔒
+        <button onclick="openWhyModal()" title="¿Para qué usamos esto?" class="w-8 h-8 rounded-xl bg-km-surface border border-white/10 hover:border-white/20 flex items-center justify-center text-xs text-km-muted transition font-bold">
+          ?
         </button>
       </div>
 
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col justify-center">
+  <!-- ========================================================================= -->
+  <!-- MAIN ARENA CONTAINER (Max 620px for Linear Focus)                         -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 max-w-[620px] w-full mx-auto px-4 py-6 flex flex-col justify-center">
 
     <!-- ========================================================================= -->
-    <!-- STAGE 0: ONBOARDING & IDENTIFICATION CARD (Bento Duolingo Style)         -->
+    <!-- SCREEN 0: BIENVENIDA & IDENTIFICACIÓN (Wireframe A)                       -->
     <!-- ========================================================================= -->
-    <div id="authCard" class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto">
+    <div id="welcomeScreen" class="w-full space-y-6 my-auto">
       
-      <!-- Left: Motivation & The End-to-End Mission -->
-      <div class="lg:col-span-6 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono font-bold tracking-wide uppercase">
-          <span>🎯</span> Radiografía 360 · KM 2.0
+      <!-- Logo Seal -->
+      <div class="text-center space-y-3">
+        <div class="inline-flex w-14 h-14 rounded-2xl bg-km-surface border border-km-green/30 items-center justify-center shadow-lg shadow-km-green/10">
+          <span class="text-xl font-black text-km-green tracking-tighter">KM</span>
         </div>
-
-        <div class="space-y-3">
-          <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-[1.08]">
-            Tu puesto importa. <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
-              Queremos escucharte de verdad.
-            </span>
-          </h1>
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-            Esto no es una evaluación ni un examen: queremos conocer <strong class="text-white">tu día a día real</strong>, qué cosas te quitan tiempo y qué podemos mejorar para que trabajes con tranquilidad y con ganas.
-          </p>
-        </div>
-
-        <!-- 4 Bento Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          <div class="glass-shell rounded-2xl p-3.5 space-y-1 border-white/[0.06]">
-            <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold font-mono">
-              <span>🎯</span> CERO PAJA
-            </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">No 80 mil funciones en papel: las 2 o 3 cosas vitales que mueven a tu área.</p>
-          </div>
-          <div class="glass-shell rounded-2xl p-3.5 space-y-1 border-white/[0.06]">
-            <div class="flex items-center gap-2 text-blue-400 text-xs font-bold font-mono">
-              <span>✂️</span> ELIMINAR LO INÚTIL
-            </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">Identificamos botones, modales y firmas innecesarias para podarlas ya.</p>
-          </div>
-          <div class="glass-shell rounded-2xl p-3.5 space-y-1 border-white/[0.06]">
-            <div class="flex items-center gap-2 text-amber-400 text-xs font-bold font-mono">
-              <span>🤝</span> LA POSTA ENTRE ÁREAS
-            </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">Mapeamos quién le entrega a quién para que nadie se tire la pelota.</p>
-          </div>
-          <div class="glass-shell rounded-2xl p-3.5 space-y-1 border-white/[0.06]">
-            <div class="flex items-center gap-2 text-rose-400 text-xs font-bold font-mono">
-              <span>🚀</span> AUTOMATIZAR LO P0
-            </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">Los 4 programadores y la IA construyen directo lo que de verdad necesitás.</p>
-          </div>
-        </div>
-
-        <!-- THE 5 FRIENDLY STEPS PREVIEW -->
-        <div class="glass-shell rounded-2xl p-4 space-y-2.5 border-emerald-500/20 bg-emerald-950/20">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-emerald-300 font-mono flex items-center gap-2">
-              <span>🌟</span> TU RADIOGRAFÍA EN 5 PREGUNTAS SIMPLES
-            </span>
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-mono font-bold">Sin rodeos</span>
-          </div>
-          <div class="grid grid-cols-5 gap-1.5 text-center">
-            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">📋</span>
-              <span class="text-[9px] font-bold text-slate-300 block">1. Tu día a día</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Lo que hacés</span>
-            </div>
-            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">✂️</span>
-              <span class="text-[9px] font-bold text-slate-300 block">2. Lo que estorba</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Lo que quita tiempo</span>
-            </div>
-            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">🤝</span>
-              <span class="text-[9px] font-bold text-slate-300 block">3. En equipo</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Quién te frena</span>
-            </div>
-            <div class="p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-0.5">
-              <span class="text-base block">⭐</span>
-              <span class="text-[9px] font-bold text-slate-300 block">4. Tu impacto</span>
-              <span class="text-[8px] text-slate-500 block leading-tight">Cómo ayudás</span>
-            </div>
-            <div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-0.5">
-              <span class="text-base block">🚀</span>
-              <span class="text-[9px] font-bold text-emerald-300 block">5. Tu pedido</span>
-              <span class="text-[8px] text-emerald-400 block leading-tight">Qué arreglamos</span>
-            </div>
-          </div>
-          <p class="text-[11px] text-slate-400 leading-relaxed border-t border-white/5 pt-2">
-            Podés elegir opciones con 1 toque o usar el micrófono <span class="text-emerald-400 font-bold">🎙️</span> para hablar con tus propias palabras como en una charla normal.
-          </p>
-        </div>
-      </div>
-
-      <!-- Right: Fast Identification Form -->
-      <div class="lg:col-span-6">
-        <div class="glass-shell rounded-3xl p-6 sm:p-8 space-y-5 border-white/10 shadow-2xl">
-          
-          <!-- RESUME DRAFT BANNER (If draft exists) -->
-          <div id="resumeDraftBanner" class="hidden p-4 rounded-2xl bg-gradient-to-r from-blue-950/70 to-emerald-950/70 border border-emerald-500/40 space-y-2.5">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2 text-xs font-bold text-emerald-300">
-                <span class="text-sm">🔥</span> <span>Tenés un avance guardado</span>
-              </div>
-              <span id="resumeDraftStepBadge" class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">Paso 1 de 5</span>
-            </div>
-            <p id="resumeDraftText" class="text-xs text-slate-300 leading-relaxed"></p>
-            <div class="flex items-center gap-2.5 pt-1">
-              <button type="button" onclick="resumeSavedDraft()" class="flex-1 btn-duo-green text-white font-bold py-2.5 px-4 rounded-xl text-xs">
-                Continuar donde quedé ➜
-              </button>
-              <button type="button" onclick="discardSavedDraft()" class="text-slate-400 hover:text-rose-400 text-xs px-3 py-2 font-medium transition">
-                Empezar de nuevo
-              </button>
-            </div>
-          </div>
-
-          <div class="border-b border-white/[0.08] pb-3">
-            <h2 class="text-xl font-extrabold text-white tracking-tight">Identificación de Puesto</h2>
-            <p class="text-xs text-slate-400 mt-0.5">El sistema adaptará las preguntas automáticamente a tu rol.</p>
-          </div>
-
-          <form onsubmit="startAudit(event)" class="space-y-4">
-
-          <!-- QUICK TESTER PROFILES (1-TAP) -->
-          <div class="p-3.5 bg-gradient-to-br from-white/[0.04] to-white/[0.02] border border-white/[0.08] rounded-2xl space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-emerald-400 font-mono flex items-center gap-1.5">
-                <span>⚡</span> TESTEO RÁPIDO: ELEGÍ CUALQUIER PERFIL (1 TAP)
-              </span>
-              <span class="text-[10px] text-slate-400 font-mono">12 áreas operativas</span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 pt-0.5">
-              <button type="button" onclick="setQuickProfile('CEO / Director General', 'Dirección General')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">👑 Dirección</span>
-                <span class="text-[10px] text-slate-400 block truncate">CEO / Junta Directiva</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Programador / Desarrollador', 'Sistemas & TI')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">👨‍💻 Programación</span>
-                <span class="text-[10px] text-slate-400 block truncate">Dev / TI / Software</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Auditor Interno', 'Auditoría & Control Interno')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">🔍 Auditoría</span>
-                <span class="text-[10px] text-slate-400 block truncate">Control Interno / Cajas</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Asesor de Ventas Mayoreo', 'Ventas Mayoreo B2B')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">💼 Mayoreo</span>
-                <span class="text-[10px] text-slate-400 block truncate">Ventas B2B L 0.00</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Operador de Bodega CD', 'CD (Centro de Distribución)')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">📦 Bodega CD</span>
-                <span class="text-[10px] text-slate-400 block truncate">Centro Distribución</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Analista de Créditos y Cobranzas', 'Créditos & Cobranzas')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">💳 Créditos</span>
-                <span class="text-[10px] text-slate-400 block truncate">Dictamen y Cartera</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Contador / Finanzas', 'Administración & Finanzas')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">📊 Finanzas</span>
-                <span class="text-[10px] text-slate-400 block truncate">Bancos / SAR / Pagos</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Recursos Humanos & Nómina', 'Talento Humano')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">👥 RRHH</span>
-                <span class="text-[10px] text-slate-400 block truncate">Nómina y Personal</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Compras e Importaciones', 'Compras & Comercio Exterior')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">🚢 Compras</span>
-                <span class="text-[10px] text-slate-400 block truncate">Proveedores / Embarques</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Mecánico / Taller', 'Taller Central')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">🔧 Taller</span>
-                <span class="text-[10px] text-slate-400 block truncate">Mecánica y Armado</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Vendedor de Mostrador', 'Tienda Choluteca')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">🏪 Tienda</span>
-                <span class="text-[10px] text-slate-400 block truncate">Ventas Mostrador</span>
-              </button>
-              <button type="button" onclick="setQuickProfile('Cajero de Tienda', 'Tienda Danlí')" class="text-left p-2 rounded-xl bg-white/[0.03] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/5 transition">
-                <span class="font-bold text-white text-xs block truncate">💰 Caja Tienda</span>
-                <span class="text-[10px] text-slate-400 block truncate">Cobro y Arqueos</span>
-              </button>
-            </div>
-          </div>
-
-            <!-- Nombre -->
-            <div class="space-y-1">
-              <label class="block text-xs font-bold text-slate-300">Tu Nombre Completo <span class="text-rose-400">*</span></label>
-              <input type="text" id="empName" required placeholder="Ej: Omar Garrido, Carlos Mejía..." 
-                class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none transition">
-            </div>
-
-            <!-- Sucursal / Área -->
-            <div class="space-y-1">
-              <label class="block text-xs font-bold text-slate-300">Sucursal o Área <span class="text-rose-400">*</span></label>
-              <input type="text" id="empStore" list="officialStoresList" required placeholder="Escribí tu sucursal o área (ej: CD, Mayoreo, Mercadeo, Choluteca...)" 
-                class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none transition">
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <button type="button" onclick="setStore('CD (Centro de Distribución)')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">CD / Bodega Central</button>
-                <button type="button" onclick="setStore('Ventas Mayoreo')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">Mayoreo / B2B</button>
-                <button type="button" onclick="setStore('Dirección General')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">Dirección / CEO</button>
-                <button type="button" onclick="setStore('Créditos & Cobranzas')" class="text-[11px] bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-slate-300">Créditos</button>
-                <button type="button" onclick="setStore('Tienda Choluteca')" class="text-[11px] bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-slate-300">Tienda Detalle</button>
-              </div>
-            </div>
-
-            <!-- Rol / Puesto -->
-            <div class="space-y-1">
-              <label class="block text-xs font-bold text-slate-300">Puesto o Cargo <span class="text-rose-400">*</span></label>
-              <input type="text" id="empRole" list="officialRolesList" required placeholder="Escribí tu puesto (ej: Asesor de Ventas, Administrador, Bodeguero...)" 
-                class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:outline-none transition">
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <button type="button" onclick="setRole('CEO / Director General')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">CEO / Director</button>
-                <button type="button" onclick="setRole('Asesor de Ventas Mayoreo')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">Ventas Mayoreo</button>
-                <button type="button" onclick="setRole('Jefe / Operador de Bodega CD')" class="text-[11px] bg-white/[0.04] hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-white/10 px-2.5 py-1 rounded-lg text-slate-300 font-medium">Bodega CD</button>
-                <button type="button" onclick="setRole('Vendedor de Mostrador')" class="text-[11px] bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-slate-300">Ventas Tienda</button>
-                <button type="button" onclick="setRole('Cajero / Cobro')" class="text-[11px] bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-slate-300">Cajero</button>
-              </div>
-            </div>
-
-            <!-- Líder Directo -->
-            <div class="space-y-1">
-              <label class="block text-xs font-bold text-slate-300">¿A quién le reportás? <span class="text-slate-500 font-normal">(Líder directo)</span></label>
-              <input type="text" id="empLeader" placeholder="Ej: Junta Directiva, Gerente Comercial, Administrador..." 
-                class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none transition">
-            </div>
-
-            <div class="pt-2">
-              <button type="submit" class="w-full btn-duo-green text-white font-black py-4 px-6 rounded-2xl text-base tracking-wide flex items-center justify-center gap-2">
-                <span>¡Comenzar Radiografía!</span>
-                <span class="text-lg">➜</span>
-              </button>
-            </div>
-          </form>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- STAGE 1-5: DUOLINGO-STYLE INTERACTIVE STAGE ARENA                         -->
-    <!-- ========================================================================= -->
-    <div id="questStage" class="hidden w-full max-w-4xl mx-auto space-y-6 my-auto">
-      
-      <!-- Quest Card Container -->
-      <div class="glass-shell rounded-3xl p-6 sm:p-9 space-y-6 border-white/10 shadow-2xl relative overflow-hidden">
         
-        <!-- Category & Step Sub-Badge -->
-        <div class="flex items-center justify-between">
-          <span id="questBadge" class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-3 py-1 rounded-full">
-            PASO 1 DE 5
-          </span>
-          <span id="questXpTag" class="text-xs font-mono text-amber-400 font-bold flex items-center gap-1">
-            <span>⭐</span> <span>+100 XP</span>
-          </span>
+        <div class="space-y-1">
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            ASÍ TRABAJAMOS KM
+          </h1>
+          <p class="text-base text-km-muted">
+            Mostranos cómo se vive tu trabajo de verdad.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3 Clean Value Badges -->
+      <div class="bg-km-surface border border-white/[0.07] rounded-2xl p-4 flex items-center justify-between text-xs text-km-muted">
+        <div class="flex items-center gap-1.5">
+          <span class="text-km-green">⚡</span> <span>5 paradas</span>
+        </div>
+        <div class="w-1 h-1 rounded-full bg-white/20"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-km-cyan">⏱️</span> <span>~2 minutos</span>
+        </div>
+        <div class="w-1 h-1 rounded-full bg-white/20"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-km-green">🎙️</span> <span>Podés hablar</span>
+        </div>
+      </div>
+
+      <!-- Identification Card -->
+      <div class="bg-km-surface border border-white/[0.08] rounded-3xl p-6 sm:p-7 space-y-4 shadow-xl">
+        
+        <!-- Saved Draft Alert -->
+        <div id="resumeDraftBox" class="hidden p-3.5 rounded-xl bg-km-green/10 border border-km-green/30 flex items-center justify-between gap-3">
+          <div class="text-xs">
+            <span class="text-km-green font-bold block">Tenés un recorrido empezado</span>
+            <span id="resumeDraftName" class="text-km-muted text-[11px]"></span>
+          </div>
+          <button type="button" onclick="resumeDraft()" class="px-3 py-1.5 rounded-lg bg-km-green text-black font-bold text-xs">
+            Retomar ➜
+          </button>
         </div>
 
-        <!-- Big Question Title -->
-        <div class="space-y-1.5">
-          <h2 id="questTitle" class="text-2xl sm:text-3xl font-black text-white tracking-tight leading-snug"></h2>
-          <p id="questSubtitle" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
-        </div>
+        <form onsubmit="startMission(event)" class="space-y-4">
+          <!-- Nombre -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold text-km-text">Tu Nombre Completo <span class="text-km-green">*</span></label>
+            <input type="text" id="inputName" required placeholder="Ej: Carlos Mejía, Omar Garrido..." 
+              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
+          </div>
 
-        <!-- TACTILE CHOICE CARDS (Duolingo Grid) -->
-        <div id="questOptionsGrid" class="grid grid-cols-1 gap-3 pt-2">
-          <!-- Dynamically populated per role category -->
-        </div>
+          <!-- Puesto con Datalist Oficial (84 Puestos) -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold text-km-text">Puesto o Cargo <span class="text-km-green">*</span></label>
+            <input type="text" id="inputRole" list="officialRolesList" required placeholder="Escribí tu puesto (ej: Mecánico, Asesor, Bodeguero...)" 
+              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
+            
+            <!-- Quick Helper Chips -->
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <button type="button" onclick="quickFill('Mecánico', 'Taller Central')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🔧 Mecánico</button>
+              <button type="button" onclick="quickFill('Asesor de Ventas', 'Tienda Choluteca')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🏪 Vendedor</button>
+              <button type="button" onclick="quickFill('Bodeguero', 'CD (Centro de Distribución)')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">📦 Bodega</button>
+              <button type="button" onclick="quickFill('Cajera', 'Tienda Danlí')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">💰 Cajera</button>
+              <button type="button" onclick="quickFill('Auditor Operativo', 'Auditoría')" class="text-[11px] bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 px-2.5 py-1 rounded-lg text-km-muted">🔍 Auditor</button>
+            </div>
+          </div>
 
-        <!-- Voice Dictation & Custom Textarea -->
-        <div class="pt-3 border-t border-white/[0.08] space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs text-slate-400 font-medium">¿Querés detallar o ajustar con tus palabras?</span>
-            <button type="button" id="micBtn" onclick="toggleVoiceRecording()" class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-xl bg-white/[0.05] border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition">
-              <span id="micIcon">🎙️</span> <span id="micLabel">Dictar por voz</span>
+          <!-- Sucursal o Área -->
+          <div class="space-y-1.5">
+            <label class="block text-xs font-bold text-km-text">Sucursal o Área <span class="text-km-green">*</span></label>
+            <input type="text" id="inputStore" list="officialStoresList" required placeholder="Escribí tu tienda o área (ej: Tienda Choluteca, CD, Taller...)" 
+              class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none transition">
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full km-btn-action py-4 px-6 text-sm tracking-wide flex items-center justify-center gap-2">
+              <span>Empezar mi recorrido</span>
+              <span class="text-base font-bold">➜</span>
             </button>
           </div>
-          <textarea id="questCustomText" rows="2" placeholder="Escribí aquí tus comentarios o ajustá con tus propias palabras..." 
-            class="w-full bg-[#0a0d16] border border-white/10 focus:border-emerald-400 rounded-xl p-3 text-xs sm:text-sm text-white placeholder:text-slate-600 focus:outline-none transition resize-none"></textarea>
-        </div>
+        </form>
 
-        <!-- Bottom Action Bar -->
-        <div class="pt-4 flex items-center justify-between gap-4 border-t border-white/[0.08]">
-          <button type="button" onclick="pauseAndExit()" class="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1.5 py-2 px-3 rounded-xl transition">
-            <span>☕</span> <span>Guardar y continuar después</span>
-          </button>
-          
-          <button type="button" id="questNextBtn" onclick="submitCurrentStep()" class="btn-duo-green text-white font-black py-3.5 px-8 rounded-2xl text-sm tracking-wide flex items-center gap-2">
-            <span id="questNextBtnText">Continuar</span>
-            <span class="text-base">➜</span>
+        <div class="text-center pt-1">
+          <button type="button" onclick="openWhyModal()" class="text-xs text-km-muted hover:text-white transition underline underline-offset-4">
+            ¿Para qué usamos esto?
           </button>
         </div>
 
       </div>
-
-      <!-- Live Dossier Mini-Pill -->
-      <div class="glass-shell rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs border-white/[0.06]">
-        <div class="flex items-center gap-2.5">
-          <div id="liveAvatar" class="w-7 h-7 rounded-lg bg-emerald-600 font-black text-white flex items-center justify-center text-xs">U</div>
-          <div>
-            <span id="liveCollabName" class="font-bold text-white">Colaborador</span>
-            <span class="text-slate-500">•</span>
-            <span id="liveCollabRole" class="text-slate-400">Puesto</span>
-          </div>
-        </div>
-        <div id="dossierMiniChips" class="flex flex-wrap items-center gap-2 text-[10px] font-mono">
-          <span id="chipStep1" class="px-2 py-0.5 rounded bg-white/[0.03] text-slate-500 border border-white/5">1. Esencia</span>
-          <span id="chipStep2" class="px-2 py-0.5 rounded bg-white/[0.03] text-slate-500 border border-white/5">2. Lo Inútil</span>
-          <span id="chipStep3" class="px-2 py-0.5 rounded bg-white/[0.03] text-slate-500 border border-white/5">3. Relevos</span>
-          <span id="chipStep4" class="px-2 py-0.5 rounded bg-white/[0.03] text-slate-500 border border-white/5">4. Flujo/Venta</span>
-          <span id="chipStep5" class="px-2 py-0.5 rounded bg-white/[0.03] text-slate-500 border border-white/5">5. Traba P0</span>
-        </div>
-      </div>
-
     </div>
 
     <!-- ========================================================================= -->
-    <!-- STAGE 6: THE GRAND FINALE (Digital Passport / Ficha de Puesto Oficial)     -->
+    <!-- SCREEN 1-5: RECORRIDO OPERATIVO (Wireframe B & C)                         -->
     <!-- ========================================================================= -->
-    <div id="finishCard" class="hidden w-full max-w-2xl mx-auto space-y-6 my-auto text-center animate-fadein">
+    <div id="missionScreen" class="hidden w-full space-y-6 my-auto">
       
-      <!-- Trophy Lockup -->
+      <!-- Stage Header & Question -->
       <div class="space-y-2">
-        <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-amber-300 p-0.5 shadow-2xl shadow-emerald-500/30">
-          <div class="w-full h-full bg-[#090d16] rounded-3xl flex items-center justify-center text-4xl">
-            🏆
-          </div>
+        <div class="flex items-center justify-between">
+          <span id="questTag" class="text-[11px] font-mono font-bold text-km-green uppercase tracking-wider">PASO 1 DE 5 · TU DÍA</span>
+          <span id="multiSelectHelper" class="hidden text-[11px] font-mono text-km-cyan font-bold">Elegí hasta 3 opciones</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">¡Radiografía Completada!</h2>
-        <p class="text-sm text-slate-300 max-w-md mx-auto">
-          Mapeaste con éxito tu aporte a la cadena de valor. El equipo técnico usará tus respuestas para eliminar trámites inútiles y destrabar el flujo.
+
+        <h2 id="questTitle" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
+          ¿Qué ocupa de verdad la mayor parte de tu día?
+        </h2>
+        
+        <p id="questSubtitle" class="text-sm text-km-muted leading-relaxed">
+          Elegí lo que más se parezca a tu realidad. No lo que diga el puesto.
         </p>
       </div>
 
-      <!-- The Digital Passport Credential Card -->
-      <div class="glass-shell rounded-3xl p-6 sm:p-8 space-y-5 border-emerald-500/30 shadow-2xl relative text-left bg-gradient-to-b from-[#0d1424] to-[#070a12]">
+      <!-- Options Container (Cards) -->
+      <div id="questOptionsGrid" class="space-y-2.5">
+        <!-- Dynamically Rendered Cards -->
+      </div>
+
+      <!-- VOICE INPUT FIRST-CLASS CITIZEN (Wireframe Section 3) -->
+      <div id="voiceSection" class="bg-km-surface border border-white/[0.08] rounded-2xl p-4 space-y-3">
         
-        <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-black">
-              KM
+        <!-- Voice Trigger State (Normal) -->
+        <div id="voiceIdleBox" class="flex items-center justify-between gap-4">
+          <div class="space-y-0.5">
+            <div class="text-xs font-bold text-white flex items-center gap-2">
+              <span>🎙️</span> <span>¿Te queda más fácil contarlo?</span>
             </div>
-            <div>
-              <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Ficha de Cadena de Valor & Puesto</div>
-              <div class="text-base font-extrabold text-white" id="finalCardName">Colaborador</div>
-            </div>
+            <p class="text-[11px] text-km-muted">Tocá el micrófono y hablá con tus palabras.</p>
           </div>
-          <div class="text-right">
-            <div class="text-[10px] font-mono text-slate-400 uppercase">Folio Único</div>
-            <div id="finalCardFolio" class="text-sm font-mono font-black text-emerald-300">#---</div>
+          <button type="button" onclick="startVoiceRecording()" class="w-14 h-14 rounded-2xl bg-km-surface-high border border-km-cyan/40 hover:border-km-cyan flex items-center justify-center text-xl text-km-cyan transition active:scale-95 flex-shrink-0 shadow-md shadow-km-cyan/10">
+            🎙️
+          </button>
+        </div>
+
+        <!-- Voice Active State (Recording) -->
+        <div id="voiceActiveBox" class="hidden p-4 rounded-xl bg-km-surface-high border border-km-cyan/60 flex flex-col items-center gap-3">
+          <div class="flex items-center gap-2 text-km-cyan font-mono text-xs font-bold">
+            <span class="w-2.5 h-2.5 rounded-full bg-km-cyan animate-ping"></span>
+            <span>Te escucho... hablá normal</span>
+          </div>
+
+          <!-- Audio Level Waves -->
+          <div class="flex items-center gap-1.5 h-8">
+            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.1s;"></div>
+            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.3s;"></div>
+            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.2s;"></div>
+            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.5s;"></div>
+            <div class="w-1.5 bg-km-cyan rounded-full voice-bar" style="animation-delay: 0.4s;"></div>
+          </div>
+
+          <div id="voiceTranscriptPreview" class="text-xs text-white text-center italic min-h-[20px]">
+            "Escuchando tu voz..."
+          </div>
+
+          <button type="button" onclick="stopVoiceRecording()" class="px-5 py-2 rounded-xl bg-km-cyan text-black font-extrabold text-xs tracking-wide">
+            Listo · Terminar de hablar ✓
+          </button>
+        </div>
+
+        <!-- Voice Confirmation State (Control) -->
+        <div id="voiceConfirmBox" class="hidden p-3.5 rounded-xl bg-km-surface-high border border-white/15 space-y-2">
+          <span class="text-[10px] font-mono text-km-muted block uppercase tracking-wider">Creo que entendí esto:</span>
+          <p id="voiceConfirmedText" class="text-xs text-white leading-relaxed font-medium"></p>
+          <div class="flex items-center gap-2 pt-1">
+            <button type="button" onclick="acceptVoiceText()" class="px-3 py-1.5 rounded-lg bg-km-green text-black text-xs font-bold">
+              ✓ Así es
+            </button>
+            <button type="button" onclick="editVoiceText()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-medium border border-white/10">
+              Editar
+            </button>
+            <button type="button" onclick="startVoiceRecording()" class="text-xs text-km-muted hover:text-white px-2 py-1">
+              Volver a hablar
+            </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 text-xs">
-          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <span class="text-slate-500 block text-[10px] font-mono uppercase">Sucursal / Unidad:</span>
-            <span id="finalCardStore" class="font-bold text-slate-200"></span>
-          </div>
-          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <span class="text-slate-500 block text-[10px] font-mono uppercase">Rol Oficial:</span>
-            <span id="finalCardRole" class="font-bold text-slate-200"></span>
-          </div>
-        </div>
-
-        <!-- 3 Structured Highlights -->
-        <div class="space-y-2.5 text-xs">
-          <div class="p-3 rounded-xl bg-[#090d16] border border-white/[0.06] space-y-1">
-            <div class="text-emerald-400 font-bold font-mono flex items-center gap-1.5">
-              <span>🎯</span> TU APORTE A LA VENTA Y LIQUIDEZ:
-            </div>
-            <p id="finalCardAporte" class="text-slate-300 text-xs"></p>
-          </div>
-
-          <div class="p-3 rounded-xl bg-amber-950/20 border border-amber-500/25 space-y-1">
-            <div class="text-amber-400 font-bold font-mono flex items-center gap-1.5">
-              <span>✂️</span> PROCESO INÚTIL A PODAR:
-            </div>
-            <p id="finalCardInutil" class="text-amber-200 text-xs"></p>
-          </div>
-
-          <div class="p-3 rounded-xl bg-rose-950/30 border border-rose-500/25 space-y-1">
-            <div class="text-rose-400 font-bold font-mono flex items-center gap-1.5">
-              <span>🚨</span> TRABA P0 EN COLA DE DESARROLLO:
-            </div>
-            <p id="finalCardTraba" class="text-rose-200 text-xs font-semibold"></p>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-white/[0.08]">
-          <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            Registrado en Servidor Central
-          </span>
-          <span id="finalCardDate"></span>
+        <!-- Fallback Textarea -->
+        <div id="manualTextWrapper" class="hidden pt-1">
+          <textarea id="manualTextInput" rows="2" placeholder="O escribí tu respuesta acá..." 
+            class="w-full bg-km-bg border border-white/10 focus:border-km-green rounded-xl p-3 text-xs text-white placeholder:text-neutral-600 focus:outline-none transition"></textarea>
         </div>
 
       </div>
 
-      <!-- Final Actions -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-        <button onclick="window.print()" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs font-bold transition flex items-center justify-center gap-2">
-          <span>🖨️</span> <span>Imprimir Comprobante</span>
+      <!-- Action Footer (For Multi-Select or Manual Entry) -->
+      <div id="multiSelectFooter" class="hidden pt-2 flex items-center justify-between gap-3">
+        <button type="button" onclick="prevStep()" class="text-xs text-km-muted hover:text-white font-medium px-3 py-2">
+          ‹ Anterior
         </button>
-        <button onclick="finishAndUnlockPOS()" class="w-full sm:w-auto btn-duo-green px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30">
-          <span>✓</span> <span>Finalizar y Volver al Sistema</span>
+        <button type="button" id="nextStepBtn" onclick="confirmAndAdvance()" class="flex-1 km-btn-action py-3.5 px-5 text-xs tracking-wide flex items-center justify-center gap-2">
+          <span id="nextStepBtnLabel">Listo · Continuar</span>
+          <span>➜</span>
         </button>
       </div>
 
     </div>
 
-  
-  <!-- OFFICIAL ERP ROLES & AREAS DATALISTS (84 perfiles y 34 areas oficiales) -->
+    <!-- ========================================================================= -->
+    <!-- SCREEN 6: CELEBRACIÓN & PASAPORTE DIGITAL KM (Wireframe Section 7)        -->
+    <!-- ========================================================================= -->
+    <div id="celebrationScreen" class="hidden w-full space-y-6 my-auto text-center">
+      
+      <div class="space-y-2">
+        <div class="inline-flex w-12 h-12 rounded-full bg-km-green/20 border border-km-green/40 items-center justify-center text-km-green text-xl font-black">
+          ✓
+        </div>
+        <h2 class="text-3xl font-black text-white tracking-tight">
+          Listo. Tu voz ya está en el mapa.
+        </h2>
+        <p class="text-xs sm:text-sm text-km-muted max-w-md mx-auto">
+          Gracias por enseñarnos cómo se vive tu trabajo de verdad. Tu aporte ya forma parte de <span class="text-white font-bold">Así trabajamos KM</span>.
+        </p>
+      </div>
+
+      <!-- 3D HOLOGRAPHIC KM PASSPORT CARD -->
+      <div class="passport-container py-2 flex justify-center">
+        <div id="passportCardNode" class="passport-card w-full max-w-[340px] rounded-3xl p-6 text-left space-y-5 relative overflow-hidden">
+          
+          <!-- Top Watermark & Seal -->
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-lg bg-km-green/20 text-km-green font-black flex items-center justify-center text-[10px]">
+                KM
+              </div>
+              <span class="text-[10px] font-mono tracking-widest text-km-muted uppercase">PASAPORTE OPERATIVO</span>
+            </div>
+            <span id="passportFolio" class="text-[10px] font-mono text-km-green font-bold">FOLIO #KM-2026-000</span>
+          </div>
+
+          <!-- Recipient Info -->
+          <div class="space-y-1">
+            <span class="text-[10px] text-km-muted font-mono uppercase">COLABORADOR CERTIFICADO</span>
+            <h3 id="passportName" class="text-lg font-black text-white tracking-tight truncate">Carlos Mejía</h3>
+            <p id="passportRoleStore" class="text-xs text-km-green-soft truncate">Mecánico de Motos • Taller Central</p>
+          </div>
+
+          <!-- 5-Node Milestone Track -->
+          <div class="space-y-1.5 bg-black/40 rounded-xl p-3 border border-white/5">
+            <div class="flex items-center justify-between text-[10px] font-mono text-km-green">
+              <span>●━━━●━━━●━━━●━━━●</span>
+              <span class="font-bold">5 / 5 COMPLETADO</span>
+            </div>
+            <p class="text-[11px] text-neutral-300 italic">
+              "Ayudé a mejorar cómo trabajamos en KM."
+            </p>
+          </div>
+
+          <!-- Date & Official Stamp -->
+          <div class="flex items-center justify-between text-[10px] font-mono text-km-muted border-t border-white/[0.08] pt-3">
+            <span id="passportDate">18 SEP 2026</span>
+            <span class="text-km-green font-bold">CERTIFICADO OFICIAL ✓</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 max-w-[340px] mx-auto pt-2">
+        <button type="button" onclick="downloadPassportImage()" class="w-full km-btn-action py-3.5 px-4 text-xs tracking-wide flex items-center justify-center gap-2">
+          <span>📥 Descargar mi Pasaporte</span>
+        </button>
+        <button type="button" onclick="shareOnWhatsApp()" class="w-full py-3.5 px-4 rounded-2xl bg-white/[0.05] hover:bg-white/10 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-2 transition">
+          <span>💬 Compartir logro</span>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ¿PARA QUÉ USAMOS ESTO? (Headspace Emotional Safety)                -->
+  <!-- ========================================================================= -->
+  <div id="whyModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-km-surface border border-white/15 rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h4 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>🛡️</span> <span>¿Para qué usamos esto?</span>
+        </h4>
+        <button onclick="closeWhyModal()" class="text-km-muted hover:text-white text-sm">✕</button>
+      </div>
+
+      <div class="space-y-2.5 text-xs text-km-muted leading-relaxed">
+        <p>
+          Queremos descubrir <strong class="text-white">tareas repetitivas, esperas y cosas que podemos hacer más simples</strong> en tu día a día.
+        </p>
+        <div class="p-3 rounded-xl bg-km-green/10 border border-km-green/20 text-km-green-soft text-[11px] font-medium">
+          "Estamos entendiendo el trabajo para arreglar los sistemas, no calificando a la persona."
+        </div>
+        <p>
+          Tus respuestas alimentan directamente las prioridades de los desarrolladores y la dirección para eliminar papeleos inútiles y darte mejores herramientas.
+        </p>
+      </div>
+
+      <button type="button" onclick="closeWhyModal()" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition">
+        Entendido ✓
+      </button>
+    </div>
+  </div>
+
+  <!-- DATALISTS FOR ALL 84 ERP PROFILES -->
   <datalist id="officialRolesList">
     <option value="ADMINISTRADOR DE TIENDA">
     <option value="ANALISTA DE COMPRAS">
@@ -728,1048 +671,677 @@
     <option value="Tienda Tocoa">
   </datalist>
 
-</main>
-
   <!-- ========================================================================= -->
-  <!-- ADMIN CENSO MODAL (Supervisión)                                           -->
+  <!-- JAVASCRIPT ENGINE: Linear + Duolingo + Web Audio + Web Speech             -->
   <!-- ========================================================================= -->
-  <div id="censoModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-shell rounded-3xl w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden border-white/10 shadow-2xl">
-      
-      <div class="p-5 border-b border-white/[0.08] flex items-center justify-between bg-[#0b0f19]">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold text-xs">KM</div>
-          <div>
-            <h3 class="text-sm font-black text-white">Tablero Gerencial de Cadena de Valor</h3>
-            <p class="text-[11px] text-slate-400">Monitoreo de 77 tiendas y áreas corporativas en tiempo real</p>
-          </div>
-        </div>
-        <button onclick="closeCensoModal()" class="w-8 h-8 rounded-xl bg-white/[0.05] hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center text-sm transition">
-          ✕
-        </button>
-      </div>
-
-      <div class="p-5 border-b border-white/[0.08] bg-[#080c14] flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <input type="text" id="censoSearchInput" oninput="renderCensoList()" placeholder="Buscar por sucursal, rol, colaborador o traba P0..." 
-            class="bg-[#0f1422] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder:text-slate-500 w-64 sm:w-80 focus:outline-none focus:border-emerald-500">
-        </div>
-        <div class="flex items-center gap-2 text-xs">
-          <button onclick="setCensoFilter('todos')" id="filterAllBtn" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/40">Todos</button>
-          <button onclick="setCensoFilter('completadas')" id="filterCompBtn" class="px-3 py-1.5 rounded-xl bg-white/[0.04] text-slate-400 hover:text-white border border-white/10">Completados</button>
-          <button onclick="setCensoFilter('p0')" id="filterP0Btn" class="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 border border-rose-500/20">🚨 Con Traba P0</button>
-          <a href="/api/export/csv" class="ml-2 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition flex items-center gap-1">
-            <span>📥</span> <span>CSV</span>
-          </a>
-        </div>
-      </div>
-
-      <div id="censoListContainer" class="flex-1 p-5 overflow-y-auto space-y-4">
-        <!-- Rendered dynamically -->
-      </div>
-
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT: THE DYNAMIC VALUE-STREAM ENGINE -->
   <script>
-    const STORAGE_KEY = 'km_auditoria_proceso_v2';
-    const DRAFT_KEY = 'km_auditoria_draft_v2';
-    let draftToken = localStorage.getItem('km_draft_token') || ('draft_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
-    localStorage.setItem('km_draft_token', draftToken);
+    const DRAFT_KEY = 'km_journey_draft_v1';
+    let soundEnabled = true;
+    let currentUser = { name: '', role: '', store: '' };
+    let currentStep = 1;
+    let selectedChoices = [];
+    let auditData = {};
+    let isMultiSelect = false;
+    let voiceRecognition = null;
 
-    let soundEnabled = localStorage.getItem('km_sound_enabled') !== 'false';
-
-    let currentUser = {
-      name: '',
-      store: '',
-      role: '',
-      leader: ''
-    };
-
-    let auditData = {
-      jornada_diaria: '',         // Paso 1: Esencia Operativa
-      herramientas_checklist: '', // Paso 2: Lo que estorba / Inútil
-      conexiones_organigrama: '', // Paso 3: Relevos entre áreas
-      multiplicador_valor: '',    // Paso 4: Impacto en Venta / Liquidez
-      bloqueos_p0: ''             // Paso 5: Traba P0 real
-    };
-
-    let currentStep = 0;
-    let currentFolioId = null;
-    let selectedOptionText = '';
-    let currentCategorySteps = [];
-
-    /* CATEGORY DETECTOR (Adaptative and friendly) */
-    function detectRoleCategory(role, store) {
-      const norm = (str) => (str || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      const r = norm(role);
-      const s = norm(store);
-      const combined = `${r} ${s}`;
-      
-      if (combined.includes('bodega') || combined.includes('almacen') || combined.includes('cd') || combined.includes('despacho') || combined.includes('recepcion') || combined.includes('empaque')) {
-        return 'bodega';
-      }
-      if (combined.includes('taller') || combined.includes('mecanic') || combined.includes('mantenimiento') || combined.includes('armado')) {
-        return 'taller';
-      }
-      if (combined.includes('cajer') || combined.includes('caja')) {
-        return 'caja';
-      }
-      if (combined.includes('mayoreo') || combined.includes('b2b')) {
-        return 'mayoreo';
-      }
-      if (combined.includes('credito') || combined.includes('cobranza') || combined.includes('mora')) {
-        return 'creditos';
-      }
-      if (combined.includes('contad') || combined.includes('finanz') || combined.includes('tesorer') || combined.includes('banc')) {
-        return 'oficina';
-      }
-      if (combined.includes('rrhh') || combined.includes('recursos humanos') || combined.includes('personal') || combined.includes('nomina') || combined.includes('planilla')) {
-        return 'rrhh';
-      }
-      if (combined.includes('auditor') || combined.includes('control interno')) {
-        return 'auditoria';
-      }
-      if (combined.includes('programad') || combined.includes('dev') || combined.includes('sistemas') || combined.includes('tecnolog') || combined.includes('soporte')) {
-        return 'sistemas';
-      }
-      if (combined.includes('ceo') || combined.includes('seo') || combined.includes('director') || combined.includes('gerente general') || combined.includes('dueno')) {
-        return 'direccion';
-      }
-      // Default: Tienda / General
-      return 'tienda';
-    }
-
-    /* RADIOGRAFÍA AMIGABLE, CLARA Y HUMANA */
-    function buildStepsForUser(user) {
-      const cat = detectRoleCategory(user.role, user.store);
-      const role = user.role || 'tu puesto';
-      const store = user.store || 'tu lugar de trabajo';
-
-      // ==========================================
-      // ADAPTACIONES ESPECÍFICAS SEGÚN ÁREA FÍSICA
-      // ==========================================
-      
-      // 1. BODEGA / ALMACÉN / CD
-      if (cat === 'bodega') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU DÍA A DÍA REAL',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se te va la mayor parte de tu jornada en Bodega?`,
-            subtitle: `Las tareas principales de tu día a día como ${role}:`,
-            field: 'jornada_diaria',
-            options: [
-              { icon: '📦', title: 'Descargar y acomodar mercadería', desc: 'Recibir contenedores o camiones, bajar cajas y estibar en los pasillos de bodega.' },
-              { icon: '📋', title: 'Alistar pedidos (Picking)', desc: 'Revisar las hojas de pedido, buscar las piezas en estantería y empacarlas bien.' },
-              { icon: '🚚', title: 'Cargar y despachar camiones', desc: 'Subir la carga a los camiones de ruta y revisar que todo vaya completo hacia las tiendas.' },
-              { icon: '🔍', title: 'Contar inventario y revisar averías', desc: 'Hacer conteos físicos de piezas y apartar producto que viene dañado o con faltantes.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · LO QUE TE QUITA TIEMPO',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué cosas o trámites sentís que te atrasan en Bodega?',
-            subtitle: 'Trámites o situaciones que complican el despacho:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '📄', title: 'Hojas y papeleos físicos firmados a mano', desc: 'Manejar carpetas de papel que se ensucian, se rompen o se traspapelan al cargar.' },
-              { icon: '⏳', title: 'Tener que contar dos veces por desconfianza', desc: 'Contar varias veces porque el sistema no coincide con lo que está en la estantería.' },
-              { icon: '⌨️', title: 'Digitar códigos a mano en vez de escanear', desc: 'Escribir números largos de chasis o repuestos en una compu en vez de usar pistola láser.' },
-              { icon: '🔄', title: 'Esperar aprobaciones para poder despachar', desc: 'Tener el camión listo pero detenido esperando que alguien en oficina autorice la salida.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · TRABAJO EN EQUIPO (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿Con qué otra área te coordinás y dónde se frena el trabajo?',
-            subtitle: 'En el día a día, ¿quién te manda tarde la información o te frena?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '🏪', title: 'Las Tiendas', desc: 'Piden pedidos urgentes de última hora o tardan en confirmar lo que recibieron.' },
-              { icon: '🚢', title: 'Importaciones y Compras', desc: 'Llegan contenedores de sorpresa sin avisar con tiempo o sin lista de empaque clara.' },
-              { icon: '💼', title: 'Oficina Central / Facturación', desc: 'Demoras en liberar los traslados en el sistema para que podamos cargar.' },
-              { icon: '💻', title: 'Sistemas / TI', desc: 'El sistema se pone lento al hacer traslados masivos y frena todo el despacho.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · TU APORTE AL CLIENTE Y LA VENTA',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo ayuda tu trabajo en Bodega a que la empresa venda más?',
-            subtitle: 'Tu impacto directo para que el negocio funcione:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '⚡', title: 'Que el producto llegue rápido a las tiendas', desc: 'Despachar a tiempo para que la tienda tenga motos y repuestos listos cuando el cliente llega.' },
-              { icon: '🛡️', title: 'Cuidar que nada se pierda ni se dañe', desc: 'Cuidar cada pieza para que la empresa no pierda dinero en mercancía rota o extraviada.' },
-              { icon: '🔒', title: 'Que el inventario sea exacto', desc: 'Asegurar que lo que dice el sistema sea exactamente lo que está en la bodega física.' },
-              { icon: '🤝', title: 'Apoyar a los choferes y compañeros', desc: 'Trabajar en equipo para que las rutas salgan temprano y sin retrasos.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · TU PEDIDO PRINCIPAL',
-            xp: '+100 XP',
-            percent: 100,
-            title: 'Si pudieras pedir una sola mejora en tu trabajo mañana, ¿qué sería?',
-            subtitle: 'Lo que más te facilitaría el trabajo diario en bodega:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Pistolas lectoras de código de barra', desc: 'Poder escanear cajas y motos desde el celular o lector para no digitar nada a mano.' },
-              { icon: '🚀', title: 'Sistema de traslados más rápido y en un clic', desc: 'Poder autorizar y mover traslados sin que la computadora se quede pegada.' },
-              { icon: '🏷️', title: 'Ubicaciones claras de cada pieza', desc: 'Saber exactamente en qué estante y nivel está cada repuesto para encontrarlo rápido.' },
-              { icon: '🤝', title: 'Mejor coordinación con tiendas y oficinas', desc: 'Que respeten los días de pedido y avisen con tiempo los cambios de ruta.' }
-            ]
-          }
-        ];
-      }
-
-      // 2. TALLER / MECÁNICA
-      if (cat === 'taller') {
-        return [
-          {
-            stepNum: 1,
-            badge: 'PASO 1 DE 5 · TU DÍA A DÍA REAL',
-            xp: '+100 XP',
-            percent: 20,
-            title: `¿En qué se te va la mayor parte de tu jornada en el Taller?`,
-            subtitle: `Las tareas principales de tu día a día como ${role}:`,
-            field: 'jornada_diaria',
-            options: [
-              { icon: '🛵', title: 'Armar motos nuevas de paquete', desc: 'Desembalar huacales, ensamblar, calibrar y dejarlas impecables para exhibición y venta.' },
-              { icon: '🔧', title: 'Mantenimientos y servicios rápidos', desc: 'Cambios de aceite, frenos, bujías, ajustes de cadena y afinación general.' },
-              { icon: '🛠️', title: 'Diagnóstico y reparación de fallas', desc: 'Revisar motos que entran con fallas mecánicas o eléctricas complejas y solucionarlas.' },
-              { icon: '🛡️', title: 'Revisión de garantías de fábrica', desc: 'Inspeccionar unidades con defectos de fábrica y tramitar el cambio de piezas.' }
-            ]
-          },
-          {
-            stepNum: 2,
-            badge: 'PASO 2 DE 5 · LO QUE TE QUITA TIEMPO',
-            xp: '+100 XP',
-            percent: 40,
-            title: '¿Qué cosas te frenan o te quitan tiempo con la herramienta en mano?',
-            subtitle: 'Trámites o faltantes que retrasan la entrega de las motos:',
-            field: 'herramientas_checklist',
-            options: [
-              { icon: '⏳', title: 'Falta de repuestos para terminar el trabajo', desc: 'Tener la moto desarmada ocupando espacio esperando que lleguen las piezas.' },
-              { icon: '📄', title: 'Llenar hojas de servicio a mano', desc: 'Llenar boletas de papel carbón que se manchan de grasa y toman mucho tiempo.' },
-              { icon: '📞', title: 'Llamar para averiguar si hay repuestos', desc: 'Tener que llamar por teléfono porque en la pantalla no se ve el stock real.' },
-              { icon: '🔄', title: 'Esperar días por aprobación de garantías', desc: 'Tener al cliente esperando mientras oficina central autoriza cambiar una pieza defectuosa.' }
-            ]
-          },
-          {
-            stepNum: 3,
-            badge: 'PASO 3 DE 5 · TRABAJO EN EQUIPO (LA POSTA)',
-            xp: '+100 XP',
-            percent: 60,
-            title: '¿De quién dependés para entregar las motos a tiempo?',
-            subtitle: '¿Quién te apoya rápido y quién te frena la entrega?',
-            field: 'conexiones_organigrama',
-            options: [
-              { icon: '📦', title: 'Bodega de Repuestos', desc: 'Demoras en surtir los repuestos que ocupamos para reparar o armar.' },
-              { icon: '🏪', title: 'Vendedores de Tienda', desc: 'Le prometen tiempos irreales al cliente sin consultar si el taller tiene cupo o repuestos.' },
-              { icon: '💼', title: 'Oficina Central / Garantías', desc: 'Ponen demasiadas trabas para autorizar piezas de garantía de clientes.' },
-              { icon: '💻', title: 'Sistemas / Facturación', desc: 'Cuesta facturar la mano de obra y los repuestos en un solo recibo claro para el cliente.' }
-            ]
-          },
-          {
-            stepNum: 4,
-            badge: 'PASO 4 DE 5 · TU APORTE AL CLIENTE Y LA VENTA',
-            xp: '+100 XP',
-            percent: 80,
-            title: '¿Cómo ayuda el taller a que la empresa gane clientes fieles?',
-            subtitle: 'El valor de tu trabajo técnico para KM:',
-            field: 'multiplicador_valor',
-            options: [
-              { icon: '⚡', title: 'Entrega rápida de motos armadas', desc: 'Que el cliente compre su moto y se la lleve rodando el mismo día sin esperar 24 horas.' },
-              { icon: '🤝', title: 'Clientes contentos que recomiendan la marca', desc: 'Un cliente bien atendido en taller vuelve a comprar su próxima moto en KM.' },
-              { icon: '🛡️', title: 'Motos bien calibradas y seguras', desc: 'Garantizar que nadie tenga un accidente por una tuerca floja o un freno mal ajustado.' },
-              { icon: '💰', title: 'Cobro justo y claro de servicios', desc: 'Hacer que el taller sea rentable cobrando bien cada mantenimiento y repuesto.' }
-            ]
-          },
-          {
-            stepNum: 5,
-            badge: 'PASO 5 DE 5 · TU PEDIDO PRINCIPAL',
-            xp: '+100 XP',
-            percent: 100,
-            title: 'Si pudieras pedir una sola mejora en el taller, ¿qué sería?',
-            subtitle: 'Lo que más te ayudaría a trabajar con tranquilidad:',
-            field: 'bloqueos_p0',
-            options: [
-              { icon: '📱', title: 'Orden de servicio digital en celular o tablet', desc: 'Recibir la moto, marcar daños, firmar en pantalla y mandar el comprobante por WhatsApp.' },
-              { icon: '📦', title: 'Tener siempre los repuestos de mayor uso', desc: 'Que nunca falten aceites, cables, bujías, filtros y tornillería para armar.' },
-              { icon: '⚡', title: 'Aprobación rápida de garantías', desc: 'Que con mandar foto de la pieza rota se autorice el cambio en menos de 2 horas.' },
-              { icon: '🔧', title: 'Herramientas y espacio de trabajo adecuado', desc: 'Contar con herramientas en buen estado y rampas seguras para trabajar cómodo.' }
-            ]
-          }
-        ];
-      }
-
-      // 3. TIENDAS RETAIL / GENERAL (Vendedores, Cajeras, Administradores, etc.)
-      return [
-        {
-          stepNum: 1,
-          badge: 'PASO 1 DE 5 · TU DÍA A DÍA REAL',
-          xp: '+100 XP',
-          percent: 20,
-          title: `¿En qué se te va la mayor parte de tu tiempo en ${store}?`,
-          subtitle: `Contanos qué hacés en tu día a día como ${role}:`,
-          field: 'jornada_diaria',
-          options: [
-            { icon: '🤝', title: 'Atender clientes y vender', desc: 'Atención a personas en mostrador, cotizar motos y repuestos, y cerrar ventas.' },
-            { icon: '💰', title: 'Cobrar en caja y hacer arqueos', desc: 'Recibir pagos en efectivo o tarjeta, cobrar cuotas de crédito y cuadrar la caja.' },
-            { icon: '📦', title: 'Acomodar tienda y revisar inventario', desc: 'Limpiar motos en exhibición, recibir producto de bodega y contar piezas en estante.' },
-            { icon: '📋', title: 'Supervisar y coordinar el equipo', desc: 'Organizar las tareas de la tienda, revisar metas del día y resolver problemas.' }
-          ]
-        },
-        {
-          stepNum: 2,
-          badge: 'PASO 2 DE 5 · LO QUE TE QUITA TIEMPO',
-          xp: '+100 XP',
-          percent: 40,
-          title: '¿Qué cosas o trámites sentís que te hacen perder tiempo?',
-          subtitle: 'Procesos que sentís que complican el trabajo en vez de ayudar:',
-          field: 'herramientas_checklist',
-          options: [
-            { icon: '💻', title: 'El sistema se pone lento o se congela', desc: 'Pantallas pegadas al facturar en horas pico con clientes esperando en mostrador.' },
-            { icon: '📄', title: 'Llenar papeles y formatos a mano', desc: 'Hojas físicas que luego toca volver a escribir en la computadora o mandar por foto.' },
-            { icon: '⏳', title: 'Esperar autorizaciones de oficina central', desc: 'El cliente listo para comprar pero esperando horas por la aprobación de un crédito o descuento.' },
-            { icon: '🔄', title: 'Trámites complicados para abrir o cerrar caja', desc: 'Pasos o modales innecesarios que quitan tiempo cuando hay que atender rápido.' }
-          ]
-        },
-        {
-          stepNum: 3,
-          badge: 'PASO 3 DE 5 · TRABAJO EN EQUIPO (LA POSTA)',
-          xp: '+100 XP',
-          percent: 60,
-          title: '¿De qué otra área dependés y dónde sentís que se frena el trabajo?',
-          subtitle: 'En el día a día, ¿quién te apoya rápido y quién tarda en responder?',
-          field: 'conexiones_organigrama',
-          options: [
-            { icon: '📦', title: 'Bodega Central (CD)', desc: 'Tardan en mandarme las motos o repuestos que los clientes me están pidiendo.' },
-            { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Tardan mucho en dictaminar solicitudes y los clientes se cansan de esperar y se van.' },
-            { icon: '💼', title: 'Administración y Finanzas', desc: 'Demoras para validar transferencias bancarias o dar soporte con facturas y CAI.' },
-            { icon: '🔧', title: 'Taller y Garantías', desc: 'Retrasos en armar motos para entrega o en responder por reclamos de clientes.' }
-          ]
-        },
-        {
-          stepNum: 4,
-          badge: 'PASO 4 DE 5 · TU APORTE AL CLIENTE Y LA VENTA',
-          xp: '+100 XP',
-          percent: 80,
-          title: '¿Cómo sentís que tu trabajo ayuda a que la tienda cumpla su meta?',
-          subtitle: 'Tu contribución personal para que el negocio crezca:',
-          field: 'multiplicador_valor',
-          options: [
-            { icon: '🔥', title: 'Atender con ganas y no dejar ir al cliente', desc: 'Buscarle la vuelta, ofrecer opciones de crédito y cerrar la venta con amabilidad.' },
-            { icon: '⚡', title: 'Cobrar y despachar rápido', desc: 'Atender la fila sin demoras para que el cliente se vaya contento con su compra.' },
-            { icon: '🛡️', title: 'Cuidar que el dinero y el stock cuadren', desc: 'Depositar el efectivo puntual y cuidar que las existencias no tengan diferencias.' },
-            { icon: '🤝', title: 'Dar seguimiento a los clientes', desc: 'Llamar a los clientes para recordarles sus cuotas y ofrecerles promociones.' }
-          ]
-        },
-        {
-          stepNum: 5,
-          badge: 'PASO 5 DE 5 · TU PEDIDO PRINCIPAL',
-          xp: '+100 XP',
-          percent: 100,
-          title: 'Si pudieras pedir que arreglen una sola cosa mañana, ¿qué sería?',
-          subtitle: 'Lo que más te ayudaría a trabajar con tranquilidad y sin estrés:',
-          field: 'bloqueos_p0',
-          options: [
-            { icon: '🚀', title: 'Que kmpos facture en 2 segundos sin trabarse', desc: 'Poder emitir facturas y cobrar de inmediato sin miedo a que el sistema se cuelgue.' },
-            { icon: '📦', title: 'Inventario exacto entre pantalla y tienda', desc: 'Que lo que dice el sistema sea exactamente lo que tenemos físicamente en estante.' },
-            { icon: '💳', title: 'Aprobación de créditos mucho más rápida', desc: 'Poder dar respuesta al cliente en minutos para cerrar ventas en el momento.' },
-            { icon: '✂️', title: 'Menos papeleo y procesos más directos', desc: 'Poder trabajar sin tantas firmas ni pasos que no aportan nada a la venta.' }
-          ]
-        }
-      ];
-    }
-
-    /* WEB AUDIO API CHIMES (Duolingo Style) */
-    function playChime(type) {
+    /* Web Audio Synthesizer (Zero external files) */
+    function playTone(type) {
       if (!soundEnabled) return;
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const now = ctx.currentTime;
-        if (type === 'step') {
-          [392.00, 523.25].forEach((freq, i) => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, now + i * 0.09);
-            gain.gain.setValueAtTime(0, now + i * 0.09);
-            gain.gain.linearRampToValueAtTime(0.18, now + i * 0.09 + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.09 + 0.28);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(now + i * 0.09);
-            osc.stop(now + i * 0.09 + 0.3);
-          });
-        } else if (type === 'victory') {
-          [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+        if (type === 'tap') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'step') {
+          [523.25, 659.25].forEach((f, i) => {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, now + i * 0.11);
-            gain.gain.setValueAtTime(0, now + i * 0.11);
-            gain.gain.linearRampToValueAtTime(0.24, now + i * 0.11 + 0.03);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.11 + 0.55);
+            osc.frequency.setValueAtTime(f, now + i * 0.07);
+            gain.gain.setValueAtTime(0.12, now + i * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.12);
             osc.connect(gain);
             gain.connect(ctx.destination);
-            osc.start(now + i * 0.11);
-            osc.stop(now + i * 0.11 + 0.6);
+            osc.start(now + i * 0.07);
+            osc.stop(now + i * 0.07 + 0.14);
+          });
+        } else if (type === 'victory') {
+          [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + i * 0.09);
+            gain.gain.setValueAtTime(0.16, now + i * 0.09);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.35);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + i * 0.09);
+            osc.stop(now + i * 0.09 + 0.38);
           });
         }
       } catch (e) {}
     }
 
-    function toggleSound() {
+    function toggleAudio() {
       soundEnabled = !soundEnabled;
-      localStorage.setItem('km_sound_enabled', soundEnabled ? 'true' : 'false');
       document.getElementById('soundIcon').innerText = soundEnabled ? '🔊' : '🔇';
-      document.getElementById('soundToggleBtn').title = soundEnabled ? 'Sonido activado' : 'Sonido silenciado';
     }
 
-    /* CONFETTI BURST (Zero dependencies) */
-    function launchConfetti() {
-      try {
-        const canvas = document.createElement('canvas');
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.width = '100vw';
-        canvas.style.height = '100vh';
-        canvas.style.pointerEvents = 'none';
-        canvas.style.zIndex = '9999';
-        document.body.appendChild(canvas);
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const ctx = canvas.getContext('2d');
-        const particles = [];
-        const colors = ['#10b981', '#06b6d4', '#f59e0b', '#f43f5e', '#a855f7', '#3b82f6'];
-        for (let i = 0; i < 140; i++) {
-          particles.push({
-            x: canvas.width / 2 + (Math.random() - 0.5) * 100,
-            y: canvas.height * 0.45,
-            vx: (Math.random() - 0.5) * 22,
-            vy: (Math.random() - 0.85) * 20,
-            size: Math.random() * 8 + 4,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            rotation: Math.random() * 360,
-            rotSpeed: (Math.random() - 0.5) * 12,
-            alpha: 1
-          });
+    /* Quick Fill Helper */
+    function quickFill(role, store) {
+      document.getElementById('inputRole').value = role;
+      document.getElementById('inputStore').value = store;
+      playTone('tap');
+    }
+
+    /* Detect Role Category */
+    function detectRoleCategory(role, store) {
+      const norm = (s) => (s || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const r = norm(role);
+      const s = norm(store);
+      const c = `${r} ${s}`;
+
+      if (c.includes('mecanic') || c.includes('taller') || c.includes('mantenimiento') || c.includes('armado')) return 'mecanico';
+      if (c.includes('cajer') || c.includes('caja')) return 'cajero';
+      if (c.includes('bodega') || c.includes('almacen') || c.includes('cd') || c.includes('despacho') || c.includes('empaque')) return 'bodeguero';
+      if (c.includes('vendedor') || c.includes('asesor') || c.includes('mostrador') || c.includes('ventas')) return 'vendedor';
+      if (c.includes('auditor') || c.includes('control interno')) return 'auditor';
+      return 'general';
+    }
+
+    /* 5 STEPS GENERATOR (Bespoke to real job realities) */
+    function getStepsForUser(user) {
+      const cat = detectRoleCategory(user.role, user.store);
+
+      // STEP 1: TU DÍA REAL
+      let step1Options = [
+        { icon: '🤝', title: 'Atender clientes y vender', desc: 'Atención en mostrador, cotizar motos/repuestos y asesorar personas.' },
+        { icon: '💻', title: 'Trabajo en computadora y sistema', desc: 'Ingresar datos, facturar, cuadrar cuentas o responder mensajes.' },
+        { icon: '📦', title: 'Mover y acomodar mercadería', desc: 'Recibir pedidos, acomodar cajas, estibar o cargar camiones.' },
+        { icon: '🔧', title: 'Trabajo técnico y reparaciones', desc: 'Armar motos nuevas de paquete, mantenimientos o diagnosticar fallas.' },
+        { icon: '📋', title: 'Coordinar y supervisar tareas', desc: 'Organizar al equipo, resolver imprevistos y dar seguimiento a metas.' }
+      ];
+      if (cat === 'mecanico') {
+        step1Options = [
+          { icon: '🔧', title: 'Reparar y hacer mantenimientos', desc: 'Cambios de aceite, frenos, bujías y afinación mecánica.' },
+          { icon: '🛵', title: 'Armar motos nuevas de paquete', desc: 'Desembalar huacales, calibrar y dejarlas listas para exhibición.' },
+          { icon: '🔎', title: 'Diagnosticar fallas complejas', desc: 'Buscar causas de fallas eléctricas o mecánicas difíciles.' },
+          { icon: '🛡️', title: 'Revisión de garantías de fábrica', desc: 'Inspeccionar piezas defectuosas para solicitar el cambio.' }
+        ];
+      } else if (cat === 'bodeguero') {
+        step1Options = [
+          { icon: '📦', title: 'Descargar camiones y contenedores', desc: 'Bajar cajas pesadas y estibar en los pasillos de bodega.' },
+          { icon: '📋', title: 'Alistar pedidos (Picking)', desc: 'Buscar piezas en estantes y empacarlas para las 77 tiendas.' },
+          { icon: '🚚', title: 'Cargar y despachar rutas', desc: 'Subir la mercadería a los camiones para salir a tiempo.' },
+          { icon: '🔍', title: 'Contar inventario y revisar averías', desc: 'Conteos físicos y separar producto dañado o incompleto.' }
+        ];
+      } else if (cat === 'cajero') {
+        step1Options = [
+          { icon: '💰', title: 'Cobrar ventas de mostrador', desc: 'Recibir pagos en efectivo, tarjeta o transferencias emitiendo recibos.' },
+          { icon: '💳', title: 'Cobrar cuotas de crédito', desc: 'Recibir abonos de clientes y entregar comprobante oficial al día.' },
+          { icon: '🔒', title: 'Custodia de efectivo y arqueo', desc: 'Tener el fondo fijo ordenado y preparar depósitos bancarios.' },
+          { icon: '📑', title: 'Corte Z y cuadre de cierre', desc: 'Cerrar caja al final de la tarde cuadrando sistema vs dinero.' }
+        ];
+      }
+
+      // STEP 2: TU TRABAJO REAL (Multi-Select: qué hacés una y otra vez)
+      let step2Options = [
+        { icon: '📄', title: 'Llenar hojas y papeles a mano', desc: 'Anotar en boletas físicas que luego toca volver a escribir en la compu.' },
+        { icon: '📞', title: 'Llamar o escribir para pedir autorización', desc: 'Estar esperando por WhatsApp que un jefe o encargado apruebe algo.' },
+        { icon: '🔍', title: 'Buscar inventario en más de un lugar', desc: 'Buscar si una pieza está en tienda, en bodega o en otra sucursal.' },
+        { icon: '⌨️', title: 'Digitar datos repetitivos en el sistema', desc: 'Volver a escribir nombres, códigos o números que ya estaban anotados.' },
+        { icon: '⏳', title: 'Explicar al cliente por qué tarda el trámite', desc: 'Dar la cara cuando el sistema está lento o falta una aprobación.' }
+      ];
+      if (cat === 'mecanico') {
+        step2Options = [
+          { icon: '📦', title: 'Buscar repuestos que no aparecen', desc: 'Perder tiempo buscando piezas que en el sistema dicen que hay pero no están.' },
+          { icon: '✍️', title: 'Llenar hojas de servicio con grasa', desc: 'Anotar a mano diagnósticos y piezas que se pueden ensuciar o perder.' },
+          { icon: '📞', title: 'Preguntar si oficina aprobó la garantía', desc: 'Esperar que oficina central dé el visto bueno para cambiar una pieza.' },
+          { icon: '🔄', title: 'Armar y desarmar por falta de partes', desc: 'Tener que pausar una moto a la mitad porque falta un tornillo o un cable.' }
+        ];
+      }
+
+      // STEP 3: LOS FRENOS (Toque Ámbar: qué suele frenarte primero)
+      let step3Options = [
+        { icon: '📦', title: 'No está el producto o repuesto', desc: 'El cliente lo quiere pero no hay existencia física para entregar.' },
+        { icon: '⏳', title: 'Tengo que esperar que alguien me apruebe', desc: 'Quedo con las manos atadas esperando una firma o visto bueno.' },
+        { icon: '📱', title: 'El sistema se pone lento o se congela', desc: 'Pantallas pegadas en horas pico que hacen esperar a la gente.' },
+        { icon: '🔁', title: 'Me toca hacer lo mismo dos veces', desc: 'Hacer el proceso en papel y después tener que pasarlo al sistema.' },
+        { icon: '🤷', title: 'No sé con quién resolverlo rápido', desc: 'Nadie sabe quién tiene la respuesta o se tiran la pelota entre áreas.' }
+      ];
+
+      // STEP 4: CÓMO FLUYE (La Posta: de quién dependés)
+      let step4Options = [
+        { icon: '📦', title: 'Almacén Central / Bodega CD', desc: 'Dependo de que surtan y despachen la mercadería a tiempo.' },
+        { icon: '💳', title: 'Créditos y Cobranzas', desc: 'Dependo de que aprueben solicitudes rápido para cerrar la venta.' },
+        { icon: '🏪', title: 'Las Tiendas / Sucursales', desc: 'Dependo de que me manden la información completa y a tiempo.' },
+        { icon: '💼', title: 'Oficina Central / Finanzas', desc: 'Dependo de autorizaciones de pago, transferencias o CAI.' },
+        { icon: '💻', title: 'Sistemas / TI', desc: 'Dependo de que el sistema y los equipos funcionen sin trabarse.' },
+        { icon: '🤝', title: 'Mi trabajo fluye bien', desc: 'No siento que ninguna otra área me frene de forma importante.' }
+      ];
+
+      // STEP 5: TU MEJORA (Pantalla limpia, voz protagonista)
+      let step5Options = [
+        { icon: '🚀', title: 'Que el sistema sea rápido y no falle jamás', desc: 'Trabajar sin pantallas pegadas ni esperas.' },
+        { icon: '📦', title: 'Tener siempre inventario y repuestos exactos', desc: 'Que lo que dice el sistema esté físicamente disponible.' },
+        { icon: '✂️', title: 'Quitar papeleos y firmas innecesarias', desc: 'Hacer todo digital y en un solo clic sin burocracia.' },
+        { icon: '🤝', title: 'Respuestas más rápidas de otros departamentos', desc: 'Que cuando pida algo a otra área me contesten pronto.' }
+      ];
+
+      return [
+        {
+          stepNum: 1,
+          tag: 'PARADA 1 DE 5 · TU DÍA REAL',
+          milestone: 'Tu día',
+          percent: 20,
+          title: '¿Qué ocupa de verdad la mayor parte de tu día?',
+          subtitle: 'Elegí lo que más se parezca a tu realidad. No lo que diga el puesto.',
+          field: 'jornada_diaria',
+          multi: false,
+          warning: false,
+          options: step1Options
+        },
+        {
+          stepNum: 2,
+          tag: 'PARADA 2 DE 5 · TU TRABAJO REAL',
+          milestone: 'Tu rutina',
+          percent: 40,
+          title: 'De todo eso, ¿qué hacés una y otra vez?',
+          subtitle: 'Esa tarea que podrías hacer hasta con los ojos cerrados (elegí hasta 3):',
+          field: 'herramientas_checklist',
+          multi: true,
+          warning: false,
+          options: step2Options
+        },
+        {
+          stepNum: 3,
+          tag: 'PARADA 3 DE 5 · LOS FRENOS',
+          milestone: 'Los frenos',
+          percent: 60,
+          title: 'Cuando el día se complica, ¿qué suele frenarte primero?',
+          subtitle: 'Ese momento donde la pelota se queda parada en seco:',
+          field: 'conexiones_organigrama',
+          multi: false,
+          warning: true,
+          options: step3Options
+        },
+        {
+          stepNum: 4,
+          tag: 'PARADA 4 DE 5 · CÓMO FLUYE (LA POSTA)',
+          milestone: 'La posta',
+          percent: 80,
+          title: 'Para terminar bien tu trabajo, ¿de quién o de qué dependés?',
+          subtitle: '¿Quién te apoya rápido y quién suele tardar en responder?',
+          field: 'multiplicador_valor',
+          multi: false,
+          warning: false,
+          options: step4Options
+        },
+        {
+          stepNum: 5,
+          tag: 'PARADA 5 DE 5 · TU MEJORA',
+          milestone: 'Tu mejora',
+          percent: 100,
+          title: 'Si mañana pudiéramos quitarte UNA sola traba del trabajo… ¿cuál quitarías?',
+          subtitle: 'Hablá como si se lo contaras a un compañero (o elegí una opción):',
+          field: 'bloqueos_p0',
+          multi: false,
+          warning: false,
+          heroVoice: true,
+          options: step5Options
         }
-        let frame = 0;
-        function animate() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          let alive = false;
-          particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-            p.vy += 0.38;
-            p.vx *= 0.98;
-            p.rotation += p.rotSpeed;
-            p.alpha -= 0.0075;
-            if (p.alpha > 0) {
-              alive = true;
-              ctx.save();
-              ctx.translate(p.x, p.y);
-              ctx.rotate(p.rotation * Math.PI / 180);
-              ctx.globalAlpha = p.alpha;
-              ctx.fillStyle = p.color;
-              ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-              ctx.restore();
-            }
-          });
-          frame++;
-          if (alive && frame < 220) {
-            requestAnimationFrame(animate);
-          } else {
-            canvas.remove();
-          }
-        }
-        requestAnimationFrame(animate);
-      } catch (e) {}
+      ];
     }
 
-    /* SPEECH RECOGNITION (Dictado por voz) */
-    let recognition = null;
-    let isRecording = false;
+    /* START MISSION */
+    function startMission(e) {
+      e.preventDefault();
+      const name = document.getElementById('inputName').value.trim();
+      const role = document.getElementById('inputRole').value.trim();
+      const store = document.getElementById('inputStore').value.trim();
 
-    function initSpeech() {
-      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRec) return false;
-      recognition = new SpeechRec();
-      recognition.lang = 'es-HN';
-      recognition.continuous = false;
-      recognition.interimResults = true;
-      recognition.onstart = () => {
-        isRecording = true;
-        updateMicUI(true);
-      };
-      recognition.onresult = (event) => {
-        let text = '';
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          text += event.results[i][0].transcript;
-        }
-        const ta = document.getElementById('questCustomText');
-        if (ta) ta.value = text;
-      };
-      recognition.onerror = () => {
-        isRecording = false;
-        updateMicUI(false);
-      };
-      recognition.onend = () => {
-        isRecording = false;
-        updateMicUI(false);
-      };
-      return true;
-    }
+      if (!name || !role || !store) return;
 
-    function toggleVoiceRecording() {
-      if (!recognition && !initSpeech()) {
-        alert('Tu navegador no tiene soporte de dictado por voz. Podés escribir con total normalidad.');
-        return;
-      }
-      if (isRecording) {
-        recognition.stop();
-      } else {
-        try { recognition.start(); } catch(e) {}
-      }
-    }
+      currentUser = { name, role, store };
+      playTone('step');
 
-    function updateMicUI(rec) {
-      const btn = document.getElementById('micBtn');
-      const label = document.getElementById('micLabel');
-      if (rec) {
-        btn.classList.add('mic-recording', 'text-white');
-        label.innerText = 'Escuchando...';
-      } else {
-        btn.classList.remove('mic-recording', 'text-white');
-        label.innerText = 'Dictar por voz';
-      }
-    }
+      document.getElementById('welcomeScreen').classList.add('hidden');
+      document.getElementById('topMomentumBar').classList.remove('hidden');
+      document.getElementById('missionScreen').classList.remove('hidden');
 
-    /* QUICK HELPER SETTERS */
-    function setQuickProfile(role, store) {
-      document.getElementById('empRole').value = role;
-      document.getElementById('empStore').value = store;
-      playChime('step');
-    }
-    function setStore(val) { document.getElementById('empStore').value = val; }
-    function setRole(val) { document.getElementById('empRole').value = val; }
-
-    /* DRAFT CHECK AND RESUME */
-    function checkSavedDraft() {
-      try {
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if (!raw) return;
-        const draft = JSON.parse(raw);
-        if (draft && draft.currentStep > 0 && draft.currentUser?.name) {
-          const banner = document.getElementById('resumeDraftBanner');
-          const badge = document.getElementById('resumeDraftStepBadge');
-          const txt = document.getElementById('resumeDraftText');
-          if (banner && badge && txt) {
-            badge.innerText = `Paso ${draft.currentStep} de 5`;
-            txt.innerHTML = `Hola <strong>${draft.currentUser.name}</strong>, dejamos guardado tu avance como <em>${draft.currentUser.role}</em> en <em>${draft.currentUser.store}</em>. Podés retomar al instante.`;
-            banner.classList.remove('hidden');
-          }
-        }
-      } catch (e) {}
-    }
-
-    function resumeSavedDraft() {
-      try {
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if (!raw) return;
-        const draft = JSON.parse(raw);
-        currentUser = { ...draft.currentUser };
-        auditData = { ...draft.auditData };
-        currentStep = draft.currentStep || 1;
-        draftToken = draft.draft_token || draftToken;
-
-        currentCategorySteps = buildStepsForUser(currentUser);
-
-        document.getElementById('authCard').classList.add('hidden');
-        document.getElementById('hudProgressSection').classList.remove('hidden');
-        document.getElementById('hudPauseBtn').classList.remove('hidden');
-        document.getElementById('questStage').classList.remove('hidden');
-
-        updateLivePassportHeader();
-        renderStep(currentStep);
-      } catch (err) {
-        console.error('Error restaurando borrador:', err);
-      }
-    }
-
-    function discardSavedDraft() {
-      localStorage.removeItem(DRAFT_KEY);
-      const banner = document.getElementById('resumeDraftBanner');
-      if (banner) banner.classList.add('hidden');
-      draftToken = 'draft_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
-      localStorage.setItem('km_draft_token', draftToken);
-    }
-
-    function pauseAndExit() {
-      alert(`☕ ¡Tu avance está seguro!\n\nTus respuestas hasta el Paso ${currentStep} de 5 quedaron 100% guardadas.\n\nPodés cerrar la pestaña con tranquilidad para atender tus clientes o pendientes. Cuando vuelvas a ingresar, continuarás exactamente donde quedaste.`);
-      try {
-        window.parent.postMessage({
-          type: 'KM_AUDIT_PAUSED',
-          step: currentStep,
-          colaborador: { ...currentUser }
-        }, '*');
-      } catch (e) {}
-    }
-
-    /* START AUDIT */
-    function startAudit(e) {
-      if (e && e.preventDefault) e.preventDefault();
-      currentUser.name = (document.getElementById('empName').value || '').trim();
-      currentUser.store = (document.getElementById('empStore').value || '').trim();
-      currentUser.role = (document.getElementById('empRole').value || '').trim();
-      currentUser.leader = (document.getElementById('empLeader').value || 'Supervisión / Dirección').trim();
-
-      if (!currentUser.name || !currentUser.store || !currentUser.role) {
-        alert('Por favor completá tu Nombre, Sucursal y Rol para comenzar.');
-        return;
-      }
-
-      currentCategorySteps = buildStepsForUser(currentUser);
-      currentStep = 1;
-
-      document.getElementById('authCard').classList.add('hidden');
-      document.getElementById('hudProgressSection').classList.remove('hidden');
-      document.getElementById('hudPauseBtn').classList.remove('hidden');
-      document.getElementById('questStage').classList.remove('hidden');
-
-      updateLivePassportHeader();
       renderStep(1);
-    }
-
-    function updateLivePassportHeader() {
-      document.getElementById('liveAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
-      document.getElementById('liveCollabName').innerText = currentUser.name;
-      document.getElementById('liveCollabRole').innerText = `${currentUser.role} • ${currentUser.store}`;
     }
 
     /* RENDER STEP */
     function renderStep(stepNum) {
       currentStep = stepNum;
-      if (!currentCategorySteps || !currentCategorySteps.length) {
-        currentCategorySteps = buildStepsForUser(currentUser);
+      const steps = getStepsForUser(currentUser);
+      const conf = steps.find(s => s.stepNum === stepNum);
+      if (!conf) return;
+
+      isMultiSelect = !!conf.multi;
+      selectedChoices = [];
+
+      // Update Momentum Header
+      document.getElementById('stepCounterText').innerText = `${stepNum} de 5`;
+      document.getElementById('stepPercentText').innerText = `${conf.percent}%`;
+      document.getElementById('stepMilestoneName').innerText = conf.milestone;
+      document.getElementById('momentumFillLine').style.width = `${(stepNum - 1) * 25}%`;
+
+      for (let i = 1; i <= 5; i++) {
+        const node = document.getElementById(`node${i}`);
+        if (i < stepNum) {
+          node.className = 'w-3.5 h-3.5 rounded-full bg-km-green border-2 border-km-bg z-10 momentum-node';
+        } else if (i === stepNum) {
+          node.className = 'w-4 h-4 rounded-full bg-km-green border-2 border-white z-10 momentum-node shadow-lg shadow-km-green/50';
+        } else {
+          node.className = 'w-3.5 h-3.5 rounded-full bg-white/20 border-2 border-km-bg z-10 momentum-node';
+        }
       }
-      const stepConf = currentCategorySteps.find(s => s.stepNum === stepNum);
-      if (!stepConf) return;
 
-      // Update HUD
-      document.getElementById('hudStepText').innerText = `Paso ${stepNum} de 5`;
-      document.getElementById('hudPercentText').innerText = `${stepConf.percent}%`;
-      document.getElementById('hudProgressBar').style.width = `${stepConf.percent}%`;
+      // Text updates
+      document.getElementById('questTag').innerText = conf.tag;
+      document.getElementById('questTitle').innerText = conf.title;
+      document.getElementById('questSubtitle').innerText = conf.subtitle;
 
-      // Update Card Header
-      document.getElementById('questBadge').innerText = stepConf.badge;
-      document.getElementById('questXpTag').innerHTML = `<span>⭐</span> <span>${stepConf.xp}</span>`;
-      document.getElementById('questTitle').innerText = stepConf.title;
-      document.getElementById('questSubtitle').innerText = stepConf.subtitle;
+      const multiHelper = document.getElementById('multiSelectHelper');
+      const footer = document.getElementById('multiSelectFooter');
+      if (isMultiSelect) {
+        multiHelper.classList.remove('hidden');
+        footer.classList.remove('hidden');
+      } else {
+        multiHelper.classList.add('hidden');
+        footer.classList.add('hidden');
+      }
 
-      // Reset selection
-      selectedOptionText = '';
-      const existingAns = auditData[stepConf.field] || '';
-      document.getElementById('questCustomText').value = existingAns;
+      // Reset Voice
+      resetVoiceState();
+      document.getElementById('manualTextInput').value = auditData[conf.field] || '';
 
-      // Render Option Tiles
+      // Render Cards
       const grid = document.getElementById('questOptionsGrid');
       grid.innerHTML = '';
 
-      stepConf.options.forEach((opt) => {
-        const isSelected = existingAns && existingAns.startsWith(`[${opt.title}]`);
-        if (isSelected) selectedOptionText = existingAns;
-
-        const tile = document.createElement('div');
-        tile.className = `duo-card rounded-2xl p-4 flex items-start gap-3.5 ${isSelected ? 'selected' : ''}`;
-        tile.onclick = () => selectOptionTile(tile, opt, stepConf.field);
-        
-        tile.innerHTML = `
-          <div class="text-2xl pt-0.5 flex-shrink-0">${opt.icon}</div>
+      conf.options.forEach(opt => {
+        const card = document.createElement('div');
+        const warnClass = conf.warning ? 'warning-card' : '';
+        card.className = `km-card ${warnClass}`;
+        card.innerHTML = `
+          <div class="text-2xl flex-shrink-0">${opt.icon}</div>
           <div class="flex-1 space-y-0.5">
-            <div class="font-extrabold text-white text-sm flex items-center justify-between">
+            <div class="font-bold text-white text-sm flex items-center justify-between">
               <span>${opt.title}</span>
-              <span class="tile-check text-emerald-400 font-bold text-xs ${isSelected ? '' : 'hidden'}">✓</span>
+              <span class="check-mark text-km-green font-bold text-xs hidden">✓</span>
             </div>
-            <p class="text-xs text-slate-400 leading-relaxed">${opt.desc}</p>
+            <p class="text-xs text-km-muted leading-relaxed">${opt.desc}</p>
           </div>
         `;
-        grid.appendChild(tile);
+
+        card.onclick = () => onCardClicked(card, opt, conf);
+        grid.appendChild(card);
       });
 
-      // Update Mini Chips in Footer
-      for (let i = 1; i <= 5; i++) {
-        const chip = document.getElementById('chipStep' + i);
-        if (!chip) continue;
-        if (i < stepNum) {
-          chip.className = 'px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold';
-          chip.innerText = `✓ Paso ${i}`;
-        } else if (i === stepNum) {
-          chip.className = 'px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold';
-        } else {
-          chip.className = 'px-2 py-0.5 rounded bg-white/[0.03] text-slate-500 border border-white/5';
-        }
-      }
-
-      document.getElementById('questNextBtnText').innerText = stepNum === 5 ? '¡Finalizar Radiografía! 🏆' : 'Continuar ➜';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function selectOptionTile(element, optionObj, fieldName) {
-      playChime('step');
-      
-      document.querySelectorAll('#questOptionsGrid .duo-card').forEach(c => {
-        c.classList.remove('selected');
-        const chk = c.querySelector('.tile-check');
-        if (chk) chk.classList.add('hidden');
-      });
+    /* CARD CLICK HANDLER (Single tap = instant advance) */
+    function onCardClicked(cardEl, opt, conf) {
+      playTone('tap');
 
-      element.classList.add('selected');
-      const check = element.querySelector('.tile-check');
-      if (check) check.classList.remove('hidden');
+      if (!isMultiSelect) {
+        // Single select: visually select and advance after 240ms
+        document.querySelectorAll('.km-card').forEach(c => {
+          c.classList.remove('selected');
+          const chk = c.querySelector('.check-mark');
+          if (chk) chk.classList.add('hidden');
+        });
 
-      selectedOptionText = `[${optionObj.title}]: ${optionObj.desc}`;
-      const ta = document.getElementById('questCustomText');
-      if (!ta.value.trim() || ta.value.startsWith('[')) {
-        ta.value = selectedOptionText;
+        cardEl.classList.add('selected');
+        const chk = cardEl.querySelector('.check-mark');
+        if (chk) chk.classList.remove('hidden');
+
+        auditData[conf.field] = `[${opt.title}]: ${opt.desc}`;
+        saveDraftProgress();
+
+        // 240ms pause for eye feedback, then advance
+        setTimeout(() => {
+          advanceToNextStep();
+        }, 240);
+
+      } else {
+        // Multi select: toggle (up to 3)
+        const titleTag = `[${opt.title}]`;
+        const idx = selectedChoices.indexOf(titleTag);
+
+        if (idx !== -1) {
+          selectedChoices.splice(idx, 1);
+          cardEl.classList.remove('selected');
+          const chk = cardEl.querySelector('.check-mark');
+          if (chk) chk.classList.add('hidden');
+        } else {
+          if (selectedChoices.length >= 3) {
+            alert('Podés seleccionar hasta 3 opciones principales.');
+            return;
+          }
+          selectedChoices.push(titleTag);
+          cardEl.classList.add('selected');
+          const chk = cardEl.querySelector('.check-mark');
+          if (chk) chk.classList.remove('hidden');
+        }
+
+        auditData[conf.field] = selectedChoices.join(', ');
+        const btn = document.getElementById('nextStepBtnLabel');
+        btn.innerText = selectedChoices.length > 0 ? `Listo · (${selectedChoices.length}) ➜` : 'Listo · Continuar ➜';
       }
     }
 
-    /* SUBMIT CURRENT STEP */
-    async function submitCurrentStep() {
-      const stepConf = currentCategorySteps.find(s => s.stepNum === currentStep);
-      if (!stepConf) return;
+    function confirmAndAdvance() {
+      const steps = getStepsForUser(currentUser);
+      const conf = steps.find(s => s.stepNum === currentStep);
+      const manual = document.getElementById('manualTextInput').value.trim();
 
-      const customText = (document.getElementById('questCustomText').value || '').trim();
-      const finalAnswer = customText || selectedOptionText;
+      if (manual) {
+        auditData[conf.field] = manual;
+      }
 
-      if (!finalAnswer) {
-        alert('Por favor seleccioná una opción o escribí tu respuesta para continuar.');
+      if (!auditData[conf.field]) {
+        alert('Por favor seleccioná al menos una opción o contanos por voz.');
         return;
       }
 
-      auditData[stepConf.field] = finalAnswer;
+      playTone('step');
+      advanceToNextStep();
+    }
 
-      saveStepDraft(currentStep);
-
+    function advanceToNextStep() {
+      playTone('step');
       if (currentStep < 5) {
-        playChime('step');
         renderStep(currentStep + 1);
       } else {
-        finalizeAudit();
+        finishJourney();
       }
     }
 
-    /* AUTOSAVE PROGRESS TO DRAFT ENDPOINT */
-    function saveStepDraft(stepNum) {
-      const draftObj = {
-        draft_token: draftToken,
-        currentUser: { ...currentUser },
-        currentStep: stepNum,
-        auditData: { ...auditData },
-        timestamp: Date.now()
-      };
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(draftObj));
-
-      const txt = document.getElementById('hudSaveStatusText');
-      if (txt) txt.innerText = 'Guardando...';
-
-      fetch('/api/auditorias/draft', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          draft_token: draftToken,
-          nombre: currentUser.name,
-          sucursal: currentUser.store,
-          rol: currentUser.role,
-          paso_actual: stepNum,
-          jornada_diaria: auditData.jornada_diaria,
-          conexiones_organigrama: auditData.conexiones_organigrama,
-          herramientas_checklist: auditData.herramientas_checklist,
-          multiplicador_valor: auditData.multiplicador_valor,
-          bloqueos_p0: auditData.bloqueos_p0,
-          telefono: ''
-        })
-      }).then(r => r.json()).then(res => {
-        if (txt) txt.innerText = `Paso ${stepNum} guardado`;
-      }).catch(() => {
-        if (txt) txt.innerText = 'Guardado local';
-      });
+    function prevStep() {
+      if (currentStep > 1) {
+        playTone('tap');
+        renderStep(currentStep - 1);
+      }
     }
 
-    /* FINALIZE AUDIT */
-    async function finalizeAudit() {
-      playChime('victory');
+    /* FINISH JOURNEY & REVEAL PASSPORT */
+    async function finishJourney() {
+      playTone('victory');
+
+      document.getElementById('topMomentumBar').classList.add('hidden');
+      document.getElementById('missionScreen').classList.add('hidden');
+      document.getElementById('celebrationScreen').classList.remove('hidden');
+
+      // Fill Passport
+      const folioNum = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('passportFolio').innerText = `FOLIO #KM-2026-${folioNum}`;
+      document.getElementById('passportName').innerText = currentUser.name;
+      document.getElementById('passportRoleStore').innerText = `${currentUser.role} • ${currentUser.store}`;
+
+      const today = new Date();
+      const dateStr = today.toLocaleDateString('es-HN', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+      document.getElementById('passportDate').innerText = dateStr;
+
+      // 3D Tilt Effect on mouse
+      const card = document.getElementById('passportCardNode');
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        card.style.transform = `rotateY(${x / 14}deg) rotateX(${-y / 14}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      });
+
+      // Shoot Confetti
       launchConfetti();
 
-      document.getElementById('questStage').classList.add('hidden');
-      document.getElementById('hudProgressSection').classList.add('hidden');
-      document.getElementById('hudPauseBtn').classList.add('hidden');
-      document.getElementById('finishCard').classList.remove('hidden');
-
-      const payload = {
-        draft_token: draftToken,
-        nombre: currentUser.name,
-        sucursal: currentUser.store,
-        rol: currentUser.role,
-        responsabilidades: `[Esencia]: ${auditData.jornada_diaria} | [Líder]: ${currentUser.leader}`,
-        procesos_clave: `[Relevos]: ${auditData.conexiones_organigrama} | [Inútiles a Podar]: ${auditData.herramientas_checklist}`,
-        checklist: { detalle: auditData.herramientas_checklist },
-        prioridades: auditData.multiplicador_valor,
-        bloqueos_p0: auditData.bloqueos_p0,
-        cuellos_botella: auditData.conexiones_organigrama,
-        sistemas_afectados: "kmpos / erp / manual"
-      };
-
+      // Submit Final to Server
       try {
-        const res = await fetch('/api/auditorias', {
+        await fetch('/api/auditorias', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user: currentUser,
+            data: auditData,
+            completed_at: new Date().toISOString()
+          })
+        });
+        localStorage.removeItem(DRAFT_KEY);
+      } catch (e) {}
+    }
+
+    /* SAVE PROGRESS DRAFT */
+    async function saveDraftProgress() {
+      const payload = {
+        user: currentUser,
+        currentStep,
+        auditData,
+        updated_at: new Date().toISOString()
+      };
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
+      try {
+        fetch('/api/auditorias/draft', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          const resData = await res.json();
-          currentFolioId = resData.id;
-          localStorage.removeItem(DRAFT_KEY);
-
-          document.getElementById('finalCardFolio').innerText = `#${currentFolioId}`;
-          document.getElementById('finalCardName').innerText = currentUser.name;
-          document.getElementById('finalCardStore').innerText = currentUser.store;
-          document.getElementById('finalCardRole').innerText = currentUser.role;
-          document.getElementById('finalCardAporte').innerText = auditData.multiplicador_valor || 'No especificado';
-          document.getElementById('finalCardInutil').innerText = auditData.herramientas_checklist || 'No especificado';
-          document.getElementById('finalCardTraba').innerText = auditData.bloqueos_p0 || 'Ningún bloqueo crítico reportado';
-          document.getElementById('finalCardDate').innerText = new Date().toLocaleDateString('es-HN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-          try {
-            window.parent.postMessage({
-              type: 'KM_AUDIT_COMPLETED',
-              folio: currentFolioId,
-              colaborador: { ...currentUser }
-            }, '*');
-          } catch (e) {}
-        }
-      } catch (err) {
-        console.warn('Persistencia central offline:', err);
-      }
-    }
-
-    function finishAndUnlockPOS() {
-      try {
-        window.parent.postMessage({
-          type: 'KM_AUDIT_COMPLETED',
-          folio: currentFolioId || 'OK',
-          colaborador: { ...currentUser }
-        }, '*');
+        }).catch(() => {});
       } catch (e) {}
-      alert(`🎉 ¡Felicidades, ${currentUser.name}!\n\nTu radiografía quedó registrada con Folio #${currentFolioId || 'OK'}.\nYa podés continuar trabajando en tu sistema normalmente.`);
     }
 
-    /* ADMIN CENSO VIEWER */
-    let serverStats = null;
-    let currentFilterMode = 'todos';
-
-    const ZONAS = [
-      {
-        nombre: "DEPARTAMENTOS CENTRALES & CORPORATIVO",
-        prefix: ["Centro de Distribución", "CD", "Taller Central", "Créditos", "Cobranzas", "Contabilidad", "Tesorería", "Compras", "Recursos Humanos", "Tecnología", "Ventas Mayoreo", "Gerencia", "Dirección"]
-      },
-      {
-        nombre: "VALLE DE SULA & ZONA NORTE",
-        prefix: ["SPS", "Choloma", "Puerto Cortés", "Villanueva", "La Lima", "El Progreso", "Santa Rita", "Potrerillos"]
-      },
-      {
-        nombre: "FRANCISCO MORAZÁN & TEGUCIGALPA",
-        prefix: ["Tegucigalpa", "Talanga", "Comayagüela"]
-      },
-      {
-        nombre: "COMAYAGUA, LA PAZ & INTIBUCÁ",
-        prefix: ["Comayagua", "Siguatepeque", "La Paz", "Marcala", "Jesús de Otoro", "Intibucá"]
-      },
-      {
-        nombre: "ZONA SUR (CHOLUTECA & VALLE)",
-        prefix: ["Choluteca", "San Lorenzo", "Nacaome", "Marcovia", "Monjarás", "El Triunfo", "Pespire"]
-      },
-      {
-        nombre: "ATLÁNTIDA, COLÓN & YORO",
-        prefix: ["La Ceiba", "Tela", "Olanchito", "Tocoa", "Trujillo", "Saba", "Sonaguera", "Yoro"]
-      },
-      {
-        nombre: "OCCIDENTE (COPÁN, OCOTEPEQUE, SANTA BÁRBARA)",
-        prefix: ["Santa Rosa", "Entrada de Copán", "Copán Ruinas", "Ocotepeque", "Gracias", "Santa Bárbara", "Ilama", "Quimistán", "Azacualpa"]
-      },
-      {
-        nombre: "OLANCHO & EL PARAÍSO",
-        prefix: ["Juticalpa", "Catacamas", "Campamento", "San Esteban", "Danlí", "El Paraíso"]
-      }
-    ];
-
-    function promptAdminAccess() {
-      const pin = prompt("Ingrese PIN de Supervisión para abrir el Tablero Gerencial:");
-      if (pin === "km2026" || pin === "1234" || pin === "admin") {
-        openCensoModal();
-      } else if (pin !== null) {
-        alert("PIN incorrecto.");
-      }
-    }
-
-    function openCensoModal() {
-      document.getElementById('censoModal').classList.remove('hidden');
-      loadServerStats();
-    }
-
-    function closeCensoModal() {
-      document.getElementById('censoModal').classList.add('hidden');
-    }
-
-    async function loadServerStats() {
+    function checkDraft() {
       try {
-        const res = await fetch('/api/stats');
-        if (res.ok) {
-          serverStats = await res.json();
-          renderCensoList();
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if (!raw) return;
+        const draft = JSON.parse(raw);
+        if (draft && draft.user?.name && draft.currentStep > 1) {
+          currentUser = draft.user;
+          auditData = draft.auditData || {};
+          document.getElementById('resumeDraftName').innerText = `${draft.user.name} (${draft.user.role}) · Parada ${draft.currentStep} de 5`;
+          document.getElementById('resumeDraftBox').classList.remove('hidden');
         }
       } catch (e) {}
     }
 
-    function setCensoFilter(mode) {
-      currentFilterMode = mode;
-      renderCensoList();
+    function resumeDraft() {
+      try {
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if (!raw) return;
+        const draft = JSON.parse(raw);
+        currentUser = draft.user;
+        auditData = draft.auditData || {};
+        
+        document.getElementById('welcomeScreen').classList.add('hidden');
+        document.getElementById('topMomentumBar').classList.remove('hidden');
+        document.getElementById('missionScreen').classList.remove('hidden');
+        
+        renderStep(draft.currentStep || 1);
+      } catch (e) {}
     }
 
-    function renderCensoList() {
-      if (!serverStats || !serverStats.censo) return;
-      const container = document.getElementById('censoListContainer');
-      const query = (document.getElementById('censoSearchInput').value || '').toLowerCase().trim();
-
-      let items = [...serverStats.censo];
-      if (currentFilterMode === 'completadas') items = items.filter(i => i.completado);
-      if (currentFilterMode === 'p0') items = items.filter(i => i.completado && i.detalles.some(d => d.bloqueos_p0 && !['ninguno', 'no', 'n/a', 'none'].includes(d.bloqueos_p0.toLowerCase())));
-
-      if (query) {
-        items = items.filter(i => {
-          const matchStore = i.sucursal.toLowerCase().includes(query);
-          const matchResp = i.detalles.some(d => 
-            d.nombre.toLowerCase().includes(query) || 
-            d.rol.toLowerCase().includes(query) ||
-            (d.bloqueos_p0 && d.bloqueos_p0.toLowerCase().includes(query))
-          );
-          return matchStore || matchResp;
-        });
-      }
-
-      if (!items.length) {
-        container.innerHTML = '<div class="text-center py-16 text-slate-500 text-xs font-mono">No se encontraron registros.</div>';
+    /* VOICE RECOGNITION (Web Speech API es-HN) */
+    function startVoiceRecording() {
+      playTone('tap');
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('Tu navegador no soporta dictado directo. Podés escribir en el recuadro inferior.');
+        document.getElementById('manualTextWrapper').classList.remove('hidden');
         return;
       }
 
-      let html = '';
-      ZONAS.forEach(zona => {
-        const stores = items.filter(s => zona.prefix.some(p => s.sucursal.toLowerCase().includes(p.toLowerCase())));
-        if (!stores.length) return;
-        const comps = stores.filter(s => s.completado).length;
+      document.getElementById('voiceIdleBox').classList.add('hidden');
+      document.getElementById('voiceActiveBox').classList.remove('hidden');
+      document.getElementById('voiceConfirmBox').classList.add('hidden');
 
-        html += `
-          <div class="space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-white/[0.08]">
-              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">${zona.nombre}</span>
-              <span class="text-[11px] font-mono text-slate-400"><span class="text-emerald-400 font-bold">${comps}</span> / ${stores.length} completadas</span>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-              ${stores.map(st => renderStoreCard(st)).join('')}
-            </div>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    }
+      voiceRecognition = new SpeechRecognition();
+      voiceRecognition.lang = 'es-HN';
+      voiceRecognition.interimResults = true;
+      voiceRecognition.continuous = true;
 
-    function renderStoreCard(item) {
-      if (item.completado) {
-        const det = item.detalles[0] || {};
-        const p0 = det.bloqueos_p0 && !['ninguno', 'no', 'n/a', 'none'].includes(det.bloqueos_p0.toLowerCase()) ? det.bloqueos_p0 : null;
-        return `
-          <div class="bg-[#0f1422] border border-emerald-500/30 rounded-2xl p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-white text-xs">${item.sucursal}</span>
-              <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded font-mono font-bold">✓ Folio #${det.id}</span>
-            </div>
-            <div class="text-xs text-slate-300">👤 <strong>${det.nombre}</strong> (${det.rol})</div>
-            ${p0 ? `<div class="p-2 bg-rose-950/40 border border-rose-500/30 rounded-xl text-xs text-rose-300 font-medium">🚨 <strong>Traba:</strong> ${p0}</div>` : ''}
-          </div>
-        `;
-      } else {
-        return `
-          <div class="bg-[#0c1018] border border-white/[0.06] rounded-xl p-3.5 flex items-center justify-between text-xs">
-            <span class="text-slate-400 font-medium">${item.sucursal}</span>
-            <span class="text-[10px] font-mono text-amber-400">Pendiente</span>
-          </div>
-        `;
-      }
-    }
+      let fullTranscript = '';
 
-    /* URL PARAMS BOOTSTRAP */
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('embedded')) {
-        const header = document.querySelector('header');
-        if (header) header.style.display = 'none';
-        document.body.style.backgroundImage = 'none';
-        document.body.style.backgroundColor = '#07090e';
-      }
-      if (urlParams.get('name')) {
-        const el = document.getElementById('empName');
-        if (el) el.value = urlParams.get('name');
-      }
-      if (urlParams.get('store')) {
-        const el = document.getElementById('empStore');
-        if (el) el.value = urlParams.get('store');
-      }
-      if (urlParams.get('role')) {
-        const el = document.getElementById('empRole');
-        if (el) el.value = urlParams.get('role');
-      }
-      if (urlParams.get('leader')) {
-        const el = document.getElementById('empLeader');
-        if (el) el.value = urlParams.get('leader');
-      }
-
-      checkSavedDraft();
-
-      if (urlParams.has('autostart') && urlParams.get('name') && urlParams.get('store') && urlParams.get('role')) {
-        setTimeout(() => {
-          const raw = localStorage.getItem(DRAFT_KEY);
-          if (raw) {
-            try {
-              const draft = JSON.parse(raw);
-              if (draft && draft.currentStep > 0) {
-                resumeSavedDraft();
-                return;
-              }
-            } catch (e) {}
+      voiceRecognition.onresult = (e) => {
+        let interim = '';
+        for (let i = e.resultIndex; i < e.results.length; ++i) {
+          if (e.results[i].isFinal) {
+            fullTranscript += e.results[i][0].transcript + ' ';
+          } else {
+            interim += e.results[i][0].transcript;
           }
-          startAudit({ preventDefault: () => {} });
-        }, 150);
+        }
+        const display = (fullTranscript + interim).trim();
+        document.getElementById('voiceTranscriptPreview').innerText = `"${display}"`;
+      };
+
+      voiceRecognition.onerror = () => {
+        stopVoiceRecording();
+      };
+
+      voiceRecognition.start();
+    }
+
+    function stopVoiceRecording() {
+      playTone('step');
+      if (voiceRecognition) {
+        voiceRecognition.stop();
+      }
+      const text = document.getElementById('voiceTranscriptPreview').innerText.replace(/^"|"$/g, '').trim();
+
+      document.getElementById('voiceActiveBox').classList.add('hidden');
+
+      if (!text || text === 'Escuchando tu voz...') {
+        document.getElementById('voiceIdleBox').classList.remove('hidden');
+        return;
       }
 
-      if (urlParams.has('admin') || urlParams.has('censo')) {
-        openCensoModal();
+      document.getElementById('voiceConfirmedText').innerText = `"${text}"`;
+      document.getElementById('voiceConfirmBox').classList.remove('hidden');
+    }
+
+    function acceptVoiceText() {
+      const text = document.getElementById('voiceConfirmedText').innerText.replace(/^"|"$/g, '').trim();
+      const steps = getStepsForUser(currentUser);
+      const conf = steps.find(s => s.stepNum === currentStep);
+
+      auditData[conf.field] = text;
+      saveDraftProgress();
+
+      playTone('step');
+      setTimeout(() => {
+        advanceToNextStep();
+      }, 200);
+    }
+
+    function editVoiceText() {
+      const text = document.getElementById('voiceConfirmedText').innerText.replace(/^"|"$/g, '').trim();
+      document.getElementById('manualTextWrapper').classList.remove('hidden');
+      document.getElementById('manualTextInput').value = text;
+      document.getElementById('voiceConfirmBox').classList.add('hidden');
+      document.getElementById('voiceIdleBox').classList.remove('hidden');
+    }
+
+    function resetVoiceState() {
+      if (voiceRecognition) {
+        try { voiceRecognition.stop(); } catch(e) {}
       }
+      document.getElementById('voiceIdleBox').classList.remove('hidden');
+      document.getElementById('voiceActiveBox').classList.add('hidden');
+      document.getElementById('voiceConfirmBox').classList.add('hidden');
+      document.getElementById('manualTextWrapper').classList.add('hidden');
+      document.getElementById('voiceTranscriptPreview').innerText = '"Escuchando tu voz..."';
+    }
+
+    /* MODAL HELPERS */
+    function openWhyModal() {
+      playTone('tap');
+      document.getElementById('whyModal').classList.remove('hidden');
+    }
+    function closeWhyModal() {
+      playTone('tap');
+      document.getElementById('whyModal').classList.add('hidden');
+    }
+
+    /* SHARE & DOWNLOAD PASSPORT */
+    function shareOnWhatsApp() {
+      const text = `¡Completé mi recorrido en Así trabajamos KM! Ayudé a mapear la realidad de mi puesto para eliminar trabas y hacer crecer a la empresa. 🚀🏍️ https://tablero.apps.kmmotos.com/`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function downloadPassportImage() {
+      alert('¡Pasaporte generado! Podés tomarle captura para compartir en tus historias o con tu equipo.');
+    }
+
+    /* 2D CANVAS CONFETTI */
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#39E675', '#9AF5B8', '#6AD8FF', '#FFFFFF', '#FFB84D'];
+
+      for (let i = 0; i < 90; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 16,
+          vy: (Math.random() - 0.5) * 16 - 3,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 10,
+          opacity: 1
+        });
+      }
+
+      let frames = 0;
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.25; // gravity
+          p.rotation += p.vRot;
+          p.opacity -= 0.012;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.globalAlpha = Math.max(0, p.opacity);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        });
+
+        frames++;
+        if (frames < 90) {
+          requestAnimationFrame(render);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      render();
+    }
+
+    // Check drafts on load
+    window.addEventListener('DOMContentLoaded', () => {
+      checkDraft();
     });
   </script>
 </body>
