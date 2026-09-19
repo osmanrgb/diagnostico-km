@@ -1116,7 +1116,7 @@
           <table class="w-full text-xs text-left">
             <thead>
               <tr class="text-km-muted font-mono border-b border-white/5 pb-2 text-[10px] uppercase">
-                <th class="py-2.5 px-3">Hora</th>
+                <th class="py-2.5 px-3">Hora (HN)</th>
                 <th class="py-2.5 px-3">Colaborador</th>
                 <th class="py-2.5 px-3">Puesto / Cargo</th>
                 <th class="py-2.5 px-3">Sucursal</th>
@@ -2129,6 +2129,68 @@
     // =========================================================================
     let cachedSubmissions = [];
 
+    function formatHNTime(item) {
+      if (!item) return '--:--';
+      const hn = typeof item === 'object' ? item.created_at_hn : null;
+      if (hn) {
+        const parts = hn.split(' ');
+        if (parts.length >= 2) {
+          const timeParts = parts[1].split(':');
+          let h = parseInt(timeParts[0], 10);
+          const m = timeParts[1];
+          const ampm = h >= 12 ? 'p. m.' : 'a. m.';
+          h = h % 12 || 12;
+          const hStr = h < 10 ? '0' + h : '' + h;
+          return `${hStr}:${m} ${ampm}`;
+        }
+      }
+      const raw = typeof item === 'string' ? item : item.created_at;
+      if (!raw) return '--:--';
+      try {
+        const iso = raw.endsWith('Z') || raw.includes('T') ? raw : raw.replace(' ', 'T') + 'Z';
+        const d = new Date(iso);
+        return d.toLocaleTimeString('es-HN', {
+          timeZone: 'America/Tegucigalpa',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+      } catch (e) {
+        return raw;
+      }
+    }
+
+    function formatHNDateTime(item) {
+      if (!item) return '';
+      const hn = typeof item === 'object' ? item.created_at_hn : null;
+      if (hn) {
+        const parts = hn.split(' ');
+        if (parts.length >= 2) {
+          const timeParts = parts[1].split(':');
+          let h = parseInt(timeParts[0], 10);
+          const m = timeParts[1];
+          const s = timeParts[2] || '00';
+          const ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12 || 12;
+          const hStr = h < 10 ? '0' + h : '' + h;
+          return `${parts[0]} ${hStr}:${m}:${s} ${ampm}`;
+        }
+        return hn;
+      }
+      const raw = typeof item === 'string' ? item : item.created_at;
+      if (!raw) return '';
+      try {
+        const iso = raw.endsWith('Z') || raw.includes('T') ? raw : raw.replace(' ', 'T') + 'Z';
+        const d = new Date(iso);
+        return d.toLocaleString('es-HN', {
+          timeZone: 'America/Tegucigalpa',
+          hour12: true
+        });
+      } catch (e) {
+        return raw;
+      }
+    }
+
     async function loadLiveSubmissionsTable() {
       const badge = document.getElementById('liveAuditoriasCountBadge');
       const tbody = document.getElementById('liveSubmissionsTbody');
@@ -2155,12 +2217,12 @@
             const tr = document.createElement('tr');
             tr.className = 'hover:bg-white/[0.02] transition';
 
-            const timeStr = item.created_at ? item.created_at.split(' ')[1] || item.created_at.slice(11, 16) : '--:--';
+            const timeStr = formatHNTime(item);
             const frena = item.cuellos_botella || item.procesos_clave || 'Fricción operativa';
             const sol = item.sistemas_afectados || item.bloqueos_p0 || 'Validación estándar';
 
             tr.innerHTML = `
-              <td class="py-2.5 px-3 text-km-muted font-mono text-[11px] whitespace-nowrap">${timeStr}</td>
+              <td class="py-2.5 px-3 text-km-muted font-mono text-[11px] whitespace-nowrap font-bold">${timeStr}</td>
               <td class="py-2.5 px-3 font-bold text-white whitespace-nowrap">${item.nombre || 'Anónimo'}</td>
               <td class="py-2.5 px-3 text-km-cyan font-mono text-[11px] whitespace-nowrap">${item.rol || 'Operativo'}</td>
               <td class="py-2.5 px-3 text-slate-300 font-bold whitespace-nowrap">${item.sucursal || 'N/D'}</td>
@@ -2182,10 +2244,10 @@
         return;
       }
 
-      const headers = ["ID", "Hora", "Nombre", "Rol", "Sucursal", "Freno P0", "Solucion", "Proceso Mapeado"];
+      const headers = ["ID", "Fecha y Hora (HN)", "Nombre", "Rol", "Sucursal", "Freno P0", "Solucion", "Proceso Mapeado"];
       const rows = cachedSubmissions.map(item => [
         item.id || '',
-        `"${(item.created_at || '').replace(/"/g, '""')}"`,
+        `"${formatHNDateTime(item).replace(/"/g, '""')}"`,
         `"${(item.nombre || '').replace(/"/g, '""')}"`,
         `"${(item.rol || '').replace(/"/g, '""')}"`,
         `"${(item.sucursal || '').replace(/"/g, '""')}"`,
