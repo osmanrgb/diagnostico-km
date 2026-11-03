@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="es-HN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>Así trabajamos KM · Prototipo de desarrollo y mejoras</title>
+<style>
+:root{--ink:#192522;--muted:#62716b;--bg:#f5f6f2;--paper:#fff;--line:#e0e6df;--brand:#e9bd45;--dark:#17231f;--green:#236b52;--pale:#eaf3ec;--yellow:#fff5d6;--radius:20px;--shadow:0 10px 40px #1b302008}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}button,input,select,textarea{font:inherit}button,a,input,textarea,select{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #ae7a00;outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.5}a{color:var(--green)}.demo{position:relative;z-index:10;background:var(--yellow);padding:9px 24px;text-align:center;font-size:12px;color:#5a4717;border-bottom:1px solid #ecdfb4}.shell{display:grid;grid-template-columns:234px 1fr;min-height:calc(100vh - 39px)}aside{background:var(--dark);color:#f4f6f0;padding:30px 18px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:calc(100vh - 39px)}.logo{display:flex;align-items:center;gap:11px;padding:0 12px}.logo b{background:var(--brand);color:var(--dark);font-size:21px;letter-spacing:-1px;padding:6px 9px;border-radius:10px;transform:skew(-4deg)}.logo strong{font-size:14px;line-height:1.35}.logo small{color:#adbab2;font-size:10px;display:block;letter-spacing:1.5px;margin-top:2px}.navlabel{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#96a89c;padding:0 13px;margin:0 0 9px}.navgroup{display:flex;flex-direction:column;gap:5px}.nav{display:flex;align-items:center;gap:11px;text-align:left;border:0;background:transparent;color:#c5d0c8;border-radius:11px;padding:12px 14px;width:100%;font-size:13px}.nav:hover{background:#26362e}.nav.active{background:#f1c94e;color:#16221e;font-weight:700}.icon{width:18px;height:18px;flex-shrink:0}.asidefoot{margin-top:auto;padding:16px 12px 0;border-top:1px solid #3b4941;color:#a9b8ad;font-size:11px}.asidefoot strong{color:#e8eee8;display:block;font-size:12px;margin-bottom:7px}.content{padding:0 40px 36px;max-width:1700px;width:100%;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);margin-bottom:28px}.breadcrumb{font-size:12px;color:var(--muted)}.breadcrumb b{color:var(--ink)}.user{display:flex;align-items:center;gap:11px;font-size:12px}.avatar{width:36px;height:36px;border-radius:50%;background:#e2e9df;display:grid;place-items:center;font-weight:700;font-size:12px}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:40px;padding:5px 10px;font-size:10px;font-weight:650;background:#fff;white-space:nowrap}.pill.green{color:#256147;background:#edf5ee;border-color:#d9e8dc}.pill.gold{background:#fcf3d5;border-color:#f1e3b3;color:#76580f}.pill.gray{color:#596b61;background:#f2f4f0}.eyebrow{font-size:11px;font-weight:750;letter-spacing:1.6px;text-transform:uppercase;color:#657265;margin:0 0 10px}.view{display:none;animation:enter .2s ease}.view.active{display:block}@keyframes enter{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}h1,h2,h3,p{margin-top:0}h1{font-size:36px;line-height:1.15;letter-spacing:-1.1px;margin-bottom:16px;max-width:810px}h2{font-size:21px;letter-spacing:-.4px;margin-bottom:12px;line-height:1.3}h3{font-size:16px;margin-bottom:9px;line-height:1.4}.muted{color:var(--muted)}.small{font-size:12px}.tiny{font-size:10px}.lede{font-size:16px;max-width:660px;line-height:1.65;color:#53635a}.grid{display:grid;gap:20px}.cols2{grid-template-columns:1fr 1fr}.cols3{grid-template-columns:repeat(3,1fr)}.cols4{grid-template-columns:repeat(4,1fr)}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:23px;box-shadow:var(--shadow)}.row{display:flex;align-items:center;justify-content:space-between;gap:16px}.wrap{flex-wrap:wrap}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:10px;padding:11px 16px;color:var(--ink);background:#fff;font-size:13px;font-weight:650;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:43px}.btn:hover{border-color:#8da594;background:#f7faf5}.btn.primary{background:var(--dark);color:white;border-color:var(--dark)}.btn.gold{background:var(--brand);color:#253025;border-color:var(--brand)}.btn.quiet{background:transparent;border-color:transparent;color:var(--muted);padding:8px 9px}.btn.full{width:100%}.hero{display:grid;grid-template-columns:1.18fr 1fr;gap:25px;align-items:stretch;margin-bottom:23px}.herotext{padding:26px 0 12px}.herotext h1{font-size:45px;max-width:510px}.herotext h1 em{font-style:normal;color:var(--green)}.today{background:var(--dark);color:white;position:relative;overflow:hidden;border:0;padding:27px}.today:after{content:'';position:absolute;width:150px;height:150px;right:-25px;bottom:-35px;border:24px solid #e5ba4230;border-radius:50%;pointer-events:none}.today h2{font-size:28px;max-width:340px;line-height:1.2;margin:17px 0 14px}.today .eyebrow{color:#bdd0c2}.today p{color:#ccdbcf;font-size:13px;max-width:350px}.today .pill{background:#304137;border-color:#4a5e50;color:#d9e5d9}.today .btn{position:relative;z-index:1}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0 25px}.step{border-top:2px solid #dce4d9;padding:13px 3px}.step.current{border-color:#bd941e}.stepnum{font-size:10px;font-weight:700;color:#7d8b80;display:block;margin-bottom:7px}.step strong{font-size:13px}.step p{font-size:11px;margin:5px 0 0;color:var(--muted)}.note{background:#eff4ed;border:1px solid #dce6d6;padding:13px 16px;border-radius:12px;font-size:12px;color:#45604a}.note.warning{background:#fff7e4;border-color:#f2e4bf;color:#755920}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 15px}.sectionhead h2{margin:0}.miniicon{height:37px;width:37px;background:var(--pale);border:1px solid #dfeadc;border-radius:10px;display:grid;place-items:center;margin-bottom:16px;color:var(--green)}.card p{font-size:13px;color:var(--muted);margin-bottom:14px}.card p:last-child{margin-bottom:0}.select{border:1px solid #cbd8cc;background:white;border-radius:10px;padding:10px 12px;color:var(--ink);max-width:100%;min-height:44px}.chatlayout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,1fr);gap:22px}.chatbox{padding:0;overflow:hidden}.chattop{padding:18px 22px;border-bottom:1px solid var(--line)}.chattop p{margin:4px 0 0;font-size:11px}.chatstream{padding:24px;min-height:330px;max-height:480px;overflow:auto}.bubble{background:#f2f5ef;border-radius:2px 14px 14px 14px;padding:16px 18px;font-size:14px;max-width:94%;margin-bottom:18px}.bubble.userbubble{background:#fbf2d8;margin-left:auto;border-radius:14px 2px 14px 14px}.bubble .who{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#68796a;display:block;margin-bottom:8px;font-weight:700}.bubble p{font-size:14px;color:var(--ink);margin-bottom:0}.composer{padding:17px 21px;border-top:1px solid var(--line);background:#fcfdfa}.composer textarea{width:100%;resize:vertical;min-height:86px;padding:13px;border:1px solid #cbd8c9;border-radius:12px;background:#fff}.composer .row{margin-top:9px}.suggestion{border:1px dashed #bccbbb;background:#f8fbf5;border-radius:9px;font-size:11px;padding:8px 11px;color:#4b6250;cursor:pointer;margin:0 0 12px}.stagebar{display:flex;gap:5px;margin-top:13px}.stagebar span{height:4px;flex:1;border-radius:2px;background:#e4e9df}.stagebar span.on{background:#b49735}.checkline{display:flex;gap:9px;border-bottom:1px solid #ecf0e8;padding:12px 0;align-items:start;font-size:13px}.checkline:last-child{border-bottom:0}.checkline b{display:block}.dot{height:8px;width:8px;background:#849b81;border-radius:50%;flex-shrink:0;margin-top:7px}.dot.pending{background:#d0ae4f}.stack{display:flex;flex-direction:column;gap:17px}.stat b{font-size:32px;line-height:1;display:block;letter-spacing:-1px;margin:12px 0 10px}.stat p{font-size:11px;line-height:1.5}.divider{border:0;border-top:1px solid var(--line);margin:18px 0}.tag{display:inline-block;background:#f1f4ec;color:#58664f;font-size:10px;border-radius:5px;padding:4px 7px;margin:3px}.choice{border:1px solid var(--line);padding:14px;border-radius:11px;margin-bottom:10px;background:white;display:flex;gap:10px;align-items:start;cursor:pointer}.choice input{margin-top:5px}.choice b{display:block;font-size:13px}.choice span{font-size:12px;color:var(--muted)}.quote{border-left:3px solid #c5aa53;padding:7px 0 7px 14px;font-size:14px;margin:15px 0}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left;font-size:12px}th{background:#f6f8f3;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#687665;padding:12px}td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}.progress{height:7px;background:#edf0e9;border-radius:7px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:#c8a83f;border-radius:7px}.timeline{border-left:2px solid #d7e3d2;margin:12px 0 0 6px;padding:0 0 0 22px}.timeitem{position:relative;padding:0 0 24px}.timeitem:before{content:'';position:absolute;left:-28px;top:4px;background:var(--green);height:10px;width:10px;border-radius:50%;border:1px solid white}.timeitem p{margin:6px 0}.wallcard{padding:0;overflow:hidden}.wallcover{background:#e7eee2;padding:23px}.wallcover.yellow{background:#f7edcc}.wallcover.dark{background:#23382c;color:#fff}.wallcover h3{font-size:22px;letter-spacing:-.5px;margin:14px 0 7px}.wallcover p{font-size:11px}.wallbody{padding:21px}.metric{display:flex;align-items:center;gap:18px;margin:17px 0}.metric span{font-size:25px;font-weight:700}.metric s{color:#899581;font-size:18px}.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}.tab{border:1px solid var(--line);background:white;border-radius:30px;padding:8px 13px;font-size:12px;min-height:40px}.tab.active{background:var(--dark);color:white}.search{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:white;margin-bottom:20px}.profileitem h3{margin:8px 0}.profileitem details{font-size:12px}.profileitem summary{cursor:pointer;color:var(--green);font-weight:650;padding:9px 0}.profileitem li{margin-bottom:8px}.warningline{font-size:11px;color:#7d6231;margin:14px 0}.footnote{color:#7a877b;font-size:10px;margin-top:28px;border-top:1px solid var(--line);padding-top:16px}.modalback{display:none;position:fixed;inset:0;background:#15221dc7;z-index:50;align-items:center;justify-content:center;padding:20px}.modalback.open{display:flex}.modal{background:white;border-radius:22px;padding:28px;width:600px;max-width:100%;max-height:85vh;overflow:auto;box-shadow:0 20px 100px #0005}.modal p{font-size:13px;color:var(--muted)}.close{border:0;background:#eef2ea;font-size:23px;border-radius:50%;height:35px;width:35px}.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;z-index:99;max-width:90%;border-radius:12px;padding:13px 21px;font-size:13px;box-shadow:0 7px 40px #0003;display:none}.topwarning{padding:9px 12px;background:#fff7df;border-radius:10px;font-size:11px;color:#775a12;margin-bottom:18px}.checksgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.profiletitle{padding:15px;background:var(--pale);border-radius:12px;margin-bottom:15px}.publicicon{color:#a2862e}.numbers{font-variant-numeric:tabular-nums}input[type=number]{width:90px;padding:9px;border-radius:9px;border:1px solid #c9d6c8}.accessline{display:flex;align-items:flex-start;gap:8px;margin-top:15px;font-size:11px;color:var(--muted)}.sourcebox{background:#f6f8f2;border-radius:10px;padding:13px;font-size:12px}.listline{display:grid;grid-template-columns:25px 1fr;gap:8px;margin-bottom:13px;font-size:13px}.listline .num{color:#8e7836;font-size:11px;font-weight:700;margin-top:2px}
+@media(min-width:1500px){.content{padding-left:60px;padding-right:60px}.herotext h1{font-size:50px}}@media(max-width:1100px){.shell{grid-template-columns:190px 1fr}aside{padding:23px 12px}.content{padding:0 24px 30px}.hero{grid-template-columns:1fr 1fr}.herotext h1{font-size:36px}.cols3{grid-template-columns:1fr 1fr}.chatlayout{grid-template-columns:minmax(0,1.5fr) minmax(210px,1fr)}.card{padding:19px}}@media(max-width:780px){.shell{display:block}aside{height:auto;position:static;padding:15px 18px;gap:14px}.logo small,.asidefoot,.navlabel{display:none}.navgroup{flex-direction:row;overflow:auto;gap:4px}.nav{width:auto;white-space:nowrap;padding:10px 12px;font-size:12px}.nav .icon{width:15px}.logo{padding:0}.logo strong{font-size:13px}.content{padding:0 18px 28px}.topbar{padding:15px 0;margin-bottom:20px}.demo{padding:8px 15px;font-size:10px}.hero,.chatlayout{grid-template-columns:1fr}.herotext{padding:5px 0}.herotext h1{font-size:36px;max-width:460px}.today{padding:24px}.today h2{font-size:25px}.cols3,.cols4{grid-template-columns:1fr 1fr}.steps{gap:8px}.step strong{font-size:11px}.step p{font-size:10px}.cols2{grid-template-columns:1fr}.user .pill{display:none}.chatstream{max-height:460px;min-height:280px;padding:18px}.chattop{padding:17px}.chatbox.card{padding:0}.profileitem{padding:17px}.checksgrid{grid-template-columns:1fr}.chatlayout .stack{display:none}.stats{grid-template-columns:1fr 1fr}h1{font-size:30px}.lede{font-size:14px}.cols3.wallgrid{grid-template-columns:1fr}.sectionhead{margin-top:22px}.breadcrumb{font-size:11px}.stat b{font-size:29px}.topwarning{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.view{animation:none}}@media print{aside,.demo,.topbar,.actions,.btn,.tabs,.modalback,.toast{display:none!important}.shell{display:block}.content{max-width:100%;padding:0}.view.active{display:block}.view:not(.active){display:none}.card{break-inside:avoid;box-shadow:none}.hero{grid-template-columns:1fr 1fr}body{font-size:12px}.footnote{display:block}}
+.grid>*,.hero>*,.chatlayout>*{min-width:0}.card.today p{color:#cfdbd1}.card.today .eyebrow{color:#bdd0c2}.wallcover.dark p{color:#d4dfd0}@media(max-width:600px){.cols3{grid-template-columns:1fr}.pill{white-space:normal}.cols4{grid-template-columns:repeat(2,minmax(0,1fr))}.stat{padding:16px}.stat .eyebrow{font-size:9px;letter-spacing:1px}}
+</style></head><body>
+<nav aria-label="Selector de versión del prototipo" style="background:#17231f;color:#f4f6f0;border-bottom:1px solid #3b4941;padding:8px 24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;font-size:12px">
+  <span style="color:#adbab2">Así trabajamos KM · Demos navegables:</span>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <a href="../v2/" style="background:#26362e;color:#f4f6f0;border:1px solid #3b4941;padding:4px 10px;border-radius:8px;text-decoration:none">v2 · Conversación y ficha (v2/)</a>
+    <a href="../prototipo_asi_trabajamos_km.html" aria-current="page" style="background:#f1c94e;color:#16221e;font-weight:700;padding:4px 10px;border-radius:8px;text-decoration:none">Prototipo completo 19 familias (prototipo_asi_trabajamos_km.html)</a>
+    <a href="../index.html" style="background:#26362e;color:#f4f6f0;border:1px solid #3b4941;padding:4px 10px;border-radius:8px;text-decoration:none">v0 · Diagnóstico original (index.html)</a>
+  </div>
+</nav>
+<div class="demo"><b>PROTOTIPO NAVEGABLE · DISEÑO PROPUESTO</b> &nbsp; Datos ficticios. Sin IA real, micrófono, guardado en servidor, pagos ni conexión al ERP. No ingresés información real.</div>
+<div class="shell"><aside><div class="logo"><b>KM</b><strong>Así trabajamos<small>DESARROLLO + MEJORAS</small></strong></div><div><p class="navlabel">Mi espacio</p><nav class="navgroup" id="nav"></nav></div><div class="asidefoot"><strong>Una voz. Varias mejoras.</strong>Conversación restringida.<br>Ideas compartidas con permiso.<br>Resultados con evidencia.<p style="margin-top:17px">Vista demostrativa: podés explorar roles que en producción tendrían permisos separados.</p></div></aside>
+<main class="content"><header class="topbar"><div class="breadcrumb">KM Trabajo <span style="margin:0 10px">/</span> <b id="crumb">Mi espacio</b></div><div class="user"><span class="pill green">Ejemplo · Colaborador</span><span class="avatar">KM</span></div></header>
+<section class="view active" id="inicio"><div class="hero"><div class="herotext"><p class="eyebrow">TU EXPERIENCIA IMPORTA</p><h1>Lo que sabés puede<br><em>hacer mejor a KM.</em></h1><p class="lede">Contanos cómo trabajás. Descubramos una mejora. Probémosla juntos.</p><div class="actions"><button class="btn primary" onclick="go('conversacion')">Empezar mi conversación <span>↗</span></button><button class="btn quiet" onclick="privacy()">¿Quién puede ver esto?</button></div><div class="accessline">◉ &nbsp; Podés escribir, corregir, omitir o continuar después.<br>En la versión productiva, también hablar.</div></div><div class="card today"><div class="row"><p class="eyebrow" style="margin:0">TU PRIMER PASO</p><span class="pill">6–8 min · Propuesto</span></div><h2>Contame una parte de tu trabajo que casi nadie ve.</h2><p>Empezamos por un caso real. No necesitás tener una solución ni saber usar términos técnicos.</p><div class="stagebar"><span class="on"></span><span></span><span></span><span></span></div><p style="margin:9px 0 19px;font-size:11px">Bloque 1 de 4 · Tu trabajo real</p><button class="btn gold" onclick="go('conversacion')">Explorar la conversación →</button></div></div>
+<div class="steps"><div class="step current"><span class="stepnum">01 · ESCUCHAR</span><strong>Tu trabajo real</strong><p>Lo que hacés y lo que falta.</p></div><div class="step"><span class="stepnum">02 · DESCUBRIR</span><strong>Una oportunidad</strong><p>Tu experiencia se vuelve propuesta.</p></div><div class="step"><span class="stepnum">03 · PROBAR</span><strong>Un cambio pequeño</strong><p>Resultados antes de escalar.</p></div><div class="step"><span class="stepnum">04 · CRECER</span><strong>Tu siguiente paso</strong><p>Una habilidad y una práctica.</p></div></div>
+<div class="grid cols3"><article class="card"><div class="miniicon">◎</div><h3>Conocer mi aporte</h3><p>Qué resultados entregás, quién los necesita y qué conocimiento tuyo vale la pena compartir.</p><button class="btn quiet" onclick="go('mapa')">Ver mi mapa de aporte →</button></article><article class="card"><div class="miniicon">↗</div><h3>Resolver un reto</h3><p>Una mejor forma de trabajar puede empezar con un detalle que solo vos notaste.</p><button class="btn quiet" onclick="go('retos')">Explorar retos KM →</button></article><article class="card"><div class="miniicon">✦</div><h3>Construir mi crecimiento</h3><p>Elegí una habilidad y demostrá lo aprendido con una práctica útil para tu trabajo.</p><button class="btn quiet" onclick="go('crecimiento')">Ver ruta de ejemplo →</button></article></div>
+<div class="sectionhead"><h2>De la idea al cambio</h2><button class="btn quiet" onclick="go('muro')">Ver el Muro →</button></div><div class="card row wrap"><div><span class="pill gold">RESULTADO FICTICIO · SOLO DISEÑO</span><h3 style="margin-top:12px">Una ubicación clara. Menos vueltas en bodega.</h3><p style="margin:0">La historia de una mejora: problema → prueba → aprendizaje → adopción.</p></div><button class="btn" onclick="go('muro')">Explorar la tarjeta</button></div>
+</section>
+<section class="view" id="conversacion"><p class="eyebrow">CONVERSACIÓN ASISTIDA · DEMOSTRACIÓN</p><div class="row wrap" style="margin-bottom:20px"><div><h1 style="margin-bottom:6px">Primero, entendamos tu trabajo.</h1><p class="muted small" style="margin:0">Una pregunta por turno. La siguiente depende de lo que falte aclarar.</p></div><select class="select" id="role" aria-label="Elegir familia de puesto de demostración" onchange="changeRole(this.value)"></select></div><div class="topwarning">El recorrido de este archivo usa guiones y algunas ramas de ejemplo. La IA adaptativa de producción se especifica en el documento, pero no está conectada aquí.</div>
+<div class="chatlayout"><article class="card chatbox"><div class="chattop"><div class="row"><div><b>Asistente de mejora KM</b><p>IA en el diseño final · Simulación local en esta demo</p></div><span class="pill green">Conversación restringida</span></div><div class="stagebar" id="chatprogress"></div></div><div class="chatstream" id="messages" aria-live="polite"></div><div class="composer"><button class="suggestion" id="example" onclick="fillExample()">Cargar una respuesta ficticia para probar</button><label for="answer" class="small muted" style="display:block;margin-bottom:6px">Tu respuesta de prueba</label><textarea id="answer" placeholder="Usá un caso ficticio. No ingresés nombres, datos de clientes ni información privada."></textarea><div class="row wrap"><div class="actions"><button class="btn" onclick="voice()">🎙 Ver modo voz</button><button class="btn quiet" onclick="skip()">No lo sé</button></div><button class="btn primary" id="send" onclick="send()">Continuar →</button></div><div class="actions" style="margin-top:8px"><button class="btn quiet small" onclick="pauseChat()">Continuar después</button><button class="btn quiet small" onclick="summary()">Revisar lo conversado</button><button class="btn quiet small" onclick="resetChat()">Reiniciar demo</button></div><p class="tiny muted" style="margin:6px 0 0">Estado solo en esta pestaña. Se pierde al recargar. Nada se envía.</p></div></article><div class="stack"><div class="card"><p class="eyebrow">PREGUNTAMOS CON UN PROPÓSITO</p><h3 id="roleGoal"></h3><div id="unknowns"></div></div><div class="card"><span class="pill gold">SIN CONCLUSIONES AUTOMÁTICAS</span><h3 style="margin-top:14px">Entender no es calificar.</h3><p>Una respuesta orienta una pregunta. No prueba una competencia, una intención ni un resultado.</p><button class="btn quiet" onclick="privacy()">Ver reglas de confianza →</button></div></div></div></section>
+<section class="view" id="mapa"><p class="eyebrow">MI MAPA DE APORTE · EJEMPLO FICTICIO</p><h1>Tu trabajo, con contexto.</h1><p class="lede">Vos corregís el relato. El proceso se valida después. Una hipótesis siempre sigue siendo una hipótesis.</p><div class="grid cols2"><div class="card"><div class="row"><h2>Lo que aporto</h2><span class="pill green">Declarado · ejemplo</span></div><div class="profiletitle"><b>Bodega y despacho</b><p style="margin:5px 0 0">Entregar el repuesto correcto, completo y localizable.</p></div><div class="checkline"><span class="dot"></span><div><b>Mi entrega</b><span class="small muted">Pedido preparado y comprobado para despacho.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Quién lo necesita</b><span class="small muted">Coordinación de despacho y tienda receptora.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Conocimiento que puedo compartir</b><span class="small muted">Cómo identificar referencias similares sin confundirlas.</span></div></div><div class="checkline"><span class="dot pending"></span><div><b>Tiempo de búsqueda</b><span class="small muted">Todavía no medido. La estimación no será usada como ahorro real.</span></div></div></div><div class="card"><div class="row"><h2>Lo que podemos explorar</h2><span class="pill gold">Hipótesis</span></div><h3 style="margin-top:16px">Ubicaciones visibles para reducir búsquedas.</h3><p>Propuesta de ejemplo, no solución aprobada. Antes hay que comprobar el problema y revisar los controles.</p><div class="listline"><span class="num">01</span><span>Observar una muestra de pedidos comparables.</span></div><div class="listline"><span class="num">02</span><span>Separar tiempo activo, espera y retrabajo.</span></div><div class="listline"><span class="num">03</span><span>Probar en un área pequeña con autorización.</span></div><div class="listline"><span class="num">04</span><span>Comprobar que no aumenten errores ni riesgos.</span></div><div class="actions"><button class="btn primary" onclick="go('retos')">Convertir en propuesta</button><button class="btn" onclick="editMap()">Corregir mi resumen</button></div></div></div><div class="sectionhead"><h2>Tres cosas que no debemos confundir</h2></div><div class="grid cols3"><div class="card"><span class="eyebrow">DECLARADO</span><h3>«Así lo hago»</h3><p>Es el relato de la persona, conservado con fecha y fuente.</p></div><div class="card"><span class="eyebrow">CONFIRMADO</span><h3>«Eso refleja lo que dije»</h3><p>La persona revisó el resumen. Aún no valida eficacia ni política.</p></div><div class="card"><span class="eyebrow">VERIFICADO</span><h3>«Lo comprobamos»</h3><p>Existe evidencia y aceptación de quien recibe o controla el resultado.</p></div></div></section>
+<section class="view" id="retos"><p class="eyebrow">RETOS KM · ABIERTO A TODOS LOS PUESTOS</p><h1>Un problema real.<br>Muchas formas de aportar.</h1><p class="lede">Podés detectar, proponer, probar, enseñar o ayudar a replicar. No hace falta programar ni preparar una presentación.</p><div class="note warning"><b>Bono en diseño:</b> L250 por aportante previamente seleccionado que complete una contribución verificable. Propuesta de 20 reconocimientos, hasta L5,000 por ciclo piloto. No es una convocatoria activa ni una promesa de pago.</div><div class="grid cols3" style="margin-top:22px"><div class="card"><span class="pill gold">RETO 01 · CAJA Y CONTROL</span><h3 style="margin-top:17px">Que una obligación no llegue de sorpresa.</h3><p>Proponé una forma de detectar y registrar a tiempo lo pendiente, sin exponer cuentas ni saltarte aprobaciones.</p><span class="tag">Finanzas</span><span class="tag">Operaciones</span><span class="tag">Cualquier puesto</span><hr class="divider"><button class="btn primary full" onclick="proposal('Que una obligación no llegue de sorpresa')">Explorar este reto</button></div><div class="card"><span class="pill green">RETO 02 · TIEMPO Y CALIDAD</span><h3 style="margin-top:17px">Menos búsqueda. El repuesto correcto.</h3><p>Identificá dónde se pierde tiempo buscando, recapturando o repitiendo trabajo. Calidad y seguridad son condiciones.</p><span class="tag">Tiendas</span><span class="tag">Bodega</span><span class="tag">TI</span><hr class="divider"><button class="btn primary full" onclick="proposal('Menos búsqueda. El repuesto correcto')">Explorar este reto</button></div><div class="card"><span class="pill gray">RETO 03 · CLIENTE</span><h3 style="margin-top:17px">Ninguna consulta útil sin próximo paso.</h3><p>Convertí una consulta o venta perdida en una oportunidad de aprendizaje y seguimiento, con atribución correcta.</p><span class="tag">Mostrador</span><span class="tag">Mayoreo</span><span class="tag">Servicio</span><hr class="divider"><button class="btn primary full" onclick="proposal('Ninguna consulta útil sin próximo paso')">Explorar este reto</button></div></div><div class="sectionhead"><h2>Así avanzarían los aportes</h2></div><div class="steps"><div class="step current"><span class="stepnum">01</span><strong>Contás un caso</strong><p>La IA ayuda a estructurarlo.</p></div><div class="step"><span class="stepnum">02</span><strong>Se prepara una prueba</strong><p>Dueño, alcance, controles y cupos.</p></div><div class="step"><span class="stepnum">03</span><strong>Se comprueba</strong><p>Resultado y aprendizaje útil.</p></div><div class="step"><span class="stepnum">04</span><strong>Se reconoce</strong><p>Crédito compartido y regla aprobada.</p></div></div><button class="btn" onclick="rules()">Leer las reglas propuestas del bono</button></section>
+<section class="view" id="muro"><div class="row wrap"><div><p class="eyebrow">MURO EXISTENTE · PESTAÑA PROPUESTA «MEJORAS»</p><h1 style="margin-bottom:9px">Esto cambió gracias al equipo.</h1><p class="muted small">Tarjetas ficticias. Publicar requiere revisión, redacción segura y permiso de autoría.</p></div><button class="btn primary" onclick="go('retos')">Aportar a un reto ↗</button></div><div class="tabs" id="wallfilters"><button class="tab active" onclick="filterWall('all',this)">Todos los aportes</button><button class="tab" onclick="filterWall('verificado',this)">Con evidencia</button><button class="tab" onclick="filterWall('piloto',this)">En prueba</button><button class="tab" onclick="filterWall('aprendizaje',this)">Aprendizajes</button></div><div class="grid cols3 wallgrid"><article class="card wallcard" data-wall="verificado"><div class="wallcover"><span class="pill green">RESULTADO VERIFICADO · FICTICIO</span><h3>Encontrar sin dar tantas vueltas.</h3><p>Equipo de bodega · Ejemplo de colaboración</p></div><div class="wallbody"><span class="eyebrow">PRUEBA ILUSTRATIVA</span><div class="metric"><s>14 min</s><span>→</span><span>9 min</span></div><p>Mediana de preparación en dos muestras de 10 pedidos comparables. Datos inventados para mostrar el diseño.</p><div class="sourcebox"><b>Qué falta:</b> comprobar estabilidad y replicación. No equivale todavía a ahorro de dinero.</div><p style="margin-top:14px">Crédito: detección + diseño + prueba + documentación.</p><button class="btn full" onclick="evidence()">Ver evidencia de ejemplo</button></div></article><article class="card wallcard" data-wall="piloto"><div class="wallcover yellow"><span class="pill gold">EN PRUEBA · FICTICIO</span><h3>La consulta no termina en «no hay».</h3><p>Mostrador + mayoreo · Ejemplo</p></div><div class="wallbody"><h3>Un siguiente paso para cada oportunidad.</h3><p>Propuesta: registrar la necesidad y retomar cuando exista una alternativa validada.</p><div class="sourcebox"><b>Impacto:</b> pendiente de medir.<br><b>Control:</b> no sugerir compatibilidad sin respaldo.</div><p style="margin-top:14px">La idea seleccionada aún no prueba una mejora ni genera pago.</p><button class="btn full" onclick="proposal('La consulta no termina en no hay')">Ver ficha de prueba</button></div></article><article class="card wallcard" data-wall="aprendizaje"><div class="wallcover dark"><span class="pill gray">APRENDIZAJE · FICTICIO</span><h3>Probamos. No funcionó. Aprendimos.</h3><p>Operaciones · Ejemplo</p></div><div class="wallbody"><h3>Menos pasos no siempre significa mejor.</h3><p>Una simplificación aumentó las correcciones. La prueba se detuvo y se conservó el control necesario.</p><div class="sourcebox"><b>Valor:</b> descartar una hipótesis con evidencia antes de extenderla.</div><p style="margin-top:14px">Una prueba rigurosa puede aportar aunque su hipótesis no se confirme.</p><button class="btn full" onclick="learning()">Ver el aprendizaje</button></div></article></div><div class="note" style="margin-top:23px">Los votos no deciden premios ni ascensos. El muro muestra cambios y aportes; nunca publica entrevistas, errores personales, salarios, denuncias o rankings de «valor humano».</div></section>
+<section class="view" id="crecimiento"><p class="eyebrow">SCHOOL KM · PLAN COMPARTIDO DE EJEMPLO</p><h1>Una habilidad.<br>Una práctica. Un siguiente nivel.</h1><p class="lede">Tu aspiración orienta la ruta. La práctica y los resultados muestran lo aprendido.</p><div class="grid cols2"><div class="card"><div class="row"><h2>Mi siguiente paso</h2><span class="pill gold">Borrador · ficticio</span></div><div class="quote">«Quiero aprender a coordinar pedidos y ayudar a formar a quienes entran».</div><p>Aspiración declarada, no promesa de ascenso ni certificación.</p><div class="timeline"><div class="timeitem"><span class="eyebrow">PRIMEROS 30 DÍAS</span><h3>Comprender y practicar</h3><p>Aprender priorización con dos casos y practicar un relevo completo con apoyo.</p><span class="pill gray">Evidencia: práctica observada</span></div><div class="timeitem"><span class="eyebrow">DÍAS 31–60</span><h3>Aplicar y mejorar</h3><p>Participar en una mejora de preparación con control de calidad y resultado contrastado.</p><span class="pill gray">Evidencia: resultado aceptado</span></div><div class="timeitem"><span class="eyebrow">DÍAS 61–90</span><h3>Enseñar y repetir</h3><p>Explicar el método a otra persona y verificar que lo puede ejecutar sin depender de vos.</p><span class="pill gray">Evidencia: transferencia comprobada</span></div></div></div><div class="stack"><div class="card"><h2>Cómo se registra el avance</h2><div class="checkline"><span class="dot"></span><div><b>Explicado con un caso</b><span class="small muted">Puede describir el criterio, no solo el paso.</span></div></div><div class="checkline"><span class="dot pending"></span><div><b>Practicado con apoyo</b><span class="small muted">Requiere observación y retroalimentación.</span></div></div><div class="checkline"><span class="dot pending"></span><div><b>Demostrado con autonomía</b><span class="small muted">Resultado aceptado en un alcance definido.</span></div></div><div class="checkline"><span class="dot pending"></span><div><b>Transferido a otra persona</b><span class="small muted">Otra persona logra repetir el método.</span></div></div></div><div class="card"><h3>Un uso mejor del tiempo liberado</h3><p>Menos búsqueda puede abrir espacio para formar a alguien, mejorar exactitud o atender pedidos. El nuevo uso se acuerda y se comprueba.</p><button class="btn" onclick="go('conversacion')">Explorar otra competencia</button></div></div></div></section>
+<section class="view" id="direccion"><div class="row wrap"><div><p class="eyebrow">DIRECCIÓN · INTELIGENCIA OPERATIVA</p><h1>Lo que antes no podíamos ver.</h1><p class="muted small">Todos los números son ficticios. Esta pantalla no certifica el estado de KM.</p></div><span class="pill gold">No es ranking de empleados</span></div><div class="grid cols4 stats" style="margin:21px 0"><div class="card stat"><span class="eyebrow">CONVERSACIONES</span><b>24</b><p>18 resúmenes confirmados.<br>6 con información pendiente.</p></div><div class="card stat"><span class="eyebrow">OPORTUNIDADES</span><b>11</b><p>Agrupadas por problema.<br>Sin sumar duplicados.</p></div><div class="card stat"><span class="eyebrow">PRUEBAS</span><b>4</b><p>2 con resultado medido.<br>2 en curso.</p></div><div class="card stat"><span class="eyebrow">TRANSFERENCIAS</span><b>1</b><p>Método replicado en otro equipo.<br>Resultado ficticio.</p></div></div><div class="grid cols2"><div class="card"><h2>Vacíos que merecen una decisión</h2><div class="tablewrap"><table><thead><tr><th>Lo que necesitamos saber</th><th>Estado</th><th>Próxima acción</th></tr></thead><tbody><tr><td>¿Dónde se pierde más tiempo en los relevos?</td><td><span class="pill gold">Declarado</span></td><td>Observar una muestra tienda–bodega.</td></tr><tr><td>¿Quién usa los reportes que se preparan?</td><td><span class="pill gray">Sin medir</span></td><td>Confirmar receptor y decisión que habilita.</td></tr><tr><td>¿Qué sabe una sola persona?</td><td><span class="pill gold">Hipótesis</span></td><td>Probar transferencia y documentar excepciones.</td></tr><tr><td>¿Cómo se reinvierte el tiempo liberado?</td><td><span class="pill gray">Pendiente</span></td><td>Acordar un nuevo resultado, no solo más tareas.</td></tr></tbody></table></div></div><div class="card"><h2>Presupuesto de reconocimiento</h2><p>Calculadora de diseño. No compromete ni paga dinero.</p><label for="slots" class="small">Cupos por ciclo × L250</label><div class="row" style="margin:13px 0 18px"><input id="slots" type="number" min="0" max="1000" value="20" oninput="budget()"><strong class="numbers" style="font-size:31px" id="budget">L5,000</strong></div><p>Solo premios directos. Faltan tiempo laboral, implementación, tecnología y obligaciones aplicables.</p><div class="sourcebox"><b>Por aprobar:</b> caja disponible, reglas, responsables, tratamiento laboral y contable, fecha y cupos.</div><button class="btn full" style="margin-top:15px" onclick="rules()">Ver reglas propuestas</button></div></div><div class="sectionhead"><h2>Decisiones sugeridas, con contexto</h2></div><div class="grid cols3"><div class="card"><span class="pill green">APROBAR UNA PRUEBA</span><h3 style="margin-top:13px">Ubicación y exactitud</h3><p>Dueño propuesto: coordinación de almacén. Comparar tiempo activo y errores, con reversión definida.</p></div><div class="card"><span class="pill gold">RESOLVER UN BLOQUEO</span><h3 style="margin-top:13px">Un relevo sin aceptación</h3><p>Confirmar quién entrega, quién recibe, qué debe estar completo y cuándo se considera terminado.</p></div><div class="card"><span class="pill gray">FORMAR Y ACOMPAÑAR</span><h3 style="margin-top:13px">Priorización del equipo</h3><p>Una práctica con casos, retroalimentación y seguimiento. No inferir actitud desde participación.</p></div></div></section>
+<section class="view" id="perfiles"><p class="eyebrow">GUÍAS POR PUESTO · CONFIGURACIÓN PROPUESTA</p><h1>La misma escucha.<br>Preguntas distintas.</h1><p class="lede">19 familias de diseño, con propósito, vacíos, preguntas, indicadores candidatos y una ruta de práctica. No sustituyen el catálogo vigente.</p><div class="note warning" style="margin-bottom:20px">Los nombres de puesto provienen de un documento histórico de septiembre de 2026. Deben ratificarse con el padrón actual; nombres o IDs iguales no autorizan fusionar personas o perfiles entre empresas.</div><input id="profileSearch" class="search" type="search" placeholder="Buscar puesto, familia, tarea o problema…" aria-label="Buscar guías de puesto" oninput="renderProfiles(this.value)"><div class="grid cols2" id="profileGrid"></div></section>
+<footer class="footnote">Así trabajamos KM · Diseño v0.1 · 28 octubre 2026. Todo este prototipo es local y demostrativo. La entrevista, el Muro, School y planilla conservan finalidades y permisos separados. Referencias y condiciones en el documento adjunto.</footer></main></div>
+<div class="modalback" id="modalback" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="row"><h2 id="modalTitle" style="margin:0"></h2><button class="close" aria-label="Cerrar diálogo" onclick="closeModal()">×</button></div><div id="modalBody" style="margin-top:18px"></div><div id="modalActions" class="actions" style="margin-top:20px"></div></div></div><div class="toast" id="toast" role="status"></div>
+<script id="config" type="application/json">{
+  "nombre": "Así trabajamos KM · Desarrollo y mejoras",
+  "version": "0.1",
+  "fecha": "2026-10-28",
+  "estado": "DISEÑO PROPUESTO. NO PRODUCCIÓN. NO REGLA SALARIAL APROBADA.",
+  "identidad": "tenant_id + employee_id + job_profile_version; validar pertenencia actual; jamás nombre o DNI como autenticación",
+  "fuentes_internas": [
+    "KM_MAPEO_CONVERSACIONAL_SIN_FRICCION.md, 18-sep-2026",
+    "KM_MOTOS_ACADEMY_BLUEPRINT_MAESTRO.md, v0.1",
+    "Censo del Organigrama Corporativo, corte sep-2026; no padrón vigente",
+    "GitHub new-dashboard PR #5659 y #5656: metadata merged=true consultada 28-oct-2026; no verifica despliegue"
+  ],
+  "prototipo": {
+    "ia_real": false,
+    "audio_real": false,
+    "red": false,
+    "datos_reales": false,
+    "persistencia": "memoria de la pestaña; reiniciar o recargar elimina el estado"
+  },
+  "entrevista": {
+    "preguntas_por_turno": 1,
+    "max_repreguntas_mismo_punto": 2,
+    "bloques_iniciales": 4,
+    "minutos_por_bloque": [
+      6,
+      8
+    ],
+    "seguimiento": "1–3 minutos en jornada solo cuando exista una acción o aprendizaje útil; sin rachas obligatorias",
+    "sin_dato": null
+  },
+  "evidencia": {
+    "respaldo": [
+      "declarado",
+      "observado",
+      "registro_documental"
+    ],
+    "estado": [
+      "borrador_ia",
+      "confirmado_colaborador",
+      "validado_operativo",
+      "aprobado_proceso"
+    ],
+    "regla": "Confirmar un resumen no prueba un resultado ni convierte una práctica en política."
+  },
+  "bono_propuesto": {
+    "moneda": "HNL",
+    "importe_por_persona": 250,
+    "max_reconocimientos_ciclo": 20,
+    "tope_directo_ciclo": 5000,
+    "periodicidad": "piloto de 30 días, no recurrente por defecto",
+    "max_por_persona_ciclo": 1,
+    "autorizado": false,
+    "base": "Participación verificable previamente seleccionada en una prueba útil y aceptada; no por contestar entrevista ni por votos.",
+    "equipos": "Cupos nominados antes de la prueba. Cuatro aportantes seleccionados = cuatro cupos = L1000.",
+    "revision": "RRHH y asesoría laboral/contable validan tratamiento y obligaciones antes de publicar."
+  },
+  "criterios_propuestas": [
+    {
+      "criterio": "Problema y respaldo",
+      "peso": 25
+    },
+    {
+      "criterio": "Impacto pertinente y medible",
+      "peso": 25
+    },
+    {
+      "criterio": "Viabilidad y controles",
+      "peso": 20
+    },
+    {
+      "criterio": "Transferencia a otros",
+      "peso": 20
+    },
+    {
+      "criterio": "Plan de prueba y aprendizaje",
+      "peso": 10
+    }
+  ],
+  "salvaguardas": [
+    "Sin diagnóstico psicológico, personalidad o inferencia de honestidad/interés por voz o escritura.",
+    "Sin sanciones, despidos, promociones, cambios salariales ni pagos decididos por IA.",
+    "Publicar únicamente resumen desidentificado/aprobado para el Muro, con permiso específico de autoría.",
+    "No cargar conversaciones privadas de terceros ni eliminar controles para obtener ahorro.",
+    "Separar entrevista restringida, ficha de puesto validada, plan compartido y propuesta pública.",
+    "No nuevos tableros, expedientes o motores de pago paralelos.",
+    "Piloto aislado sin escrituras ni migraciones ERP; integración productiva posterior requiere autorización separada."
+  ],
+  "perfiles": [
+    {
+      "id": "ventas",
+      "familia": "Ventas de mostrador",
+      "perfiles_historicos": [
+        "ASESOR DE VENTAS"
+      ],
+      "resultado": "Ayudar al cliente a comprar la pieza correcta, con margen y sin devoluciones evitables.",
+      "desconocidos": [
+        "Ventas perdidas que no quedan registradas.",
+        "Cómo reconoce compatibilidades y sustitutos.",
+        "Qué consultas repite y qué conocimiento no está documentado."
+      ],
+      "preguntas": [
+        "Contame la última vez que un cliente se fue sin comprar.",
+        "¿Cómo supiste cuál repuesto necesitaba?",
+        "¿Qué dato te faltó y dónde lo buscaste?",
+        "¿Qué harías distinto sin arriesgar la compatibilidad?",
+        "¿Cómo podría usarlo otro asesor sin preguntarte?",
+        "¿Qué te gustaría aprender para resolver mejor esos casos?"
+      ],
+      "kpis_candidatos": [
+        "Conversión de consultas calificadas = compras / consultas registradas; hoy, sin línea base.",
+        "Devoluciones por incompatibilidad / unidades vendidas; validar causa y período."
+      ],
+      "multiplicador": "Una ficha de compatibilidad revisada y un registro mínimo de demanda no atendida.",
+      "crecimiento": "Diagnóstico de necesidad y compatibilidad; práctica observada con casos reales."
+    },
+    {
+      "id": "tienda",
+      "familia": "Administración y coordinación de tienda",
+      "perfiles_historicos": [
+        "ADMINISTRADOR DE TIENDA",
+        "COORDINADOR DE TIENDA"
+      ],
+      "resultado": "Sostener una tienda ordenada, rentable y operativa sin depender de urgencias permanentes.",
+      "desconocidos": [
+        "Qué revisa antes de que aparezca un problema.",
+        "Qué decisiones no puede tomar y por qué.",
+        "Tareas duplicadas y trabajo que absorbe por su equipo."
+      ],
+      "preguntas": [
+        "Elegí una apertura o cierre reciente que haya sido difícil.",
+        "¿Qué señal te advirtió que algo no iba bien?",
+        "¿Qué resolviste vos y qué delegaste?",
+        "¿Qué quedó sin hacer aunque era importante?",
+        "¿Qué control evitaría repetir esa urgencia?",
+        "¿Qué responsabilidad podrías asumir con mejor información?"
+      ],
+      "kpis_candidatos": [
+        "Cierres completos a tiempo / cierres programados; excluir fallos de sistema documentados.",
+        "Discrepancias de caja e inventario confirmadas por período; no atribuir sin revisión."
+      ],
+      "multiplicador": "Una rutina de excepciones con responsables y evidencia, probada en dos tiendas.",
+      "crecimiento": "Priorización, delegación y revisión de resultados."
+    },
+    {
+      "id": "caja",
+      "familia": "Caja y facturación",
+      "perfiles_historicos": [
+        "CAJERA",
+        "AUXILIAR DE FACTURACION",
+        "CAJERA DE FINANZAS"
+      ],
+      "resultado": "Cerrar transacciones y conciliaciones correctas, trazables y oportunas.",
+      "desconocidos": [
+        "Pasos manuales y recapturas.",
+        "Casos que obligan a corregir o anular.",
+        "Tiempo activo frente a espera de autorizaciones."
+      ],
+      "preguntas": [
+        "Contame el último cierre que necesitó una corrección.",
+        "¿Qué información recibiste y qué faltaba?",
+        "¿En qué punto se detectó la diferencia?",
+        "¿Qué control debe mantenerse aunque simplifiquemos?",
+        "¿Cómo verificaríamos una mejora sin tocar dinero real?",
+        "¿Qué caso te gustaría aprender a resolver con autonomía?"
+      ],
+      "kpis_candidatos": [
+        "Operaciones sin corrección / operaciones elegibles; comparar casos equivalentes.",
+        "Tiempo de conciliación y partidas pendientes por antigüedad; fuente por validar."
+      ],
+      "multiplicador": "Validación previa de documentos y lista de excepciones, sin eliminar segregación de funciones.",
+      "crecimiento": "Conciliación, manejo de excepciones y controles de autorización."
+    },
+    {
+      "id": "mayoreo",
+      "familia": "Mayoreo y desarrollo de campo",
+      "perfiles_historicos": [
+        "Asesor de Mayoreo",
+        "VENDEDOR DE MAYOREO",
+        "Asesor Mayoreo KM CARS",
+        "Desarrollador de Campo"
+      ],
+      "resultado": "Desarrollar clientes y pedidos rentables con seguimiento y cobro responsable.",
+      "desconocidos": [
+        "Cuentas sin seguimiento y razones.",
+        "Diferencia entre visita, propuesta, pedido, entrega y cobro.",
+        "Objeciones repetidas y conocimiento de zona."
+      ],
+      "preguntas": [
+        "Elegí un cliente que dejó de comprarnos y contame el último contacto.",
+        "¿Qué necesitaba realmente?",
+        "¿Qué siguiente paso quedó acordado?",
+        "¿Qué parte depende de otra área?",
+        "¿Qué método podría reutilizar toda la ruta?",
+        "¿Qué te ayudaría a manejar una cartera mayor sin descuidarla?"
+      ],
+      "kpis_candidatos": [
+        "Clientes reactivados / clientes inactivos elegibles; ventana y criterio explícitos.",
+        "Pedidos entregados y cobros aplicados según cartera asignada; no contar proformas como venta."
+      ],
+      "multiplicador": "Una secuencia de reactivación por motivo, con evidencia del siguiente paso y del resultado.",
+      "crecimiento": "Gestión de cartera, negociación y seguimiento."
+    },
+    {
+      "id": "supervision",
+      "familia": "Supervisión comercial",
+      "perfiles_historicos": [
+        "SUPERVISOR DE VENTAS",
+        "SUPERVISOR DE MAYOREO"
+      ],
+      "resultado": "Mejorar el desempeño del equipo y hacer que las correcciones se sostengan.",
+      "desconocidos": [
+        "Qué cambia después de una visita.",
+        "Cuánto tiempo se invierte en reportar frente a mejorar.",
+        "Prácticas de una tienda que servirían en otras."
+      ],
+      "preguntas": [
+        "Contame una visita que haya cambiado algo en la tienda.",
+        "¿Qué problema comprobaste?",
+        "¿Quién quedó responsable y cómo aceptó el trabajo?",
+        "¿Qué observaste una semana después?",
+        "¿Qué parte de tu método puede ejecutar el administrador sin vos?",
+        "¿Qué necesitás para desarrollar mejor a tu equipo?"
+      ],
+      "kpis_candidatos": [
+        "Acciones verificadas / acciones acordadas con vencimiento; calidad antes de volumen.",
+        "Reincidencia del mismo hallazgo en ventana comparable."
+      ],
+      "multiplicador": "Una visita basada en excepciones que termine en mejora y transferencia al administrador.",
+      "crecimiento": "Coaching laboral, observación, delegación y verificación."
+    },
+    {
+      "id": "almacen",
+      "familia": "Bodega, recepción, empaque y despacho",
+      "perfiles_historicos": [
+        "AUXILIAR DE ALMACEN-DESPACHO",
+        "BODEGUERO",
+        "AUXILIAR DE ALMACEN-RECEPCION",
+        "AUXILIAR DE ALMACEN-EMPAQUE",
+        "COMODIN DE ALMACEN",
+        "AUXILIAR DE ALMACEN"
+      ],
+      "resultado": "Entregar el producto correcto, completo y localizable, cuidando inventario y seguridad.",
+      "desconocidos": [
+        "Búsquedas, recorridos, esperas y retrabajos.",
+        "Conocimiento de ubicaciones o referencias que depende de una sola persona.",
+        "Diferencias entre recepción física y registro."
+      ],
+      "preguntas": [
+        "Llevame por un pedido reciente desde que llegó hasta que lo entregaste.",
+        "¿Qué te hizo detenerte o volver atrás?",
+        "¿Cuánto fue trabajo y cuánto fue espera?",
+        "¿Qué sabe alguien experimentado que una persona nueva no sabe?",
+        "¿Qué cambio pequeño podríamos probar sin alterar inventario real?",
+        "¿Qué evidencia mostraría que no aumentaron los errores?"
+      ],
+      "kpis_candidatos": [
+        "Líneas correctas / líneas verificadas de la muestra.",
+        "Minutos activos por pedido y espera por separado; controlar tamaño y complejidad."
+      ],
+      "multiplicador": "Un estándar visual de ubicación o preparación con prueba antes/después.",
+      "crecimiento": "Exactitud, trazabilidad y resolución de excepciones."
+    },
+    {
+      "id": "logistica",
+      "familia": "Coordinación de almacén y pedidos",
+      "perfiles_historicos": [
+        "COORDINADOR GENERAL DE ALMACEN",
+        "COORDINADOR DE DESPACHO",
+        "ANALISTA DE GESTION DE PEDIDOS"
+      ],
+      "resultado": "Coordinar una entrega completa, predecible y aceptada por la siguiente área.",
+      "desconocidos": [
+        "Dónde se acumulan pedidos y por qué.",
+        "Cómo se decide la prioridad.",
+        "Relevos sin receptor, aceptación o evidencia."
+      ],
+      "preguntas": [
+        "Contame el recorrido de un pedido atrasado reciente.",
+        "¿En qué momento se perdió la fecha prevista?",
+        "¿Qué dato necesitaba la siguiente persona?",
+        "¿Cómo decidiste qué pedido atender primero?",
+        "¿Qué condición permitiría prevenir el atraso?",
+        "¿Cómo comprobaríamos la mejora en más de un turno?"
+      ],
+      "kpis_candidatos": [
+        "Pedidos completos y a tiempo / pedidos elegibles, con promesa original conservada.",
+        "Tiempo de ciclo por etapa; separar incidencias externas y trabajo interno."
+      ],
+      "multiplicador": "Un contrato de entrega entre áreas y una cola de excepciones con responsable.",
+      "crecimiento": "Planeación de capacidad, priorización y gestión interáreas."
+    },
+    {
+      "id": "compras",
+      "familia": "Compras e importaciones",
+      "perfiles_historicos": [
+        "AUXILIAR DE COMPRAS",
+        "ANALISTA DE COMPRAS"
+      ],
+      "resultado": "Asegurar disponibilidad con capital, costo y riesgo controlados.",
+      "desconocidos": [
+        "Señales usadas para recomprar.",
+        "Stock en tránsito o compromisos no visibles.",
+        "Retrasos documentales y causas de urgencias."
+      ],
+      "preguntas": [
+        "Contame cómo decidiste la última reposición.",
+        "¿Qué datos de venta, existencia y tránsito tenías?",
+        "¿Qué decisión cambió por información incompleta?",
+        "¿Qué paso repetís con cada proveedor?",
+        "¿Qué prueba ayudaría a evitar sobrecompra o quiebres?",
+        "¿Qué análisis te gustaría dominar mejor?"
+      ],
+      "kpis_candidatos": [
+        "Quiebres de SKUs priorizados / días-SKU observados; atribución compartida.",
+        "Compras urgentes y desviación del plazo prometido; no optimizar precio a costa de calidad."
+      ],
+      "multiplicador": "Ficha de decisión de reposición que reúna demanda, existencia y tránsito, sin crear órdenes automáticamente.",
+      "crecimiento": "Planeación, análisis de demanda y evaluación de proveedores."
+    },
+    {
+      "id": "cobros",
+      "familia": "Crédito y cobranza",
+      "perfiles_historicos": [
+        "JEFE DE CREDITO Y COBRANZA",
+        "ASISTENTE DE JEFE CREDITO Y COBRANZA"
+      ],
+      "resultado": "Recuperar cartera y administrar riesgo sin deteriorar el trato al cliente.",
+      "desconocidos": [
+        "Promesas de pago que no se retoman.",
+        "Comprobantes sin aplicación o disputas.",
+        "Dependencia de mensajes privados o memoria."
+      ],
+      "preguntas": [
+        "Contame el último caso en que un cobro se atrasó.",
+        "¿Cuál era el siguiente paso y quién debía hacerlo?",
+        "¿Qué parte era cobranza y qué parte era una disputa?",
+        "¿Qué información habría permitido actuar antes?",
+        "¿Cómo harías repetible el seguimiento?",
+        "¿Qué apoyo te ayudaría a negociar mejor?"
+      ],
+      "kpis_candidatos": [
+        "Promesas cumplidas / promesas vencidas; validar aplicación real.",
+        "Cartera vencida por segmento y antigüedad; considerar asignación y calidad de origen."
+      ],
+      "multiplicador": "Seguimiento por causa y vencimiento con aplicación comprobada del cobro.",
+      "crecimiento": "Negociación, priorización de cartera y resolución de disputas."
+    },
+    {
+      "id": "finanzas",
+      "familia": "Administración y tesorería",
+      "perfiles_historicos": [
+        "AUXILIAR ADMINISTRATIVO",
+        "OFICIAL DE TIENDA",
+        "OFICIAL FINANCIERO"
+      ],
+      "resultado": "Dar visibilidad y control sobre caja, obligaciones y documentación.",
+      "desconocidos": [
+        "Obligaciones fuera de agenda.",
+        "Tiempo para validar un comprobante.",
+        "Datos duplicados o responsabilidades de aprobación poco claras."
+      ],
+      "preguntas": [
+        "Contame una obligación que llegó como urgencia.",
+        "¿Cuándo se supo de ella por primera vez?",
+        "¿Dónde debía quedar registrada?",
+        "¿Qué autorización o documento faltaba?",
+        "¿Cómo la habríamos visto con anticipación?",
+        "¿Qué decisión podrías preparar mejor sin asumir permisos de pago?"
+      ],
+      "kpis_candidatos": [
+        "Obligaciones conocidas registradas antes del vencimiento / obligaciones de la muestra.",
+        "Partidas pendientes de conciliar por antigüedad; caja liberada no se suma como ahorro."
+      ],
+      "multiplicador": "Agenda verificable de obligaciones y excepciones, con dueño y fechas de origen.",
+      "crecimiento": "Planeación de caja, conciliación y controles."
+    },
+    {
+      "id": "contabilidad",
+      "familia": "Contabilidad y fiscal",
+      "perfiles_historicos": [
+        "CONTADOR GENERAL",
+        "AUXILIAR CONTABLE",
+        "AUXILIAR CONTABLE MAYOREO"
+      ],
+      "resultado": "Producir información íntegra, oportuna y verificable para decisiones y cumplimiento.",
+      "desconocidos": [
+        "Conciliaciones sostenidas manualmente.",
+        "Errores de origen que reaparecen en el cierre.",
+        "Diferencias entre documento, registro y realidad."
+      ],
+      "preguntas": [
+        "Contame el último ajuste que retrasó el cierre.",
+        "¿De dónde venía la diferencia?",
+        "¿Qué evidencia necesitaste para resolverla?",
+        "¿Qué validación podríamos mover al origen?",
+        "¿Cómo probaríamos que el cambio conserva los controles?",
+        "¿Qué competencia te permitiría prevenir más y corregir menos?"
+      ],
+      "kpis_candidatos": [
+        "Tiempo de cierre con alcance comparable.",
+        "Ajustes posteriores al cierre y partidas sin soporte por período."
+      ],
+      "multiplicador": "Validación en origen y tratamiento estandarizado de excepciones conciliadas.",
+      "crecimiento": "Análisis causal, conciliación y control documental."
+    },
+    {
+      "id": "talento",
+      "familia": "Recursos Humanos y planilla",
+      "perfiles_historicos": [
+        "GERENTE DE RECURSOS HUMANOS",
+        "AUXILIAR DE RECURSOS HUMANOS",
+        "TECNICO EN RECURSOS HUMANOS"
+      ],
+      "resultado": "Alinear responsabilidades, desarrollar capacidades y sostener una planilla correcta.",
+      "desconocidos": [
+        "Expectativas de puesto que no se entienden.",
+        "Inducción informal y razones de errores repetidos.",
+        "Novedades de planilla sin soporte o aceptación."
+      ],
+      "preguntas": [
+        "Contame cómo sabés que una persona nueva ya puede trabajar con autonomía.",
+        "¿Qué práctica observa alguien antes de confirmarlo?",
+        "¿Dónde se pierde una novedad antes de planilla?",
+        "¿Qué apoyo necesitan los jefes y hoy no reciben?",
+        "¿Qué proceso repetido podríamos simplificar?",
+        "¿Qué habilidad querés desarrollar en tu propio puesto?"
+      ],
+      "kpis_candidatos": [
+        "Tiempo hasta autonomía demostrada, por puesto; no solo cursos completados.",
+        "Novedades corregidas después del corte / novedades procesadas."
+      ],
+      "multiplicador": "Inducción por práctica observada y captura única de novedades con aceptación.",
+      "crecimiento": "Diseño de aprendizaje, acompañamiento y calidad de datos."
+    },
+    {
+      "id": "marketing",
+      "familia": "Mercadeo y promoción",
+      "perfiles_historicos": [
+        "AUXILIAR DE MERCADEO",
+        "PROMOTOR DE MARCA"
+      ],
+      "resultado": "Generar demanda pertinente y materiales que ayuden a convertirla en ventas rentables.",
+      "desconocidos": [
+        "Qué consultas y materiales sí ayudan a vender.",
+        "Promesas comerciales sin disponibilidad comprobada.",
+        "Diferencia entre alcance, interés, pedido y resultado."
+      ],
+      "preguntas": [
+        "Contame una campaña reciente y qué pasó después del contacto.",
+        "¿Qué sabía el cliente y qué esperaba?",
+        "¿Cómo verificaron producto y disponibilidad?",
+        "¿Qué información le faltó al equipo que atendió?",
+        "¿Qué material podría reutilizar más de una tienda?",
+        "¿Qué te gustaría aprender a medir mejor?"
+      ],
+      "kpis_candidatos": [
+        "Contactos calificados con seguimiento / contactos elegibles.",
+        "Margen incremental contrastado cuando exista atribución fiable; alcance no equivale a ventas."
+      ],
+      "multiplicador": "Un kit de campaña con producto validado, respuestas útiles y seguimiento atribuible.",
+      "crecimiento": "Medición comercial, comunicación y aprendizaje por pruebas."
+    },
+    {
+      "id": "servicio",
+      "familia": "Servicio al cliente y venta digital",
+      "perfiles_historicos": [
+        "AUXILIAR DE SERVICIO AL CLIENTE"
+      ],
+      "resultado": "Resolver solicitudes y cerrar pedidos sin abandonar al cliente entre canales.",
+      "desconocidos": [
+        "Conversaciones sin siguiente acción.",
+        "Consultas repetidas por compatibilidad, stock o estado.",
+        "Traspasos entre bot, asesor, tienda y despacho."
+      ],
+      "preguntas": [
+        "Contame una conversación que no logramos cerrar bien.",
+        "¿Qué necesitaba el cliente en ese momento?",
+        "¿Quién debía continuar y qué información recibió?",
+        "¿Qué respuesta sirve y qué exige criterio humano?",
+        "¿Cómo sabríamos que una automatización no empeora la atención?",
+        "¿Qué caso querés dominar mejor?"
+      ],
+      "kpis_candidatos": [
+        "Casos resueltos sin reapertura / casos elegibles.",
+        "Tiempo hasta respuesta útil y pedidos completados; no solo mensajes enviados."
+      ],
+      "multiplicador": "Una respuesta reutilizable y un relevo completo entre canales.",
+      "crecimiento": "Diagnóstico de necesidad, resolución y seguimiento."
+    },
+    {
+      "id": "auditoria",
+      "familia": "Auditoría, gestión y procesos",
+      "perfiles_historicos": [
+        "AUDITOR OPERATIVO DE ZONA",
+        "AUDITOR OPERATIVO DE TIENDA",
+        "GESTION Y PROCESOS"
+      ],
+      "resultado": "Prevenir pérdidas y convertir hallazgos en controles que se mantienen.",
+      "desconocidos": [
+        "Hallazgos cerrados solo en papel.",
+        "Controles que funcionan de otra manera en la práctica.",
+        "Causas recurrentes y dueños ambiguos."
+      ],
+      "preguntas": [
+        "Contame un hallazgo que volvió a aparecer.",
+        "¿Qué se había dado por resuelto?",
+        "¿Qué evidencia faltó para comprobarlo?",
+        "¿Qué causa quedó intacta?",
+        "¿Cómo probaríamos un control que detecte antes el problema?",
+        "¿Qué práctica debería aprender el área para sostenerlo?"
+      ],
+      "kpis_candidatos": [
+        "Reincidencia por tipo y ventana comparable.",
+        "Acciones con efectividad comprobada / acciones vencidas elegibles."
+      ],
+      "multiplicador": "Control preventivo en el origen con muestra de efectividad, no solo ticket cerrado.",
+      "crecimiento": "Análisis de causa, diseño de controles y verificación."
+    },
+    {
+      "id": "tecnologia",
+      "familia": "TI, seguridad tecnológica e IA",
+      "perfiles_historicos": [
+        "COORDINADOR DE IT Y SEGURIDAD",
+        "Coordinador IT y Seguridad",
+        "Coordinador de Inteligencia Artificial"
+      ],
+      "resultado": "Entregar mejoras seguras que funcionen y sean usadas en la operación.",
+      "desconocidos": [
+        "Trabajo repetido, automatizaciones abandonadas y fallas de adopción.",
+        "Tiempo entre solicitud, producción y aceptación.",
+        "Cambios que trasladan trabajo a otra área."
+      ],
+      "preguntas": [
+        "Contame una mejora que llegó a producción pero no cerró el problema.",
+        "¿Cómo la probó la persona que la necesitaba?",
+        "¿Qué dato falta para detectar fallos antes?",
+        "¿Qué componente existente podemos reutilizar?",
+        "¿Cómo revertiríamos la prueba si sale mal?",
+        "¿Qué conocimiento tendría que quedar compartido para no depender de vos?"
+      ],
+      "kpis_candidatos": [
+        "Tiempo hasta aceptación operativa; despliegue no equivale a resultado.",
+        "Incidencias repetidas, adopción y costo de operación por caso útil."
+      ],
+      "multiplicador": "Un recorrido verificable de solicitud, solución, aceptación y aprendizaje reutilizable.",
+      "crecimiento": "Pruebas, observabilidad, diseño de servicio y transferencia de conocimiento."
+    },
+    {
+      "id": "mantenimiento",
+      "familia": "Mantenimiento, limpieza y seguridad física",
+      "perfiles_historicos": [
+        "TECNICO DE MANTENIMIENTO",
+        "COORDINADOR DE MANTENIMIENTO",
+        "CONSERJE",
+        "CONSERJE-ALMACEN",
+        "AUXILIAR DE MONITOREO Y SEGURIDAD"
+      ],
+      "resultado": "Mantener espacios y activos seguros y disponibles, anticipando fallas.",
+      "desconocidos": [
+        "Señales tempranas que no se registran.",
+        "Reparaciones que reaparecen.",
+        "Materiales, recorridos y accesos que ocasionan espera."
+      ],
+      "preguntas": [
+        "Contame una falla o condición que detectaste antes que los demás.",
+        "¿Qué señal te permitió notarla?",
+        "¿Qué hiciste y quién debía continuar?",
+        "¿Qué dificultó resolverla bien?",
+        "¿Qué rutina podría prevenirla en otros lugares?",
+        "¿Qué te gustaría aprender para resolver con más seguridad?"
+      ],
+      "kpis_candidatos": [
+        "Reincidencia y tiempo de indisponibilidad, por activo o condición.",
+        "Acciones preventivas comprobadas / acciones previstas; no reducir reportes para aparentar seguridad."
+      ],
+      "multiplicador": "Rutina preventiva visual con criterios de aviso, sin divulgar vulnerabilidades en el muro.",
+      "crecimiento": "Prevención, diagnóstico y trabajo seguro; separar guiones por especialidad."
+    },
+    {
+      "id": "gerencia",
+      "familia": "Gerencias y jefaturas",
+      "perfiles_historicos": [
+        "GERENTE COMERCIAL",
+        "Gerente de Mayoreo",
+        "JEFE DE OPERACIONES",
+        "ASISTENTE DE OPERACIONES",
+        "GERENTE GENERAL",
+        "GERENTE ADMINISTRATIVO"
+      ],
+      "resultado": "Anticipar riesgos, priorizar recursos y conseguir resultados sostenibles por medio del equipo.",
+      "desconocidos": [
+        "Problemas que solo llegan a Dirección cuando ya son urgentes.",
+        "Decisiones atrasadas y tareas que no debería absorber la gerencia.",
+        "Efecto real de sus intervenciones y desarrollo de sucesores."
+      ],
+      "preguntas": [
+        "¿Qué problema importante de tu área detectaste antes de que Dirección lo pidiera?",
+        "Llevame por la decisión que tomaste y el dato que usaste.",
+        "¿Qué dejaste de hacer para atender esa prioridad?",
+        "¿Qué cambió y cómo lo comprobaste?",
+        "¿Qué decisión podría tomar tu equipo sin esperarte?",
+        "¿Qué resultado adicional podrías asumir si liberamos una tarea repetida?"
+      ],
+      "kpis_candidatos": [
+        "Resultados prioritarios con evidencia y contribución trazable; no atribuir todo el resultado del área a una persona.",
+        "Riesgos tratados antes de materializarse y acuerdos interáreas aceptados; sin monetización inventada."
+      ],
+      "multiplicador": "Una rutina de gestión por excepciones y un estándar de decisión que su equipo pueda repetir.",
+      "crecimiento": "Criterio de negocio, delegación, desarrollo del equipo y mejora continua."
+    },
+    {
+      "id": "franquicias",
+      "familia": "Atención a franquicias y taller · extensiones por validar",
+      "perfiles_historicos": [],
+      "resultado": "Asegurar un servicio confiable y transferible; confirmar primero el puesto y alcance vigentes.",
+      "desconocidos": [
+        "Responsabilidad real en pedido, inventario, entrega y soporte de franquicias.",
+        "Criterios técnicos y causas de retrabajo del taller.",
+        "Funciones que no corresponden al título formal."
+      ],
+      "preguntas": [
+        "¿Qué parte del servicio te corresponde de principio a fin?",
+        "Contame un caso reciente que requirió coordinación.",
+        "¿Qué recibió la siguiente persona?",
+        "¿Qué error podría prevenirse con mejor información?",
+        "¿Qué parte se puede estandarizar sin saltarse un control técnico?",
+        "¿Qué habilidad te permitiría asumir el siguiente nivel?"
+      ],
+      "kpis_candidatos": [
+        "Franquicias: pedidos correctos y completos / pedidos elegibles; no duplicar venta y transferencia.",
+        "Taller: trabajos aceptados sin retrabajo / trabajos elegibles; seguridad como condición."
+      ],
+      "multiplicador": "Un relevo verificado para franquicias o una práctica técnica revisada por especialista.",
+      "crecimiento": "Crear guiones separados después de ratificar perfiles activos; no asumir que son el mismo puesto."
+    }
+  ]
+}</script>
+<script>
+'use strict';
+const CFG=JSON.parse(document.getElementById('config').textContent);
+const $=id=>document.getElementById(id);
+const escapeHTML=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const navItems=[['inicio','Mi espacio','home'],['conversacion','Mi conversación','chat'],['mapa','Mi aporte','map'],['retos','Retos KM','bolt'],['muro','Muro · Mejoras','grid'],['crecimiento','Mi crecimiento','growth'],['direccion','Vista Dirección','chart'],['perfiles','Guías por puesto','book']];
+function ico(t){const paths={home:'M3 10l9-7 9 7v10H3z M9 20v-7h6v7',chat:'M4 4h16v12H9l-5 4z',map:'M3 5l6-2 6 2 6-2v16l-6 2-6-2-6 2z M9 3v16 M15 5v16',bolt:'M13 2L4 14h7l-1 8 10-12h-7z',grid:'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',growth:'M4 20V4 M4 20h17 M7 15l5-6 4 3 5-8',chart:'M4 20V4 M4 20h17 M9 17v-4 M14 17V8 M19 17V3',book:'M3 4h7l2 2 2-2h7v15h-7l-2 2-2-2H3z M12 6v15'};return '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="'+paths[t]+'"/></svg>'}
+$('nav').innerHTML=navItems.map(([id,name,ic])=>`<button class="nav ${id==='inicio'?'active':''}" data-view="${id}" onclick="go('${id}')">${ico(ic)}${name}</button>`).join('');
+function go(id){document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('.nav').forEach(el=>{el.classList.toggle('active',el.dataset.view===id);if(el.dataset.view===id)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});$('crumb').textContent=navItems.find(n=>n[0]===id)?.[1]||id;window.scrollTo({top:0,behavior:'auto'});}
+let modalFocus=null;
+function modal(title,body,actions=''){modalFocus=document.activeElement;$('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('modalActions').innerHTML=actions||'<button class="btn primary" onclick="closeModal()">Entendido</button>';$('modalback').classList.add('open');$('modalback').querySelector('.close').focus();}
+function closeModal(){$('modalback').classList.remove('open');modalFocus?.focus();}
+$('modalback').addEventListener('click',e=>{if(e.target===$('modalback'))closeModal()});
+document.addEventListener('keydown',e=>{if(!$('modalback').classList.contains('open'))return;if(e.key==='Escape')closeModal();if(e.key==='Tab'){let f=[...$('modalback').querySelectorAll('button,input,textarea,select,a[href]')].filter(el=>!el.disabled);if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}}});
+let toastTimer;function toast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',5500)}
+function privacy(){modal('Reglas de confianza propuestas',`<p>Este sería un asistente de IA para comprender el trabajo, mejorar procesos y acompañar aprendizaje. No es psicólogo ni detector de actitud o potencial.</p><div class="checkline"><span class="dot"></span><div><b>Conversación y borradores</b><span class="small muted">Vos y el equipo de investigación autorizado. No se entregan transcripciones a toda la jefatura.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Ficha y plan confirmados</b><span class="small muted">Con vos, RR. HH. y responsables autorizados, según el contenido y el alcance.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Muro</b><span class="small muted">Solo la propuesta o resultado que aprobés compartir. Sin datos privados ni acusaciones.</span></div></div><p style="margin-top:15px">La voz requeriría permiso separado y transcripción corregible. Retención, proveedores y borrado deben aprobarse antes del piloto real. No hay anonimato por usar un enlace nominal. El aprendizaje puede proponer cambios o automatizaciones; no promete estabilidad de puesto ni ascensos.</p><div class="note">En este archivo no se captura audio, no hay red ni almacenamiento permanente. No ingresés información real.</div>`)}
+function voice(){modal('Modo voz · especificación visual',`<div style="text-align:center;padding:20px;background:#edf4e9;border-radius:14px"><div style="font-size:35px">🎙</div><h3 style="margin-top:12px">Tu turno, sin interrupciones.</h3><p>En producción: pulsás para hablar y elegís «Terminé» para enviar.</p></div><p style="margin-top:17px">La transcripción se revisa antes de compartir. No habrá micrófono abierto permanente, análisis emocional, interrupciones de relleno ni reproducción automática en tienda.</p><b class="small">Esta demo no pide permiso ni activa el micrófono.</b>`)}
+let role=CFG.perfiles.find(p=>p.id==='almacen');let turn=0;let chat=[];let answers=[];let confirmed=false;let paused=false;
+$('role').innerHTML=CFG.perfiles.map(p=>`<option value="${p.id}">${escapeHTML(p.familia)}</option>`).join('');$('role').value=role.id;
+function initial(){return `Soy el asistente de mejora KM. Esta es una simulación de conversación. Trabajemos con un ejemplo inventado. ${role.preguntas[0]}`}
+function renderChat(){$('messages').innerHTML=chat.map(m=>`<div class="bubble ${m.who==='Vos'?'userbubble':''}"><span class="who">${m.who==='Vos'?'VOS · RESPUESTA DE PRUEBA':'ASISTENTE · GUION DEMOSTRATIVO'}</span><p>${escapeHTML(m.text)}</p></div>`).join('');$('chatprogress').innerHTML=Array.from({length:6},(_,i)=>`<span class="${i<=turn?'on':''}"></span>`).join('');$('messages').scrollTop=$('messages').scrollHeight;$('roleGoal').textContent=role.resultado;$('unknowns').innerHTML=role.desconocidos.map(t=>`<div class="checkline"><span class="dot pending"></span><span class="small">${escapeHTML(t)}</span></div>`).join('');$('send').textContent=turn>=6?'Revisar resumen →':'Continuar →';}
+function resetChat(){turn=0;chat=[{who:'IA',text:initial()}];answers=[];confirmed=false;paused=false;$('answer').value='';renderChat()}
+function changeRole(id){role=CFG.perfiles.find(p=>p.id===id)||CFG.perfiles[0];resetChat()}
+function fillExample(){const examples=role.id==='almacen'?['En un pedido ficticio de 12 referencias tuve que buscar varias piezas porque sus ubicaciones no estaban claras.','Volví dos veces a un estante y luego consulté a un compañero.','No lo medí. Creo que la búsqueda fue la parte más larga; quiero comprobarlo.','Hay referencias parecidas y mi compañero sabe distinguirlas por un detalle que no está escrito.','Probaría etiquetas verificadas en un estante, conservando la revisión de códigos.','Compararía el tiempo y los errores en pedidos similares antes y después.']:['En un caso ficticio, faltaba información antes de poder entregar el resultado a otra persona.','Tuve que consultar y volver a registrar una parte; no había una referencia compartida.','No tengo una cifra medida. Necesitaríamos observar algunos casos.','Podríamos definir qué debe llegar completo y quién confirma la recepción.','Primero haría una prueba pequeña, con autorización y sin eliminar controles.','Compararía calidad y tiempo; además, enseñaría el método a otra persona.'];$('answer').value=examples[Math.min(turn,5)];$('answer').focus()}
+function send(){if(turn>=6){summary();return}let text=$('answer').value.trim();if(!text){toast('Escribí una respuesta ficticia o elegí «No lo sé».');return}if(text.length>3000){toast('Para esta prueba usá menos de 3,000 caracteres.');return}if(paused)paused=false;chat.push({who:'Vos',text});answers.push({question:role.preguntas[turn],answer:text,status:/no (lo )?s[eé]|no (lo )?med[ií]|no recuerdo|no tengo/i.test(text)?'pendiente':'declarado'});turn++;let reply;if(turn>=6)reply='Llegamos al cierre de este bloque de ejemplo. Revisá tus respuestas y qué sigue pendiente. Confirmar el relato no demuestra que la mejora funcione. ¿Querés corregir algo antes de confirmar?';else if(/no (lo )?s[eé]|no recuerdo|no tengo|no (lo )?med[ií]/i.test(text))reply='Lo dejamos como pendiente, sin inventar una cifra ni una conclusión. '+role.preguntas[turn];else reply=role.preguntas[turn];chat.push({who:'IA',text:reply});$('answer').value='';renderChat()}
+function skip(){$('answer').value='No lo sé todavía; prefiero dejarlo pendiente.';send()}
+function summary(){let body=`<p>Resumen de la prueba para <b>${escapeHTML(role.familia)}</b>. Conservamos tus palabras; esta demo no genera una evaluación ni extrae hechos nuevos.</p>`;body+=answers.length?answers.map((a,i)=>`<div class="sourcebox" style="margin:10px 0"><span class="pill ${a.status==='pendiente'?'gold':'gray'}">${a.status==='pendiente'?'Por aclarar':'Declarado, no verificado'}</span><p style="margin:9px 0 5px"><b>${escapeHTML(a.question)}</b></p><label class="small" for="edit_${i}">Tu respuesta de prueba</label><textarea style="width:100%;min-height:65px;margin-top:5px;border:1px solid #d4dfd0;padding:9px;border-radius:8px" id="edit_${i}">${escapeHTML(a.answer)}</textarea></div>`).join(''):'<div class="note">Todavía no hay respuestas. Podés seguir explorando.</div>';body+=`<div class="note" style="margin-top:14px">No se publicará en el Muro ni se enviará al ERP. La confirmación solo cambia el estado temporal de esta demo.</div>`;modal('Revisá lo que contaste',body,answers.length?'<button class="btn primary" onclick="confirmSummary()">Confirmar en la demo</button><button class="btn" onclick="closeModal()">Seguir conversando</button>':'');}
+function confirmSummary(){answers=answers.map((a,i)=>({...a,answer:$('edit_'+i).value}));confirmed=true;closeModal();toast('Resumen confirmado únicamente en esta pestaña. No se guardó en ningún servidor.');}
+function pauseChat(){paused=true;go('inicio');toast('Podés volver a Mi conversación. Esta demo conserva el avance solo hasta recargar o cerrar.');}
+function editMap(){modal('Corregir el ejemplo de mapa','<p>Este mapa contiene datos ficticios fijos. La conversación sí permite revisar y editar las respuestas de prueba antes de confirmarlas.</p>','<button class="btn primary" onclick="closeModal();go(\'conversacion\');summary()">Revisar mis respuestas de prueba</button>')}
+function proposal(title){modal(title,`<span class="pill gold">FICHA DE PILOTO · EJEMPLO</span><p style="margin-top:15px">La IA ayudaría a preparar esta ficha a partir de lo que confirmaste. Los campos sin evidencia quedan pendientes.</p><div class="tablewrap"><table><tbody><tr><td><b>Problema y caso</b></td><td>Por confirmar con el participante.</td></tr><tr><td><b>Beneficiario y resultado</b></td><td>Quién recibe la mejora y qué cambiaría.</td></tr><tr><td><b>Prueba pequeña</b></td><td>Alcance, plazo, línea base y comparación.</td></tr><tr><td><b>Controles y reversión</b></td><td>Qué no debe empeorar y cuándo detenerse.</td></tr><tr><td><b>Equipo y autoría</b></td><td>Quién detecta, diseña, prueba y ayuda a replicar.</td></tr><tr><td><b>Reconocimiento</b></td><td>Cupos y presupuesto aprobados antes de empezar.</td></tr></tbody></table></div><label class="choice" style="margin-top:15px"><input type="checkbox" id="shareDemo"><span><b>Autorizo compartir este resumen ficticio</b>En producción: opción separada de la entrevista; revisión de datos y alcance antes de publicar.</span></label>`, '<button class="btn primary" onclick="prepareDemoProposal()">Simular revisión para el Muro</button><button class="btn" onclick="closeModal()">Volver</button>')}
+function prepareDemoProposal(){if(!$('shareDemo').checked){toast('Podés conservar la propuesta restringida. Compartir es una decisión separada.');return}closeModal();toast('Simulación: pasaría a revisión. No se publicó ni creó ningún registro.');}
+function rules(){modal('Bono de mejora · propuesta por aprobar',`<p><b>L250 por persona seleccionada, máximo una vez por ciclo piloto.</b> Ejemplo: 20 cupos = L5,000 en premios directos.</p><div class="checkline"><span class="dot"></span><div><b>La entrevista no se paga por respuesta</b><span class="small muted">El monto no depende de revelar asuntos privados, elogiar a la empresa o hablar más.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Se seleccionan pruebas y participantes antes</b><span class="small muted">Los cupos y las contribuciones se acuerdan de antemano; cuatro aportantes seleccionados usan cuatro cupos.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Se reconoce una contribución verificable</b><span class="small muted">Evidencia, prueba o transferencia útil aceptada. Un resultado negativo bien documentado puede contar como aprendizaje si así lo indican las bases.</span></div></div><div class="checkline"><span class="dot"></span><div><b>Sin votos como criterio de pago</b><span class="small muted">Rúbrica transparente, validación independiente, coautoría y revisión de discrepancias.</span></div></div><p style="margin-top:15px">RR. HH., Finanzas y asesoría laboral deben aprobar reglas, tratamiento, plazo y presupuesto. El Código del Trabajo hondureño distingue bonificaciones habituales y ocasionales; llamarlo «premio» no resuelve por sí solo su tratamiento.</p><div class="note warning">Nada está aprobado ni pagado. Este botón solo abre una especificación de diseño.</div>`)}
+function filterWall(filter,btn){document.querySelectorAll('[data-wall]').forEach(e=>e.style.display=filter==='all'||e.dataset.wall===filter?'':'none');document.querySelectorAll('#wallfilters .tab').forEach(b=>b.classList.toggle('active',b===btn));}
+function evidence(){modal('Evidencia ilustrativa · no son datos de KM',`<div class="note warning">Todos los valores de esta tarjeta fueron inventados para mostrar el diseño.</div><p style="margin-top:16px">Antes: mediana de 14 minutos. Después: 9 minutos. Diez pedidos por muestra, dentro de un alcance de prueba descrito.</p><p>En producción la ficha tendría documentos originales, fechas, método de muestreo, control de dificultad, errores, autoría, validador y limitaciones. El resultado local no se multiplica automáticamente por todas las tiendas.</p><p><b>Escalamiento:</b> pendiente de réplica.<br><b>Ahorro financiero:</b> no calculado.<br><b>Tiempo liberado:</b> necesita volumen real y nuevo uso acordado.</p>`)}
+function learning(){modal('Aprendizaje de una prueba · ejemplo',`<p>Hipótesis ficticia: quitar una revisión haría el proceso más rápido.</p><p>Resultado ficticio: bajó el tiempo inicial, pero aumentaron las correcciones. Se detuvo la prueba y se restituyó el control.</p><div class="note">Se conserva el aprendizaje y se evita extender un cambio dañino. No se presume que quien propuso la prueba rinde mal.</div>`)}
+function budget(){let n=Math.max(0,Math.min(1000,Math.floor(Number($('slots').value)||0)));$('budget').textContent='L'+(n*250).toLocaleString('es-HN')}
+function renderProfiles(q=''){q=q.toLocaleLowerCase('es');let found=CFG.perfiles.filter(p=>JSON.stringify(p).toLocaleLowerCase('es').includes(q));$('profileGrid').innerHTML=found.length?found.map(p=>`<article class="card profileitem"><span class="pill gray">GUÍA PROPUESTA</span><h3>${escapeHTML(p.familia)}</h3><p>${escapeHTML(p.resultado)}</p><details><summary>Qué queremos descubrir</summary><ul>${p.desconocidos.map(t=>`<li>${escapeHTML(t)}</li>`).join('')}</ul></details><details><summary>Preguntas adaptables a su caso</summary><ol>${p.preguntas.map(t=>`<li>${escapeHTML(t)}</li>`).join('')}</ol></details><details><summary>Indicadores, multiplicador y crecimiento</summary><p><b>Indicadores candidatos; no metas aprobadas:</b></p><ul>${p.kpis_candidatos.map(t=>`<li>${escapeHTML(t)}</li>`).join('')}</ul><p><b>Multiplicador a explorar:</b> ${escapeHTML(p.multiplicador)}</p><p><b>Desarrollo:</b> ${escapeHTML(p.crecimiento)}</p><p class="tiny"><b>Nombres históricos para ratificar:</b> ${escapeHTML(p.perfiles_historicos.join(' · ')||'Pendiente de catálogo vigente.')}</p></details><button class="btn quiet" onclick="$('role').value='${p.id}';changeRole('${p.id}');go('conversacion')">Probar el guion →</button></article>`).join(''):'<div class="note">No hay coincidencias en estas guías de diseño. El catálogo real debe importarse y validarse, sin asignar un perfil por aproximación.</div>'}
+resetChat();renderProfiles();
+</script></body></html>
